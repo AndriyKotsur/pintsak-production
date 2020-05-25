@@ -1,0 +1,222 @@
+const express = require('express');
+const router = express.Router();
+const { uuid } = require('uuidv4');
+const bcrypt = require('bcryptjs');
+const upload = require('../middleware/uploadImages');
+const { parseBearer, prepareToken } = require('../middleware/token');
+const pool = require('../db');
+
+// login admin
+router.post('/', async (req,res) => {
+    try {
+        const { email, password } = req.body;
+        const admin = await pool.query(
+            'SELECT * FROM admin WHERE email = $1',
+            [email]
+        );
+        const isMatch = await bcrypt.compare(password, admin.rows[0].password);
+        if (!isMatch) {
+            res.status(400).json(
+                { message: 'Invalid credentials' }
+            );
+        } else {
+            const token = prepareToken(
+                { id: admin.rows[0].uid },
+                req.headers
+            );
+            res.status(200).json(
+                { token }
+            );
+        }
+    } catch (err) {
+        console.error(err.message);
+        res.status(401).json(
+            { message: 'Login error' }
+        );
+    }
+});
+
+// register admin
+router.post('/register', async (req,res) => {
+    try {
+        const { email, password } = req.body;
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash(password, salt);
+        const newAdmin = await pool.query(
+            'INSERT INTO admin (uid, email, password) VALUES ($1, $2, $3) RETURNING *',
+            [uuid(), email, hash]
+        );    
+        const token = prepareToken(
+            { id: newAdmin.rows[0].uid },
+            req.headers
+        );    
+        res.status(201).json(
+            { token }
+        );    
+    } catch (err) {
+        console.error(err.message);
+        res.status(400).json(
+            { message: 'Bad request' }
+        );    
+    }    
+});    
+
+// check token
+router.get('/checktoken', async (req,res) => {
+    try {
+        const decoded = parseBearer(req.headers.authorization, req.headers);
+        res.status(200).json(
+            { id: decoded.id }
+        );
+    } catch (err) {
+        console.error(err.message);
+        res.status(401).json(
+            { message: 'Token expired' }
+        );
+    }
+});
+
+// get all
+router.get('/tiles', async (req, res) => {
+    try {
+        const allTiles = await pool.query(
+            'SELECT * FROM tile'
+        );
+        res.status(200).json(allTiles.rows);
+    } catch (err) {
+        console.error(err.message);
+        res.status(404).json(
+            { message: 'Not found' }
+        );
+    }
+});
+
+// add tile type
+router.post('/tilestype/add', async (req, res) => {
+    try {
+        const { title, title_en, description } = req.body;
+        const newType = await pool.query(
+            'INSERT INTO tile_type (type_uid, title, title_en, description) VALUES ($1, $2, $3, $4) RETURNING *',
+            [uuid(), title, title_en, description]
+        );
+        res.status(201).json(newType);
+    } catch (err) {
+        console.error(err.message);
+        res.status(400).json(
+            { message: 'Bad request' }
+        );
+    }
+});
+
+// add tile
+router.post('/tiles/add', upload, async (req, res) => {
+    try {
+        const { title, type, size, weight_per_meter, pieces_per_meter, color, price, additionally } = req.body;
+        const images = [];
+        for (let i = 0; i < req.files.length; i++) {
+            images.push(req.files[i].buffer);
+        }
+        const tileType = await pool.query(
+            'SELECT * FROM tile_type WHERE title = $1',
+            [type]
+        );
+        const newTile = await pool.query(
+            'INSERT INTO tile (tile_uid, type_uid, title, images, size, weight_per_meter, pieces_per_meter, color, price, additionally) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *',
+            [uuid(), tileType.rows[0].type_uid, title, images, size, weight_per_meter, pieces_per_meter, color, price, additionally]
+        );
+        res.status(201).json(newTile.rows);
+    } catch (err) {
+        console.error(err.message);
+        res.status(400).json(
+            { message: 'Bad request' }
+        );
+    }
+});
+
+// update tiles type
+router.put('/tilestype/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { title, title_en, description } = req.body;
+        await pool.query(
+            'UPDATE tile_type SET title = $1, title_en = $2, description = $3 WHERE type_uid = $4',
+            [title, title_en, description, id]
+        );
+        res.status(200).json(
+            { message: 'Updated' }
+        );
+    } catch (err) {
+        console.error(err.message);
+        res.status(400).json(
+            { message: 'Bad request' }
+        );
+    }
+});
+
+// update tile
+router.put('/tiles/:id', upload, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { title, type, size, weight_per_meter, pieces_per_meter, color, price, additionally } = req.body;
+        const images = [];
+        for (let i = 0; i < req.files.length; i++) {
+            images.push(req.files[i].buffer);
+        }
+        const tileType = await pool.query(
+            'SELECT * FROM tile_type WHERE title = $1',
+            [type]
+        );
+        await pool.query(
+            'UPDATE tile SET type_uid = $1, title = $2, images = $3, size = $4, weight_per_meter = $5, pieces_per_meter = $6, color = $7, price = $8, additionally = $9 WHERE tile_uid = $10',
+            [tileType.rows[0].type_uid, title, images, size, weight_per_meter, pieces_per_meter, color, price, additionally, id]
+        );
+        res.status(200).json(
+            { message: 'Updated' }
+        );
+    } catch (err) {
+        console.error(err.message);
+        res.status(400).json(
+            { message: 'Bad request' }
+        );
+    }
+});
+
+// delete tile type
+router.delete('/tilestype/:id', async (req,res) => {
+    try {
+        const { id } = req.params;
+        await pool.query(
+            'DELETE FROM tile_type WHERE type_uid = $1',
+            [id]
+        );
+        res.status(200).json(
+            { message: 'Deleted' }
+        );
+    } catch (err) {
+        console.error(err.message);
+        res.status(400).json(
+            { message: 'Bad request' }
+        );
+    }
+});
+
+// delete tile
+router.delete('/tiles/:id', async (req,res) => {
+    try {
+        const { id } = req.params;
+        await pool.query(
+            'DELETE FROM tile WHERE tile_uid = $1',
+            [id]
+        );
+        res.status(200).json(
+            { message: 'Deleted' }
+        );
+    } catch (err) {
+        console.error(err.message);
+        res.status(400).json(
+            { message: 'Bad request' }
+        );
+    }
+});
+
+module.exports = router;

@@ -1,1 +1,1 @@
-node.js + mongodb | mysql | postgresql
+nodejs + express + postgresql
