@@ -33,7 +33,7 @@ router.get('/tiles/types/:id', async (req,res) => {
             );
             res.status(200).json(tilesOfType.rows);
         } else {
-            if (req.query.sort == 'price')
+            if (req.query.sort === 'price')
                 sort = req.query.sort;
             else
                 sort = "size->>'width'";

@@ -4,9 +4,9 @@
   "description": "node.js + mongodb | mysql | postgresql",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "node server.js"
   },
-  "author": "",
+  "author": "myros96",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
