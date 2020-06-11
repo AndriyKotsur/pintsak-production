@@ -1,22 +1,27 @@
 const multer = require('multer');
+const jimp = require('jimp');
+const fs = require('fs');
+const path = require('path');
 
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        const productId = req.params.id;
-        const folder = `./public/images/${productId}/${productId}`
+    destination: (req, file, cb) => {
+        const type = req.body.type;
+        const title = req.body.title;
+        const folder = `./public/images/${type}/${title}`;
         fs.exists(folder, exist => {
             if (!exist) {
-                return fs.mkdir(folder, error => cb(error, folder))
+                return fs.mkdir(folder,error => cb(error, folder));
             }
             return cb(null, folder)
         })
     },
-    filename: function (req, file, cb) {
-        cb(null, "product-" + Date.now() + path.extname(file.originalname));
+    filename: function (req, file, cb) {        
+        cb(null, "tile-" + Date.now() + path.extname(file.originalname));
     }
 });
 
 const upload = multer ({
+    
     limits: {
         fileSize: 2000000
     },
@@ -26,7 +31,7 @@ const upload = multer ({
         }
         cb(undefined, true)
     },
-    //storage: storage
+    storage: storage
 }).array('images', 100);
 
 const optimizeImages = async (req, res, next) => {
@@ -36,13 +41,13 @@ const optimizeImages = async (req, res, next) => {
             const widthProps = image.bitmap.width;
             const heightProps = image.bitmap.height;
             if (widthProps < heightProps) {
-                await image.resize(400, 800);
-                await image.quality(70);
-                await image.writeAsync(file.path);
+                image.resize(400, 800);
+                image.quality(70);
+                image.writeAsync(file.path);
             } else {
-                await image.resize(1200, 800);
-                await image.quality(70);
-                await image.writeAsync(file.path);
+                image.resize(1200, 800);
+                image.quality(70);
+                image.writeAsync(file.path);
             }
         })
     )
