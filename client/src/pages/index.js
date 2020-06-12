@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import {Link, Route, Switch} from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import AdminPage from './admin/admin-page';
 
 import AdminMain from './admin/admin-main';

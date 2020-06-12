@@ -5,23 +5,21 @@ const TilesList = ({tiles, editFunc, deleteFunc}) => {
         <Fragment>
             {
                 (tiles && tiles.length)?(
-                    tiles.map((tile)=>(
-                        console.log(tile),
-                        
-                        <div key={tile.tile_uid} class="product-item">
-                        <a href="#" class="product-link" target="_blank">
-                            <h3 class="product__title">
+                    tiles.map((tile)=>(                        
+                        <div key={tile.tile_uid} className="product-item">
+                        <a href="#" className="product-link" target="_blank">
+                            <h3 className="product__title">
                                 {tile.title}
                             </h3>
-                            <div class="product-image-wrapper">
-                                <img src={tile.images[0]} alt="Product image" class="product__image"/>
+                            <div className="product-image-wrapper">
+                                <img src={tile.images[0]} alt="Product image" className="product__image"/>
                             </div>
                         </a>
-                        <div class="product-order">
-                            <button onClick={() => editFunc(tile.tile_uid)} class="product__btn--add">
+                        <div className="product-order">
+                            <button onClick={() => editFunc(tile.tile_uid)} className="product__btn--add">
                                 Edit
                             </button>
-                            <button onClick={() => deleteFunc(tile.tile_uid)} class="product__btn--remove">
+                            <button onClick={() => deleteFunc(tile.tile_uid)} className="product__btn--remove">
                                 Delete
                             </button>
                         </div>

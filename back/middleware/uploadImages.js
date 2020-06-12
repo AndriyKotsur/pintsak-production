@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
         const title = req.body.title;
-        cb(null, title + Date.now() + path.extname(file.originalname));
+        cb(null, title + '-' + Date.now() + path.extname(file.originalname));
     }
 });
 
@@ -55,4 +55,24 @@ const optimizeImages = async (req, res, next) => {
     next();
 };
 
-module.exports = { upload, optimizeImages };
+function removeFolder (folderPath) {
+    if (fs.existsSync(folderPath)) {
+        console.log(folderPath);
+        console.log(fs.existsSync(folderPath));
+        
+        fs.readdirSync(folderPath).forEach(function (file) {
+            console.log(file);
+            const currentPath = folderPath + '/' + file;
+            console.log(currentPath);
+            //console.log(file);
+            if (fs.lstatSync(currentPath).isDirectory()) {
+                removeFolder(currentPath);
+            } else {
+                fs.unlinkSync(currentPath);
+            }
+        });
+        fs.rmdirSync(folderPath);
+    };
+};
+
+module.exports = { upload, optimizeImages, removeFolder };

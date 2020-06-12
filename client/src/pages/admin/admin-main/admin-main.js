@@ -1,5 +1,4 @@
-import React, { Component, Fragment } from 'react';
-import axios from 'axios';
+import React, { Fragment } from 'react';
 
 const AdminMain = () => {
     return(

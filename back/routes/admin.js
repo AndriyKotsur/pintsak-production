@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const { uuid } = require('uuidv4');
 const bcrypt = require('bcryptjs');
-const { upload, formDataParser } = require('../middleware/uploadImages');
+//const fs = require('fs');
+const { upload, removeFolder} = require('../middleware/uploadImages');
 const { parseBearer, prepareToken } = require('../middleware/token');
 const pool = require('../db');
 
@@ -109,11 +110,12 @@ router.post('/tilestype/add', async (req, res) => {
 });
 
 // add tile
-router.post('/tiles/add',  upload, async (req, res) => {
-    console.log(req.body);
-    console.log(req.files);
+router.post('/tiles/add', upload, async (req, res) => {
+    // console.log(req.body);
+    // console.log(req.files);
     try {
-        const { title, type, weight_per_meter, pieces_per_meter, color, price, width, height, thickness } = req.body;
+        const { title, type, weight_per_meter, pieces_per_meter, color_price, width, height, thickness } = req.body;
+        
         const images = [];
         for (let i = 0; i < req.files.length; i++) {
             images.push('http://localhost:5000' + (req.files[i].destination).slice(1) + '/' + req.files[i].filename);
@@ -124,8 +126,8 @@ router.post('/tiles/add',  upload, async (req, res) => {
             [type]
         );
         const newTile = await pool.query(
-            'INSERT INTO tile (tile_uid, type_uid, title, images, type_tile, weight_per_meter, pieces_per_meter, color, price, width, height, thickness) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *',
-            [uuid(), tileType.rows[0].type_uid, title, images, type, weight_per_meter, pieces_per_meter, color, price, width, height, thickness]
+            'INSERT INTO tile (tile_uid, type_uid, title, images, type_tile, weight_per_meter, pieces_per_meter, color, width, height, thickness) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *',
+            [uuid(), tileType.rows[0].type_uid, title, images, type, weight_per_meter, pieces_per_meter, color_price, width, height, thickness]
         );
         res.status(201).json(newTile.rows);
     } catch (err) {
@@ -205,8 +207,18 @@ router.delete('/tilestype/:id', async (req,res) => {
 
 // delete tile
 router.delete('/tiles/:id', async (req,res) => {
+    const { id } = req.params;
+    const tile = await pool.query(
+        'SELECT * FROM tile WHERE tile_uid = $1',
+        [id]
+    );
+    const type = await pool.query(
+        'SELECT * FROM tile_type WHERE type_uid = $1',
+        [tile.rows[0].type_uid]
+    )
+    
+    removeFolder(`./public/images/${type.rows[0].title}/${tile.rows[0].title}`);
     try {
-        const { id } = req.params;
         await pool.query(
             'DELETE FROM tile WHERE tile_uid = $1',
             [id]

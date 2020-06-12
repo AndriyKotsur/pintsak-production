@@ -25,6 +25,7 @@ class MainTile extends Component {
 
     deleteFunc = async (id) => {
         await axios.delete(`http://localhost:5000/admin/tiles/${id}`);
+        window.location = '/admin/main/tile';
     }
     render() { 
         const {tiles} = this.state;

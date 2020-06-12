@@ -12,10 +12,14 @@ class AddTile extends Component {
             width: null,
             height: null,
             thickness: null,
-            color: [],
+            color_price: [],
+            priceG: null,
+            priceR: null,
+            priceY: null,
+            priceBr: null,
+            priceBl: null,
             weight_per_meter: null,
             pieces_per_meter: null,
-            price: null,
             errMsg: null,
          };
     }
@@ -33,24 +37,36 @@ class AddTile extends Component {
 
     onSubmit = e => {
         e.preventDefault();
-        const { title, type, width, height, thickness, color, weight_per_meter, pieces_per_meter, price, images } = this.state;
+        const { types, priceG, priceR, priceY, priceBr, priceBl, title, type, width, height, thickness, color_price, weight_per_meter, pieces_per_meter, images } = this.state;
         const formData = new FormData();
+
+        types.map(el => {
+            if (el.title === type) {
+                formData.append("folderName", el.title_url);
+            }
+        });
+
         formData.append("title", title);
         formData.append("type", type);
-        formData.append("folderName", type);
         formData.append("width", width);
         formData.append("height", height);
         formData.append("thickness", thickness);
         formData.append("weight_per_meter", weight_per_meter);
         formData.append("pieces_per_meter", pieces_per_meter);
-        formData.append("price", price);
+        
         for (let i = 0; i < images.length; i++) {
             formData.append('images', images[i]);
-        }
-        for (let i = 0; i < color.length; i++) {
-            formData.append(`color[]`, color[i]);
-        }
-        
+        };
+
+        color_price.push(
+            JSON.stringify(priceG),
+            JSON.stringify(priceR),
+            JSON.stringify(priceY),
+            JSON.stringify(priceBr),
+            JSON.stringify(priceBl)
+            );
+        formData.append("color_price[]", color_price);
+
         const config = {
             headers: {
                 "Content-Type": "multipart/form-data"
@@ -59,7 +75,7 @@ class AddTile extends Component {
 
         try {
             axios.post("http://localhost:5000/admin/tiles/add", formData , config );
-            this.props.history.push("/admin/main/tile");
+            window.location = '/admin/main/tile';
         } catch (err) {
             this.setState({
                 errMsg:err.message
@@ -74,10 +90,10 @@ class AddTile extends Component {
     }
 
     onColorChange = e => {
-        let colorArr = [];
-        colorArr.push(e.target.value);
         this.setState({
-            color: colorArr
+            [e.target.name]: {
+                [e.target.name]: e.target.value
+            }
         });
     }
 
@@ -99,15 +115,15 @@ class AddTile extends Component {
         const {errMsg, types, imagesPreview} = this.state;
         return ( 
             <Fragment>
-                <div class="contact-us">
-                    <div class="container">
-                        <div class="contact-us-inner">
-                            <h2 class="contact-us__title">
+                <div className="contact-us">
+                    <div className="container">
+                        <div className="contact-us-inner">
+                            <h2 className="contact-us__title">
                                 Додати товар
                             </h2>
-                            <form onSubmit={this.onSubmit} class="form contact-us-form">
-                                <div class="input-field contact-us-field">
-                                    <input type="file" name="images" onChange={this.onImageChange} class="input contact-us__input" multiple/>
+                            <form onSubmit={this.onSubmit} className="form contact-us-form">
+                                <div className="input-field contact-us-field">
+                                    <input type="file" name="images" onChange={this.onImageChange} className="input contact-us__input" multiple/>
                                     {
                                         
                                         (imagesPreview.length > 0 )? 
@@ -118,14 +134,14 @@ class AddTile extends Component {
                                     <label>Картинка товару</label>
                                 </div>
 
-                                <div class="input-field contact-us-field">
-                                    <input type="text" name="title" onChange={this.onChange} class="input contact-us__input" required/>
-                                    <label class="label contact-us__label">Назва товару</label>
+                                <div className="input-field contact-us-field">
+                                    <input type="text" name="title" onChange={this.onChange} className="input contact-us__input" required/>
+                                    <label className="label contact-us__label">Назва товару</label>
                                 </div>
 
                                 <div>
 
-                                    <select name="type" onChange={this.onChange} class="input contact-us__input" required>
+                                    <select name="type" onChange={this.onChange} className="input contact-us__input" required>
                                         {
                                             (types && types.length)?(
                                                 types.map((type)=>(
@@ -137,45 +153,61 @@ class AddTile extends Component {
                                     <label>Категорія товару</label>
                                 </div>
 
-                                <div class="input-field contact-us-field">
-                                    <input type="number" name="width" onChange={this.onChange} class="input contact-us__input" required/>
-                                    <label class="label contact-us__label">Ширина товару</label>
+                                <div className="input-field contact-us-field">
+                                    <input type="number" name="width" onChange={this.onChange} className="input contact-us__input" required/>
+                                    <label className="label contact-us__label">Ширина товару</label>
                                 </div>
-                                <div class="input-field contact-us-field">
-                                    <input type="number" name="height" onChange={this.onChange} class="input contact-us__input" required/>
-                                    <label class="label contact-us__label">Висота товару</label>
+                                <div className="input-field contact-us-field">
+                                    <input type="number" name="height" onChange={this.onChange} className="input contact-us__input" required/>
+                                    <label className="label contact-us__label">Висота товару</label>
                                 </div>
-                                <div class="input-field contact-us-field">
-                                    <input type="number" name="thickness" onChange={this.onChange} class="input contact-us__input" required/>
-                                    <label class="label contact-us__label">Товщина товару</label>
+                                <div className="input-field contact-us-field">
+                                    <input type="number" name="thickness" onChange={this.onChange} className="input contact-us__input" required/>
+                                    <label className="label contact-us__label">Товщина товару</label>
                                 </div>
 
-                                <div>
+                                {/* <div>
                                     <select name="color" onChange={this.onColorChange}>
                                         <option>Червоний</option>
                                         <option>Жовтий</option>
                                         <option>Синій</option>
                                     </select>
                                     <label>Колір товару</label>
-                                </div> 
+                                </div>  */}
 
-                                <div class="input-field contact-us-field">
-                                    <input type="number" name="weight_per_meter" onChange={this.onChange} class="input contact-us__input" required/>
-                                    <label class="label contact-us__label">Вага на метр кв.</label>
+                                <div className="input-field contact-us-field">
+                                    <input type="number" name="weight_per_meter" onChange={this.onChange} className="input contact-us__input" required/>
+                                    <label className="label contact-us__label">Вага на метр кв.</label>
                                 </div>
 
-                                <div class="input-field contact-us-field">
-                                    <input type="number" name="pieces_per_meter" onChange={this.onChange} class="input contact-us__input" required/>
-                                    <label class="label contact-us__label">Кількість на метр кв.</label>
+                                <div className="input-field contact-us-field">
+                                    <input type="number" name="pieces_per_meter" onChange={this.onChange} className="input contact-us__input" required/>
+                                    <label className="label contact-us__label">Кількість на метр кв.</label>
                                 </div>
 
-                                <div class="input-field contact-us-field">
-                                    <input type="number" name="price" onChange={this.onChange} class="input contact-us__input" required/>
-                                    <label class="label contact-us__label">Ціна</label>
+                                <div className="input-field contact-us-field">
+                                    <input type="number" name="priceG" onChange={this.onColorChange} className="input contact-us__input" required/>
+                                    <label className="label contact-us__label">Ціна сірої</label>
+                                </div>
+                                <div className="input-field contact-us-field">
+                                    <input type="number" name="priceR" onChange={this.onColorChange} className="input contact-us__input" required/>
+                                    <label className="label contact-us__label">Ціна червоної</label>
+                                </div>
+                                <div className="input-field contact-us-field">
+                                    <input type="number" name="priceY" onChange={this.onColorChange} className="input contact-us__input" required/>
+                                    <label className="label contact-us__label">Ціна жовтої</label>
+                                </div>
+                                <div className="input-field contact-us-field">
+                                    <input type="number" name="priceBr" onChange={this.onColorChange} className="input contact-us__input" required/>
+                                    <label className="label contact-us__label">Ціна корич</label>
+                                </div>
+                                <div className="input-field contact-us-field">
+                                    <input type="number" name="priceBl" onChange={this.onColorChange} className="input contact-us__input" required/>
+                                    <label className="label contact-us__label">Ціна чорної</label>
                                 </div>
 
-                                <p class="contact-us__required">обов’язкові поля</p>
-                                <button class="contact-us__btn">Пітвердити</button>
+                                <p className="contact-us__required">обов’язкові поля</p>
+                                <button className="contact-us__btn">Пітвердити</button>
                             </form>
                             {
                                 errMsg ? errMsg: ''
