@@ -5,30 +5,27 @@ class AddTile extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            title: '',
-            type: '',
+            title: null,
+            type: null,
             images: [],
-            imagesPre: [],
+            imagesPreview: [],
             width: null,
             height: null,
             thickness: null,
-            color: ['as', 'asd'],
+            color: [],
             weight_per_meter: null,
             pieces_per_meter: null,
             price: null,
-
-            errMsg: '',
-         }
+            errMsg: null,
+         };
     }
 
     async componentDidMount() {
         try {
             const res = await axios.get("http://localhost:5000");
-            console.log(res);
             this.setState({
                 types: res.data
             })
-            
         } catch (err) {
             throw err;
         }
@@ -36,18 +33,24 @@ class AddTile extends Component {
 
     onSubmit = e => {
         e.preventDefault();
+        const { title, type, width, height, thickness, color, weight_per_meter, pieces_per_meter, price, images } = this.state;
         const formData = new FormData();
-        formData.append('images', this.state.images);
-        formData.append("title", this.state.title);
-        formData.append("type", this.state.type);
-        formData.append("width", this.state.width);
-        formData.append("height", this.state.height);
-        formData.append("thickness", this.state.thickness);
-        formData.append("color[]", this.state.color);
-        formData.append("weight_per_meter", this.state.weight_per_meter);
-        formData.append("pieces_per_meter", this.state.pieces_per_meter);
-        formData.append("price", this.state.price);
-
+        formData.append("title", title);
+        formData.append("type", type);
+        formData.append("folderName", type);
+        formData.append("width", width);
+        formData.append("height", height);
+        formData.append("thickness", thickness);
+        formData.append("weight_per_meter", weight_per_meter);
+        formData.append("pieces_per_meter", pieces_per_meter);
+        formData.append("price", price);
+        for (let i = 0; i < images.length; i++) {
+            formData.append('images', images[i]);
+        }
+        for (let i = 0; i < color.length; i++) {
+            formData.append(`color[]`, color[i]);
+        }
+        
         const config = {
             headers: {
                 "Content-Type": "multipart/form-data"
@@ -55,7 +58,7 @@ class AddTile extends Component {
         };
 
         try {
-            axios.post("http://localhost:5000/admin/tiles/add", formData, config)
+            axios.post("http://localhost:5000/admin/tiles/add", formData , config );
             this.props.history.push("/admin/main/tile");
         } catch (err) {
             this.setState({
@@ -71,32 +74,29 @@ class AddTile extends Component {
     }
 
     onColorChange = e => {
-        // let colorArr = [];
-        // colorArr.push(e.target.value)
-        // console.log(colorArr);
-        // this.setState({
-        //     color: colorArr
-        // })
+        let colorArr = [];
+        colorArr.push(e.target.value);
+        this.setState({
+            color: colorArr
+        });
     }
 
     onImageChange = e => {
         let imageObj = [];
         let imageArr = [];
+        let imagePre = [];
         imageObj.push(e.target.files);
         for(let i = 0; i < imageObj[0].length; i++) {
-            imageArr.push(URL.createObjectURL(imageObj[0][i]))
+            imagePre.push(URL.createObjectURL(imageObj[0][i]));
+            imageArr.push(imageObj[0][i]);
         }
         this.setState({
-            images: e.target.files[0],
-            imagesPre: imageArr
+            images: imageArr,
+            imagesPreview: imagePre
         })
-        console.log(imageObj[0]);
-        
     }
     render() { 
-        const {errMsg, types, imagesPre} = this.state;
-        //console.log(imagesPre);
-
+        const {errMsg, types, imagesPreview} = this.state;
         return ( 
             <Fragment>
                 <div class="contact-us">
@@ -110,8 +110,8 @@ class AddTile extends Component {
                                     <input type="file" name="images" onChange={this.onImageChange} class="input contact-us__input" multiple/>
                                     {
                                         
-                                        (imagesPre.length > 0 )? 
-                                        (imagesPre.map(image => (
+                                        (imagesPreview.length > 0 )? 
+                                        (imagesPreview.map(image => (
                                             <img src={image} alt="Image item"/>
                                         ))): ''
                                     }
@@ -131,7 +131,7 @@ class AddTile extends Component {
                                                 types.map((type)=>(
                                                 <option key={type.type_uid}>{type.title}</option>
                                                 ))
-                                            ): <option>Нема доданих категорій</option>
+                                            ): <option>Немає доданих категорій</option>
                                         }
                                     </select>
                                     <label>Категорія товару</label>

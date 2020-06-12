@@ -6,6 +6,8 @@ const TilesList = ({tiles, editFunc, deleteFunc}) => {
             {
                 (tiles && tiles.length)?(
                     tiles.map((tile)=>(
+                        console.log(tile),
+                        
                         <div key={tile.tile_uid} class="product-item">
                         <a href="#" class="product-link" target="_blank">
                             <h3 class="product__title">

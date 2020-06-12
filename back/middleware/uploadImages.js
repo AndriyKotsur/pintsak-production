@@ -5,18 +5,19 @@ const path = require('path');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        const type = req.body.type;
+        const type = req.body.folderName;
         const title = req.body.title;
         const folder = `./public/images/${type}/${title}`;
         fs.exists(folder, exist => {
             if (!exist) {
-                return fs.mkdir(folder,error => cb(error, folder));
+                return fs.mkdir(folder, {recursive: true}, error => cb(error, folder));
             }
             return cb(null, folder)
         })
     },
-    filename: function (req, file, cb) {        
-        cb(null, "tile-" + Date.now() + path.extname(file.originalname));
+    filename: function (req, file, cb) {
+        const title = req.body.title;
+        cb(null, title + Date.now() + path.extname(file.originalname));
     }
 });
 
