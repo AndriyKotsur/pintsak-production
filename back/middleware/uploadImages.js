@@ -6,7 +6,7 @@ const path = require('path');
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         const type = req.body.folderName;
-        const title = req.body.title;
+        const title = req.body.title_url;
         const folder = `./public/images/${type}/${title}`;
         fs.exists(folder, exist => {
             if (!exist) {
@@ -22,7 +22,6 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer ({
-    
     limits: {
         fileSize: 2000000
     },
@@ -55,16 +54,10 @@ const optimizeImages = async (req, res, next) => {
     next();
 };
 
-function removeFolder (folderPath) {
+removeFolder = (folderPath) => {
     if (fs.existsSync(folderPath)) {
-        console.log(folderPath);
-        console.log(fs.existsSync(folderPath));
-        
-        fs.readdirSync(folderPath).forEach(function (file) {
-            console.log(file);
+        fs.readdirSync(folderPath).forEach(file => {
             const currentPath = folderPath + '/' + file;
-            console.log(currentPath);
-            //console.log(file);
             if (fs.lstatSync(currentPath).isDirectory()) {
                 removeFolder(currentPath);
             } else {

@@ -6,6 +6,7 @@ class AddTile extends Component {
         super(props);
         this.state = { 
             title: null,
+            title_url: null,
             type: null,
             images: [],
             imagesPreview: [],
@@ -37,7 +38,7 @@ class AddTile extends Component {
 
     onSubmit = e => {
         e.preventDefault();
-        const { types, priceG, priceR, priceY, priceBr, priceBl, title, type, width, height, thickness, color_price, weight_per_meter, pieces_per_meter, images } = this.state;
+        const { types, priceG, priceR, priceY, priceBr, priceBl, title, title_url, type, width, height, thickness, color_price, weight_per_meter, pieces_per_meter, images } = this.state;
         const formData = new FormData();
 
         types.map(el => {
@@ -46,6 +47,7 @@ class AddTile extends Component {
             }
         });
 
+        formData.append("title_url", title_url);
         formData.append("title", title);
         formData.append("type", type);
         formData.append("width", width);
@@ -99,9 +101,9 @@ class AddTile extends Component {
 
     onImageChange = e => {
         let imageObj = [];
+        imageObj.push(e.target.files);
         let imageArr = [];
         let imagePre = [];
-        imageObj.push(e.target.files);
         for(let i = 0; i < imageObj[0].length; i++) {
             imagePre.push(URL.createObjectURL(imageObj[0][i]));
             imageArr.push(imageObj[0][i]);
@@ -111,8 +113,9 @@ class AddTile extends Component {
             imagesPreview: imagePre
         })
     }
+    
     render() { 
-        const {errMsg, types, imagesPreview} = this.state;
+        const { errMsg, types, imagesPreview } = this.state;
         return ( 
             <Fragment>
                 <div className="contact-us">
@@ -137,6 +140,10 @@ class AddTile extends Component {
                                 <div className="input-field contact-us-field">
                                     <input type="text" name="title" onChange={this.onChange} className="input contact-us__input" required/>
                                     <label className="label contact-us__label">Назва товару</label>
+                                </div>
+                                <div className="input-field contact-us-field">
+                                    <input type="text" name="title_url" onChange={this.onChange} className="input contact-us__input" required/>
+                                    <label className="label contact-us__label">Назва товару (aнгл)</label>
                                 </div>
 
                                 <div>

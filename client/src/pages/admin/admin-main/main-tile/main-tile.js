@@ -19,16 +19,16 @@ class MainTile extends Component {
         }
     }
 
-    editFunc=(id)=> {
+    editFunc = id => {
         this.props.history.push(`/admin/edit/tile/${id}`)
     }
 
-    deleteFunc = async (id) => {
+    deleteFunc = async id => {
         await axios.delete(`http://localhost:5000/admin/tiles/${id}`);
         window.location = '/admin/main/tile';
     }
     render() { 
-        const {tiles} = this.state;
+        const { tiles } = this.state;
 
         return (
             <Fragment>
