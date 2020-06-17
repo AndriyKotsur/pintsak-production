@@ -133,7 +133,7 @@ router.post('/tiles/add', upload, async (req, res) => {
         const images = [];
         for (let i = 0; i < req.files.length; i++) {
             images.push('http://localhost:5000' + (req.files[i].destination).slice(1) + '/' + req.files[i].filename);
-        };
+        };        
         
         const tileType = await pool.query(
             'SELECT * FROM tile_type WHERE title = $1',

@@ -173,15 +173,6 @@ class AddTile extends Component {
                                     <label className="label contact-us__label">Товщина товару</label>
                                 </div>
 
-                                {/* <div>
-                                    <select name="color" onChange={this.onColorChange}>
-                                        <option>Червоний</option>
-                                        <option>Жовтий</option>
-                                        <option>Синій</option>
-                                    </select>
-                                    <label>Колір товару</label>
-                                </div>  */}
-
                                 <div className="input-field contact-us-field">
                                     <input type="number" name="weight_per_meter" onChange={this.onChange} className="input contact-us__input" required/>
                                     <label className="label contact-us__label">Вага на метр кв.</label>
