@@ -4,46 +4,64 @@ import axios from 'axios';
 class EditType extends Component {
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             errMsg: ''
          }
+        this.titleRef = React.createRef();
+        this.title_urlRef = React.createRef();
     }
     
     async componentDidMount() {
-        const tileId = this.props.match.params.id;
-        console.log(this.props);
+        const typeId = this.props.match.params.id;
         
         try {
-            const res = await axios.get(`http://localhost:5000/tilestype/${tileId}`);
+            const res = await axios.get(`http://localhost:5000/admin/tilestype/${typeId}`);
+            this.id = res.data.type_uid
+            this.titleRef.current.value = res.data.title;
+            this.title_urlRef.current.value = res.data.title_url;
+        } catch (err) {
+            throw err;
+        }
+    }
 
+    onSubmit = e => {
+        e.preventDefault();
+        const type = {
+            title: this.titleRef.current.value,
+            title_url: this.title_urlRef.current.value
+        }
+        try {
+            axios.put(`http://localhost:5000/admin/tilestype/${this.id}`, type)
+            window.location = '/admin/main/type';
         } catch (err) {
             throw err;
         }
     }
 
     render() { 
-        const {errMsg, types} = this.state;
+        const { errMsg } = this.state;
+        
         return (
             <Fragment>
-                <div class="contact-us">
-                    <div class="container">
-                        <div class="contact-us-inner">
-                            <h2 class="contact-us__title">
+                <div className="contact-us">
+                    <div className="container">
+                        <div className="contact-us-inner">
+                            <h2 className="contact-us__title">
                                 Редагувати категорію
                             </h2>
-                            <form onSubmit={this.onSubmit} class="form contact-us-form">
-                                <div class="input-field contact-us-field">
-                                    <input type="text" name="title" onChange={this.onChange} class="input contact-us__input" required/>
-                                    <label class="label contact-us__label">Назва категорії</label>
+                            <form onSubmit={this.onSubmit} className="form contact-us-form">
+                                <div className="input-field contact-us-field">
+                                    <input type="text" ref={this.titleRef} name="title" className="input contact-us__input" required/>
+                                    <label className="label contact-us__label">Назва категорії</label>
                                 </div>
 
-                                <div class="input-field contact-us-field">
-                                    <input type="text" name="title_en" onChange={this.onChange} class="input contact-us__input" required/>
-                                    <label class="label contact-us__label">Назва категорії (англ.)</label>
+                                <div className="input-field contact-us-field">
+                                    <input type="text" ref={this.title_urlRef} name="title_url" className="input contact-us__input" required/>
+                                    <label className="label contact-us__label">Назва категорії (англ.)</label>
                                 </div>
 
-                                <p class="contact-us__required">обов’язкові поля</p>
-                                <button class="contact-us__btn">Пітвердити</button>
+                                <p className="contact-us__required">обов’язкові поля</p>
+                                <button className="contact-us__btn">Пітвердити</button>
                             </form>
                             {
                                 errMsg ? errMsg: ''

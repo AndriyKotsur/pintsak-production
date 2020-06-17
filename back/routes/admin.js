@@ -91,6 +91,23 @@ router.get('/tiles', async (req, res) => {
     }
 });
 
+// get one type
+router.get('/tilestype/:id', async (req,res) => {
+    try {
+        const { id } = req.params;
+        const type = await pool.query(
+            'SELECT * FROM tile_type WHERE type_uid = $1',
+            [id]
+        );
+        res.status(200).json(type.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+        res.status(404).json(
+            { message: 'Not found' }
+        );
+    }
+});
+
 // add tile type
 router.post('/tilestype/add', async (req, res) => {
     try {
@@ -157,8 +174,11 @@ router.put('/tilestype/:id', async (req, res) => {
 });
 
 // update tile
-router.put('/tiles/:id', upload, async (req, res) => {
+router.put('/tiles/:id', /* upload, */ async (req, res) => {
     try {
+        // upload(req,res (err) => {
+
+        // })
         const { id } = req.params;
         const { title, title_url, type, weight_per_meter, pieces_per_meter, color_price, width, height, thickness } = req.body;
         const images = [];
