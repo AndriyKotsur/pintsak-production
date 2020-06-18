@@ -13,10 +13,10 @@ class AddTile extends Component {
             width: null,
             height: null,
             thickness: null,
-            color_price: [],
             priceG: null,
             priceR: null,
             priceY: null,
+            priceO: null,
             priceBr: null,
             priceBl: null,
             weight_per_meter: null,
@@ -38,14 +38,14 @@ class AddTile extends Component {
 
     onSubmit = e => {
         e.preventDefault();
-        const { types, priceG, priceR, priceY, priceBr, priceBl, title, title_url, type, width, height, thickness, color_price, weight_per_meter, pieces_per_meter, images } = this.state;
+        const { types, priceG, priceR, priceY, priceBr, priceBl, priceO, title, title_url, type, width, height, thickness, weight_per_meter, pieces_per_meter, images } = this.state;
         const formData = new FormData();
 
-        types.map(el => {
+        types.forEach(el => {
             if (el.title === type) {
                 formData.append("folderName", el.title_url);
             }
-        });
+        })
 
         formData.append("title_url", title_url);
         formData.append("title", title);
@@ -55,19 +55,16 @@ class AddTile extends Component {
         formData.append("thickness", thickness);
         formData.append("weight_per_meter", weight_per_meter);
         formData.append("pieces_per_meter", pieces_per_meter);
+        formData.append("priceG", priceG);
+        formData.append("priceR", priceR);
+        formData.append("priceY", priceY);
+        formData.append("priceO", priceO);
+        formData.append("priceBr", priceBr);
+        formData.append("priceBl", priceBl);
         
         for (let i = 0; i < images.length; i++) {
             formData.append('images', images[i]);
         };
-
-        color_price.push(
-            JSON.stringify(priceG),
-            JSON.stringify(priceR),
-            JSON.stringify(priceY),
-            JSON.stringify(priceBr),
-            JSON.stringify(priceBl)
-            );
-        formData.append("color_price[]", color_price);
 
         const config = {
             headers: {
@@ -88,14 +85,6 @@ class AddTile extends Component {
     onChange = e => {
         this.setState({
             [e.target.name]: e.target.value
-        });
-    }
-
-    onColorChange = e => {
-        this.setState({
-            [e.target.name]: {
-                [e.target.name]: e.target.value
-            }
         });
     }
 
@@ -131,7 +120,7 @@ class AddTile extends Component {
                                         
                                         (imagesPreview.length > 0 )? 
                                         (imagesPreview.map(image => (
-                                            <img src={image} alt="Image item"/>
+                                            <img key={imagesPreview.indexOf(image)} src={image} alt="Alt item"/>
                                         ))): ''
                                     }
                                     <label>Картинка товару</label>
@@ -184,23 +173,27 @@ class AddTile extends Component {
                                 </div>
 
                                 <div className="input-field contact-us-field">
-                                    <input type="number" name="priceG" onChange={this.onColorChange} className="input contact-us__input" required/>
+                                    <input type="number" name="priceG" onChange={this.onChange} className="input contact-us__input" required/>
                                     <label className="label contact-us__label">Ціна сірої</label>
                                 </div>
                                 <div className="input-field contact-us-field">
-                                    <input type="number" name="priceR" onChange={this.onColorChange} className="input contact-us__input" required/>
+                                    <input type="number" name="priceR" onChange={this.onChange} className="input contact-us__input" required/>
                                     <label className="label contact-us__label">Ціна червоної</label>
                                 </div>
                                 <div className="input-field contact-us-field">
-                                    <input type="number" name="priceY" onChange={this.onColorChange} className="input contact-us__input" required/>
+                                    <input type="number" name="priceY" onChange={this.onChange} className="input contact-us__input" required/>
                                     <label className="label contact-us__label">Ціна жовтої</label>
                                 </div>
                                 <div className="input-field contact-us-field">
-                                    <input type="number" name="priceBr" onChange={this.onColorChange} className="input contact-us__input" required/>
+                                    <input type="number" name="priceO" onChange={this.onChange} className="input contact-us__input" required/>
+                                    <label className="label contact-us__label">Ціна оранжевої</label>
+                                </div>
+                                <div className="input-field contact-us-field">
+                                    <input type="number" name="priceBr" onChange={this.onChange} className="input contact-us__input" required/>
                                     <label className="label contact-us__label">Ціна корич</label>
                                 </div>
                                 <div className="input-field contact-us-field">
-                                    <input type="number" name="priceBl" onChange={this.onColorChange} className="input contact-us__input" required/>
+                                    <input type="number" name="priceBl" onChange={this.onChange} className="input contact-us__input" required/>
                                     <label className="label contact-us__label">Ціна чорної</label>
                                 </div>
 

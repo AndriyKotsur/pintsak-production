@@ -128,12 +128,15 @@ router.post('/tilestype/add', async (req, res) => {
 // add tile
 router.post('/tiles/add', upload, async (req, res) => {
     try {
-        const { title, title_url, type, weight_per_meter, pieces_per_meter, color_price, width, height, thickness } = req.body;
+        const { title, title_url, type, weight_per_meter, pieces_per_meter, priceG, priceR, priceY, priceO, priceBr, priceBl, width, height, thickness } = req.body;
         
         const images = [];
         for (let i = 0; i < req.files.length; i++) {
             images.push('http://localhost:5000' + (req.files[i].destination).slice(1) + '/' + req.files[i].filename);
-        };        
+        };
+        
+        const color_price = [];
+        color_price.push( priceG, priceR, priceY, priceO, priceBr, priceBl );
         
         const tileType = await pool.query(
             'SELECT * FROM tile_type WHERE title = $1',
@@ -174,28 +177,47 @@ router.put('/tilestype/:id', async (req, res) => {
 });
 
 // update tile
-router.put('/tiles/:id', /* upload, */ async (req, res) => {
+router.put('/tiles/:id', async (req, res) => {
+    const { id } = req.params;
+    
+    const tile = await pool.query(
+        'SELECT * FROM tile WHERE tile_uid = $1',
+        [id]
+    );
+    const type = await pool.query(
+        'SELECT * FROM tile_type WHERE type_uid = $1',
+        [tile.rows[0].type_uid]
+    );
+        
+    removeFolder(`./public/images/${type.rows[0].title_url}/${tile.rows[0].title_url}`);
+    
     try {
-        // upload(req,res (err) => {
+        upload( req, res, async (err) => {
+            if (err) {
+                console.log(err);
+            }
+            const { title, title_url, type, weight_per_meter, pieces_per_meter, priceG, priceR, priceY, priceO, priceBr, priceBl, width, height, thickness } = req.body;
+            
+            const images = [];
+            for (let i = 0; i < req.files.length; i++) {
+                images.push('http://localhost:5000' + (req.files[i].destination).slice(1) + '/' + req.files[i].filename);
+            };
 
-        // })
-        const { id } = req.params;
-        const { title, title_url, type, weight_per_meter, pieces_per_meter, color_price, width, height, thickness } = req.body;
-        const images = [];
-        for (let i = 0; i < req.files.length; i++) {
-            images.push('http://localhost:5000' + (req.files[i].destination).slice(1) + '/' + req.files[i].filename);
-        };
-        const tileType = await pool.query(
-            'SELECT * FROM tile_type WHERE title = $1',
-            [type]
-        );
-        await pool.query(
-            'UPDATE tile SET type_uid = $1, title = $2, images = $3, title_url = $4, weight_per_meter = $5, pieces_per_meter = $6, color_price = $7, width = $8, height = $9, thickness = $10 WHERE tile_uid = $11',
-            [tileType.rows[0].type_uid, title, images, title_url, weight_per_meter, pieces_per_meter, color_price, width, height, thickness, id]
-        );
-        res.status(200).json(
-            { message: 'Updated' }
-        );
+            const color_price = [];
+            color_price.push( priceG, priceR, priceY, priceO, priceBr, priceBl );
+
+            const tileType = await pool.query(
+                'SELECT * FROM tile_type WHERE title = $1',
+                [type]
+            );
+            await pool.query(
+                'UPDATE tile SET type_uid = $1, title = $2, images = $3, title_url = $4, weight_per_meter = $5, pieces_per_meter = $6, color_price = $7, width = $8, height = $9, thickness = $10, type_tile = $11 WHERE tile_uid = $12',
+                [tileType.rows[0].type_uid, title, images, title_url, weight_per_meter, pieces_per_meter, color_price, width, height, thickness, type, id]
+            );
+            res.status(200).json(
+                { message: 'Updated' }
+            );
+        })
     } catch (err) {
         console.error(err.message);
         res.status(400).json(
@@ -244,7 +266,7 @@ router.delete('/tiles/:id', async (req,res) => {
             'DELETE FROM tile WHERE tile_uid = $1',
             [id]
         );
-        removeFolder(`./public/images/${type.rows[0].title_url}/${tile.rows[0].title}`);
+        removeFolder(`./public/images/${type.rows[0].title_url}/${tile.rows[0].title_url}`);
         res.status(200).json(
             { message: 'Deleted' }
         );

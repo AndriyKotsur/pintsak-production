@@ -31,7 +31,7 @@ class AddType extends Component {
         }
     }
     render() { 
-        const {errMsg} = this.state;
+        const { errMsg } = this.state;
         return ( 
             <Fragment>
                 <div class="contact-us">

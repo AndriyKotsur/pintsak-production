@@ -16,7 +16,6 @@ class EditType extends Component {
         
         try {
             const res = await axios.get(`http://localhost:5000/admin/tilestype/${typeId}`);
-            this.id = res.data.type_uid
             this.titleRef.current.value = res.data.title;
             this.title_urlRef.current.value = res.data.title_url;
         } catch (err) {
@@ -31,7 +30,8 @@ class EditType extends Component {
             title_url: this.title_urlRef.current.value
         }
         try {
-            axios.put(`http://localhost:5000/admin/tilestype/${this.id}`, type)
+            const typeId = this.props.match.params.id;
+            axios.put(`http://localhost:5000/admin/tilestype/${typeId}`, type)
             window.location = '/admin/main/type';
         } catch (err) {
             throw err;

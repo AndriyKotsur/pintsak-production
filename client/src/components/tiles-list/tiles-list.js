@@ -7,12 +7,12 @@ const TilesList = ({tiles, editFunc, deleteFunc}) => {
                 (tiles && tiles.length)?(
                     tiles.map((tile)=>(                        
                         <div key={tile.tile_uid} className="product-item">
-                        <a href="#" className="product-link" target="_blank">
+                        <a href={`http://localhost:5000/tiles/${tile.tile_uid}`} className="product-link" target="_blank" rel="noopener noreferrer">
                             <h3 className="product__title">
                                 {tile.title}
                             </h3>
                             <div className="product-image-wrapper">
-                                <img src={tile.images[0]} alt="Product image" className="product__image"/>
+                                <img src={tile.images[0]} alt="Product alt" className="product__image"/>
                             </div>
                         </a>
                         <div className="product-order">

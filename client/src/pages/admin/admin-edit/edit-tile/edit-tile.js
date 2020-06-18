@@ -6,14 +6,10 @@ class EditTile extends Component {
         super(props);
         this.state = { 
             types: null,
+            typePrev: undefined,
             images: [],
             imagesPreview: [],
             imagesPrevious: [],
-            priceG: null,
-            priceR: null,
-            priceY: null,
-            priceBr: null,
-            priceBl: null,
             errMsg: ''
          }
         this.titleRef = React.createRef();
@@ -25,6 +21,7 @@ class EditTile extends Component {
         this.priceGRef = React.createRef();
         this.priceRRef = React.createRef();
         this.priceYRef = React.createRef();
+        this.priceORef = React.createRef();
         this.priceBrRef = React.createRef();
         this.priceBlRef = React.createRef();
         this.weight_per_meterRef = React.createRef();
@@ -36,28 +33,24 @@ class EditTile extends Component {
         try {
             const resTile = await axios.get(`http://localhost:5000/tiles/${tileId}`);
             const tile = resTile.data;
+
             this.setState({
-                imagesPrevious: tile.images
+                imagesPrevious: tile.images,
+                typePrev: tile.type_tile
             })
             
             this.titleRef.current.value = tile.title;
             this.title_urlRef.current.value = tile.title_url;
-            this.typeRef.current.value = tile.type;
+            this.typeRef.current.value = tile.type_tile;
             this.widthRef.current.value = tile.width;
             this.heightRef.current.value = tile.height;
             this.thicknessRef.current.value = tile.thickness;
-
-            const strArr = tile.color_price[0].split(',');
-            const arr = [];
-            for (let i = 0; i < strArr.length; i++) {
-                arr.push(JSON.parse(strArr[i]));
-            }
-            this.priceGRef.current.value = arr[0].priceG;
-            this.priceRRef.current.value = arr[1].priceR;
-            this.priceYRef.current.value = arr[2].priceY;
-            this.priceBrRef.current.value = arr[3].priceBr;
-            this.priceBlRef.current.value = arr[4].priceBl;
-
+            this.priceGRef.current.value = tile.color_price[0];
+            this.priceRRef.current.value = tile.color_price[1];
+            this.priceYRef.current.value = tile.color_price[2];
+            this.priceORef.current.value = tile.color_price[3];
+            this.priceBrRef.current.value = tile.color_price[4];
+            this.priceBlRef.current.value = tile.color_price[5];
             this.weight_per_meterRef.current.value = tile.weight_per_meter;
             this.pieces_per_meterRef.current.value = tile.pieces_per_meter;
 
@@ -72,10 +65,10 @@ class EditTile extends Component {
 
     onSubmit = e => {
         e.preventDefault();
-        const { priceG, priceR, priceY, priceBr, priceBl, types, images } = this.state;
+        const { types, images } = this.state;
         const formData = new FormData();
 
-        types.map(el => {
+        types.forEach(el => {
             if (el.title === this.typeRef.current.value) {
                 formData.append("folderName", el.title_url);
             }
@@ -89,19 +82,16 @@ class EditTile extends Component {
         formData.append("thickness", this.thicknessRef.current.value);
         formData.append("weight_per_meter", this.weight_per_meterRef.current.value);
         formData.append("pieces_per_meter", this.pieces_per_meterRef.current.value);
+        formData.append("priceG", this.priceGRef.current.value);
+        formData.append("priceR", this.priceRRef.current.value);
+        formData.append("priceY", this.priceYRef.current.value);
+        formData.append("priceO", this.priceORef.current.value);
+        formData.append("priceBr", this.priceBrRef.current.value);
+        formData.append("priceBl", this.priceBlRef.current.value);
         
         for (let i = 0; i < images.length; i++) {
             formData.append('images', images[i]);
         };
-        const color_price = [];
-        color_price.push(
-            JSON.stringify(priceG),
-            JSON.stringify(priceR),
-            JSON.stringify(priceY),
-            JSON.stringify(priceBr),
-            JSON.stringify(priceBl)
-            );
-        formData.append("color_price[]", color_price);
 
         const config = {
             headers: {
@@ -135,16 +125,14 @@ class EditTile extends Component {
         })
     }
 
-    onColorChange = e => {
+    onTypeChange = e => {
         this.setState({
-            [e.target.name]: {
-                [e.target.name]: e.target.value
-            }
+            typePrev: e.target.value
         });
     }
 
     render() { 
-        const { errMsg, types, imagesPreview, imagesPrevious } = this.state;
+        const { errMsg, types, typePrev, imagesPreview, imagesPrevious } = this.state;
         
         return (
             <Fragment>
@@ -159,7 +147,7 @@ class EditTile extends Component {
                                     <label>Попередні картинки</label>
                                     {
                                         imagesPrevious.map(image => (
-                                            <img src={image} alt="Image item"/>
+                                            <img key={imagesPrevious.indexOf(image)} src={image} alt="Alt item"/>
                                         ))
                                     }
                                 </div>
@@ -169,7 +157,7 @@ class EditTile extends Component {
                                         
                                         (imagesPreview.length > 0 )? 
                                         (imagesPreview.map(image => (
-                                            <img src={image} alt="Image item"/>
+                                            <img key={imagesPreview.indexOf(image)} src={image} alt="Alt item"/>
                                         ))): ''
                                     }
                                     <label>Нові картинки</label>
@@ -186,11 +174,11 @@ class EditTile extends Component {
 
                                 <div>
 
-                                    <select ref={this.typeRef} name="type" className="input contact-us__input" required>
+                                    <select ref={this.typeRef} value={typePrev} onChange={this.onTypeChange} name="type" className="input contact-us__input" required>
                                         {
                                             (types && types.length)?(
                                                 types.map((type)=>(
-                                                <option key={type.type_uid}>{type.title}</option>
+                                                    <option key={type.type_uid}>{type.title}</option>
                                                 ))
                                             ): <option>Немає доданих категорій</option>
                                         }
@@ -222,23 +210,27 @@ class EditTile extends Component {
                                 </div>
 
                                 <div className="input-field contact-us-field">
-                                    <input ref={this.priceGRef} type="number" name="priceG" onChange={this.onColorChange} className="input contact-us__input" required/>
+                                    <input ref={this.priceGRef} type="number" name="priceG" className="input contact-us__input" required/>
                                     <label className="label contact-us__label">Ціна сірої</label>
                                 </div>
                                 <div className="input-field contact-us-field">
-                                    <input ref={this.priceRRef} type="number" name="priceR" onChange={this.onColorChange} className="input contact-us__input" required/>
+                                    <input ref={this.priceRRef} type="number" name="priceR" className="input contact-us__input" required/>
                                     <label className="label contact-us__label">Ціна червоної</label>
                                 </div>
                                 <div className="input-field contact-us-field">
-                                    <input ref={this.priceYRef} type="number" name="priceY" onChange={this.onColorChange} className="input contact-us__input" required/>
+                                    <input ref={this.priceYRef} type="number" name="priceY" className="input contact-us__input" required/>
                                     <label className="label contact-us__label">Ціна жовтої</label>
                                 </div>
                                 <div className="input-field contact-us-field">
-                                    <input ref={this.priceBrRef} type="number" name="priceBr" onChange={this.onColorChange} className="input contact-us__input" required/>
+                                    <input ref={this.priceORef} type="number" name="priceO" className="input contact-us__input" required/>
+                                    <label className="label contact-us__label">Ціна оранжевої</label>
+                                </div>
+                                <div className="input-field contact-us-field">
+                                    <input ref={this.priceBrRef} type="number" name="priceBr" className="input contact-us__input" required/>
                                     <label className="label contact-us__label">Ціна корич</label>
                                 </div>
                                 <div className="input-field contact-us-field">
-                                    <input ref={this.priceBlRef} type="number" name="priceBl" onChange={this.onColorChange} className="input contact-us__input" required/>
+                                    <input ref={this.priceBlRef} type="number" name="priceBl" className="input contact-us__input" required/>
                                     <label className="label contact-us__label">Ціна чорної</label>
                                 </div>
 
