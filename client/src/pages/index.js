@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import { Route, Switch } from 'react-router-dom';
-import AdminPage from './admin/admin-page';
+import { Route, Switch, Redirect } from 'react-router-dom';
+
+import authRequired from '../middleware/authRequired';
+import AdminLogin from './admin/admin-page/page-login';
 
 import AdminMain from './admin/admin-main';
 import MainTile from './admin/admin-main/main-tile';
@@ -9,6 +11,8 @@ import AddTile from './admin/admin-add/add-tile';
 import AddType from './admin/admin-add/add-type';
 import EditTile from './admin/admin-edit/edit-tile';
 import EditType from './admin/admin-edit/edit-type';
+
+import ErrorPage from './errors';
 
 class Main extends Component {
     constructor(props) {
@@ -19,17 +23,18 @@ class Main extends Component {
         return ( 
             <Fragment>
                 <Switch>
-                    <Route path="/admin" exact component={AdminPage} />
+                    <Route path="/admin" exact component={AdminLogin} />
 
-                    <Route path="/admin/main" exact component={AdminMain} />
-                    <Route path="/admin/main/tile" exact component={MainTile} />
-                    <Route path="/admin/main/type" exact component={MainType} />
-                    <Route path="/admin/add/tile" exact component={AddTile} />
-                    <Route path="/admin/add/type" exact component={AddType}/>
+                    <Route path="/admin/main" exact component={authRequired(AdminMain)} />
+                    <Route path="/admin/main/tile" exact component={authRequired(MainTile)} />
+                    <Route path="/admin/main/type" exact component={authRequired(MainType)} />
+                    <Route path="/admin/add/tile" exact component={authRequired(AddTile)} />
+                    <Route path="/admin/add/type" exact component={authRequired(AddType)} />
 
-                    <Route path="/admin/edit/tile/:id" exact component={EditTile} />
-                    <Route path="/admin/edit/type/:id" exact component={EditType} />
+                    <Route path="/admin/edit/tile/:id" exact component={authRequired(EditTile)} />
+                    <Route path="/admin/edit/type/:id" exact component={authRequired(EditType)} />
                     
+                    <Route path="/" component={ErrorPage} />
                 </Switch>
             </Fragment>
          );

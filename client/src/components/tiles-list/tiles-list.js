@@ -17,10 +17,10 @@ const TilesList = ({tiles, editFunc, deleteFunc}) => {
                         </a>
                         <div className="product-order">
                             <button onClick={() => editFunc(tile.tile_uid)} className="product__btn--add">
-                                Edit
+                                Редагувати
                             </button>
                             <button onClick={() => deleteFunc(tile.tile_uid)} className="product__btn--remove">
-                                Delete
+                                Видалити
                             </button>
                         </div>
                     </div>

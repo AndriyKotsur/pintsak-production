@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 import TilesList from '../../../../components/tiles-list';
+import AdminMain from '../admin-main';
 
 class MainTile extends Component {
     constructor(props) {
@@ -33,8 +35,9 @@ class MainTile extends Component {
         return (
             <Fragment>
                <header>
+                   <AdminMain/>
                    <nav>
-                       <a href="/admin/add/tile">Додати товар</a>
+                       <Link to="/admin/add/tile">Додати товар</Link>
                    </nav>
                </header>
 

@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import {withRouter} from 'react-router-dom';
 
-class AdminPage extends Component {
+class AdminLogin extends Component {
     constructor(props) {
         super(props);
         this.state = { 
@@ -46,11 +46,11 @@ class AdminPage extends Component {
                             <form onSubmit={this.onSubmit} class="form contact-us-form">
                                 <div class="input-field contact-us-field">
                                     <input type="email" name="email" value={this.state.email} onChange={this.onChange} class="input contact-us__input" required/>
-                                    <label class="label contact-us__label">Ваше Ім’я</label>
+                                    <label class="label contact-us__label">Логін</label>
                                 </div>
                                 <div class="input-field contact-us-field">
                                     <input type="password" name="password" value={this.state.password} onChange={this.onChange} class="input contact-us__input" required/>
-                                    <label class="label contact-us__label">Ваше номер телефону</label>
+                                    <label class="label contact-us__label">Пароль</label>
                                 </div>
                                 <p class="contact-us__required">обов’язкові поля</p>
                                 <button class="contact-us__btn">Увійти</button>
@@ -63,4 +63,4 @@ class AdminPage extends Component {
     }
 }
  
-export default withRouter(AdminPage);
+export default withRouter(AdminLogin);

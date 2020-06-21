@@ -178,8 +178,9 @@ router.put('/tilestype/:id', async (req, res) => {
 
 // update tile
 router.put('/tiles/:id', async (req, res) => {
-    const { id } = req.params;
     
+    const { id } = req.params;
+
     const tile = await pool.query(
         'SELECT * FROM tile WHERE tile_uid = $1',
         [id]

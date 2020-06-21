@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import TypesList from '../../../../components/types-list';
+import AdminMain from '../admin-main';
 
 class MainType extends Component {
     constructor(props) {
@@ -33,6 +34,7 @@ class MainType extends Component {
         return (
             <Fragment>
                <header>
+                   <AdminMain/>
                    <nav>
                        <a href="/admin/add/type">Додати категорію</a>
                    </nav>
