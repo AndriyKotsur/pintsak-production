@@ -18,12 +18,12 @@ class EditTile extends Component {
         this.widthRef = React.createRef();
         this.heightRef = React.createRef();
         this.thicknessRef = React.createRef();
-        this.priceGRef = React.createRef();
-        this.priceRRef = React.createRef();
-        this.priceYRef = React.createRef();
-        this.priceORef = React.createRef();
-        this.priceBrRef = React.createRef();
-        this.priceBlRef = React.createRef();
+        this.greyRef = React.createRef();
+        this.redRef = React.createRef();
+        this.yellowRef = React.createRef();
+        this.orangeRef = React.createRef();
+        this.brownRef = React.createRef();
+        this.blackRef = React.createRef();
         this.weight_per_meterRef = React.createRef();
         this.pieces_per_meterRef = React.createRef();
     }
@@ -45,12 +45,12 @@ class EditTile extends Component {
             this.widthRef.current.value = tile.width;
             this.heightRef.current.value = tile.height;
             this.thicknessRef.current.value = tile.thickness;
-            this.priceGRef.current.value = tile.color_price[0];
-            this.priceRRef.current.value = tile.color_price[1];
-            this.priceYRef.current.value = tile.color_price[2];
-            this.priceORef.current.value = tile.color_price[3];
-            this.priceBrRef.current.value = tile.color_price[4];
-            this.priceBlRef.current.value = tile.color_price[5];
+            this.greyRef.current.value = tile.color_price.grey;
+            this.yellowRef.current.value = tile.color_price.yellow;
+            this.orangeRef.current.value = tile.color_price.orange;
+            this.redRef.current.value = tile.color_price.red;
+            this.brownRef.current.value = tile.color_price.brown;
+            this.blackRef.current.value = tile.color_price.black;
             this.weight_per_meterRef.current.value = tile.weight_per_meter;
             this.pieces_per_meterRef.current.value = tile.pieces_per_meter;
 
@@ -59,7 +59,9 @@ class EditTile extends Component {
                 types: resType.data
             })
         } catch (err) {
-            throw err;
+            this.setState({
+                errMsg: err.message
+            })
         }
     }
 
@@ -82,12 +84,16 @@ class EditTile extends Component {
         formData.append("thickness", this.thicknessRef.current.value);
         formData.append("weight_per_meter", this.weight_per_meterRef.current.value);
         formData.append("pieces_per_meter", this.pieces_per_meterRef.current.value);
-        formData.append("priceG", this.priceGRef.current.value);
-        formData.append("priceR", this.priceRRef.current.value);
-        formData.append("priceY", this.priceYRef.current.value);
-        formData.append("priceO", this.priceORef.current.value);
-        formData.append("priceBr", this.priceBrRef.current.value);
-        formData.append("priceBl", this.priceBlRef.current.value);
+
+        const color_price = {
+            grey: this.greyRef.current.value,
+            yellow: this.yellowRef.current.value,
+            orange: this.orangeRef.current.value,
+            red: this.redRef.current.value,
+            brown: this.brownRef.current.value,
+            black: this.blackRef.current.value
+        }
+        formData.append("color_price", JSON.stringify(color_price));
         
         for (let i = 0; i < images.length; i++) {
             formData.append('images', images[i]);
@@ -105,7 +111,7 @@ class EditTile extends Component {
             window.location = '/admin/main/tile';
         } catch (err) {
             this.setState({
-                errMsg:err.message
+                errMsg: err.message
             })
         }
     }
@@ -210,27 +216,27 @@ class EditTile extends Component {
                                 </div>
 
                                 <div className="input-field contact-us-field">
-                                    <input ref={this.priceGRef} type="number" name="priceG" className="input contact-us__input" required/>
+                                    <input ref={this.greyRef} type="number" name="grey" pattern="[0-9]" className="input contact-us__input" required/>
                                     <label className="label contact-us__label">Ціна сірої</label>
                                 </div>
                                 <div className="input-field contact-us-field">
-                                    <input ref={this.priceRRef} type="number" name="priceR" className="input contact-us__input" required/>
-                                    <label className="label contact-us__label">Ціна червоної</label>
-                                </div>
-                                <div className="input-field contact-us-field">
-                                    <input ref={this.priceYRef} type="number" name="priceY" className="input contact-us__input" required/>
+                                    <input ref={this.yellowRef} type="text" name="yellow" pattern="[0-9-]+" className="input contact-us__input" required/>
                                     <label className="label contact-us__label">Ціна жовтої</label>
                                 </div>
                                 <div className="input-field contact-us-field">
-                                    <input ref={this.priceORef} type="number" name="priceO" className="input contact-us__input" required/>
+                                    <input ref={this.orangeRef} type="text" name="orange" pattern="[0-9-]+" className="input contact-us__input" required/>
                                     <label className="label contact-us__label">Ціна оранжевої</label>
                                 </div>
                                 <div className="input-field contact-us-field">
-                                    <input ref={this.priceBrRef} type="number" name="priceBr" className="input contact-us__input" required/>
+                                    <input ref={this.redRef} type="text" name="red" pattern="[0-9-]+" className="input contact-us__input" required/>
+                                    <label className="label contact-us__label">Ціна червоної</label>
+                                </div>
+                                <div className="input-field contact-us-field">
+                                    <input ref={this.brownRef} type="text" name="brown" pattern="[0-9-]+" className="input contact-us__input" required/>
                                     <label className="label contact-us__label">Ціна корич</label>
                                 </div>
                                 <div className="input-field contact-us-field">
-                                    <input ref={this.priceBlRef} type="number" name="priceBl" className="input contact-us__input" required/>
+                                    <input ref={this.blackRef} type="text" name="black" pattern="[0-9-]+" className="input contact-us__input" required/>
                                     <label className="label contact-us__label">Ціна чорної</label>
                                 </div>
 

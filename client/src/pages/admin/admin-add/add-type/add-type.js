@@ -27,7 +27,9 @@ class AddType extends Component {
             axios.post("http://localhost:5000/admin/tilestype/add", type);
             window.location = '/admin/main/type';
         } catch (err) {
-            throw err;
+            this.setState({
+                errMsg:err.message
+            })
         }
     }
     render() { 

@@ -13,12 +13,12 @@ class AddTile extends Component {
             width: null,
             height: null,
             thickness: null,
-            priceG: null,
-            priceR: null,
-            priceY: null,
-            priceO: null,
-            priceBr: null,
-            priceBl: null,
+            grey: null,
+            yellow: '-',
+            orange: '-',
+            red: '-',
+            brown: '-',
+            black: '-',
             weight_per_meter: null,
             pieces_per_meter: null,
             errMsg: null,
@@ -29,24 +29,27 @@ class AddTile extends Component {
         try {
             const res = await axios.get("http://localhost:5000");
             this.setState({
-                types: res.data
+                types: res.data,
+                type: res.data[0].title
             })
         } catch (err) {
-            throw err;
+            this.setState({
+                errMsg: err.message
+            })
         }
     }
 
     onSubmit = e => {
         e.preventDefault();
-        const { types, priceG, priceR, priceY, priceBr, priceBl, priceO, title, title_url, type, width, height, thickness, weight_per_meter, pieces_per_meter, images } = this.state;
+        const { types, grey, red, yellow, orange, black, brown, title, title_url, type, width, height, thickness, weight_per_meter, pieces_per_meter, images } = this.state;
         const formData = new FormData();
-
+        
         types.forEach(el => {
             if (el.title === type) {
                 formData.append("folderName", el.title_url);
             }
         })
-
+        
         formData.append("title_url", title_url);
         formData.append("title", title);
         formData.append("type", type);
@@ -55,12 +58,16 @@ class AddTile extends Component {
         formData.append("thickness", thickness);
         formData.append("weight_per_meter", weight_per_meter);
         formData.append("pieces_per_meter", pieces_per_meter);
-        formData.append("priceG", priceG);
-        formData.append("priceR", priceR);
-        formData.append("priceY", priceY);
-        formData.append("priceO", priceO);
-        formData.append("priceBr", priceBr);
-        formData.append("priceBl", priceBl);
+        
+        const color_price = {
+            grey: grey,
+            yellow: yellow,
+            orange: orange,
+            red: red,
+            brown: brown,
+            black: black
+        }
+        formData.append("color_price", JSON.stringify(color_price));
         
         for (let i = 0; i < images.length; i++) {
             formData.append('images', images[i]);
@@ -77,7 +84,7 @@ class AddTile extends Component {
             window.location = '/admin/main/tile';
         } catch (err) {
             this.setState({
-                errMsg:err.message
+                errMsg: err.message
             })
         }
     }
@@ -86,6 +93,15 @@ class AddTile extends Component {
         this.setState({
             [e.target.name]: e.target.value
         });
+    }
+
+    onColorChange = e => {
+        this.setState({
+            color_price: {
+                [e.target.name]: e.target.value
+
+            }
+        })
     }
 
     onImageChange = e => {
@@ -104,7 +120,8 @@ class AddTile extends Component {
     }
     
     render() { 
-        const { errMsg, types, imagesPreview } = this.state;
+        const { errMsg, types, imagesPreview, type } = this.state;
+        
         return ( 
             <Fragment>
                 <div className="contact-us">
@@ -137,7 +154,7 @@ class AddTile extends Component {
 
                                 <div>
 
-                                    <select name="type" onChange={this.onChange} className="input contact-us__input" required>
+                                    <select name="type" defaultValue={type} onChange={this.onChange} className="input contact-us__input" required>
                                         {
                                             (types && types.length)?(
                                                 types.map((type)=>(
@@ -173,27 +190,27 @@ class AddTile extends Component {
                                 </div>
 
                                 <div className="input-field contact-us-field">
-                                    <input type="number" name="priceG" onChange={this.onChange} className="input contact-us__input" required/>
+                                    <input type="number" name="grey" onChange={this.onChange} className="input contact-us__input" required/>
                                     <label className="label contact-us__label">Ціна сірої</label>
                                 </div>
                                 <div className="input-field contact-us-field">
-                                    <input type="number" name="priceR" onChange={this.onChange} className="input contact-us__input" required/>
-                                    <label className="label contact-us__label">Ціна червоної</label>
-                                </div>
-                                <div className="input-field contact-us-field">
-                                    <input type="number" name="priceY" onChange={this.onChange} className="input contact-us__input" required/>
+                                    <input type="number" name="yellow" onChange={this.onChange} className="input contact-us__input" />
                                     <label className="label contact-us__label">Ціна жовтої</label>
                                 </div>
                                 <div className="input-field contact-us-field">
-                                    <input type="number" name="priceO" onChange={this.onChange} className="input contact-us__input" required/>
+                                    <input type="number" name="orange" onChange={this.onChange} className="input contact-us__input" />
                                     <label className="label contact-us__label">Ціна оранжевої</label>
                                 </div>
                                 <div className="input-field contact-us-field">
-                                    <input type="number" name="priceBr" onChange={this.onChange} className="input contact-us__input" required/>
+                                    <input type="number" name="red" onChange={this.onChange} className="input contact-us__input" />
+                                    <label className="label contact-us__label">Ціна червоної</label>
+                                </div>
+                                <div className="input-field contact-us-field">
+                                    <input type="number" name="brown" onChange={this.onChange} className="input contact-us__input" />
                                     <label className="label contact-us__label">Ціна корич</label>
                                 </div>
                                 <div className="input-field contact-us-field">
-                                    <input type="number" name="priceBl" onChange={this.onChange} className="input contact-us__input" required/>
+                                    <input type="number" name="black" onChange={this.onChange} className="input contact-us__input" />
                                     <label className="label contact-us__label">Ціна чорної</label>
                                 </div>
 

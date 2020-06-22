@@ -10,7 +10,7 @@ class AdminLogout extends Component {
     render() {
         return(
             <Fragment>
-                <button onClick={this.logOut}>Вийти</button>
+                <button onClick={this.logOut}> Вийти </button>
             </Fragment>
         )
     }

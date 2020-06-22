@@ -7,7 +7,8 @@ class AdminLogin extends Component {
         super(props);
         this.state = { 
             email: "",
-            password: ""
+            password: "",
+            errMsg: ""
          }
     }
 
@@ -31,10 +32,14 @@ class AdminLogin extends Component {
             this.props.history.push("/admin/main");
 
         } catch (err) {
-            throw err;
+            this.setState({
+                errMsg: err.message
+            })
         }
     }
     render() { 
+        const { errMsg } = this.state;
+
         return ( 
             <Fragment>
                 <div class="contact-us">
@@ -55,6 +60,9 @@ class AdminLogin extends Component {
                                 <p class="contact-us__required">обов’язкові поля</p>
                                 <button class="contact-us__btn">Увійти</button>
                             </form>
+                            {
+                                errMsg ? errMsg: ''
+                            }
                         </div>
                     </div>
                 </div>

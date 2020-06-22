@@ -19,7 +19,9 @@ class EditType extends Component {
             this.titleRef.current.value = res.data.title;
             this.title_urlRef.current.value = res.data.title_url;
         } catch (err) {
-            throw err;
+            this.setState({
+                errMsg: err.message
+            })
         }
     }
 
@@ -34,7 +36,9 @@ class EditType extends Component {
             axios.put(`http://localhost:5000/admin/tilestype/${typeId}`, type)
             window.location = '/admin/main/type';
         } catch (err) {
-            throw err;
+            this.setState({
+                errMsg: err.message
+            })
         }
     }
 
