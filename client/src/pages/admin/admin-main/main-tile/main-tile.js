@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import TilesList from '../../../../components/tiles-list';
 import AdminMain from '../admin-main';
 

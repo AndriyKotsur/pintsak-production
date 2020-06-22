@@ -1,4 +1,3 @@
-  
 import ActionTypes from './action-types';
 
 const usersReducer = (state, action) => {

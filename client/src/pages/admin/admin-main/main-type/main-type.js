@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import TypesList from '../../../../components/types-list';
 import AdminMain from '../admin-main';
@@ -36,7 +37,7 @@ class MainType extends Component {
                <header>
                    <AdminMain/>
                    <nav>
-                       <a href="/admin/add/type">Додати категорію</a>
+                       <Link to="/admin/add/type">Додати категорію</Link>
                    </nav>
                </header>
 

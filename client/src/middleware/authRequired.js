@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import {withRouter} from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 export default function authRequired(ProtectedComponent){
     class Authorized extends Component {
-        componentDidMount(){
+        componentDidMount() {
             if(!localStorage.token)
                 this.props.history.push('/admin')
         }
-        getSnapshotBeforeUpdate(){
+        getSnapshotBeforeUpdate() {
             if(!localStorage.token)
                 this.props.history.push('/admin')
         }
-        componentDidUpdate(){
+        componentDidUpdate() {
             if(!localStorage.token)
                 this.props.history.push('/admin')
         }
