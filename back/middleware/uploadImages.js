@@ -5,9 +5,11 @@ const path = require('path');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        const type = req.body.folderName;
-        const title = req.body.title_url;
-        const folder = `./public/images/${type}/${title}`;
+        if (req.body.folderName && req.body.title_url) {
+            folder = `./public/images/${req.body.folderName}/${req.body.title_url}`;
+        } else {
+            folder = `./public/docs`;
+        }
         fs.exists(folder, exist => {
             if (!exist) {
                 return fs.mkdir(folder, {recursive: true}, error => cb(error, folder));
@@ -16,12 +18,25 @@ const storage = multer.diskStorage({
         })
     },
     filename: function (req, file, cb) {
-        const title = req.body.title;
+        const title = req.body.title || 'Tile-catalogue';
         cb(null, title + '-' + Date.now() + path.extname(file.originalname));
     }
 });
 
-const upload = multer ({
+const uploadFile = multer ({
+    limits: {
+        fileSize: 50000000
+    },
+    fileFilter(req, file, cb) {
+        if (!file.originalname.match(/\.(doc|pdf|xls)$/)) {
+            return cb(new Error('Please upload a file'))
+        }
+        cb(undefined, true)
+    },
+    storage: storage
+}).single('file');
+
+const uploadImages = multer ({
     limits: {
         fileSize: 2000000
     },
@@ -68,4 +83,4 @@ removeFolder = (folderPath) => {
     };
 };
 
-module.exports = { upload, optimizeImages, removeFolder };
+module.exports = { uploadImages, uploadFile, optimizeImages, removeFolder };

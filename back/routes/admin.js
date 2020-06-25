@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { uuid } = require('uuidv4');
 const bcrypt = require('bcryptjs');
-const { upload, removeFolder} = require('../middleware/uploadImages');
+const { uploadImages, uploadFile, removeFolder} = require('../middleware/uploadImages');
 const { parseBearer, prepareToken } = require('../middleware/token');
 const pool = require('../db');
 
@@ -45,24 +45,24 @@ router.post('/register', async (req,res) => {
         const newAdmin = await pool.query(
             'INSERT INTO admin (uid, email, password) VALUES ($1, $2, $3) RETURNING *',
             [uuid(), email, hash]
-        );    
+        );
         const token = prepareToken(
             { id: newAdmin.rows[0].uid },
             req.headers
-        );    
+        );
         res.status(201).json(
             { token }
-        );    
+        );
     } catch (err) {
         console.error(err.message);
         res.status(400).json(
             { message: 'Bad request' }
-        );    
-    }    
+        );
+    }
 });    
 
 // check token
-router.get('/checktoken', async (req,res) => {
+router.get('/checktoken', (req,res) => {
     try {
         const decoded = parseBearer(req.headers.authorization, req.headers);
         res.status(200).json(
@@ -111,6 +111,7 @@ router.get('/tilestype/:id', async (req,res) => {
 // add tile type
 router.post('/tilestype/add', async (req, res) => {
     try {
+        parseBearer(req.headers.authorization, req.headers);
         const { title, title_url } = req.body;
         const newType = await pool.query(
             'INSERT INTO tile_type (type_uid, title, title_url) VALUES ($1, $2, $3) RETURNING *',
@@ -126,8 +127,9 @@ router.post('/tilestype/add', async (req, res) => {
 });
 
 // add tile
-router.post('/tiles/add', upload, async (req, res) => {
+router.post('/tiles/add', uploadImages, async (req, res) => {
     try {
+        parseBearer(req.headers.authorization, req.headers);
         const { title, title_url, type, weight_per_meter, pieces_per_meter, color_price, width, height, thickness } = req.body;
         
         const images = [];
@@ -156,6 +158,7 @@ router.post('/tiles/add', upload, async (req, res) => {
 // update tiles type
 router.put('/tilestype/:id', async (req, res) => {
     try {
+        parseBearer(req.headers.authorization, req.headers);
         const { id } = req.params;
         const { title, title_url } = req.body;
         await pool.query(
@@ -174,23 +177,23 @@ router.put('/tilestype/:id', async (req, res) => {
 });
 
 // update tile
-router.put('/tiles/:id', async (req, res) => {
-    
-    const { id } = req.params;
-
-    const tile = await pool.query(
-        'SELECT * FROM tile WHERE tile_uid = $1',
-        [id]
-    );
-    const type = await pool.query(
-        'SELECT * FROM tile_type WHERE type_uid = $1',
-        [tile.rows[0].type_uid]
-    );
-        
-    removeFolder(`./public/images/${type.rows[0].title_url}/${tile.rows[0].title_url}`);
-    
+router.put('/tiles/:id', async (req, res) => {    
     try {
-        upload( req, res, async (err) => {
+        parseBearer(req.headers.authorization, req.headers);
+        const { id } = req.params;
+    
+        const tile = await pool.query(
+            'SELECT * FROM tile WHERE tile_uid = $1',
+            [id]
+        );
+        const type = await pool.query(
+            'SELECT * FROM tile_type WHERE type_uid = $1',
+            [tile.rows[0].type_uid]
+        );
+            
+        removeFolder(`./public/images/${type.rows[0].title_url}/${tile.rows[0].title_url}`);
+
+        uploadImages( req, res, async (err) => {
             if (err) {
                 throw err;
             }
@@ -224,6 +227,7 @@ router.put('/tiles/:id', async (req, res) => {
 // delete tile type
 router.delete('/tilestype/:id', async (req,res) => {
     try {
+        parseBearer(req.headers.authorization, req.headers);
         const { id } = req.params;
         const type = await pool.query(
             'SELECT * FROM tile_type WHERE type_uid = $1',
@@ -248,6 +252,7 @@ router.delete('/tilestype/:id', async (req,res) => {
 // delete tile
 router.delete('/tiles/:id', async (req,res) => {
     try {
+        parseBearer(req.headers.authorization, req.headers);
         const { id } = req.params;
         const tile = await pool.query(
             'SELECT * FROM tile WHERE tile_uid = $1',
@@ -265,6 +270,30 @@ router.delete('/tiles/:id', async (req,res) => {
         res.status(200).json(
             { message: 'Deleted' }
         );
+    } catch (err) {
+        console.error(err.message);
+        res.status(400).json(
+            { message: 'Bad request' }
+        );
+    }
+});
+
+// change catalogue
+router.patch('/catalogue', async (req,res) => {
+    try {
+        parseBearer(req.headers.authorization, req.headers);
+        
+        removeFolder('./public/docs');
+
+        uploadFile( req, res, async (err) => {
+            if (err) {
+                throw err;
+            }
+            res.status(200).json(
+                { message: 'Changed' }
+            );
+        })
+        
     } catch (err) {
         console.error(err.message);
         res.status(400).json(

@@ -3,6 +3,8 @@ const router = express.Router();
 const nodemailer = require('nodemailer');
 const pool = require('../db');
 const config = require('../config');
+const fs = require('fs');
+const path = require('path');
 
 // get tile types
 router.get('/', async (req,res) => {
@@ -27,20 +29,18 @@ router.get('/tiles/types/:id', async (req,res) => {
         const limit = 10;
         if (!req.query.sort && !req.query.way) {
             const tilesOfType = await pool.query(
-                //`SELECT tile_uid, title, size, price, pieces_per_meter, images FROM tile WHERE type_uid = $1 OFFSET ${(limit * page) - limit} LIMIT ${limit}`,
-                `SELECT title, tile_uid, type_uid, size, price FROM tile WHERE type_uid = $1 OFFSET ${(limit * page) - limit} LIMIT ${limit}`,
+                `SELECT title, tile_uid, width, height, thickness, images, color_price FROM tile WHERE type_uid = $1 OFFSET ${(limit * page) - limit} LIMIT ${limit}`,
                 [id]
             );
             res.status(200).json(tilesOfType.rows);
         } else {
-            if (req.query.sort === 'price')
+            if (req.query.sort === 'width')
                 sort = req.query.sort;
             else
-                sort = "size->>'width'";
-            const way = req.query.way;
+                sort = "color_price->>'grey'";
+            const order = req.query.order || 'ASC';
             const tilesOfType = await pool.query(
-                //`SELECT tile_uid, title, size, price, pieces_per_meter, images FROM tile WHERE type_uid = $1 ORDER BY ${sort} ${way} OFFSET ${(limit * page) - limit} LIMIT ${limit}`,
-                `SELECT title, tile_uid, type_uid, size, price FROM tile WHERE type_uid = $1 ORDER BY ${sort} ${way} OFFSET ${(limit * page) - limit} LIMIT ${limit}`,
+                `SELECT title, tile_uid, width, height, thickness, images, color_price FROM tile WHERE type_uid = $1 ORDER BY ${sort} ${order} OFFSET ${(limit * page) - limit} LIMIT ${limit}`,
                 [id]
             );
             res.status(200).json(tilesOfType.rows);
@@ -71,9 +71,13 @@ router.get('/tiles/:id', async (req,res) => {
 });
 
 // download catalogue
-router.get('/catalogue', async (req,res) => {
+router.get('/catalogue', (req,res) => {
+    const file = fs.readdirSync('./public/docs', function(error,files) {
+        if(error) throw error;
+        return files;
+    });
     try {
-        res.status(200).download('public/contract.pdf');
+        res.status(200).download(`public/docs/${file[0]}`);
     } catch (err) {
         console.error(err.message);
         res.status(404).json(

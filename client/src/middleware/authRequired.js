@@ -1,19 +1,35 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
+import axios from 'axios';
 
 export default function authRequired(ProtectedComponent){
     class Authorized extends Component {
-        componentDidMount() {
-            if(!localStorage.token)
-                this.props.history.push('/admin')
+        async componentDidMount() {
+            try {
+                await axios.get('http://localhost:5000/admin/checktoken');
+            } catch (err) {
+                localStorage.removeItem('token');
+                this.props.history.push('/admin');
+                throw err;
+            }
         }
-        getSnapshotBeforeUpdate() {
-            if(!localStorage.token)
-                this.props.history.push('/admin')
+        async getSnapshotBeforeUpdate() {
+            try {
+                await axios.post('http://localhost:5000/admin/checktoken');
+            } catch (err) {
+                localStorage.removeItem('token');
+                this.props.history.push('/admin');
+                throw err;
+            }
         }
-        componentDidUpdate() {
-            if(!localStorage.token)
-                this.props.history.push('/admin')
+        async componentDidUpdate() {
+            try {
+                await axios.post('http://localhost:5000/admin/checktoken');
+            } catch (err) {
+                localStorage.removeItem('token');
+                this.props.history.push('/admin');
+                throw err;
+            }
         }
         render() {
             return (

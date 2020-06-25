@@ -3,6 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import axios from 'axios';
+
+axios.interceptors.request.use(function(config) {
+  if (localStorage.token) {
+      config.headers['Authorization'] = 'Bearer ' + localStorage.token;
+  } else {
+      config.headers['Authorization'] = null;
+  }
+  return config;
+});
 
 ReactDOM.render(
   <React.StrictMode>
