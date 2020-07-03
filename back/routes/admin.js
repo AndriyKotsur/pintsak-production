@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { uuid } = require('uuidv4');
 const bcrypt = require('bcryptjs');
-const { uploadImages, uploadFile, removeFolder} = require('../middleware/uploadImages');
+const { uploadImages, uploadFile, removeFolder} = require('../middleware/upload');
 const { parseBearer, prepareToken } = require('../middleware/token');
 const pool = require('../db');
 
@@ -292,8 +292,7 @@ router.patch('/catalogue', async (req,res) => {
             res.status(200).json(
                 { message: 'Changed' }
             );
-        })
-        
+        });
     } catch (err) {
         console.error(err.message);
         res.status(400).json(

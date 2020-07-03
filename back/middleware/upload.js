@@ -28,7 +28,7 @@ const uploadFile = multer ({
         fileSize: 50000000
     },
     fileFilter(req, file, cb) {
-        if (!file.originalname.match(/\.(doc|pdf|xls)$/)) {
+        if (!file.originalname.match(/\.(doc|docx|pdf|xls|xlsx)$/)) {
             return cb(new Error('Please upload a file'))
         }
         cb(undefined, true)
@@ -49,6 +49,20 @@ const uploadImages = multer ({
     storage: storage
 }).array('images', 100);
 
+removeFolder = (folderPath) => {
+    if (fs.existsSync(folderPath)) {
+        fs.readdirSync(folderPath).forEach(file => {
+            const currentPath = folderPath + '/' + file;
+            if (fs.lstatSync(currentPath).isDirectory()) {
+                removeFolder(currentPath);
+            } else {
+                fs.unlinkSync(currentPath);
+            }
+        });
+        fs.rmdirSync(folderPath);
+    };
+};
+
 const optimizeImages = async (req, res, next) => {
     await Promise.all(
         req.files.map(async file => {
@@ -67,20 +81,6 @@ const optimizeImages = async (req, res, next) => {
         })
     )
     next();
-};
-
-removeFolder = (folderPath) => {
-    if (fs.existsSync(folderPath)) {
-        fs.readdirSync(folderPath).forEach(file => {
-            const currentPath = folderPath + '/' + file;
-            if (fs.lstatSync(currentPath).isDirectory()) {
-                removeFolder(currentPath);
-            } else {
-                fs.unlinkSync(currentPath);
-            }
-        });
-        fs.rmdirSync(folderPath);
-    };
 };
 
 module.exports = { uploadImages, uploadFile, optimizeImages, removeFolder };

@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
+const fs = require('fs');
 const pool = require('../db');
 const config = require('../config');
-const fs = require('fs');
-const path = require('path');
 
 // get tile types
 router.get('/', async (req,res) => {
@@ -26,8 +25,8 @@ router.get('/tiles/types/:id', async (req,res) => {
     try {
         const { id } = req.params;
         const page = req.query.page || 1;
-        const limit = 10;
-        if (!req.query.sort && !req.query.way) {
+        const limit = 9;
+        if (!req.query.sort && !req.query.order) {
             const tilesOfType = await pool.query(
                 `SELECT title, tile_uid, width, height, thickness, images, color_price FROM tile WHERE type_uid = $1 OFFSET ${(limit * page) - limit} LIMIT ${limit}`,
                 [id]
@@ -72,11 +71,11 @@ router.get('/tiles/:id', async (req,res) => {
 
 // download catalogue
 router.get('/catalogue', (req,res) => {
-    const file = fs.readdirSync('./public/docs', function(error,files) {
-        if(error) throw error;
-        return files;
-    });
     try {
+        const file = fs.readdirSync('./public/docs', function(error,files) {
+            if(error) throw error;
+            return files;
+        });
         res.status(200).download(`public/docs/${file[0]}`);
     } catch (err) {
         console.error(err.message);
@@ -117,12 +116,12 @@ router.post('/orderrequest', async (req,res) => {
         };
         transporter.sendMail(mailOptions, function(err,info) {
             if(err)
-                console.log(err);
+                console.error(err.message);
             else
                 console.log('Email sent: ' + info.response);
         });
     } catch (err) {
-        console.log(err.message);
+        console.error(err.message);
         res.status(400).json(
             { message: 'Bad request' }
         ); 
