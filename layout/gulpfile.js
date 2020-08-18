@@ -33,7 +33,7 @@ const autoprefixer = require('gulp-autoprefixer');
 const groupmedia = require('gulp-group-css-media-queries');
 const cleancss = require('gulp-clean-css');
 const rename = require('gulp-rename');
-const imagemin = require('gulp-image');
+const imagemin = require('gulp-imagemin');
 const svgsprite = require('gulp-svg-sprite');
 
 
