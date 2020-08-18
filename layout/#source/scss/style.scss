@@ -1,16 +1,41 @@
 /* Mixins */
-@mixin flexbox() {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
+
+@mixin screen-sm {
+  @media only screen and (min-width: 600px) {
+    @content;
+  }
+}
+
+@mixin screen-tb {
+  @media only screen and (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin screen-l {
+  @media only screen and (min-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin screen-xl {
+  @media only screen and (min-width: 1200px) {
+    @content
+  }
 }
 
 @mixin container_width($width: 1440px) {
   width: 100%;
   max-width: $width;
   margin: 0 auto;
+}
+
+@mixin font($size, $family) {
+  font: $size $family;
+}
+
+@mixin transition {
+  transition: all .25s;
 }
 
 @mixin pseudo($display: block, $pos: absolute, $content: "") {
@@ -26,7 +51,8 @@
 
 /* Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700;900&display=swap");
-$fontfamily: "Noto Sans", sans-serif;
+$fontfamily: "Noto Sans",
+sans-serif;
 /* Colors */
 $color1: #373f48;
 $color2: #ff8e01;
@@ -153,40 +179,48 @@ h6 {
   background: $color1;
 
   &-inner {
-    @include flexbox();
+    display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
-  &__logo {
-    margin-right: 35px;
+  &-logo {
+    flex-grow: 0.5;
+    margin: 0px 5px 0px 0px;
 
-    @media (max-width: 1024px) {
-      flex-grow: 0.5;
-      margin-right: 5px;
+    @include screen-l() {
+      margin: 0px 35px 0px 0px;
     }
   }
 
-  .is-mobile {
+  .isDesktop {
     display: none !important;
-  }
 
-  @media (max-width: 1024px) {
-    .is-desktop {
-      display: none !important;
-    }
-
-    .is-mobile {
+    @include screen-l() {
       display: block !important;
     }
   }
 
+  .isMobile {
+    display: block !important;
+
+    @include screen-l() {
+      display: none !important;
+    }
+  }
+
   &-navigation {
+    @include hidden();
     flex-grow: 1;
-    margin-right: 10px;
+    margin: 0px 10px 0px 0px;
+
+    @include screen-l() {
+      display: block;
+      visibility: visible;
+    }
 
     &__link {
-      margin-right: 30px;
+      margin: 0px 30px 0px 0px;
       font-weight: 600;
       color: #ffffff;
 
@@ -194,90 +228,90 @@ h6 {
         margin-right: 0;
       }
     }
-
-    @media (max-width: 1024px) {
-      & {
-        display: none;
-      }
-    }
   }
 
   &-info {
-    @include flexbox();
+    display: flex;
+    flex-grow: 0;
     align-items: center;
-    flex-grow: 1;
-    margin-right: 10px;
+    margin: 0px 10px 0px 0px;
+
+    @include screen-l() {
+      flex-grow: 1;
+    }
 
     &__link {
-      margin-right: 40px;
+      margin: 0px 40px 0px 0px;
       font-weight: 700;
       color: #ffffff;
 
+      &:first-child {
+        @include hidden();
+
+        @include screen-tb() {
+          display: block;
+          visibility: visible;
+          margin-right: 120px;
+        }
+      }
+
       &:last-child {
-        margin-right: 0;
+        margin: 0px;
+      }
+
+      @include screen-l() {
+        margin: 0px 90px 0px 0px;
       }
     }
 
-    @media (max-width: 1024px) {
-      & {
-        flex-grow: 0;
-      }
+    &__phone {
+      @include hidden();
 
-      &__link {
-        margin-right: 90px;
-        &:last-child > span {
-          display: none;
-        }
+      @include screen-tb() {
+        display: inline-block;
+        visibility: visible;
       }
     }
 
-    @media (max-width: 767px) {
-      & {
-      }
+    &__location {
+      @include hidden();
 
-      &__link {
-        &:first-child {
-          display: none;
-        }
+      @include screen-xl() {
+        display: inline-block;
+        visibility: visible;
       }
     }
   }
 
-  &-actions {
-    @include flexbox();
+  &-action {
+    display: flex;
     align-items: center;
 
     &__cart {
       position: relative;
       margin: 0px 30px -25px 0px;
       padding-bottom: 25px;
-      font-size: 16px;
       color: #ffffff;
     }
 
     &__cart:hover .cart-dropdown {
       display: block;
+      visibility: visible;
     }
 
     &__lang {
       position: relative;
       margin-bottom: -20px;
       padding-bottom: 20px;
-
-      & > a {
-        font-size: 18px;
-        color: #ffffff;
-      }
-
-      @media (max-width: 768px) {
-        & > a {
-          font-size: 16px;
-        }
-      }
     }
 
-    &__lang:hover .lang-dropdown {
-      display: block;
+    &__text {
+      font-size: 16px;
+      color: #ffffff;
+
+      @include screen-tb() {
+        font-size: 18px;
+      }
     }
 
     &__icon {
@@ -287,104 +321,37 @@ h6 {
         margin-right: 6px;
       }
     }
-
-    & .cart-dropdown {
-      display: none;
-      position: absolute;
-      top: 50px;
-      left: -100px;
-      width: 255px;
-      padding: 20px 40px;
-      background: #ffffff;
-      border-radius: 0px 0px 4px 4px;
-      box-shadow: 0px 4px 10px rgba(55, 63, 72, 0.05);
-      text-align: center;
-      transition: 0.5s ease all;
-      z-index: 10;
-
-      &::before {
-        content: "";
-        position: absolute;
-        top: -15px;
-        left: 113px;
-        width: 0;
-        height: 0;
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-bottom: 15px solid $color2;
-      }
-
-      &__title {
-        margin-bottom: 16px;
-        color: $color1;
-      }
-
-      &__price {
-        margin-bottom: 12px;
-        font-size: 18px;
-        font-weight: 900;
-        color: $color1;
-      }
-
-      &__btn {
-        max-width: 140px;
-        width: 100%;
-        margin: 0px auto 20px;
-        padding: 8px 30px;
-        background: $color2;
-        border-radius: 4px;
-        font-size: 16px;
-        font-weight: 700;
-        color: #ffffff;
-      }
-
-      &__link {
-        color: $color1;
-      }
-    }
-
-    & .lang-dropdown {
-      display: none;
-      position: absolute;
-      top: 40px;
-      left: 40px;
-
-      &__link {
-        font-size: 18px;
-        color: #ffffff;
-      }
-    }
   }
 
   &-hamburger {
+    display: block;
+    visibility: visible;
     position: relative;
-    display: none;
     width: 27px;
     height: 18px;
-    cursor: pointer;
     background: $color1;
-    z-index: 5;
+    margin-right: 10px;
+    cursor: pointer;
 
     &__btn {
       width: 100%;
       height: 2px;
-      background-color: $color2;
-      transform: translate(0%, -50%);
       position: absolute;
       top: 50%;
       left: 0;
+      transform: translate(0%, -50%);
+      background-color: $color2;
       border-radius: 2px;
     }
 
     &::after,
     &::before {
       content: "";
-      position: absolute;
       width: 100%;
       height: 2px;
-      background: $color2;
+      position: absolute;
       left: 0;
-      border-radius: 2px;
+      background: $color2;
     }
 
     &::after {
@@ -404,294 +371,123 @@ h6 {
     }
 
     &.active::after {
-      transform: rotate(45deg) translate(-7px, -3px);
+      transform: rotate(45deg) translate(-8px, -3px);
     }
 
-    @media (max-width: 1024px) {
-      & {
-        display: block;
+    @include screen-l() {
+      @include hidden();
+    }
+  }
+
+  &-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 220px;
+    background: $color1;
+    padding: 15px;
+    z-index: 20;
+
+    &__background {
+      &::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 220px;
+        right: 0;
+        bottom: 0;
+        background: $color1;
+        backdrop-filter: blur(10px);
+        opacity: .5;
       }
     }
-    @media (max-width: 768px) {
-      & {
-        margin-right: 10px;
-      }
-    }
+  }
+
+  &-aside-navigation {
+    margin-top: 45px;
   }
 }
 
-// ANCHOR Aside navigation container
+// ANCHOR Footer
 
-.aside-navigation {
-  font-weight: 700;
+.footer {
+  padding: 55px 0px;
+  background: $color1;
 
-  &__header {
-    color: $color2;
+  @include screen-tb() {
+    padding: 50px 0px;
   }
 
-  &__list {
-    @include flexbox();
+  @include screen-l() {
+    padding: 80px 0px 70px;
+  }
+
+  &-inner {
+    display: flex;
     flex-direction: column;
-    margin-top: 36px;
-  }
+    justify-content: space-around;
+    align-items: center;
 
-  &__link {
-    margin-top: 35px;
-    font-size: 14px;
-    line-height: 19px;
-    color: #ffffff;
-
-    &:first-child {
-      margin-top: 0;
-    }
-
-    &--dark {
-      margin-top: 35px;
-      font-size: 14px;
-      line-height: 19px;
-      color: $color1;
-
-      &:first-child {
-        margin-top: 0;
-      }
+    @include screen-tb() {
+      flex-direction: row;
     }
   }
 
-  &__download {
-    display: inline-block;
-    margin-top: 55px;
-    font-size: 14px;
-    color: $color2;
-  }
-}
-
-// ANCHOR Carousel container
-
-.carousel {
-  &-top {
-    @include flexbox();
-    justify-content: space-between;
-  }
-
-  &__title {
-    font-size: 24px;
-    font-weight: 900;
-  }
-
-  &__navigation {
-  }
-
-  &__step {
-    min-width: 50px;
-    padding: 10px 15px;
-    margin-left: 30px;
-    border-radius: 4px;
-    background: $color2;
+  &-block {
+    width: 220px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-self: center;
+    margin: 0px 0px 40px;
 
     &:last-child {
-      margin-right: 0;
+      margin-bottom: 0;
+    }
+
+    @include screen-tb() {
+      flex-direction: column;
+      align-items: flex-start;
+      align-self: flex-start;
+      margin: 0px;
+    }
+
+    @include screen-l() {
+      &:first-child {
+        width: 320px;
+      }
     }
   }
 
-  &-items {
-    @include flexbox();
-    justify-content: space-between;
-  }
-}
+  &-item {
+    margin: 0px 20px 0px 0px;
 
-// ANCHOR Form
-
-.form {
-  .input-field {
-    position: relative;
-
-    .input {
-      border: 1px solid $color1;
-      font-size: 18px;
-      color: $color1;
+    @include screen-tb() {
+      margin: 0px;
     }
 
-    .label {
-      color: $color4;
-      font-size: 18px;
+    &__title {
+      @include hidden();
+      font-size: 16px;
+      line-height: 22px;
+      color: $color2;
 
-      @media (max-width: 1024px) {
-        font-size: 16px;
+      @include screen-tb() {
+        display: inline-block;
+        visibility: visible;
       }
     }
 
-    .textarea {
-      border: 1px solid $color1;
-      font-size: 18px;
-      color: $color1;
-      resize: none;
+    &__text {
+      margin: 0px;
+      line-height: 22px;
+      color: #ffffff;
+
+      @include screen-tb() {
+        margin: 12px 0px 0px;
+      }
     }
-  }
-      
-  .required {
-    font-size: 18px;
-    color: $color4;
-    
-      &::before {
-      content: "* ";
-      font-size: 18px;
-      color: $color2;
-    }
-
-    @media (max-width: 1024px) {
-      font-size: 16px;
-    }
-  }
-}
-
-// ANCHOR Buttons
-
-.btn-sent {
-  font-size: 20px;
-  font-weight: 900;
-  border-radius: 4px;
-  color: #ffffff;
-  
-  @media (max-width: 1024px) {
-    font-size: 18px;
-  }
-  
-  @media (max-width: 767px) {
-    font-size: 16px;
-  }
-}
-.btn-green {}
-
-.btn-orange {
-  border: 2px solid $color2;
-  background: $color2;
-}
-// ANCHOR Product items
-
-.product-item {
-  width: 28%;
-  min-width: 290px;
-  margin: 0px 20px 40px;
-  padding: 27px 0px 30px;
-  border: 1px solid $color1;
-}
-
-.product-link {
-  @include flexbox();
-  flex-direction: column;
-  align-items: center;
-}
-
-.product__title {
-  margin-bottom: 15px;
-  font-size: 18px;
-  font-weight: 700;
-  color: $color1;
-}
-
-.product-image-wrapper {
-  position: relative;
-  width: 50%;
-  height: 120px;
-  margin-bottom: 20px;
-}
-
-.product__image {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.product__size {
-  margin-bottom: 10px;
-  padding: 0px 65px 10px;
-  border-bottom: 1px solid $color2;
-  font-size: 18px;
-  font-weight: 400;
-  color: $color1;
-}
-
-.product__price {
-  margin-bottom: 30px;
-  font-size: 18px;
-  font-weight: 700;
-  color: $color1;
-}
-
-.product-order {
-  width: 100%;
-  position: relative;
-  @include flexbox();
-  align-items: center;
-  border-top: 1px solid $color2;
-  border-bottom: 1px solid $color2;
-}
-
-.product__btn--remove {
-  padding: 7px 16px 7px 27px;
-  background: #ffffff;
-  border-right: 1px solid $color2;
-}
-
-.product__count {
-  max-width: 89px;
-  padding: 6px 0px;
-  font-size: 14px;
-  font-weight: 900;
-  text-align: center;
-
-  &::-webkit-inner-spin-button,
-  &::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-}
-
-.product__btn--add {
-  padding: 7px 0px 7px 20px;
-  background: #ffffff;
-  border-left: 1px solid $color2;
-}
-
-.product__cart {
-  position: absolute;
-  left: 70%;
-  padding: 10px 15px;
-  background: $color2;
-  box-shadow: 0px 2px 5px rgba(55, 63, 72, 0.2);
-  border-radius: 4px;
-}
-
-// ANCHOR Input count product
-
-.calc {
-  @include flexbox();
-  justify-content: center;
-  align-items: center;
-  background: #ffffff;
-  border: 1px solid $color1;
-
-  &__remove {
-    background: #ffffff;
-    border-right: 1px solid $color1;
-  }
-
-  &__count {
-    font-size: 14px;
-    font-weight: 900;
-    text-align: center;
-
-    &::-webkit-inner-spin-button,
-    &::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-  }
-
-  &__add {
-    background: #ffffff;
-    border-left: 1px solid $color1;
   }
 }
 
@@ -714,7 +510,7 @@ h6 {
   }
 
   &-inner {
-    @include flexbox();
+    display: flex;
     justify-content: space-between;
     align-items: center;
   }
@@ -724,7 +520,7 @@ h6 {
     margin-right: 15px;
 
     @media (max-width: 1024px) {
-      width: 40%;  
+      width: 40%;
     }
 
     @media (max-width: 767px) {
@@ -735,11 +531,11 @@ h6 {
   &-carousel {
     position: relative;
     width: 75%;
-    @include flexbox();
+    display: flex;
     flex-flow: column nowrap;
 
     @media (max-width: 1024px) {
-      width: 60%;  
+      width: 60%;
     }
 
     @media (max-width: 767px) {
@@ -772,7 +568,7 @@ h6 {
           width: 280px;
           font-size: 30px;
         }
-        
+
         @media (max-width: 767px) {
           width: 100%;
           font-size: 24px;
@@ -801,7 +597,7 @@ h6 {
       @media (max-width: 1024px) {
         margin-top: 115px;
       }
-      
+
       @media (max-width: 767px) {
         align-self: center;
         margin-top: 65px;
@@ -855,7 +651,7 @@ h6 {
       }
 
       &__image {
-        
+
         &--top {
           position: relative;
           z-index: 10;
@@ -870,11 +666,12 @@ h6 {
           left: 18%;
           width: 20vw;
         }
-        
+
         @media (min-width: 1440px) {
           &--top {
             width: 15vw;
           }
+
           &--bottom {
             width: 20vw;
           }
@@ -884,6 +681,7 @@ h6 {
           &--top {
             width: 18vw;
           }
+
           &--bottom {
             width: 23vw;
           }
@@ -893,6 +691,7 @@ h6 {
           &--top {
             width: 25vw;
           }
+
           &--bottom {
             width: 33vw;
           }
@@ -902,6 +701,7 @@ h6 {
           &--top {
             width: 40vw;
           }
+
           &--bottom {
             width: 53vw;
           }
@@ -909,14 +709,15 @@ h6 {
       }
     }
   }
-}    
+}
+
 // ANCHOR Popular section main page
 
 .popular {
   padding: 50px 0px 90px;
 
   &-inner {
-    @include flexbox();
+    display: flex;
     justify-content: space-between;
   }
 
@@ -956,10 +757,11 @@ h6 {
   padding: 62px 0px 70px 0px;
 
   &-inner {
-    @include flexbox();
+    display: flex;
     justify-content: space-around;
     align-items: center;
     text-align: center;
+
     @media (max-width: 767px) {
       flex-direction: column;
     }
@@ -968,6 +770,7 @@ h6 {
   &__item {
     @media (max-width: 767px) {
       margin-bottom: 60px;
+
       &:last-child {
         margin-bottom: 0;
       }
@@ -1018,6 +821,7 @@ h6 {
     @media (max-width: 1024px) {
       font-size: 30px;
     }
+
     @media (max-width: 767px) {
       font-size: 24px;
     }
@@ -1045,7 +849,7 @@ h6 {
     width: 100%;
     padding: 15px 25px;
 
-    &:focus + label {
+    &:focus+label {
       visibility: hidden;
     }
   }
@@ -1076,7 +880,7 @@ h6 {
     min-height: 150px;
     padding: 15px 25px;
 
-    &:focus + label {
+    &:focus+label {
       visibility: hidden;
     }
   }
@@ -1103,7 +907,7 @@ h6 {
   @media (max-width: 767px) {
     background: none;
   }
-  
+
   &-inner {
     max-width: 1090px;
     width: 100%;
@@ -1114,7 +918,7 @@ h6 {
   &-background {
     width: 100%;
     height: 95px;
-    background:  linear-gradient(180deg, rgba(55, 63, 72, 0.71) 0%, rgba(55, 63, 72, 0) 100%), url(/images/background-top.png);
+    background: linear-gradient(180deg, rgba(55, 63, 72, 0.71) 0%, rgba(55, 63, 72, 0) 100%), url(/images/background-top.png);
   }
 
   &-description {
@@ -1130,14 +934,14 @@ h6 {
     top: -15%;
     right: 0;
 
-      @media (max-width: 1024px) {
-        top: -25%;
-      }
-      
-      @media (max-width: 767px) {
-        position: relative;
-        margin: 0px auto;
-      }
+    @media (max-width: 1024px) {
+      top: -25%;
+    }
+
+    @media (max-width: 767px) {
+      position: relative;
+      margin: 0px auto;
+    }
   }
 
   &__title {
@@ -1150,11 +954,12 @@ h6 {
     @media (max-width: 1024px) {
       font-size: 28px;
     }
+
     @media (max-width: 767px) {
       font-size: 24px;
     }
   }
-  
+
   &__text {
     margin-bottom: 45px;
     font-size: 22px;
@@ -1165,6 +970,7 @@ h6 {
     @media (max-width: 1024px) {
       font-size: 18px;
     }
+
     @media (max-width: 767px) {
       font-size: 16px;
     }
@@ -1220,7 +1026,7 @@ h6 {
     @media (max-width: 1024px) {
       font-size: 16px;
     }
-  
+
     &-item {
       counter-increment: counter-list;
       margin-bottom: 20px;
@@ -1235,9 +1041,10 @@ h6 {
         font-size: 24px;
         font-weight: 900;
         color: $color2;
-          @media (max-width: 1024px) {
-            font-size: 20px;
-          }
+
+        @media (max-width: 1024px) {
+          font-size: 20px;
+        }
       }
     }
   }
@@ -1262,7 +1069,7 @@ h6 {
     background-color: #ffffff;
     border-radius: 4px;
     box-shadow: 0px 4px 20px rgba(55, 63, 72, 0.15);
-    
+
     @media (max-width: 767px) {
       max-width: 165px;
       margin-bottom: 45px;
@@ -1272,11 +1079,11 @@ h6 {
     }
 
     &-wrapper {
-      @include flexbox();
+      display: flex;
       flex-direction: column;
 
       &-image {
-        @include flexbox();
+        display: flex;
         justify-content: space-between;
 
         @media (max-width: 767px) {
@@ -1295,7 +1102,7 @@ h6 {
       text-align: center;
       border: 2px solid $color1;
       border-radius: 4px;
-      
+
       @media (max-width: 767px) {
         margin-top: 0;
       }
@@ -1307,14 +1114,14 @@ h6 {
 
 .catalogue {
   &-inner {
-    @include flexbox();
+    display: flex;
     justify-content: space-between;
     padding: 70px 0px;
   }
 
   &-aside {
     width: 17%;
-    
+
     @media (max-width: 1024px) {
       display: none;
     }
@@ -1324,8 +1131,7 @@ h6 {
     margin-bottom: 76px;
   }
 
-  &-aside-popular {
-  }
+  &-aside-popular {}
 
   /* Aside popular container */
 
@@ -1335,15 +1141,14 @@ h6 {
       font-weight: 700;
     }
 
-    &-content {
-    }
+    &-content {}
 
     &-item {
       margin-bottom: 20px;
     }
 
     &__link {
-      @include flexbox();
+      display: flex;
       align-items: center;
     }
 
@@ -1391,7 +1196,7 @@ h6 {
   }
 
   &-top {
-    @include flexbox();
+    display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 40px;
@@ -1407,7 +1212,7 @@ h6 {
       color: $color1;
 
       @media (max-width: 1024px) {
-        font-size: 20px;  
+        font-size: 20px;
       }
 
       @media (max-width: 767px) {
@@ -1436,7 +1241,7 @@ h6 {
   }
 
   &-items {
-    @include flexbox();
+    display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     margin: 20px -20px 20px;
@@ -1450,13 +1255,13 @@ h6 {
 
   &-pagination {
     &-wrapper {
-      @include flexbox();
+      display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
     &__btn {
-      @include flexbox();
+      display: flex;
       justify-content: center;
       align-items: center;
       max-width: 445px;
@@ -1474,8 +1279,7 @@ h6 {
       margin-right: 15px;
     }
 
-    &-pages {
-    }
+    &-pages {}
 
     &__link {
       margin: 0px 20px;
@@ -1521,7 +1325,7 @@ h6 {
   }
 
   &-breadcrumbs {
-    @include flexbox();
+    display: flex;
     margin-bottom: 46px;
   }
 
@@ -1543,7 +1347,7 @@ h6 {
   }
 
   &-main {
-    @include flexbox();
+    display: flex;
     justify-content: space-between;
     align-items: center;
     max-width: 1290px;
@@ -1551,14 +1355,14 @@ h6 {
   }
 
   &-gallery {
-    @include flexbox();
+    display: flex;
     align-items: flex-start;
     width: 60%;
     margin-right: 50px;
 
     .gallery {
       &-small {
-        @include flexbox();
+        display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
@@ -1590,8 +1394,7 @@ h6 {
 
     @media (max-width: 1024px) {
       & {
-        &_large {
-        }
+        &_large {}
       }
     }
   }
@@ -1761,8 +1564,7 @@ h6 {
   align-items: center;
   flex-wrap: wrap;
 
-  &.active {
-  }
+  &.active {}
 
   &-wrapper {
     position: relative;
@@ -1774,7 +1576,7 @@ h6 {
   }
 
   &-top {
-    @include flexbox();
+    display: flex;
     justify-content: space-between;
     align-items: center;
     background: $color3;
@@ -1794,7 +1596,7 @@ h6 {
   }
 
   &-description {
-    @include flexbox();
+    display: flex;
     justify-content: flex-end;
     align-items: baseline;
     margin-bottom: 5px;
@@ -1810,7 +1612,7 @@ h6 {
   }
 
   &-item {
-    @include flexbox();
+    display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 22px 30px;
@@ -1845,7 +1647,7 @@ h6 {
     }
 
     &__link {
-      @include flexbox();
+      display: flex;
       flex-direction: column;
 
       &--title {
@@ -1894,7 +1696,7 @@ h6 {
   }
 
   &-bottom {
-    @include flexbox();
+    display: flex;
     justify-content: space-around;
     align-items: center;
     margin: 42px 0px;
@@ -1952,7 +1754,7 @@ h6 {
   padding: 60px 0px 100px;
 
   &-inner {
-    @include flexbox();
+    display: flex;
     justify-content: space-between;
     align-items: center;
   }
@@ -1977,8 +1779,7 @@ h6 {
     }
   }
 
-  &-form {
-  }
+  &-form {}
 
   &-field {
     position: relative;
@@ -1993,7 +1794,7 @@ h6 {
     width: 100%;
     padding: 15px 25px;
 
-    &:focus + label {
+    &:focus+label {
       visibility: hidden;
     }
   }
@@ -2024,7 +1825,7 @@ h6 {
     min-height: 150px;
     padding: 15px 25px;
 
-    &:focus + label {
+    &:focus+label {
       visibility: hidden;
     }
   }
@@ -2084,7 +1885,7 @@ h6 {
   }
 
   &-total {
-    @include flexbox();
+    display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 45px;
@@ -2116,7 +1917,7 @@ h6 {
 
   &-list {
     &__item {
-      @include flexbox();
+      display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 37px;
@@ -2159,207 +1960,467 @@ h6 {
 .location {
   position: relative;
 
-  &-top {
+  &-wrapper {
+    background: $color1;
+  }
+
+  &-info {
     max-width: 1290px;
     width: 100%;
     margin: 0px auto;
-    @include flexbox();
+    display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: flex-start;
-    padding: 80px 20px 220px;
+    align-items: center;
+    padding: 35px 0px;
+    margin: 0px auto 40px;
 
-    @media (max-width: 1024px) {
-      & {
-        padding: 80px 20px;
-        margin-bottom: 40px;
-      }
+    @include screen-tb() {
+      flex-direction: row;
+      align-items: flex-start;
+      padding: 80px 20px;
     }
-    
-    @media (max-width: 767px) {
-      & {
+
+    @include screen-l() {
+      padding: 80px 20px 220px;
+    }
+
+    &__block {
+      max-width: 220px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      margin: 0px 0px 40px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      @include screen-tb() {
         flex-direction: column;
-        align-items: center;
-        padding: 35px 0px;
+        margin: 0px;
       }
-    }
 
-    &-wrapper {
-      background: $color1;
+      @include screen-l() {
+        &:first-child {
+          max-width: 360px;
+          width: 100%;
+        }
+      }
+
     }
 
     &__item {
-      @media (max-width: 1024px) {
-        &:first-child {
-          max-width: 220px;
-          width: 100%;
-        }
+      flex-direction: column;
+      margin: 0px 20px 0px 0px;
+      font-size: 16px;
+      line-height: 21px;
+      color: $color2;
+
+      @include screen-tb() {
+        margin: 0px 0px 10px 0px;
       }
 
-      @media (max-width: 767px) {
-        & {
-          @include flexbox();
-          flex-direction: row;
-          align-items: flex-start;
-          max-width: 220px;
-          width: 100%;
-          margin-bottom: 40px;
-          &:last-child {
-            margin-bottom: 0;
-          }
-        }
+      @include screen-l() {
+        font-size: 18px;
       }
     }
 
     &__title {
-      margin-bottom: 10px;
-      flex-direction: column;
-      font-size: 18px;
-      line-height: 21px;
-      color: $color2;
+      @include hidden();
 
-      @media (max-width: 1024px) {
-        font-size: 16px;
-      }
-
-      @media (max-width: 767px) {
-        & {
-          margin-right: 20px;
-        }
-        & > span {
-          display: none;
-        }
+      @include screen-tb() {
+        display: inline-block;
+        visibility: visible;
       }
     }
 
     &__text {
-      font-size: 18px;
+      font-size: 16px;
       line-height: 21px;
       color: #ffffff;
 
-      @media (max-width: 1024px) {
-        font-size: 16px;
+      @include screen-l() {
+        font-size: 18px;
       }
     }
   }
 
   &-map {
-    position: absolute;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, 0%);
     max-width: 1290px;
     width: 100%;
+    position: relative;
     padding: 0px 20px;
     margin: 0px auto;
 
+    @include screen-tb() {
+      margin-bottom: 265px;
+    }
+
+    @include screen-l() {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, 0%);
+    }
+
     &__title {
-      margin-bottom: 30px;
-      font-size: 22px;
+      margin: 0px 0px 30px 0px;
+      font-size: 20px;
       color: $color2;
 
-      @media (max-width: 1024px) {
-        font-size: 20px;
+      @include screen-l() {
+        font-size: 22px;
       }
     }
 
     &__item {
-      overflow: hidden;
       width: 100%;
+      margin-bottom: 82px;
       box-shadow: 0px 4px 20px rgba(55, 63, 72, 0.2);
-    }
-
-    @media (max-width: 1024px) {
-      & {
-        position: relative;
-        margin-bottom: 265px;
-      }
-    }
-    @media (max-width: 767px) {
-      & {
-        margin-bottom: 82px;
-      }
+      overflow: hidden;
     }
   }
 }
 
-// ANCHOR Footer
+// ANCHOR Cart dropdown
 
-.footer {
-  padding: 80px 0px 70px;
-  background: $color1;
+.cart-dropdown {
+  @include hidden();
+  position: absolute;
+  top: 50px;
+  left: -100px;
+  width: 255px;
+  padding: 20px 40px;
+  background: #ffffff;
+  border-radius: 0px 0px 4px 4px;
+  box-shadow: 0px 4px 10px rgba(55, 63, 72, 0.05);
+  text-align: center;
+  transition: 0.5s ease all;
+  z-index: 10;
 
-  @media (max-width: 1024px) {
-    padding: 50px 0px;      
+  &::before {
+    content: "";
+    position: absolute;
+    top: -15px;
+    left: 113px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 15px solid $color2;
   }
 
-  @media (max-width: 767px) {
-    padding: 55px 0px;      
+  &__title {
+    margin-bottom: 16px;
+    color: $color1;
   }
 
-  &-inner {
-    @include flexbox();
-    justify-content: space-around;
-    align-items: center;
+  &__price {
+    margin-bottom: 12px;
+    font-size: 18px;
+    font-weight: 900;
+    color: $color1;
+  }
 
-    @media (max-width: 767px) {
-      flex-direction: column;
-      align-items: center;
+  &__btn {
+    max-width: 140px;
+    width: 100%;
+    margin: 0px auto 20px;
+    padding: 8px 30px;
+    background: $color2;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  &__link {
+    color: $color1;
+  }
+}
+
+// ANCHOR Aside navigation container
+
+.aside-navigation {
+  font-weight: 700;
+
+  &__header {
+    color: $color2;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 36px;
+  }
+
+  &__link {
+    margin-top: 35px;
+    font-size: 14px;
+    line-height: 19px;
+    color: #ffffff;
+
+    &:first-child {
+      margin-top: 0;
     }
-  }
 
-  &-item {
-    line-height: 22px;
+    &--dark {
+      margin-top: 35px;
+      font-size: 14px;
+      line-height: 19px;
+      color: $color1;
 
-    @media (max-width: 1024px) {
-      align-self: flex-start;
       &:first-child {
-        width: 165px;
-      }
-    }
-
-    @media (max-width: 767px) {
-      @include flexbox();
-      flex-direction: row;
-      align-self: center;
-      align-items: center;
-      margin-bottom: 40px;
-      width: 220px;
-
-      &:first-child {
-        width: 220px;
-      }
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
-
-    &__title {
-      margin-bottom: 12px;
-      color: $color2;
-      
-      @media (max-width: 1024px) {
-        font-size: 16px;
-      }
-
-      @media (max-width: 767px) {
-        & {
-          margin-right: 20px;
-          margin-bottom: 0;
-        }
-        & > span {
-          display: none;
-        }
-      }
-    }
-
-    &__text {
-      margin-top: 12px;
-      color: #ffffff;
-
-      @media (max-width: 767px) {
         margin-top: 0;
       }
     }
+
+    &--header {
+      margin-top: 25px;
+      font-size: 14px;
+      line-height: 19px;
+      color: #ffffff;
+    }
+  }
+
+  &__download {
+    display: inline-block;
+    margin-top: 55px;
+    font-size: 14px;
+    color: $color2;
+  }
+}
+
+// ANCHOR Carousel container
+
+.carousel {
+  &-top {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__title {
+    font-size: 24px;
+    font-weight: 900;
+  }
+
+  &__navigation {}
+
+  &__step {
+    min-width: 50px;
+    padding: 10px 15px;
+    margin-left: 30px;
+    border-radius: 4px;
+    background: $color2;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &-items {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+// ANCHOR Form
+
+.form {
+  .input-field {
+    position: relative;
+
+    .input {
+      border: 1px solid $color1;
+      font-size: 18px;
+      color: $color1;
+    }
+
+    .label {
+      color: $color4;
+      font-size: 18px;
+
+      @media (max-width: 1024px) {
+        font-size: 16px;
+      }
+    }
+
+    .textarea {
+      border: 1px solid $color1;
+      font-size: 18px;
+      color: $color1;
+      resize: none;
+    }
+  }
+
+  .required {
+    font-size: 18px;
+    color: $color4;
+
+    &::before {
+      content: "* ";
+      font-size: 18px;
+      color: $color2;
+    }
+
+    @media (max-width: 1024px) {
+      font-size: 16px;
+    }
+  }
+}
+
+// ANCHOR Buttons
+
+.btn-sent {
+  font-size: 20px;
+  font-weight: 900;
+  border-radius: 4px;
+  color: #ffffff;
+
+  @media (max-width: 1024px) {
+    font-size: 18px;
+  }
+
+  @media (max-width: 767px) {
+    font-size: 16px;
+  }
+}
+
+.btn-green {}
+
+.btn-orange {
+  border: 2px solid $color2;
+  background: $color2;
+}
+
+// ANCHOR Product items
+
+.product-item {
+  width: 28%;
+  min-width: 290px;
+  margin: 0px 20px 40px;
+  padding: 27px 0px 30px;
+  border: 1px solid $color1;
+}
+
+.product-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product__title {
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 700;
+  color: $color1;
+}
+
+.product-image-wrapper {
+  position: relative;
+  width: 50%;
+  height: 120px;
+  margin-bottom: 20px;
+}
+
+.product__image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.product__size {
+  margin-bottom: 10px;
+  padding: 0px 65px 10px;
+  border-bottom: 1px solid $color2;
+  font-size: 18px;
+  font-weight: 400;
+  color: $color1;
+}
+
+.product__price {
+  margin-bottom: 30px;
+  font-size: 18px;
+  font-weight: 700;
+  color: $color1;
+}
+
+.product-order {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid $color2;
+  border-bottom: 1px solid $color2;
+}
+
+.product__btn--remove {
+  padding: 7px 16px 7px 27px;
+  background: #ffffff;
+  border-right: 1px solid $color2;
+}
+
+.product__count {
+  max-width: 89px;
+  padding: 6px 0px;
+  font-size: 14px;
+  font-weight: 900;
+  text-align: center;
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+.product__btn--add {
+  padding: 7px 0px 7px 20px;
+  background: #ffffff;
+  border-left: 1px solid $color2;
+}
+
+.product__cart {
+  position: absolute;
+  left: 70%;
+  padding: 10px 15px;
+  background: $color2;
+  box-shadow: 0px 2px 5px rgba(55, 63, 72, 0.2);
+  border-radius: 4px;
+}
+
+// ANCHOR Input count product
+
+.calc {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid $color1;
+
+  &__remove {
+    background: #ffffff;
+    border-right: 1px solid $color1;
+  }
+
+  &__count {
+    font-size: 14px;
+    font-weight: 900;
+    text-align: center;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+
+  &__add {
+    background: #ffffff;
+    border-left: 1px solid $color1;
   }
 }
 

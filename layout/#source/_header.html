@@ -1,45 +1,72 @@
 <header class="header">
     <div class="container">
         <div class="header-inner">
-            <button class="header-hamburger">
+            <button class="header-hamburger active">
                 <span class="header-hamburger__btn"></span>
             </button>
-            <a href="index.html" class="header__logo">
-                <svg class="icon icon-logo is-desktop">
+            <div class="header-menu">
+                <span class="header-menu__background"></span>
+                <div class="aside-navigation header-aside-navigation">
+                    <h2 class="aside-navigation__header">
+                        Види продукції
+                    </h2>
+                    <div class="aside-navigation__list">
+                        <a href="#" class="aside-navigation__link--header">Фасадний камінь</a>
+                        <a href="#" class="aside-navigation__link--header">Тротуарна плитка</a>
+                        <a href="#" class="aside-navigation__link--header">Дорожні блоки та плити</a>
+                        <a href="#" class="aside-navigation__link--header">Бордюр та водостоки</a>
+                        <a href="#" class="aside-navigation__link--header">Кришки для стовпів</a>
+                        <a href="#" class="aside-navigation__link--header">Кришки для стовпів</a>
+                        <a href="#" class="aside-navigation__link--header">Євроогорожі</a>
+                        <a href="#" class="aside-navigation__link--header">Садовий декор</a>
+                    </div>
+                    <a href="#" class="aside-navigation__download">
+                        Каталог
+                        <svg class="icon icon-download">
+                            <use href="images/icons/sprite.svg#download"></use>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <a href="./index.html" class="header-logo">
+                <svg class="icon icon-logo isDesktop">
                     <use href="images/icons/sprite.svg#logo"></use>
                 </svg>
-                <svg class="icon icon-logo--mobile is-mobile">
+                <svg class="icon icon-logo--mobile isMobile">
                     <use href="images/icons/sprite.svg#logo-mobile"></use>
                 </svg>
             </a>
+
             <nav class="header-navigation">
-                <a href="about-us.html" class="header-navigation__link">Про нас</a>
-                <a href="catalogue.html" class="header-navigation__link">Види продукції</a>
+                <a href="./about-us.html" class="header-navigation__link">Про нас</a>
+                <a href="./catalogue.html" class="header-navigation__link">Види продукції</a>
             </nav>
+
             <div class="header-info">
-                <a href="#" class="header-info__link">
+                <a href="tel:+380636666666" class="header-info__link">
                     <svg class="icon icon-phone">
                         <use href="images/icons/sprite.svg#phone"></use>
                     </svg>
-                    <span>
+                    <span class="header-info__phone">
                         +380636666666
                     </span>
                 </a>
-                <a href="location.html" class="header-info__link">
+                <a href="./location.html" class="header-info__link">
                     <svg class="icon icon-location--header">
                         <use href="images/icons/sprite.svg#location"></use>
                     </svg>
-                    <span>
+                    <span class="header-info__location">
                         Великий Березний вул. Верховинська, 10
                     </span>
                 </a>
             </div>
-            <div class="header-actions">
-                <div href="#" class="header-actions__cart">
-                    <svg class="icon icon-cart header-actions__icon">
+
+            <div class="header-action">
+                <div href="#" class="header-action__cart">
+                    <svg class="icon icon-cart header-action__icon">
                         <use href="images/icons/sprite.svg#shopping-cart"></use>
                     </svg>
-                    <span>(0)</span>
+                    <span class="header-action__text">(0)</span>
 
                     <div class="cart-dropdown">
                         <h3 class="cart-dropdown__title">В кошику 1 товар на суму:</h3>
@@ -54,17 +81,14 @@
                     </div>
                 </div>
             
-                <div href="#" class="header-actions__lang">
-                    <svg class="icon icon-lang header-actions__icon">
+                <div href="#" class="header-action__lang">
+                    <svg class="icon icon-lang header-action__icon">
                         <use href="images/icons/sprite.svg#language"></use>
                     </svg>
-                    <a href="/uk">Uk</a>
-
-                    <div class="lang-dropdown">
-                        <a href="/sk" class="lang-dropdown__link">Sk</a>
-                    </div>
+                    <a href="#" class="header-action__text">Uk</a>
                 </div>
             </div>
+
         </div>
     </div>
 </header>
