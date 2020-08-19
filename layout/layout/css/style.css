@@ -271,6 +271,7 @@ h6 {
   position: absolute;
   left: 0;
   background: #ff8e01;
+  border-radius: 2px;
 }
 
 .header-hamburger::after {
@@ -281,17 +282,17 @@ h6 {
   top: 0;
 }
 
-.header-hamburger.active .header-hamburger__btn {
+.header-hamburger.isMobile .header-hamburger__btn {
   opacity: 0;
 }
 
-.header-hamburger.active::before {
+.header-hamburger.isMobile::before {
   -webkit-transform: rotate(-45deg) translate(-8px, 3px);
       -ms-transform: rotate(-45deg) translate(-8px, 3px);
           transform: rotate(-45deg) translate(-8px, 3px);
 }
 
-.header-hamburger.active::after {
+.header-hamburger.isMobile::after {
   -webkit-transform: rotate(45deg) translate(-8px, -3px);
       -ms-transform: rotate(45deg) translate(-8px, -3px);
           transform: rotate(45deg) translate(-8px, -3px);
@@ -300,7 +301,7 @@ h6 {
 .header-menu {
   position: fixed;
   top: 0;
-  left: 0;
+  left: -220px;
   bottom: 0;
   width: 220px;
   background: #373f48;
@@ -312,7 +313,7 @@ h6 {
   content: '';
   position: fixed;
   top: 0;
-  left: 220px;
+  left: 100%;
   right: 0;
   bottom: 0;
   background: #373f48;
@@ -1782,25 +1783,25 @@ h6 {
   visibility: hidden;
   position: absolute;
   top: 50px;
-  left: -100px;
+  left: -125px;
   width: 255px;
   padding: 20px 40px;
   background: #ffffff;
-  border-radius: 0px 0px 4px 4px;
+  border-radius: 4px;
   -webkit-box-shadow: 0px 4px 10px rgba(55, 63, 72, 0.05);
           box-shadow: 0px 4px 10px rgba(55, 63, 72, 0.05);
   text-align: center;
-  -webkit-transition: 0.5s ease all;
-  -o-transition: 0.5s ease all;
-  transition: 0.5s ease all;
-  z-index: 10;
+  -webkit-transition: all .25s;
+  -o-transition: all .25s;
+  transition: all .25s;
+  z-index: 20;
 }
 
 .cart-dropdown::before {
   content: "";
   position: absolute;
   top: -15px;
-  left: 113px;
+  left: 125px;
   width: 0;
   height: 0;
   border-left: 10px solid transparent;
@@ -1875,13 +1876,6 @@ h6 {
 
 .aside-navigation__link--dark:first-child {
   margin-top: 0;
-}
-
-.aside-navigation__link--header {
-  margin-top: 25px;
-  font-size: 14px;
-  line-height: 19px;
-  color: #ffffff;
 }
 
 .aside-navigation__download {
