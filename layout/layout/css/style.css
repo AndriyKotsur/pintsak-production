@@ -105,13 +105,15 @@ h6 {
   font-size: inherit;
 }
 
-/* Container */
-
 .container {
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
   padding: 0 20px;
+}
+
+.body.isMobile {
+  overflow: hidden;
 }
 
 .header {
@@ -162,7 +164,25 @@ h6 {
 }
 
 .header-navigation__link:last-child {
-  margin-right: 0;
+  margin: 0px;
+}
+
+.header-navigation.isMobile {
+  display: block;
+  visibility: visible;
+  position: fixed;
+  top: 70px;
+  z-index: 20;
+}
+
+.header-navigation.isMobile > .header-navigation__link {
+  margin: 0px;
+  color: #ff8e01;
+}
+
+.header-navigation.isMobile > .header-navigation__link:last-child {
+  display: none;
+  visibility: hidden;
 }
 
 .header-info {
@@ -215,7 +235,7 @@ h6 {
 .header-action__cart {
   position: relative;
   margin: 0px 30px -25px 0px;
-  padding-bottom: 25px;
+  padding: 0px 0px 25px;
   color: #ffffff;
 }
 
@@ -226,8 +246,8 @@ h6 {
 
 .header-action__lang {
   position: relative;
-  margin-bottom: -20px;
-  padding-bottom: 20px;
+  margin: 0px 0px -20px;
+  padding: 0px 0px 20px;
 }
 
 .header-action__text {
@@ -236,7 +256,7 @@ h6 {
 }
 
 .header-action__icon {
-  margin-right: 12px;
+  margin: 0px 12px 0px 0px;
 }
 
 .header-hamburger {
@@ -246,8 +266,14 @@ h6 {
   width: 27px;
   height: 18px;
   background: #373f48;
-  margin-right: 10px;
+  margin: 0px 10px 0px 0px;
+  z-index: 25;
   cursor: pointer;
+}
+
+.header-hamburger.isMobile {
+  display: block;
+  visibility: visible;
 }
 
 .header-hamburger__btn {
@@ -287,12 +313,16 @@ h6 {
 }
 
 .header-hamburger.isMobile::before {
-  -webkit-transform: rotate(-45deg) translate(-8px, 3px);
-      -ms-transform: rotate(-45deg) translate(-8px, 3px);
-          transform: rotate(-45deg) translate(-8px, 3px);
+  height: 3px;
+  background: #999999;
+  -webkit-transform: rotate(-45deg) translate(-8px, 2px);
+      -ms-transform: rotate(-45deg) translate(-8px, 2px);
+          transform: rotate(-45deg) translate(-8px, 2px);
 }
 
 .header-hamburger.isMobile::after {
+  height: 3px;
+  background: #999999;
   -webkit-transform: rotate(45deg) translate(-8px, -3px);
       -ms-transform: rotate(45deg) translate(-8px, -3px);
           transform: rotate(45deg) translate(-8px, -3px);
@@ -307,6 +337,17 @@ h6 {
   background: #373f48;
   padding: 15px;
   z-index: 20;
+  -webkit-transition: right .25s linear;
+  -o-transition: right .25s linear;
+  transition: right .25s linear;
+}
+
+.header-menu.isMobile {
+  left: 0;
+}
+
+.header-menu.isMobile > .header-menu__background::after {
+  left: 220px;
 }
 
 .header-menu__background::after {
@@ -316,14 +357,43 @@ h6 {
   left: 100%;
   right: 0;
   bottom: 0;
-  background: #373f48;
+  background: rgba(55, 63, 72, 0.7);
   -webkit-backdrop-filter: blur(10px);
           backdrop-filter: blur(10px);
-  opacity: .5;
+  -webkit-transition: right .25s linear;
+  -o-transition: right .25s linear;
+  transition: right .25s linear;
 }
 
-.header-aside-navigation {
-  margin-top: 45px;
+.header-menu__aside {
+  display: none;
+  visibility: hidden;
+  width: 200px;
+  position: fixed;
+  top: 110px;
+  margin: 0px;
+  z-index: 20;
+}
+
+.header-menu__aside.isMobile {
+  display: block;
+  visibility: visible;
+}
+
+.header-menu__aside > .aside-navigation__list {
+  margin: 25px 0px 0px;
+}
+
+.header-menu__aside > .aside-navigation__list > .aside-navigation__link {
+  margin: 25px 0px 0px;
+}
+
+.header-menu__aside > .aside-navigation__list > .aside-navigation__link:first-child {
+  margin: 0px;
+}
+
+.header-menu__aside > .aside-navigation__download {
+  margin: 30px 0px 0px;
 }
 
 .footer {
@@ -387,7 +457,7 @@ h6 {
 
 .presentation {
   background: #373f48;
-  padding: 120px 0px 185px;
+  padding: 40px 0px 60px;
 }
 
 .presentation-inner {
@@ -403,8 +473,8 @@ h6 {
 }
 
 .presentation-aside-navigation {
-  width: 25%;
-  margin-right: 15px;
+  display: none;
+  visibility: hidden;
 }
 
 .presentation-carousel {
@@ -419,12 +489,12 @@ h6 {
           flex-flow: column nowrap;
 }
 
-.presentation-carousel-top {
+.presentation-carousel-header {
   width: 55%;
   margin-bottom: 65px;
 }
 
-.presentation-carousel-top__title {
+.presentation-carousel-header__title {
   width: 200px;
   margin-bottom: 21px;
   font-size: 48px;
@@ -432,7 +502,7 @@ h6 {
   color: #ffffff;
 }
 
-.presentation-carousel-top__descr {
+.presentation-carousel-header__descr {
   display: inline-block;
   font-size: 24px;
   font-weight: 700;
@@ -2251,7 +2321,7 @@ h6 {
   .header-info__link:first-child {
     display: block;
     visibility: visible;
-    margin-right: 120px;
+    margin: 0px 120px 0px 0px;
   }
 
   .header-info__phone {
@@ -2298,6 +2368,17 @@ h6 {
 
   .footer-item__text {
     margin: 12px 0px 0px;
+  }
+
+  .presentation {
+    padding: 40px 0px 67px;
+  }
+
+  .presentation-aside-navigation {
+    display: block;
+    visibility: visible;
+    width: 40%;
+    margin-right: 15px;
   }
 
   .location-info {
@@ -2374,6 +2455,18 @@ h6 {
     width: 320px;
   }
 
+  .presentation {
+    padding: 120px 0px 185px;
+  }
+
+  .presentation-aside-navigation {
+    width: 25%;
+  }
+
+  .presentation-carousel {
+    width: 75%;
+  }
+
   .location-info {
     padding: 80px 20px 220px;
   }
@@ -2429,28 +2522,20 @@ h6 {
 }
 
 @media (max-width: 1024px) {
-  .presentation {
-    padding: 40px 0px 67px;
-  }
-
-  .presentation-aside-navigation {
-    width: 40%;
-  }
-
   .presentation-carousel {
     width: 60%;
   }
 
-  .presentation-carousel-top {
+  .presentation-carousel-header {
     margin-bottom: 115px;
   }
 
-  .presentation-carousel-top__title {
+  .presentation-carousel-header__title {
     width: 280px;
     font-size: 30px;
   }
 
-  .presentation-carousel-top__descr {
+  .presentation-carousel-header__descr {
     font-size: 20px;
   }
 
@@ -2550,7 +2635,7 @@ h6 {
   }
 
   .header-action__icon {
-    margin-right: 6px;
+    margin: 0px 6px 0px 0px;
   }
 
   .contact-us {
@@ -2574,14 +2659,6 @@ h6 {
 }
 
 @media (max-width: 767px) {
-  .presentation {
-    padding: 40px 0px 60px;
-  }
-
-  .presentation-aside-navigation {
-    display: none;
-  }
-
   .presentation-carousel {
     width: 100%;
     -webkit-box-align: center;
@@ -2589,18 +2666,18 @@ h6 {
             align-items: center;
   }
 
-  .presentation-carousel-top {
+  .presentation-carousel-header {
     width: 100%;
     margin-bottom: 85px;
     text-align: center;
   }
 
-  .presentation-carousel-top__title {
+  .presentation-carousel-header__title {
     width: 100%;
     font-size: 24px;
   }
 
-  .presentation-carousel-top__descr {
+  .presentation-carousel-header__descr {
     font-size: 16px;
   }
 

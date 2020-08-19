@@ -1,7 +1,7 @@
 /* Mixins */
 
 @mixin screen-sm {
-  @media only screen and (min-width: 600px) {
+  @media only screen and (min-width: 640px) {
     @content;
   }
 }
@@ -20,6 +20,12 @@
 
 @mixin screen-xl {
   @media only screen and (min-width: 1200px) {
+    @content
+  }
+}
+
+@mixin screen-xxl {
+  @media only screen and (min-width: 1920px) {
     @content
   }
 }
@@ -160,7 +166,8 @@ h6 {
   font-size: inherit;
 }
 
-/* Container */
+// ANCHOR Container
+
 .container {
   @include container_width();
   padding: 0 20px;
@@ -169,6 +176,13 @@ h6 {
     & {
       padding: 0 15px;
     }
+  }
+}
+
+// ANCHOR Body
+.body {
+  &.isMobile {
+    overflow: hidden;
   }
 }
 
@@ -225,7 +239,24 @@ h6 {
       color: #ffffff;
 
       &:last-child {
-        margin-right: 0;
+        margin: 0px;
+      }
+    }
+
+    &.isMobile {
+      display: block;
+      visibility: visible;
+      position: fixed;
+      top: 70px;
+      z-index: 20;
+
+      &>.header-navigation__link {
+        margin: 0px;
+        color: $color2;
+
+        &:last-child {
+          @include hidden();
+        }
       }
     }
   }
@@ -251,7 +282,7 @@ h6 {
         @include screen-tb() {
           display: block;
           visibility: visible;
-          margin-right: 120px;
+          margin: 0px 120px 0px 0px;
         }
       }
 
@@ -290,7 +321,7 @@ h6 {
     &__cart {
       position: relative;
       margin: 0px 30px -25px 0px;
-      padding-bottom: 25px;
+      padding: 0px 0px 25px;
       color: #ffffff;
     }
 
@@ -301,8 +332,8 @@ h6 {
 
     &__lang {
       position: relative;
-      margin-bottom: -20px;
-      padding-bottom: 20px;
+      margin: 0px 0px -20px;
+      padding: 0px 0px 20px;
     }
 
     &__text {
@@ -315,10 +346,10 @@ h6 {
     }
 
     &__icon {
-      margin-right: 12px;
+      margin: 0px 12px 0px 0px;
 
       @media (max-width: 768px) {
-        margin-right: 6px;
+        margin: 0px 6px 0px 0px;
       }
     }
   }
@@ -330,8 +361,14 @@ h6 {
     width: 27px;
     height: 18px;
     background: $color1;
-    margin-right: 10px;
+    margin: 0px 10px 0px 0px;
+    z-index: 25;
     cursor: pointer;
+
+    &.isMobile {
+      display: block;
+      visibility: visible;
+    }
 
     &__btn {
       width: 100%;
@@ -368,10 +405,14 @@ h6 {
     }
 
     &.isMobile::before {
-      transform: rotate(-45deg) translate(-8px, 3px);
+      height: 3px;
+      background: $color4;
+      transform: rotate(-45deg) translate(-8px, 2px);
     }
 
     &.isMobile::after {
+      height: 3px;
+      background: $color4;
       transform: rotate(45deg) translate(-8px, -3px);
     }
 
@@ -389,6 +430,15 @@ h6 {
     background: $color1;
     padding: 15px;
     z-index: 20;
+    transition: right .25s linear;
+
+    &.isMobile {
+      left: 0;
+
+      &>.header-menu__background::after {
+        left: 220px;
+      }
+    }
 
     &__background {
       &::after {
@@ -398,15 +448,41 @@ h6 {
         left: 100%;
         right: 0;
         bottom: 0;
-        background: $color1;
+        background: rgba(55, 63, 72, .7);
         backdrop-filter: blur(10px);
-        opacity: .5;
+        transition: right .25s linear;
       }
     }
-  }
 
-  &-aside-navigation {
-    margin-top: 45px;
+    &__aside {
+      @include hidden();
+      width: 200px;
+      position: fixed;
+      top: 110px;
+      margin: 0px;
+      z-index: 20;
+
+      &.isMobile {
+        display: block;
+        visibility: visible;
+      }
+
+      &>.aside-navigation__list {
+        margin: 25px 0px 0px;
+
+        &>.aside-navigation__link {
+          margin: 25px 0px 0px;
+
+          &:first-child {
+            margin: 0px;
+          }
+        }
+      }
+
+      &>.aside-navigation__download {
+        margin: 30px 0px 0px;
+      }
+    }
   }
 }
 
@@ -496,18 +572,14 @@ h6 {
 
 .presentation {
   background: $color1;
-  padding: 120px 0px 185px;
+  padding: 40px 0px 60px;
 
-  @media (max-width: 1024px) {
-    & {
-      padding: 40px 0px 67px;
-    }
+  @include screen-tb() {
+    padding: 40px 0px 67px;
   }
 
-  @media (max-width: 767px) {
-    & {
-      padding: 40px 0px 60px;
-    }
+  @include screen-l() {
+    padding: 120px 0px 185px;
   }
 
   &-inner {
@@ -517,15 +589,17 @@ h6 {
   }
 
   &-aside-navigation {
-    width: 25%;
-    margin-right: 15px;
+    @include hidden();
 
-    @media (max-width: 1024px) {
+    @include screen-tb() {
+      display: block;
+      visibility: visible;
       width: 40%;
+      margin-right: 15px;
     }
 
-    @media (max-width: 767px) {
-      display: none;
+    @include screen-l() {
+      width: 25%;
     }
   }
 
@@ -538,13 +612,18 @@ h6 {
     @media (max-width: 1024px) {
       width: 60%;
     }
+    @include screen-tb() {
 
+    }
+    @include screen-l() {
+      width: 75%;
+    }
     @media (max-width: 767px) {
       width: 100%;
       align-items: center;
     }
 
-    &-top {
+    &-header {
       width: 55%;
       margin-bottom: 65px;
 
@@ -652,7 +731,6 @@ h6 {
       }
 
       &__image {
-
         &--top {
           position: relative;
           z-index: 10;
