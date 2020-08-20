@@ -494,7 +494,7 @@ h6 {
 
 .presentation-carousel-header {
   width: 100%;
-  margin: 0px 0px 85px;
+  margin: 0px 0px 55px;
   text-align: center;
 }
 
@@ -508,68 +508,52 @@ h6 {
 
 .presentation-carousel-header__descr {
   display: inline-block;
-  font-size: 24px;
+  font-size: 16px;
   font-weight: 700;
   color: #ff8e01;
 }
 
-.presentation-carousel__list {
-  -ms-flex-item-align: start;
-      align-self: flex-start;
+.presentation-carousel__navigation {
+  -ms-flex-item-align: center;
+      align-self: center;
+  margin: 55px 0px 0px;
 }
 
-.presentation-carousel__list::after {
+.presentation-carousel__navigation::after {
   content: "";
   display: block;
   width: 100%;
   height: 2px;
   background: #ff8e01;
-  margin-top: 25px;
+  margin: 25px 0px 0px;
 }
 
-.presentation-carousel__link {
-  margin-right: 28px;
-  font-size: 24px;
+.presentation-carousel__dot {
+  margin: 0px 28px 0px 0px;
+  font-size: 20px;
   font-weight: 700;
   color: #ffffff;
   opacity: 0.25;
 }
 
-.presentation-carousel__link:last-child {
-  margin-right: 0;
+.presentation-carousel__dot:last-child {
+  margin: 0px;
 }
 
-.presentation-carousel__link.active {
+.presentation-carousel__dot.isActive {
   opacity: 1;
 }
 
-.presentation-carousel-right {
-  width: 45%;
-  position: absolute;
-  top: 50%;
-  right: 0;
-  -webkit-transform: translate(0%, -50%);
-      -ms-transform: translate(0%, -50%);
-          transform: translate(0%, -50%);
+.presentation-carousel__item {
+  width: 260px;
+  height: 200px;
 }
 
-.presentation-carousel-right__wrapper {
-  position: relative;
-}
-
-.presentation-carousel-right__image--top {
-  position: relative;
-  z-index: 10;
-  width: 15vw;
-  height: auto;
-  overflow: hidden;
-}
-
-.presentation-carousel-right__image--bottom {
-  position: absolute;
-  top: -15%;
-  left: 18%;
-  width: 20vw;
+.presentation-carousel__image {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 .popular {
@@ -589,7 +573,7 @@ h6 {
   width: 80%;
 }
 
-.popular-carousel-items {
+.popular-carousel-block {
   margin: 40px -20px 0px;
 }
 
@@ -602,13 +586,17 @@ h6 {
 
 .advantages {
   background: #f2f0f0;
-  padding: 62px 0px 70px 0px;
+  padding: 62px 0px 70px;
 }
 
 .advantages-inner {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -ms-flex-pack: distribute;
       justify-content: space-around;
   -webkit-box-align: center;
@@ -617,8 +605,16 @@ h6 {
   text-align: center;
 }
 
+.advantages__item {
+  margin: 0px 0px 60px;
+}
+
+.advantages__item:last-child {
+  margin: 0px;
+}
+
 .advantages__title {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   color: #373f48;
 }
@@ -630,39 +626,37 @@ h6 {
 
 .contact-us {
   position: relative;
-  background-image: url(/images/background-left.svg), url(/images/background-right.svg);
-  background-position: top -1px left -6px, bottom -18px right -5px;
-  background-repeat: no-repeat;
   overflow: hidden;
 }
 
 .contact-us-inner {
-  padding: 42px 0px 136px 0px;
+  padding: 42px 0px 136px;
   text-align: center;
 }
 
 .contact-us__title {
-  margin-bottom: 40px;
-  font-size: 36px;
+  margin: 0px 0px 40px;
+  font-size: 24px;
   font-weight: 900;
   color: #373f48;
 }
 
 .contact-us-form {
   max-width: 486px;
+  width: 100%;
   margin: 0px auto;
 }
 
 .contact-us-field {
-  margin-bottom: 48px;
+  margin: 0px 0px 48px;
 }
 
 .contact-us-field:last-of-type {
-  margin-bottom: 18px;
+  margin: 0px 0px 18px;
 }
 
 .contact-us__required {
-  margin-bottom: 30px;
+  margin: 0px 0px 30px;
   text-align: left;
 }
 
@@ -694,8 +688,8 @@ h6 {
   position: absolute;
   top: 15px;
   left: 25px;
-  color: #999999;
   font-size: 18px;
+  color: #999999;
 }
 
 .contact-us__textarea {
@@ -718,22 +712,14 @@ h6 {
   color: #373f48;
 }
 
-.about-us {
-  background-image: url(/images/background-right.svg);
-  background-position: bottom -18px right -5px;
-  background-repeat: no-repeat;
-  background-size: auto;
-  /* Download catalogue */
-}
-
 .about-us-inner {
   max-width: 1090px;
   width: 100%;
   margin: 0px auto;
-  padding: 30px 20px;
+  padding: 30px 20px 175px;
 }
 
-.about-us-background {
+.about-us__background {
   width: 100%;
   height: 95px;
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(55, 63, 72, 0.71)), to(rgba(55, 63, 72, 0))), url(/images/background-top.png);
@@ -741,12 +727,8 @@ h6 {
   background: linear-gradient(180deg, rgba(55, 63, 72, 0.71) 0%, rgba(55, 63, 72, 0) 100%), url(/images/background-top.png);
 }
 
-.about-us-description {
+.about-us__block:first-child {
   position: relative;
-}
-
-.about-us-production {
-  padding-bottom: 45px;
 }
 
 .about-us-download {
@@ -756,121 +738,84 @@ h6 {
 }
 
 .about-us__title {
-  margin-bottom: 45px;
-  font-size: 32px;
+  margin: 0px 0px 45px;
+  font-size: 24px;
   font-weight: 900;
   color: #ff8e01;
   text-align: center;
 }
 
 .about-us__text {
-  margin-bottom: 45px;
-  font-size: 22px;
+  margin: 0px 0px 45px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 28px;
   color: #373f48;
 }
 
-.about-us__text--adapt {
-  max-width: 700px;
+.about-us__catalogue {
+  display: block;
+  max-width: 165px;
   width: 100%;
-  margin-bottom: 70px;
+  margin: 0px auto 45px;
+  padding: 10px 20px;
+  border: 2px solid #373f48;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 900;
+  color: #373f48;
+  text-align: center;
 }
 
-.about-us__highlight--top {
+.about-us__highlight {
   font-weight: 900;
 }
 
-.about-us__highlight--top::after,
-.about-us__highlight--top::before {
+.about-us__highlight.highlight-top::after,
+.about-us__highlight.highlight-top::before {
   content: '"';
   color: #ff8e01;
 }
 
-.about-us__highlight--bottom {
-  font-weight: 900;
-}
-
-.about-us__highlight--bottom::after {
+.about-us__highlight.highlight-bottom::after {
   content: ":";
   color: #ff8e01;
 }
 
 .about-us__list {
-  list-style: none;
   counter-reset: counter-list;
-  font-size: 22px;
+  font-size: 16px;
   font-weight: 400;
   color: #373f48;
+  list-style: none;
 }
 
-.about-us__list-item {
+.about-us__item {
   counter-increment: counter-list;
-  margin-bottom: 20px;
+  margin: 0px 0px 20px;
 }
 
-.about-us__list-item:last-child {
-  margin-bottom: 0;
+.about-us__item:last-child {
+  margin: 0px;
 }
 
-.about-us__list-item::before {
+.about-us__item::before {
   content: counter(counter-list) ".";
-  margin-right: 10px;
-  font-size: 24px;
+  margin: 0px 10px 0px 0px;
+  font-size: 20px;
   font-weight: 900;
   color: #ff8e01;
 }
 
 .about-us__link {
   display: inline-block;
-  margin-top: 45px;
+  margin: 45px 0px 0px;
   padding: 16px 32px;
 }
 
 .about-us__link:hover {
   background: #ffffff;
   color: #373f48;
-}
-
-.about-us .download-catalogue {
-  max-width: 255px;
-  width: 100%;
-  padding: 25px 29px 30px;
-  background-color: #ffffff;
-  border-radius: 4px;
-  -webkit-box-shadow: 0px 4px 20px rgba(55, 63, 72, 0.15);
-          box-shadow: 0px 4px 20px rgba(55, 63, 72, 0.15);
-}
-
-.about-us .download-catalogue-wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-.about-us .download-catalogue-wrapper-image {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
-
-.about-us .download-catalogue__btn {
-  padding: 10px 20px;
-  margin-top: 30px;
-  line-height: 22px;
-  font-size: 16px;
-  font-weight: 900;
-  color: #373f48;
-  text-align: center;
-  border: 2px solid #373f48;
-  border-radius: 4px;
 }
 
 .catalogue {
@@ -898,12 +843,12 @@ h6 {
 }
 
 .catalogue .aside-popular__title {
-  margin-bottom: 25px;
+  margin: 0px 0px 25px;
   font-weight: 700;
 }
 
-.catalogue .aside-popular-item {
-  margin-bottom: 20px;
+.catalogue .aside-popular__item {
+  margin: 0px 0px 20px;
 }
 
 .catalogue .aside-popular__link {
@@ -1959,7 +1904,7 @@ h6 {
   color: #ff8e01;
 }
 
-.carousel-top {
+.carousel-header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1985,7 +1930,7 @@ h6 {
   margin-right: 0;
 }
 
-.carousel-items {
+.carousel-block {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2017,7 +1962,7 @@ h6 {
 }
 
 .form .required {
-  font-size: 18px;
+  font-size: 16px;
   color: #999999;
 }
 
@@ -2028,9 +1973,9 @@ h6 {
 }
 
 .btn-sent {
-  font-size: 20px;
-  font-weight: 900;
   border-radius: 4px;
+  font-size: 18px;
+  font-weight: 900;
   color: #ffffff;
 }
 
@@ -2393,13 +2338,58 @@ h6 {
   }
 
   .presentation-carousel-header {
-    margin: 0px 0px 65px;
     text-align: left;
   }
 
   .presentation-carousel-header__title {
     width: 65%;
     font-size: 30px;
+  }
+
+  .presentation-carousel-header__descr {
+    font-size: 20px;
+  }
+
+  .presentation-carousel__navigation {
+    -ms-flex-item-align: start;
+        align-self: flex-start;
+    margin: 90px 0px 0px;
+  }
+
+  .presentation-carousel__item {
+    width: 325px;
+    height: 255px;
+  }
+
+  .advantages-inner {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+
+  .advantages__item {
+    margin: 0px;
+  }
+
+  .contact-us {
+    background: url(/images/background-left.svg) top -1px left -5px no-repeat, url(/images/background-right.svg) bottom -18px right -4px no-repeat;
+  }
+
+  .contact-us__title {
+    font-size: 30px;
+  }
+
+  .about-us {
+    background: url(/images/background-right.svg) bottom -18px right -4px no-repeat;
+  }
+
+  .about-us__title {
+    font-size: 28px;
+  }
+
+  .about-us__text {
+    font-size: 18px;
   }
 
   .location-info {
@@ -2432,6 +2422,10 @@ h6 {
 
   .location-map {
     margin-bottom: 265px;
+  }
+
+  .btn-sent {
+    font-size: 18px;
   }
 }
 
@@ -2493,6 +2487,52 @@ h6 {
     margin: 0px 0px 115px;
   }
 
+  .presentation-carousel-header__descr {
+    font-size: 24px;
+  }
+
+  .presentation-carousel__dot {
+    font-size: 24px;
+  }
+
+  .presentation-carousel__block {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    -webkit-transform: translate(0%, -50%);
+        -ms-transform: translate(0%, -50%);
+            transform: translate(0%, -50%);
+  }
+
+  .presentation-carousel__item {
+    width: 400px;
+    height: 300px;
+  }
+
+  .advantages__title {
+    font-size: 18px;
+  }
+
+  .contact-us__title {
+    font-size: 36px;
+  }
+
+  .about-us__title {
+    font-size: 32px;
+  }
+
+  .about-us__text {
+    font-size: 22px;
+  }
+
+  .about-us__list {
+    font-size: 22px;
+  }
+
+  .about-us__item::before {
+    font-size: 24px;
+  }
+
   .location-info {
     padding: 80px 20px 220px;
   }
@@ -2522,6 +2562,14 @@ h6 {
   .location-map__title {
     font-size: 22px;
   }
+
+  .form .required {
+    font-size: 18px;
+  }
+
+  .btn-sent {
+    font-size: 20px;
+  }
 }
 
 @media only screen and (min-width: 1200px) {
@@ -2533,15 +2581,10 @@ h6 {
   .presentation-carousel-header__title {
     font-size: 48px;
   }
-}
 
-@media (min-width: 1440px) {
-  .presentation-carousel-right__image--top {
-    width: 15vw;
-  }
-
-  .presentation-carousel-right__image--bottom {
-    width: 20vw;
+  .presentation-carousel__item {
+    width: 450px;
+    height: 360px;
   }
 }
 
@@ -2552,67 +2595,12 @@ h6 {
 }
 
 @media (max-width: 1024px) {
-  .presentation-carousel-header__descr {
-    font-size: 20px;
-  }
-
-  .presentation-carousel__list {
-    margin-top: 115px;
-  }
-
-  .presentation-carousel__link {
-    font-size: 20px;
-  }
-
-  .presentation-carousel-right {
-    position: relative;
-    -webkit-transform: unset;
-        -ms-transform: unset;
-            transform: unset;
-  }
-
-  .presentation-carousel-right__image--top {
-    width: 18vw;
-  }
-
-  .presentation-carousel-right__image--bottom {
-    width: 23vw;
-  }
-
   .popular-aside-navigation {
     display: none;
   }
 
-  .advantages__title {
-    font-size: 16px;
-  }
-
-  .contact-us__title {
-    font-size: 30px;
-  }
-
   .about-us-download {
     top: -25%;
-  }
-
-  .about-us__title {
-    font-size: 28px;
-  }
-
-  .about-us__text {
-    font-size: 18px;
-  }
-
-  .about-us__text--adapt {
-    max-width: 450px;
-  }
-
-  .about-us__list {
-    font-size: 16px;
-  }
-
-  .about-us__list-item::before {
-    font-size: 20px;
   }
 
   .catalogue-aside {
@@ -2636,14 +2624,6 @@ h6 {
   .form .input-field .label {
     font-size: 16px;
   }
-
-  .form .required {
-    font-size: 16px;
-  }
-
-  .btn-sent {
-    font-size: 18px;
-  }
 }
 
 @media (max-width: 768px) {
@@ -2653,10 +2633,6 @@ h6 {
 
   .header-action__icon {
     margin: 0px 6px 0px 0px;
-  }
-
-  .contact-us {
-    background: none;
   }
 
   .icon.icon-location--header {
@@ -2676,80 +2652,9 @@ h6 {
 }
 
 @media (max-width: 767px) {
-  .presentation-carousel-header__descr {
-    font-size: 16px;
-  }
-
-  .presentation-carousel__list {
-    -ms-flex-item-align: center;
-        align-self: center;
-    margin-top: 65px;
-  }
-
-  .presentation-carousel-right__image--top {
-    width: 25vw;
-  }
-
-  .presentation-carousel-right__image--bottom {
-    width: 33vw;
-  }
-
-  .advantages-inner {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-  }
-
-  .advantages__item {
-    margin-bottom: 60px;
-  }
-
-  .advantages__item:last-child {
-    margin-bottom: 0;
-  }
-
-  .contact-us__title {
-    font-size: 24px;
-  }
-
-  .about-us {
-    background: none;
-  }
-
   .about-us-download {
     position: relative;
     margin: 0px auto;
-  }
-
-  .about-us__title {
-    font-size: 24px;
-  }
-
-  .about-us__text {
-    font-size: 16px;
-  }
-
-  .about-us__text--adapt {
-    max-width: 100%;
-    margin-bottom: 45px;
-  }
-
-  .about-us .download-catalogue {
-    max-width: 165px;
-    margin-bottom: 45px;
-    padding: 0;
-    background-color: unset;
-    -webkit-box-shadow: none;
-            box-shadow: none;
-  }
-
-  .about-us .download-catalogue-wrapper-image {
-    display: none;
-  }
-
-  .about-us .download-catalogue__btn {
-    margin-top: 0;
   }
 
   .catalogue-top {
@@ -2764,19 +2669,5 @@ h6 {
 
   .catalogue-top__title {
     margin-bottom: 30px;
-  }
-
-  .btn-sent {
-    font-size: 16px;
-  }
-}
-
-@media (max-width: 425px) {
-  .presentation-carousel-right__image--top {
-    width: 40vw;
-  }
-
-  .presentation-carousel-right__image--bottom {
-    width: 53vw;
   }
 }

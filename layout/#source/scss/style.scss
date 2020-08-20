@@ -57,7 +57,8 @@
 
 /* Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700;900&display=swap");
-$fontfamily: "Noto Sans", sans-serif;
+$fontfamily: "Noto Sans",
+sans-serif;
 /* Colors */
 $color1: #373f48;
 $color2: #ff8e01;
@@ -249,7 +250,7 @@ h6 {
       top: 70px;
       z-index: 20;
 
-      & > .header-navigation__link {
+      &>.header-navigation__link {
         margin: 0px;
         color: $color2;
 
@@ -434,7 +435,7 @@ h6 {
     &.isMobile {
       left: 0;
 
-      & > .header-menu__background::after {
+      &>.header-menu__background::after {
         left: 220px;
       }
     }
@@ -466,10 +467,10 @@ h6 {
         visibility: visible;
       }
 
-      & > .aside-navigation__list {
+      &>.aside-navigation__list {
         margin: 25px 0px 0px;
 
-        & > .aside-navigation__link {
+        &>.aside-navigation__link {
           margin: 25px 0px 0px;
 
           &:first-child {
@@ -478,7 +479,7 @@ h6 {
         }
       }
 
-      & > .aside-navigation__download {
+      &>.aside-navigation__download {
         margin: 30px 0px 0px;
       }
     }
@@ -613,20 +614,20 @@ h6 {
       align-items: flex-start;
       width: 60%;
     }
+
     @include screen-l() {
       width: 75%;
     }
 
     &-header {
       width: 100%;
-      margin: 0px 0px 85px;
+      margin: 0px 0px 55px;
       text-align: center;
 
       @include screen-tb() {
-        margin: 0px 0px 65px;
         text-align: left;
       }
-      
+
       @include screen-l() {
         width: 55%;
         margin: 0px 0px 115px;
@@ -643,6 +644,7 @@ h6 {
           width: 65%;
           font-size: 30px;
         }
+
         @include screen-xl() {
           font-size: 48px;
         }
@@ -650,30 +652,27 @@ h6 {
 
       &__descr {
         display: inline-block;
-        font-size: 24px;
+        font-size: 16px;
         font-weight: 700;
         color: $color2;
 
-        @media (max-width: 1024px) {
+        @include screen-tb() {
           font-size: 20px;
         }
 
-        @media (max-width: 767px) {
-          font-size: 16px;
+        @include screen-l() {
+          font-size: 24px;
         }
       }
     }
 
-    &__list {
-      align-self: flex-start;
+    &__navigation {
+      align-self: center;
+      margin: 55px 0px 0px;
 
-      @media (max-width: 1024px) {
-        margin-top: 115px;
-      }
-
-      @media (max-width: 767px) {
-        align-self: center;
-        margin-top: 65px;
+      @include screen-tb() {
+        align-self: flex-start;
+        margin: 90px 0px 0px;
       }
 
       &::after {
@@ -682,102 +681,63 @@ h6 {
         width: 100%;
         height: 2px;
         background: $color2;
-        margin-top: 25px;
+        margin: 25px 0px 0px;
       }
     }
 
-    &__link {
-      margin-right: 28px;
-      font-size: 24px;
+    &__dot {
+      margin: 0px 28px 0px 0px;
+      font-size: 20px;
       font-weight: 700;
       color: #ffffff;
       opacity: 0.25;
 
-      @media (max-width: 1024px) {
-        font-size: 20px;
+      @include screen-l() {
+        font-size: 24px;
       }
 
       &:last-child {
-        margin-right: 0;
+        margin: 0px;
       }
 
-      &.active {
+      &.isActive {
         opacity: 1;
       }
     }
 
-    &-right {
-      width: 45%;
-      position: absolute;
-      top: 50%;
-      right: 0;
-      transform: translate(0%, -50%);
+    &__block {
+      @include screen-l() {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translate(0%, -50%);
+      }
+    }
 
-      @media (max-width: 1024px) {
-        position: relative;
-        transform: unset;
+    &__item {
+      width: 260px;
+      height: 200px;
+
+      @include screen-tb() {
+        width: 325px;
+        height: 255px;
       }
 
-      &__wrapper {
-        position: relative;
+      @include screen-l() {
+        width: 400px;
+        height: 300px;
       }
 
-      &__image {
-        &--top {
-          position: relative;
-          z-index: 10;
-          width: 15vw;
-          height: auto;
-          overflow: hidden;
-        }
-
-        &--bottom {
-          position: absolute;
-          top: -15%;
-          left: 18%;
-          width: 20vw;
-        }
-
-        @media (min-width: 1440px) {
-          &--top {
-            width: 15vw;
-          }
-
-          &--bottom {
-            width: 20vw;
-          }
-        }
-
-        @media (max-width: 1024px) {
-          &--top {
-            width: 18vw;
-          }
-
-          &--bottom {
-            width: 23vw;
-          }
-        }
-
-        @media (max-width: 767px) {
-          &--top {
-            width: 25vw;
-          }
-
-          &--bottom {
-            width: 33vw;
-          }
-        }
-
-        @media (max-width: 425px) {
-          &--top {
-            width: 40vw;
-          }
-
-          &--bottom {
-            width: 53vw;
-          }
-        }
+      @include screen-xl() {
+        width: 450px;
+        height: 360px;
       }
+    }
+
+    &__image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
   }
 }
@@ -801,7 +761,7 @@ h6 {
   &-carousel {
     width: 80%;
 
-    &-items {
+    &-block {
       margin: 40px -20px 0px;
     }
 
@@ -824,36 +784,39 @@ h6 {
 
 .advantages {
   background: $color3;
-  padding: 62px 0px 70px 0px;
+  padding: 62px 0px 70px;
 
   &-inner {
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
     align-items: center;
     text-align: center;
 
-    @media (max-width: 767px) {
-      flex-direction: column;
+    @include screen-tb() {
+      flex-direction: row;
     }
   }
 
   &__item {
-    @media (max-width: 767px) {
-      margin-bottom: 60px;
+    margin: 0px 0px 60px;
 
-      &:last-child {
-        margin-bottom: 0;
-      }
+    &:last-child {
+      margin: 0px;
+    }
+
+    @include screen-tb() {
+      margin: 0px;
     }
   }
 
   &__title {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
     color: $color1;
 
-    @media (max-width: 1024px) {
-      font-size: 16px;
+    @include screen-l() {
+      font-size: 18px;
     }
   }
 
@@ -867,51 +830,49 @@ h6 {
 
 .contact-us {
   position: relative;
-  background-image: url(/images/background-left.svg),
-    url(/images/background-right.svg);
-  background-position: top -1px left -6px, bottom -18px right -5px;
-  background-repeat: no-repeat;
   overflow: hidden;
 
-  @media (max-width: 768px) {
-    background: none;
+  @include screen-tb() {
+    background: url(/images/background-left.svg) top -1px left -5px no-repeat,
+      url(/images/background-right.svg) bottom -18px right -4px no-repeat;
   }
 
   &-inner {
-    padding: 42px 0px 136px 0px;
+    padding: 42px 0px 136px;
     text-align: center;
   }
 
   &__title {
-    margin-bottom: 40px;
-    font-size: 36px;
+    margin: 0px 0px 40px;
+    font-size: 24px;
     font-weight: 900;
     color: $color1;
 
-    @media (max-width: 1024px) {
+    @include screen-tb() {
       font-size: 30px;
     }
 
-    @media (max-width: 767px) {
-      font-size: 24px;
+    @include screen-l() {
+      font-size: 36px;
     }
   }
 
   &-form {
     max-width: 486px;
+    width: 100%;
     margin: 0px auto;
   }
 
   &-field {
-    margin-bottom: 48px;
+    margin: 0px 0px 48px;
 
     &:last-of-type {
-      margin-bottom: 18px;
+      margin: 0px 0px 18px;
     }
   }
 
   &__required {
-    margin-bottom: 30px;
+    margin: 0px 0px 30px;
     text-align: left;
   }
 
@@ -919,7 +880,7 @@ h6 {
     width: 100%;
     padding: 15px 25px;
 
-    &:focus + label {
+    &:focus+label {
       visibility: hidden;
     }
   }
@@ -940,8 +901,8 @@ h6 {
       position: absolute;
       top: 15px;
       left: 25px;
-      color: $color4;
       font-size: 18px;
+      color: $color4;
     }
   }
 
@@ -950,7 +911,7 @@ h6 {
     min-height: 150px;
     padding: 15px 25px;
 
-    &:focus + label {
+    &:focus+label {
       visibility: hidden;
     }
   }
@@ -969,39 +930,30 @@ h6 {
 // ANCHOR About us page
 
 .about-us {
-  background-image: url(/images/background-right.svg);
-  background-position: bottom -18px right -5px;
-  background-repeat: no-repeat;
-  background-size: auto;
-
-  @media (max-width: 767px) {
-    background: none;
+  @include screen-tb() {
+    background: url(/images/background-right.svg) bottom -18px right -4px no-repeat;
   }
 
   &-inner {
     max-width: 1090px;
     width: 100%;
     margin: 0px auto;
-    padding: 30px 20px;
+    padding: 30px 20px 175px;
   }
 
-  &-background {
+  &__background {
     width: 100%;
     height: 95px;
-    background: linear-gradient(
-        180deg,
+    background: linear-gradient(180deg,
         rgba(55, 63, 72, 0.71) 0%,
-        rgba(55, 63, 72, 0) 100%
-      ),
+        rgba(55, 63, 72, 0) 100%),
       url(/images/background-top.png);
   }
 
-  &-description {
-    position: relative;
-  }
-
-  &-production {
-    padding-bottom: 45px;
+  &__block {
+    &:first-child {
+      position: relative;
+    }
   }
 
   &-download {
@@ -1020,59 +972,55 @@ h6 {
   }
 
   &__title {
-    margin-bottom: 45px;
-    font-size: 32px;
+    margin: 0px 0px 45px;
+    font-size: 24px;
     font-weight: 900;
     color: $color2;
     text-align: center;
 
-    @media (max-width: 1024px) {
+    @include screen-tb() {
       font-size: 28px;
     }
 
-    @media (max-width: 767px) {
-      font-size: 24px;
+    @include screen-l() {
+      font-size: 32px;
     }
   }
 
   &__text {
-    margin-bottom: 45px;
-    font-size: 22px;
+    margin: 0px 0px 45px;
+    font-size: 16px;
     font-weight: 400;
     line-height: 28px;
     color: $color1;
 
-    @media (max-width: 1024px) {
+    @include screen-tb() {
       font-size: 18px;
     }
 
-    @media (max-width: 767px) {
-      font-size: 16px;
-    }
-
-    &--adapt {
-      max-width: 700px;
-      width: 100%;
-      margin-bottom: 70px;
-    }
-
-    @media (max-width: 1024px) {
-      &--adapt {
-        max-width: 450px;
-      }
-    }
-
-    @media (max-width: 767px) {
-      &--adapt {
-        max-width: 100%;
-        margin-bottom: 45px;
-      }
+    @include screen-l() {
+      font-size: 22px;
     }
   }
 
+  &__catalogue {
+    display: block;
+    max-width: 165px;
+    width: 100%;
+    margin: 0px auto 45px;
+    padding: 10px 20px;
+    border: 2px solid $color1;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 900;
+    color: $color1;
+    text-align: center;
+  }
+
   &__highlight {
-    &--top {
-      font-weight: 900;
+    font-weight: 900;
+
+    &.highlight-top {
 
       &::after,
       &::before {
@@ -1081,9 +1029,7 @@ h6 {
       }
     }
 
-    &--bottom {
-      font-weight: 900;
-
+    &.highlight-bottom {
       &::after {
         content: ":";
         color: $color2;
@@ -1092,95 +1038,46 @@ h6 {
   }
 
   &__list {
-    list-style: none;
     counter-reset: counter-list;
-    font-size: 22px;
+    font-size: 16px;
     font-weight: 400;
     color: $color1;
+    list-style: none;
 
-    @media (max-width: 1024px) {
-      font-size: 16px;
+    @include screen-l() {
+      font-size: 22px;
+    }
+  }
+
+  &__item {
+    counter-increment: counter-list;
+    margin: 0px 0px 20px;
+
+    &:last-child {
+      margin: 0px;
     }
 
-    &-item {
-      counter-increment: counter-list;
-      margin-bottom: 20px;
+    &::before {
+      content: counter(counter-list) ".";
+      margin: 0px 10px 0px 0px;
+      font-size: 20px;
+      font-weight: 900;
+      color: $color2;
 
-      &:last-child {
-        margin-bottom: 0;
-      }
-
-      &::before {
-        content: counter(counter-list) ".";
-        margin-right: 10px;
+      @include screen-l() {
         font-size: 24px;
-        font-weight: 900;
-        color: $color2;
-
-        @media (max-width: 1024px) {
-          font-size: 20px;
-        }
       }
     }
   }
 
   &__link {
     display: inline-block;
-    margin-top: 45px;
+    margin: 45px 0px 0px;
     padding: 16px 32px;
 
     &:hover {
       background: #ffffff;
       color: $color1;
-    }
-  }
-
-  /* Download catalogue */
-
-  .download-catalogue {
-    max-width: 255px;
-    width: 100%;
-    padding: 25px 29px 30px;
-    background-color: #ffffff;
-    border-radius: 4px;
-    box-shadow: 0px 4px 20px rgba(55, 63, 72, 0.15);
-
-    @media (max-width: 767px) {
-      max-width: 165px;
-      margin-bottom: 45px;
-      padding: 0;
-      background-color: unset;
-      box-shadow: none;
-    }
-
-    &-wrapper {
-      display: flex;
-      flex-direction: column;
-
-      &-image {
-        display: flex;
-        justify-content: space-between;
-
-        @media (max-width: 767px) {
-          display: none;
-        }
-      }
-    }
-
-    &__btn {
-      padding: 10px 20px;
-      margin-top: 30px;
-      line-height: 22px;
-      font-size: 16px;
-      font-weight: 900;
-      color: $color1;
-      text-align: center;
-      border: 2px solid $color1;
-      border-radius: 4px;
-
-      @media (max-width: 767px) {
-        margin-top: 0;
-      }
     }
   }
 }
@@ -1206,22 +1103,18 @@ h6 {
     margin-bottom: 76px;
   }
 
-  &-aside-popular {
-  }
+  &-aside-popular {}
 
   /* Aside popular container */
 
   .aside-popular {
     &__title {
-      margin-bottom: 25px;
+      margin: 0px 0px 25px;
       font-weight: 700;
     }
 
-    &-content {
-    }
-
-    &-item {
-      margin-bottom: 20px;
+    &__item {
+      margin: 0px 0px 20px;
     }
 
     &__link {
@@ -1356,8 +1249,7 @@ h6 {
       margin-right: 15px;
     }
 
-    &-pages {
-    }
+    &-pages {}
 
     &__link {
       margin: 0px 20px;
@@ -1472,8 +1364,7 @@ h6 {
 
     @media (max-width: 1024px) {
       & {
-        &_large {
-        }
+        &_large {}
       }
     }
   }
@@ -1643,8 +1534,7 @@ h6 {
   align-items: center;
   flex-wrap: wrap;
 
-  &.active {
-  }
+  &.active {}
 
   &-wrapper {
     position: relative;
@@ -1859,8 +1749,7 @@ h6 {
     }
   }
 
-  &-form {
-  }
+  &-form {}
 
   &-field {
     position: relative;
@@ -1875,7 +1764,7 @@ h6 {
     width: 100%;
     padding: 15px 25px;
 
-    &:focus + label {
+    &:focus+label {
       visibility: hidden;
     }
   }
@@ -1906,7 +1795,7 @@ h6 {
     min-height: 150px;
     padding: 15px 25px;
 
-    &:focus + label {
+    &:focus+label {
       visibility: hidden;
     }
   }
@@ -2269,7 +2158,7 @@ h6 {
 // ANCHOR Carousel container
 
 .carousel {
-  &-top {
+  &-header {
     display: flex;
     justify-content: space-between;
   }
@@ -2279,8 +2168,7 @@ h6 {
     font-weight: 900;
   }
 
-  &__navigation {
-  }
+  &__navigation {}
 
   &__step {
     min-width: 50px;
@@ -2294,7 +2182,7 @@ h6 {
     }
   }
 
-  &-items {
+  &-block {
     display: flex;
     justify-content: space-between;
   }
@@ -2330,7 +2218,7 @@ h6 {
   }
 
   .required {
-    font-size: 18px;
+    font-size: 16px;
     color: $color4;
 
     &::before {
@@ -2339,8 +2227,8 @@ h6 {
       color: $color2;
     }
 
-    @media (max-width: 1024px) {
-      font-size: 16px;
+    @include screen-l() {
+      font-size: 18px;
     }
   }
 }
@@ -2348,22 +2236,21 @@ h6 {
 // ANCHOR Buttons
 
 .btn-sent {
-  font-size: 20px;
-  font-weight: 900;
   border-radius: 4px;
+  font-size: 18px;
+  font-weight: 900;
   color: #ffffff;
 
-  @media (max-width: 1024px) {
+  @include screen-tb() {
     font-size: 18px;
   }
 
-  @media (max-width: 767px) {
-    font-size: 16px;
+  @include screen-l() {
+    font-size: 20px;
   }
 }
 
-.btn-green {
-}
+.btn-green {}
 
 .btn-orange {
   border: 2px solid $color2;
