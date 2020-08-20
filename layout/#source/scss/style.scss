@@ -20,13 +20,13 @@
 
 @mixin screen-xl {
   @media only screen and (min-width: 1200px) {
-    @content
+    @content;
   }
 }
 
 @mixin screen-xxl {
   @media only screen and (min-width: 1920px) {
-    @content
+    @content;
   }
 }
 
@@ -41,7 +41,7 @@
 }
 
 @mixin transition {
-  transition: all .25s;
+  transition: all 0.25s;
 }
 
 @mixin pseudo($display: block, $pos: absolute, $content: "") {
@@ -57,8 +57,7 @@
 
 /* Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700;900&display=swap");
-$fontfamily: "Noto Sans",
-sans-serif;
+$fontfamily: "Noto Sans", sans-serif;
 /* Colors */
 $color1: #373f48;
 $color2: #ff8e01;
@@ -250,7 +249,7 @@ h6 {
       top: 70px;
       z-index: 20;
 
-      &>.header-navigation__link {
+      & > .header-navigation__link {
         margin: 0px;
         color: $color2;
 
@@ -430,27 +429,27 @@ h6 {
     background: $color1;
     padding: 15px;
     z-index: 20;
-    transition: right .25s linear;
+    transition: right 0.25s linear;
 
     &.isMobile {
       left: 0;
 
-      &>.header-menu__background::after {
+      & > .header-menu__background::after {
         left: 220px;
       }
     }
 
     &__background {
       &::after {
-        content: '';
+        content: "";
         position: fixed;
         top: 0;
         left: 100%;
         right: 0;
         bottom: 0;
-        background: rgba(55, 63, 72, .7);
+        background: rgba(55, 63, 72, 0.7);
         backdrop-filter: blur(10px);
-        transition: right .25s linear;
+        transition: right 0.25s linear;
       }
     }
 
@@ -467,10 +466,10 @@ h6 {
         visibility: visible;
       }
 
-      &>.aside-navigation__list {
+      & > .aside-navigation__list {
         margin: 25px 0px 0px;
 
-        &>.aside-navigation__link {
+        & > .aside-navigation__link {
           margin: 25px 0px 0px;
 
           &:first-child {
@@ -479,7 +478,7 @@ h6 {
         }
       }
 
-      &>.aside-navigation__download {
+      & > .aside-navigation__download {
         margin: 30px 0px 0px;
       }
     }
@@ -605,53 +604,47 @@ h6 {
 
   &-carousel {
     position: relative;
-    width: 75%;
+    width: 100%;
     display: flex;
     flex-flow: column nowrap;
+    align-items: center;
 
-    @media (max-width: 1024px) {
-      width: 60%;
-    }
     @include screen-tb() {
-
+      align-items: flex-start;
+      width: 60%;
     }
     @include screen-l() {
       width: 75%;
     }
-    @media (max-width: 767px) {
-      width: 100%;
-      align-items: center;
-    }
 
     &-header {
-      width: 55%;
-      margin-bottom: 65px;
+      width: 100%;
+      margin: 0px 0px 85px;
+      text-align: center;
 
-      @media (max-width: 1024px) {
-        margin-bottom: 115px;
+      @include screen-tb() {
+        margin: 0px 0px 65px;
+        text-align: left;
       }
-
-      @media (max-width: 767px) {
-        width: 100%;
-        margin-bottom: 85px;
-        text-align: center;
+      
+      @include screen-l() {
+        width: 55%;
+        margin: 0px 0px 115px;
       }
 
       &__title {
-        width: 200px;
-        margin-bottom: 21px;
-        font-size: 48px;
+        width: 100%;
+        margin: 0px 0px 21px;
+        font-size: 24px;
         font-weight: 700;
         color: #ffffff;
 
-        @media (max-width: 1024px) {
-          width: 280px;
+        @include screen-tb() {
+          width: 65%;
           font-size: 30px;
         }
-
-        @media (max-width: 767px) {
-          width: 100%;
-          font-size: 24px;
+        @include screen-xl() {
+          font-size: 48px;
         }
       }
 
@@ -711,7 +704,6 @@ h6 {
       &.active {
         opacity: 1;
       }
-
     }
 
     &-right {
@@ -801,7 +793,6 @@ h6 {
   }
 
   &-aside-navigation {
-
     @media (max-width: 1024px) {
       display: none;
     }
@@ -928,7 +919,7 @@ h6 {
     width: 100%;
     padding: 15px 25px;
 
-    &:focus+label {
+    &:focus + label {
       visibility: hidden;
     }
   }
@@ -959,7 +950,7 @@ h6 {
     min-height: 150px;
     padding: 15px 25px;
 
-    &:focus+label {
+    &:focus + label {
       visibility: hidden;
     }
   }
@@ -997,7 +988,12 @@ h6 {
   &-background {
     width: 100%;
     height: 95px;
-    background: linear-gradient(180deg, rgba(55, 63, 72, 0.71) 0%, rgba(55, 63, 72, 0) 100%), url(/images/background-top.png);
+    background: linear-gradient(
+        180deg,
+        rgba(55, 63, 72, 0.71) 0%,
+        rgba(55, 63, 72, 0) 100%
+      ),
+      url(/images/background-top.png);
   }
 
   &-description {
@@ -1210,7 +1206,8 @@ h6 {
     margin-bottom: 76px;
   }
 
-  &-aside-popular {}
+  &-aside-popular {
+  }
 
   /* Aside popular container */
 
@@ -1220,7 +1217,8 @@ h6 {
       font-weight: 700;
     }
 
-    &-content {}
+    &-content {
+    }
 
     &-item {
       margin-bottom: 20px;
@@ -1358,7 +1356,8 @@ h6 {
       margin-right: 15px;
     }
 
-    &-pages {}
+    &-pages {
+    }
 
     &__link {
       margin: 0px 20px;
@@ -1473,7 +1472,8 @@ h6 {
 
     @media (max-width: 1024px) {
       & {
-        &_large {}
+        &_large {
+        }
       }
     }
   }
@@ -1643,7 +1643,8 @@ h6 {
   align-items: center;
   flex-wrap: wrap;
 
-  &.active {}
+  &.active {
+  }
 
   &-wrapper {
     position: relative;
@@ -1858,7 +1859,8 @@ h6 {
     }
   }
 
-  &-form {}
+  &-form {
+  }
 
   &-field {
     position: relative;
@@ -1873,7 +1875,7 @@ h6 {
     width: 100%;
     padding: 15px 25px;
 
-    &:focus+label {
+    &:focus + label {
       visibility: hidden;
     }
   }
@@ -1904,7 +1906,7 @@ h6 {
     min-height: 150px;
     padding: 15px 25px;
 
-    &:focus+label {
+    &:focus + label {
       visibility: hidden;
     }
   }
@@ -2087,7 +2089,6 @@ h6 {
           width: 100%;
         }
       }
-
     }
 
     &__item {
@@ -2278,7 +2279,8 @@ h6 {
     font-weight: 900;
   }
 
-  &__navigation {}
+  &__navigation {
+  }
 
   &__step {
     min-width: 50px;
@@ -2360,7 +2362,8 @@ h6 {
   }
 }
 
-.btn-green {}
+.btn-green {
+}
 
 .btn-orange {
   border: 2px solid $color2;
