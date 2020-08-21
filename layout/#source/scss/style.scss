@@ -65,6 +65,7 @@ $color2: #ff8e01;
 $color3: #f2f0f0;
 $color4: #999999;
 $color5: #5ab87f;
+$color6: #ffc174;
 
 /* Null styles */
 * {
@@ -753,15 +754,25 @@ h6 {
   }
 
   &-aside-navigation {
-    @media (max-width: 1024px) {
-      display: none;
+    @include hidden();
+
+    @include screen-xl() {
+      display: block;
+      visibility: visible;
     }
   }
 
   &-carousel {
-    width: 80%;
+    width: 100%;
+
+    @include screen-l() {
+      width: 80%;
+    }
 
     &-block {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       margin: 40px -20px 0px;
     }
 
@@ -771,12 +782,7 @@ h6 {
         fill-opacity: 0.5;
       }
     }
-  }
 
-  @media (max-width: 1240px) {
-    &-carousel {
-      display: none;
-    }
   }
 }
 
@@ -1092,23 +1098,23 @@ h6 {
   }
 
   &-aside {
-    width: 17%;
+    @include hidden();
 
-    @media (max-width: 1024px) {
-      display: none;
+    @include screen-l() {
+      display: block;
+      visibility: visible;
+      width: 17%;
     }
   }
 
   &-aside-navigation {
-    margin-bottom: 76px;
+    margin: 0px 0px 76px;
   }
 
-  &-aside-popular {}
-
-  /* Aside popular container */
+  //ANCHOR Aside popular container
 
   .aside-popular {
-    &__title {
+    &__header {
       margin: 0px 0px 25px;
       font-weight: 700;
     }
@@ -1137,150 +1143,215 @@ h6 {
       transform: translate(-50%, -50%);
     }
 
-    &-description {
-      margin-left: 10px;
-
-      &__title {
-        margin-bottom: 5px;
-        font-size: 12px;
-        font-weight: 400;
-        color: $color1;
-      }
-
-      &__type {
-        font-size: 12px;
-        font-weight: 400;
-        color: $color4;
-      }
-    }
-  }
-
-  /* Catalogue container */
-
-  &-wrapper {
-    width: 80%;
-
-    @media (max-width: 1024px) {
-      width: 100%;
-    }
-  }
-
-  &-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 40px;
-
-    @media (max-width: 767px) {
-      align-items: flex-start;
-      flex-direction: column;
+    &__description {
+      margin: 0px 0px 0px 10px;
     }
 
     &__title {
-      font-size: 32px;
-      font-weight: 700;
+      margin: 0px 0px 5px;
+      font-size: 12px;
+      font-weight: 400;
+      @include transition();
       color: $color1;
 
-      @media (max-width: 1024px) {
-        font-size: 20px;
+      &:hover {
+        @include transition();
+        color: $color2;
       }
+    }
 
-      @media (max-width: 767px) {
-        margin-bottom: 30px;
+    &__type {
+      font-size: 12px;
+      font-weight: 400;
+      @include transition();
+      color: $color4;
+
+      &:hover {
+        @include transition();
+        color: $color6;
       }
+    }
+  }
+
+  //ANCHOR Catalogue container
+
+  &-wrapper {
+    width: 100%;
+
+    @include screen-l() {
+      width: 80%;
+    }
+  }
+
+  &-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 0px 0px 40px;
+
+    @include screen-tb() {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  &__title {
+    margin: 0px 0px 30px;
+    font-size: 20px;
+    font-weight: 700;
+    color: $color1;
+
+    @include screen-tb() {
+      margin: 0px;
+    }
+
+    @include screen-l() {
+      font-size: 32px;
     }
   }
 
   &-sort {
-    &__item {
-      padding-right: 15px;
-      color: $color1;
+
+    &__block {
+      display: block;
+
+      @include screen-sm() {
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+
+    &__title {
+      display: inline-block;
+      margin: 0px 0px 15px;
       font-weight: 700;
+      color: $color1;
 
-      &--size {
-        margin-right: 15px;
-        padding-right: 15px;
-        border-right: 1px solid $color2;
-        color: $color4;
+      @include screen-sm() {
+        margin: 0px 15px 0px 0px;
+      }
+    }
+
+    &__size {
+      margin-right: 15px;
+      padding-right: 15px;
+      border-right: 1px solid $color2;
+      @include transition();
+      color: $color4;
+
+      &:hover {
+        @include transition();
+        color: $color6;
       }
 
-      &--price {
-        color: $color4;
+      .isActive {
+        color: $color2;
+      }
+    }
+
+    &__price {
+      color: $color4;
+
+      &:hover {
+        @include transition();
+        color: $color6;
+      }
+
+      .isActive {
+        color: $color2;
+      }
+    }
+
+    &__icon {
+      &.isActive {
+        transform: rotateZ(180deg);
       }
     }
   }
 
-  &-items {
+  &-block {
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
+    justify-content: center;
     margin: 20px -20px 20px;
-
-    @media (max-width: 1024px) {
-      justify-content: center;
-    }
   }
 
-  /* Catalogue pagination */
+  //ANCHOR Catalogue pagination
 
   &-pagination {
-    &-wrapper {
+
+    &-block {
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
     &__btn {
-      display: flex;
-      justify-content: center;
-      align-items: center;
       max-width: 445px;
       min-width: 290px;
       height: 55px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       margin: 0px auto 35px;
-      color: $color1;
       border: 1px solid $color1;
       border-radius: 4px;
+      @include transition();
       font-size: 16px;
-      font-weight: 900;
-    }
-
-    &__icon--refresh {
-      margin-right: 15px;
-    }
-
-    &-pages {}
-
-    &__link {
-      margin: 0px 20px;
-      font-size: 18px;
       font-weight: 900;
       color: $color1;
 
-      &.active {
+      &:hover {
+        @include transition();
+        transform: translateY(-10px);
+      }
+    }
+
+    &__link {
+      margin: 0px 15px;
+      font-size: 18px;
+      font-weight: 900;
+      @include transition();
+      color: $color1;
+
+      &:hover {
+        @include transition();
+        color: $color6;
+      }
+
+      @include screen-tb() {
+        margin: 0px 20px;
+      }
+
+      &.isActive {
         color: $color2;
       }
     }
 
     &__step {
-      padding: 10px 16px;
       min-width: 50px;
+      padding: 10px 16px;
       background: $color1;
       border-radius: 4px;
     }
 
-    &__icon {
-      &--left {
+    .pagination-icon {
+      &__refresh {
+        margin: 0px 15px 0px 0px;
+      }
+
+      &__left {
         transform: rotateZ(180deg);
 
-        &.active {
-          fill-opacity: 0.5;
+        &.isActive {
+          fill-opacity: .5;
         }
       }
 
-      &--right {
-        &.active {
-          fill-opacity: 0.5;
+      &__right {
+        &.isActive {
+          fill-opacity: .5;
         }
       }
     }
@@ -2123,6 +2194,12 @@ h6 {
     display: flex;
     flex-direction: column;
     margin-top: 36px;
+
+    &.list-dark {
+      & .aside-navigation__link {
+        color: $color1;
+      }
+    }
   }
 
   &__link {
@@ -2133,17 +2210,6 @@ h6 {
 
     &:first-child {
       margin-top: 0;
-    }
-
-    &--dark {
-      margin-top: 35px;
-      font-size: 14px;
-      line-height: 19px;
-      color: $color1;
-
-      &:first-child {
-        margin-top: 0;
-      }
     }
   }
 
@@ -2260,8 +2326,8 @@ h6 {
 // ANCHOR Product items
 
 .product-item {
-  width: 28%;
   min-width: 290px;
+  width: calc(33.333% - 40px);
   margin: 0px 20px 40px;
   padding: 27px 0px 30px;
   border: 1px solid $color1;
@@ -2274,7 +2340,7 @@ h6 {
 }
 
 .product__title {
-  margin-bottom: 15px;
+  margin: 0px 0px 15px;
   font-size: 18px;
   font-weight: 700;
   color: $color1;
@@ -2284,7 +2350,7 @@ h6 {
   position: relative;
   width: 50%;
   height: 120px;
-  margin-bottom: 20px;
+  margin: 0px 0px 20px;
 }
 
 .product__image {
@@ -2295,7 +2361,7 @@ h6 {
 }
 
 .product__size {
-  margin-bottom: 10px;
+  margin: 0px 0px 10px;
   padding: 0px 65px 10px;
   border-bottom: 1px solid $color2;
   font-size: 18px;
@@ -2304,15 +2370,15 @@ h6 {
 }
 
 .product__price {
-  margin-bottom: 30px;
+  margin: 0px 0px 30px;
   font-size: 18px;
   font-weight: 700;
   color: $color1;
 }
 
 .product-order {
-  width: 100%;
   position: relative;
+  width: 100%;
   display: flex;
   align-items: center;
   border-top: 1px solid $color2;
@@ -2350,8 +2416,8 @@ h6 {
   left: 70%;
   padding: 10px 15px;
   background: $color2;
-  box-shadow: 0px 2px 5px rgba(55, 63, 72, 0.2);
   border-radius: 4px;
+  box-shadow: 0px 2px 5px rgba(55, 63, 72, 0.2);
 }
 
 // ANCHOR Input count product
