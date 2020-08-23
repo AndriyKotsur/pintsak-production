@@ -21,7 +21,7 @@ router.get('/', async (req,res) => {
 });
 
 // get tiles of type & filter
-router.get('/tiles/types/:id', async (req,res) => {
+router.get('/tiles/types/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const page = req.query.page || 1;

@@ -13,6 +13,8 @@ import AddType from './admin/admin-add/add-type';
 import EditTile from './admin/admin-edit/edit-tile';
 import EditType from './admin/admin-edit/edit-type';
 
+import Catalogue from './public/catalogue';
+
 import ErrorPage from './errors';
 
 class Main extends Component {
@@ -35,6 +37,10 @@ class Main extends Component {
                     <Route path="/admin/edit/tile/:id" exact component={authRequired(EditTile)} />
                     <Route path="/admin/edit/type/:id" exact component={authRequired(EditType)} />
                     
+                    <Route path='/catalogue/:type'>
+                        <Catalogue/>
+                    </Route>
+
                     <Route path="/" component={ErrorPage} />
                 </Switch>
             </Fragment>
