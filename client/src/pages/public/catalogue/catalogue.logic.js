@@ -1,42 +1,48 @@
-import React, {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
+import { HTTP } from '../../../helpers';
+
 const useCatalogue = () => {
-    const params = useParams();
-    const [loading, setLoading] = useState(false);
-    const [tiles, setTiles] = useState();
-    const [types, setTypes] = useState();
-    const [typeTitle, setTypeTitle] = useState();
+  const params = useParams();
+  const location = useLocation();
+  const [loading, setLoading] = useState(false);
+  const [tiles, setTiles] = useState();
+  const [types, setTypes] = useState();
+  const [typeTitle, setTypeTitle] = useState();
 
-    useEffect(()=>{
-        const fetchTypes = async () => {
-            const res = await axios.get('http://localhost:5000/');
-            setTypes(res.data);
-            const typeTitle = res.data.filter((type) => type.title_url === params.type);
-            setTypeTitle(typeTitle[0].title);
-        };
+  useEffect(()=>{
+    const fetchTypes = async () => {
+      const res = await HTTP.getTypes();
+      console.log(res);
+      setTypes(res);
+      const typeTitle = res.filter((type) => type.title_url === params.type);
+      setTypeTitle(typeTitle[0].title);
+    };
 
-        fetchTypes();
-        
-        const fetchTiles = async () => {
-            setLoading(true);
-            const typeId = 'bb58b88c-5937-4d9e-9267-0b1780f8d697';
-            const res = await axios.get(`http://localhost:5000/tiles/types/${typeId}`);
-            setTiles(res.data);
-            setLoading(false);
-        };
+    fetchTypes();
 
-        fetchTiles();
+  }, []);
 
-    }, []);
+  useEffect(() => {
+    const fetchTiles = async () => {
+      setLoading(true);
+      const res = await axios.get(`http://localhost:5000/tiles/types/${params.type}${location.search}`);
+      setTiles(res.data);
+      setLoading(false);
+    };
 
-    return {
-        loading,
-        tiles,
-        types,
-        typeTitle
-    }
+    fetchTiles();
+
+  }, [params.type, location.search]);
+
+  return {
+    loading,
+    tiles,
+    types,
+    typeTitle,
+  }
 };
 
 export default useCatalogue;

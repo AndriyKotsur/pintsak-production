@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import TypesList from '../../../../components/types-list';
+import { TypesList } from '../../../../components';
 import AdminMain from '../admin-main';
 
 class MainType extends Component {

@@ -1,0 +1,5 @@
+export { default as Icon } from './icon/icon.component'
+export { default as AsideNavigation } from './aside-navigation/aside-navigation'
+export { default as TileItem } from './tile-item/tile-item'
+export { default as TilesList } from './tiles-list/tiles-list'
+export { default as TypesList } from './types-list/types-list'

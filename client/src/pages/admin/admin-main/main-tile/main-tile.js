@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import TilesList from '../../../../components/tiles-list';
+import { TilesList } from '../../../../components';
 import AdminMain from '../admin-main';
 
 class MainTile extends Component {

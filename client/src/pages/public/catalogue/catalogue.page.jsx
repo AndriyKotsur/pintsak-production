@@ -1,76 +1,79 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import useCatalogue from './catalogue.logic';
 
-import TileItem from '../../../components/tile-item';
+import { Icon, TileItem, AsideNavigation } from '../../../components';
 
 
 const Catalogue = () => {
-    const {loading, tiles, types, typeTitle} = useCatalogue();
+  const {loading, tiles, types, typeTitle} = useCatalogue();
+  const [sortByWidth, setSortByWidth] = useState(false);
+  const [sortByPrice, setSortByPrice] = useState(false);
 
-    return(
-        <>
-            <div class="catalogue-wrapper">
-                {types && typeTitle && (
-                    <div class="catalogue-header">
-                        <h1 class="catalogue__title">
-                            {typeTitle}
-                        </h1>
-                        <div class="catalogue-sort">
-                            <span class="catalogue-sort__title">Сортування:</span>
-                            <div class="catalogue-sort__block">
-                                <a href="#" class="catalogue-sort__size">
-                                    за розміром
-                                    <svg class="icon icon-arrow--sort catalogue-sort__icon">
-                                        <use href="images/icons/sprite.svg#arrow-sort"></use>
-                                    </svg>
-                                </a>
-                                <a href="#" class="catalogue-sort__price">
-                                    за ціною
-                                    <svg class="icon icon-arrow--sort catalogue-sort__icon">
-                                        <use href="images/icons/sprite.svg#arrow-sort"></use>
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                )}
-
-                {tiles && (
-                    <div class="catalogue-block">
-                        <TileItem tiles = {tiles}/>
-                    </div>
-                )}
-
-                    <div class="catalogue-pagination">
-                        <a href="#" class="catalogue-pagination__btn">
-                            <svg class="icon icon-refresh pagination-icon__refresh">
-                                <use href="images/icons/sprite.svg#refresh"></use>
-                            </svg>
-                            Показати ще 12 товарів
-                        </a>
-
-                        <div class="catalogue-pagination-block">
-                            <a href="#" class="catalogue-pagination__step">
-                                <svg class="icon icon-arrow--pagination pagination-icon__left">
-                                    <use href="images/icons/sprite.svg#arrow"></use>
-                                </svg>
-                            </a>
-                            <div class="catalogue-pagination-pages">
-                                <a href="#" class="catalogue-pagination__link">1</a>
-                                <a href="#" class="catalogue-pagination__link">2</a>
-                                <a href="#" class="catalogue-pagination__link">3</a>
-                                <a href="#" class="catalogue-pagination__link">4</a>
-                            </div>
-                            <a href="#" class="catalogue-pagination__step">
-                                <svg class="icon icon-arrow--pagination pagination-icon__right">
-                                    <use href="images/icons/sprite.svg#arrow"></use>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
+  return (
+    <div className="catalogue">
+      <div className="container">
+        <div className="catalogue-inner">
+          <div className="catalogue-aside">
+            <AsideNavigation types={types} />
+          </div>
+          <div className="catalogue-wrapper">
+            {types && typeTitle && (
+              <div className="catalogue-header">
+                <h1 className="catalogue__title">{typeTitle}</h1>
+                <div className="catalogue-sort">
+                  <span className="catalogue-sort__title">Сортування:</span>
+                  <div className="catalogue-sort__block">
+                    <Link to={`?sort=width&order=${sortByWidth}`} className="catalogue-sort__size" onClick={() => setSortByWidth(!sortByWidth)} >
+                      за розміром
+                      <Icon name='arrowSort' className={`icon icon-arrow--sort catalogue-sort__icon ${sortByWidth ? "isActive" : ""}`} />
+                    </Link>
+                    <Link to={`?sort=price&order=${sortByPrice}`} className="catalogue-sort__price" onClick={() => setSortByPrice(!sortByPrice)}>
+                      за ціною
+                      <Icon name='arrowSort' className={`icon icon-arrow--sort catalogue-sort__icon ${sortByPrice ? "isActive" : ""}`} />
+                    </Link>
+                  </div>
                 </div>
-        </>
-    )
+              </div>
+            )}
+
+            {tiles && (
+              <div className="catalogue-block">
+                <TileItem tiles={tiles} />
+              </div>
+            )}
+
+            <div className="catalogue-pagination">
+              <a href="#" className="catalogue-pagination__btn">
+                <svg className="icon icon-refresh pagination-icon__refresh">
+                  <use href="images/icons/sprite.svg#refresh"></use>
+                </svg>
+                Показати ще 12 товарів
+              </a>
+              <div className="catalogue-pagination-block">
+                <a href="#" className="catalogue-pagination__step">
+                  <svg className="icon icon-arrow--pagination pagination-icon__left">
+                    <use href="images/icons/sprite.svg#arrow"></use>
+                  </svg>
+                </a>
+                <div className="catalogue-pagination-pages">
+                  <a href="#" className="catalogue-pagination__link">1</a>
+                  <a href="#" className="catalogue-pagination__link">2</a>
+                  <a href="#" className="catalogue-pagination__link">3</a>
+                  <a href="#" className="catalogue-pagination__link">4</a>
+                </div>
+                <a href="#" className="catalogue-pagination__step">
+                  <svg className="icon icon-arrow--pagination pagination-icon__right">
+                    <use href="images/icons/sprite.svg#arrow"></use>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 };
 
 export default Catalogue;
