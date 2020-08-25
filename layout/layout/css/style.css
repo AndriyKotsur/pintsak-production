@@ -2,7 +2,9 @@
 
 /* Fonts */
 
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;
+
+700;900&display=swap");
 
 
 * {
@@ -577,22 +579,7 @@ h6 {
 }
 
 .popular-carousel-block {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
   margin: 40px -20px 0px;
-}
-
-.popular-carousel__arrow--left {
-  -webkit-transform: rotateZ(180deg);
-      -ms-transform: rotate(180deg);
-          transform: rotateZ(180deg);
-  fill-opacity: 0.5;
 }
 
 .advantages {
@@ -1097,11 +1084,11 @@ h6 {
 }
 
 .catalogue-pagination .pagination-icon__left.isActive {
-  fill-opacity: .5;
+  fill-opacity: 0.5;
 }
 
 .catalogue-pagination .pagination-icon__right.isActive {
-  fill-opacity: .5;
+  fill-opacity: 0.5;
 }
 
 .catalogue-page-inner {
@@ -1130,18 +1117,22 @@ h6 {
   padding: 0px 15px;
 }
 
-.catalogue-page-main {
+.catalogue-page-block {
+  max-width: 1290px;
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  max-width: 1290px;
-  width: 100%;
 }
 
 .catalogue-page-gallery {
@@ -1990,6 +1981,10 @@ h6 {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
@@ -1998,12 +1993,20 @@ h6 {
 .carousel__title {
   font-size: 24px;
   font-weight: 900;
+  text-align: center;
+}
+
+.carousel__navigation {
+  -ms-flex-item-align: center;
+      align-self: center;
+  margin: 35px 0px 0px;
 }
 
 .carousel__step {
   min-width: 50px;
+  display: inline-block;
+  margin: 0px 30px 0px 0px;
   padding: 10px 15px;
-  margin-left: 30px;
   border-radius: 4px;
   background: #ff8e01;
 }
@@ -2012,13 +2015,23 @@ h6 {
   margin-right: 0;
 }
 
+.carousel__arrow--left {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+}
+
 .carousel-block {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .form .input-field {
@@ -2533,6 +2546,23 @@ h6 {
 
   .location-map {
     margin-bottom: 265px;
+  }
+
+  .carousel-header {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+
+  .carousel__title {
+    text-align: left;
+  }
+
+  .carousel__navigation {
+    -ms-flex-item-align: end;
+        align-self: flex-end;
+    margin: 0px;
   }
 
   .btn-sent {

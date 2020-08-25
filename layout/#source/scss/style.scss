@@ -57,8 +57,7 @@
 
 /* Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700;900&display=swap");
-$fontfamily: "Noto Sans",
-sans-serif;
+$fontfamily: "Noto Sans", sans-serif;
 /* Colors */
 $color1: #373f48;
 $color2: #ff8e01;
@@ -251,7 +250,7 @@ h6 {
       top: 70px;
       z-index: 20;
 
-      &>.header-navigation__link {
+      & > .header-navigation__link {
         margin: 0px;
         color: $color2;
 
@@ -436,7 +435,7 @@ h6 {
     &.isMobile {
       left: 0;
 
-      &>.header-menu__background::after {
+      & > .header-menu__background::after {
         left: 220px;
       }
     }
@@ -468,10 +467,10 @@ h6 {
         visibility: visible;
       }
 
-      &>.aside-navigation__list {
+      & > .aside-navigation__list {
         margin: 25px 0px 0px;
 
-        &>.aside-navigation__link {
+        & > .aside-navigation__link {
           margin: 25px 0px 0px;
 
           &:first-child {
@@ -480,7 +479,7 @@ h6 {
         }
       }
 
-      &>.aside-navigation__download {
+      & > .aside-navigation__download {
         margin: 30px 0px 0px;
       }
     }
@@ -770,19 +769,8 @@ h6 {
     }
 
     &-block {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
       margin: 40px -20px 0px;
     }
-
-    &__arrow {
-      &--left {
-        transform: rotateZ(180deg);
-        fill-opacity: 0.5;
-      }
-    }
-
   }
 }
 
@@ -886,7 +874,7 @@ h6 {
     width: 100%;
     padding: 15px 25px;
 
-    &:focus+label {
+    &:focus + label {
       visibility: hidden;
     }
   }
@@ -917,7 +905,7 @@ h6 {
     min-height: 150px;
     padding: 15px 25px;
 
-    &:focus+label {
+    &:focus + label {
       visibility: hidden;
     }
   }
@@ -937,7 +925,8 @@ h6 {
 
 .about-us {
   @include screen-tb() {
-    background: url(/images/background-right.svg) bottom -18px right -4px no-repeat;
+    background: url(/images/background-right.svg) bottom -18px right -4px
+      no-repeat;
   }
 
   &-inner {
@@ -950,9 +939,11 @@ h6 {
   &__background {
     width: 100%;
     height: 95px;
-    background: linear-gradient(180deg,
+    background: linear-gradient(
+        180deg,
         rgba(55, 63, 72, 0.71) 0%,
-        rgba(55, 63, 72, 0) 100%),
+        rgba(55, 63, 72, 0) 100%
+      ),
       url(/images/background-top.png);
   }
 
@@ -1027,7 +1018,6 @@ h6 {
     font-weight: 900;
 
     &.highlight-top {
-
       &::after,
       &::before {
         content: '"';
@@ -1212,7 +1202,6 @@ h6 {
   }
 
   &-sort {
-
     &__block {
       display: block;
 
@@ -1280,7 +1269,6 @@ h6 {
   //ANCHOR Catalogue pagination
 
   &-pagination {
-
     &-block {
       display: flex;
       justify-content: space-between;
@@ -1345,13 +1333,13 @@ h6 {
         transform: rotateZ(180deg);
 
         &.isActive {
-          fill-opacity: .5;
+          fill-opacity: 0.5;
         }
       }
 
       &__right {
         &.isActive {
-          fill-opacity: .5;
+          fill-opacity: 0.5;
         }
       }
     }
@@ -1387,12 +1375,13 @@ h6 {
     }
   }
 
-  &-main {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  &-block {
     max-width: 1290px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
   }
 
   &-gallery {
@@ -1435,7 +1424,8 @@ h6 {
 
     @media (max-width: 1024px) {
       & {
-        &_large {}
+        &_large {
+        }
       }
     }
   }
@@ -1605,7 +1595,8 @@ h6 {
   align-items: center;
   flex-wrap: wrap;
 
-  &.active {}
+  &.active {
+  }
 
   &-wrapper {
     position: relative;
@@ -1820,7 +1811,8 @@ h6 {
     }
   }
 
-  &-form {}
+  &-form {
+  }
 
   &-field {
     position: relative;
@@ -1835,7 +1827,7 @@ h6 {
     width: 100%;
     padding: 15px 25px;
 
-    &:focus+label {
+    &:focus + label {
       visibility: hidden;
     }
   }
@@ -1866,7 +1858,7 @@ h6 {
     min-height: 150px;
     padding: 15px 25px;
 
-    &:focus+label {
+    &:focus + label {
       visibility: hidden;
     }
   }
@@ -2226,20 +2218,37 @@ h6 {
 .carousel {
   &-header {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
+    @include screen-tb() {
+      flex-direction: row;
+    }
   }
 
   &__title {
     font-size: 24px;
     font-weight: 900;
+    text-align: center;
+    @include screen-tb() {
+      text-align: left;
+    }
   }
 
-  &__navigation {}
+  &__navigation {
+    align-self: center;
+    margin: 35px 0px 0px;
+
+    @include screen-tb() {
+      align-self: flex-end;
+      margin: 0px;
+    }
+  }
 
   &__step {
     min-width: 50px;
+    display: inline-block;
+    margin: 0px 30px 0px 0px;
     padding: 10px 15px;
-    margin-left: 30px;
     border-radius: 4px;
     background: $color2;
 
@@ -2247,10 +2256,17 @@ h6 {
       margin-right: 0;
     }
   }
+  &__arrow {
+    &--left {
+      transform: rotateY(180deg);
+    }
+  }
 
   &-block {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
   }
 }
 
@@ -2316,7 +2332,8 @@ h6 {
   }
 }
 
-.btn-green {}
+.btn-green {
+}
 
 .btn-orange {
   border: 2px solid $color2;
