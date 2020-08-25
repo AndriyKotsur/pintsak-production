@@ -57,7 +57,8 @@
 
 /* Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700;900&display=swap");
-$fontfamily: "Noto Sans", sans-serif;
+$fontfamily: "Noto Sans",
+sans-serif;
 /* Colors */
 $color1: #373f48;
 $color2: #ff8e01;
@@ -250,7 +251,7 @@ h6 {
       top: 70px;
       z-index: 20;
 
-      & > .header-navigation__link {
+      &>.header-navigation__link {
         margin: 0px;
         color: $color2;
 
@@ -435,7 +436,7 @@ h6 {
     &.isMobile {
       left: 0;
 
-      & > .header-menu__background::after {
+      &>.header-menu__background::after {
         left: 220px;
       }
     }
@@ -467,10 +468,10 @@ h6 {
         visibility: visible;
       }
 
-      & > .aside-navigation__list {
+      &>.aside-navigation__list {
         margin: 25px 0px 0px;
 
-        & > .aside-navigation__link {
+        &>.aside-navigation__link {
           margin: 25px 0px 0px;
 
           &:first-child {
@@ -479,7 +480,7 @@ h6 {
         }
       }
 
-      & > .aside-navigation__download {
+      &>.aside-navigation__download {
         margin: 30px 0px 0px;
       }
     }
@@ -874,7 +875,7 @@ h6 {
     width: 100%;
     padding: 15px 25px;
 
-    &:focus + label {
+    &:focus+label {
       visibility: hidden;
     }
   }
@@ -905,7 +906,7 @@ h6 {
     min-height: 150px;
     padding: 15px 25px;
 
-    &:focus + label {
+    &:focus+label {
       visibility: hidden;
     }
   }
@@ -925,8 +926,7 @@ h6 {
 
 .about-us {
   @include screen-tb() {
-    background: url(/images/background-right.svg) bottom -18px right -4px
-      no-repeat;
+    background: url(/images/background-right.svg) bottom -18px right -4px no-repeat;
   }
 
   &-inner {
@@ -939,11 +939,9 @@ h6 {
   &__background {
     width: 100%;
     height: 95px;
-    background: linear-gradient(
-        180deg,
+    background: linear-gradient(180deg,
         rgba(55, 63, 72, 0.71) 0%,
-        rgba(55, 63, 72, 0) 100%
-      ),
+        rgba(55, 63, 72, 0) 100%),
       url(/images/background-top.png);
   }
 
@@ -1018,6 +1016,7 @@ h6 {
     font-weight: 900;
 
     &.highlight-top {
+
       &::after,
       &::before {
         content: '"';
@@ -1223,8 +1222,8 @@ h6 {
     }
 
     &__size {
-      margin-right: 15px;
-      padding-right: 15px;
+      margin: 0px 15px 0px 0px;
+      padding: 0px 15px 0px 0px;
       border-right: 1px solid $color2;
       @include transition();
       color: $color4;
@@ -1348,17 +1347,34 @@ h6 {
 
 // ANCHOR Catalogue item page
 
-.catalogue-page {
+.product {
   &-inner {
     padding: 30px 0px 123px;
   }
 
-  &-breadcrumbs {
-    display: flex;
-    margin-bottom: 46px;
+  &-back {
+    display: inline-block;
+    margin: 0px 0px 35px;
+    color: $color1;
+
+    @include screen-sm() {
+      @include hidden();
+    }
+
+    &__icon {
+      transform: rotateY(180deg);
+    }
   }
 
-  .breadcrumbs {
+  &-breadcrumbs {
+    @include hidden();
+
+    @include screen-sm() {
+      display: flex;
+      visibility: visible;
+      margin: 0px 0px 46px;
+    }
+
     &__item {
       font-size: 16px;
       color: $color1;
@@ -1375,119 +1391,171 @@ h6 {
     }
   }
 
+  &__status {
+    position: absolute;
+    top: -30px;
+    margin: 0px 0px 15px;
+    font-size: 16px;
+    font-weight: 600;
+    color: $color5;
+  }
+
   &-block {
+    position: relative;
     max-width: 1290px;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+
+    @include screen-tb() {
+      flex-direction: row;
+    }
   }
 
   &-gallery {
+    width: 100%;
     display: flex;
-    align-items: flex-start;
-    width: 60%;
-    margin-right: 50px;
+    align-items: center;
 
-    .gallery {
-      &-small {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        margin-right: 60px;
+    @include screen-tb() {
+      width: 60%;
+      margin: 0px 50px 0px 0px;
+    }
 
-        &__img {
-          max-width: 123px;
-          width: 100%;
-          margin-bottom: 20px;
-        }
+    &__small {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin: 0px 15px 0px 0px;
+
+      @include screen-l() {
+        margin: 0px 60px 0px 0px;
       }
 
-      &-large {
-        position: relative;
-        max-width: 537px;
+      & img {
+        max-width: 123px;
         width: 100%;
+        margin: 0px 0px 20px;
+      }
+    }
+
+    &__large {
+      position: relative;
+      max-width: 537px;
+      width: 100%;
+      padding-top: 51.55%;
+      border: 1px solid $color4;
+
+      @include screen-tb() {
+        padding-top: 75%;
+      }
+
+      @include screen-l() {
         padding-top: 51.55%;
-        border: 1px solid $color4;
+      }
 
-        &__img {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 50%;
-          transform: translate(-50%, -50%);
-        }
+      & img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 50%;
+        transform: translate(-50%, -50%);
       }
     }
-
-    @media (max-width: 1024px) {
-      & {
-        &_large {
-        }
-      }
-    }
-  }
-
-  &__status {
-    position: absolute;
-    top: -30px;
-    margin-bottom: 15px;
-    font-size: 16px;
-    font-weight: 600;
-    color: $color5;
   }
 
   &-trade {
-    align-self: start;
     position: relative;
-    width: 40%;
-    padding-top: 30%;
+    width: 100%;
     background: #ffecd4;
+    margin: 30px 0px 0px;
+
+    @include screen-tb() {
+      width: 60%;
+      align-self: start;
+      padding-top: 30%;
+      margin: 0px;
+    }
+
+    @include screen-l() {
+      width: 40%;
+    }
 
     &-wrapper {
-      position: absolute;
-      top: 50%;
-      left: 15%;
-      transform: translate(0%, -50%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 30px 15px;
+
+      @include screen-tb() {
+        position: absolute;
+        top: 50%;
+        left: 10%;
+        transform: translate(0%, -50%);
+        align-items: flex-start;
+      }
     }
 
     &__title {
-      margin-bottom: 20px;
-      font-size: 30px;
+      margin: 0px 0px 20px;
+      font-size: 22px;
       font-weight: 900;
       color: $color1;
+
+      @include screen-l() {
+        font-size: 30px;
+      }
     }
 
     &__price {
-      margin-bottom: 20px;
-      font-size: 36px;
+      margin: 0px 0px 20px;
+      font-size: 24px;
       font-weight: 900;
       color: $color1;
 
+      @include screen-l() {
+        font-size: 36px;
+      }
+
       & sup {
-        font-size: 24px;
+        font-size: 16px;
+
+        @include screen-l() {
+          font-size: 24px;
+        }
       }
     }
 
     &__size {
       position: absolute;
       left: 100%;
-      margin-left: 20px;
-      font-size: 24px;
+      margin: 0px 0px 0px 10px;
+      font-size: 18px;
       font-weight: 900;
+
+      @include screen-l() {
+        margin: 0px 0px 0px 20px;
+        font-size: 24px;
+      }
     }
 
     &__btn {
-      display: block;
       max-width: 223px;
-      padding: 15px 40px;
+      display: block;
+      padding: 15px 35px;
       background: $color5;
       color: #ffffff;
-      font-size: 20px;
+      font-size: 16px;
       font-weight: 900;
       border-radius: 4px;
+
+      @include screen-l() {
+        font-size: 20px;
+      }
 
       .icon-cart {
         margin-right: 22px;
@@ -1516,29 +1584,30 @@ h6 {
     }
   }
 
-  &-about {
+  &-table {
     max-width: 1184px;
     width: 100%;
     margin: 126px auto;
 
-    &__title {
+    &__header {
       margin-bottom: 25px;
       font-size: 24px;
       font-weight: 900;
     }
-  }
 
-  &-table {
-    width: 100%;
-    background: #ffffff;
-    table-layout: fixed;
-    border-collapse: collapse;
-    border-spacing: 0;
-    box-shadow: 0px 0px 10px rgba(55, 63, 72, 0.1);
-    font-size: 16px;
-    text-align: center;
+    &__block {
+      width: 100%;
+      background: #ffffff;
+      table-layout: fixed;
+      border-collapse: collapse;
+      border-spacing: 0;
+      box-shadow: 0px 0px 10px rgba(55, 63, 72, 0.1);
+      font-size: 16px;
+      text-align: center;
 
-    &__header {
+    }
+
+    &__title {
       background: #f2f0f0;
       border-bottom: 2px solid $color2;
 
@@ -1560,12 +1629,13 @@ h6 {
     }
   }
 
-  .similar-carousel {
+
+  .product-carousel {
     max-width: 1184px;
     width: 100%;
     margin: 0px auto;
 
-    &-items {
+    &-block {
       margin: 40px -20px 0px;
     }
 
@@ -1595,8 +1665,7 @@ h6 {
   align-items: center;
   flex-wrap: wrap;
 
-  &.active {
-  }
+  &.active {}
 
   &-wrapper {
     position: relative;
@@ -1787,8 +1856,13 @@ h6 {
 
   &-inner {
     display: flex;
+    flex-direction: column-reverse;
     justify-content: space-between;
     align-items: center;
+
+    @include screen-l() {
+      flex-direction: row;
+    }
   }
 
   &-send {
@@ -1811,8 +1885,7 @@ h6 {
     }
   }
 
-  &-form {
-  }
+  &-form {}
 
   &-field {
     position: relative;
@@ -1827,7 +1900,7 @@ h6 {
     width: 100%;
     padding: 15px 25px;
 
-    &:focus + label {
+    &:focus+label {
       visibility: hidden;
     }
   }
@@ -1858,7 +1931,7 @@ h6 {
     min-height: 150px;
     padding: 15px 25px;
 
-    &:focus + label {
+    &:focus+label {
       visibility: hidden;
     }
   }
@@ -1922,6 +1995,10 @@ h6 {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 45px;
+
+    @include screen-l() {
+      order: 0;
+    }
 
     &__title {
       padding: 10px 20px;
@@ -2220,6 +2297,7 @@ h6 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
     @include screen-tb() {
       flex-direction: row;
     }
@@ -2229,6 +2307,7 @@ h6 {
     font-size: 24px;
     font-weight: 900;
     text-align: center;
+
     @include screen-tb() {
       text-align: left;
     }
@@ -2256,6 +2335,7 @@ h6 {
       margin-right: 0;
     }
   }
+
   &__arrow {
     &--left {
       transform: rotateY(180deg);
@@ -2332,8 +2412,7 @@ h6 {
   }
 }
 
-.btn-green {
-}
+.btn-green {}
 
 .btn-orange {
   border: 2px solid $color2;

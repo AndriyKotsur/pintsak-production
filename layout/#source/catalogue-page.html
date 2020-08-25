@@ -10,57 +10,57 @@
 
 <body>
     @@ include('_header.html')
-    <div class="catalogue-page">
+    <div class="product">
         <div class="container">
-            <div class="catalogue-page-inner">
-                <a href="#" class="catalogue-page-back">
-                    
+            <div class="product-inner">
+                <a href="#" class="product-back">
+                    <svg class="icon icon-arrow--cart product-back__icon">
+                        <use href="images/icons/sprite.svg#arrow-cart"></use>
+                    </svg>
                     Тротуарна
                 </a>
-                <ul class="catalogue-page-breadcrumbs">
-                    <li class="breadcrumbs__item"><a href="#" class="breadcrumbs__link">Головна</a></li>
-                    <li class="breadcrumbs__item"><a href="#" class="breadcrumbs__link">Види
+                <ul class="product-breadcrumbs">
+                    <li class="product-breadcrumbs__item"><a href="#" class="product-breadcrumbs__link">Головна</a></li>
+                    <li class="product-breadcrumbs__item"><a href="#" class="product-breadcrumbs__link">Види
                             продукції</a></li>
-                    <li class="breadcrumbs__item"><a href="#" class="breadcrumbs__link">Тротуарна плитка</a></li>
-                    <li class="breadcrumbs__item">Тротуарна</li>
+                    <li class="product-breadcrumbs__item"><a href="#" class="product-breadcrumbs__link">Тротуарна плитка</a></li>
+                    <li class="product-breadcrumbs__item">Тротуарна</li>
                 </ul>
 
-                <div class="catalogue-page-block">
-                    <div class="catalogue-page-gallery">
-                        <div class="gallery-small">
+                <div class="product-block">
+                    <div class="product-gallery">
+                        <div class="product-gallery__small">
                             <img src="images/product-tile-curpet.png" alt="Gallery image"
                                 class="gallery-small__img isActive">
-                            <img src="images//product-tile-curpet1.png" alt="Gallery image" class="gallery-small__img">
-                            <img src="images/product-tile-curpet2.png" alt="Gallery image" class="gallery-small__img">
+                            <img src="images//product-tile-curpet1.png" alt="Gallery image" class="product-gallery__img">
+                            <img src="images/product-tile-curpet2.png" alt="Gallery image" class="product-gallery__img">
                         </div>
-                        <div class="gallery-large">
-                            <img src="images/product-tile-border.png" alt="Gallery image" class="gallery-large__img">
+                        <div class="product-gallery__large">
+                            <img src="images/product-tile-border.png" alt="Gallery image" class="product-gallery__img">
                         </div>
                     </div>
 
-                    <div class="catalogue-page-trade">
-                        <h2 class="catalogue-page__status">В наявності</h2>
+                    <div class="product-trade">
+                        <h2 class="product__status">В наявності</h2>
+                        <div class="product-trade-wrapper">
+                            <h1 class="product-trade__title">Коврова</h1>
+                            <p class="product-trade__price">198,<sup> 00 грн</sup></p>
 
-                        <div class="catalogue-page-trade-wrapper">
-                            <h1 class="catalogue-page-trade__title">Коврова</h1>
-                            <p class="catalogue-page-trade__price">198,<sup> 00 грн</sup></p>
-
-                            <div class="calc catalogue-page-calc">
-
-                                <button class="calc__remove catalogue-page-calc__remove">
+                            <div class="calc product-calc">
+                                <button class="calc__remove product-calc__remove">
                                     <svg class="icon icon-minus">
                                         <use href="images/icons/sprite.svg#minus"></use>
                                     </svg>
                                 </button>
-                                <input type="number" class="calc__count catalogue-page-calc__count" min="1" value="1">
-                                <button class="calc__add catalogue-page-calc__add">
+                                <input type="number" class="calc__count product-calc__count" min="1" value="1">
+                                <button class="calc__add product-calc__add">
                                     <svg class="icon icon-plus">
                                         <use href="images/icons/sprite.svg#plus"></use>
                                     </svg>
                                 </button>
-                                <span class="catalogue-page-trade__size">м<sup>2</sup></span>
+                                <span class="product-trade__size">м<sup>2</sup></span>
                             </div>
-                            <a href="order-page.html" class="catalogue-page-trade__btn">
+                            <a href="./order-page.html" class="product-trade__btn">
                                 <svg class="icon icon-cart">
                                     <use href="images/icons/sprite.svg#cart"></use>
                                 </svg>
@@ -70,10 +70,10 @@
                     </div>
                 </div>
 
-                <div class="catalogue-page-about">
-                    <h2 class="catalogue-page-about__title">Опис товару</h2>
-                    <table class="catalogue-page-table">
-                        <thead class="catalogue-page-table__header">
+                <div class="product-table">
+                    <h2 class="product-table__header">Опис товару</h2>
+                    <table class="product-table__block">
+                        <thead class="product-table__title">
                             <tr>
                                 <th>Товщина (см)</th>
                                 <th>Розмір (см)</th>
@@ -82,7 +82,7 @@
                                 <th>Ціна в базовому окрасі (сірий, червоний)</th>
                             </tr>
                         </thead>
-                        <tbody class="catalogue-page-table__body">
+                        <tbody class="product-table__body">
                             <tr>
                                 <td>2,5</td>
                                 <td>30х30 / 22х22</td>
@@ -102,26 +102,26 @@
                 </div>
 
 
-                <div class="carousel similar-carousel">       
+                <div class="carousel product-carousel">
+
                     <div class="carousel-header">
                         <h2 class="carousel__title">
-                            Схожі пропозиції
+                            Популярні товари
                         </h2>
-
                         <div class="carousel__navigation">
                             <a href="#" class="carousel__step">
-                                <svg class="icon icon-carousel popular-carousel__arrow--left">
+                                <svg class="icon icon-arrow--carousel carousel__arrow--left">
                                     <use href="images/icons/sprite.svg#arrow"></use>
                                 </svg>
                             </a>
                             <a href="#" class="carousel__step">
-                                <svg class="icon icon-carousel popular-carousel__arrow--right">
+                                <svg class="icon icon-arrow--carousel carousel__arrow--right">
                                     <use href="images/icons/sprite.svg#arrow"></use>
                                 </svg>
                             </a>
                         </div>
                     </div>
-                    <div class="carousel-items similar-carousel-items">
+                    <div class="carousel-block product-carousel-block">
                         <div class="product-item">
                             <a href="/catalogue-page.html" class="product-link">
                                 <h3 class="product__title">
@@ -230,8 +230,6 @@
                             </div>
                         </div>
                     </div>
-
-                </div>
             </div>
         </div>
     </div>
