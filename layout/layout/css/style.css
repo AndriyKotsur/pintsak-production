@@ -1295,6 +1295,7 @@ h6 {
   max-width: 1184px;
   width: 100%;
   margin: 126px auto;
+  overflow-x: scroll;
 }
 
 .product-table__header {
@@ -1321,6 +1322,7 @@ h6 {
 }
 
 .product-table__title th {
+  width: 200px;
   padding: 18px 0px;
   font-weight: 600;
 }

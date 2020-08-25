@@ -1588,6 +1588,7 @@ h6 {
     max-width: 1184px;
     width: 100%;
     margin: 126px auto;
+    overflow-x: scroll;
 
     &__header {
       margin-bottom: 25px;
@@ -1604,7 +1605,6 @@ h6 {
       box-shadow: 0px 0px 10px rgba(55, 63, 72, 0.1);
       font-size: 16px;
       text-align: center;
-
     }
 
     &__title {
@@ -1612,6 +1612,7 @@ h6 {
       border-bottom: 2px solid $color2;
 
       & th {
+        width: 200px;
         padding: 18px 0px;
         font-weight: 600;
       }
