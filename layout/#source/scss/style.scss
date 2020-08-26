@@ -1733,9 +1733,13 @@ h6 {
   left: 0;
   width: 100%;
   height: 100vh;
-  padding: 27px;
+  padding: 35px 15px;
   background: rgba(55, 63, 72, 0.76);
-  z-index: 20;
+  z-index: 30;
+
+  @include screen-l() {
+    padding: 27px;
+  }
 
   justify-content: center;
   align-items: center;
@@ -1759,9 +1763,12 @@ h6 {
     justify-content: space-between;
     align-items: center;
     padding: 20px 30px;
-    margin: 0px 0px 30px;
     background: $color3;
     border-radius: 4px 4px 0px 0px;
+
+    @include screen-l() {
+      margin: 0px 0px 30px;
+    }
 
     &__title {
       font-size: 20px;
@@ -1797,13 +1804,21 @@ h6 {
 
   &-item {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    padding: 22px 30px;
+    flex-direction: column;
+    justify-content: left;
+    align-items: flex-start;
+    padding: 32px 15px 28px;
+
+    @include screen-l() {
+      padding: 22px 30px;
+    }
 
     &:first-child {
       padding: 0px 30px 22px;
+
+      @include screen-l() {
+        padding: 0px;
+      }
     }
 
     &:nth-child(2n + 0) {
@@ -1811,19 +1826,24 @@ h6 {
     }
 
     &__close {
+      position: absolute;
+      top: 8px;
+      left: 8px;
       background: transparent;
+      z-index: 20;
     }
 
     &__product {
+      position: relative;
       display: flex;
-      flex-direction: row;
     }
 
     &__image {
       position: relative;
       max-width: 132px;
       width: 100%;
-      padding-top: 11%;
+      padding-top: 25%;
+      margin: 0px 15px 0px 0px;
       background: #ffffff;
       border: 1px solid $color4;
 
@@ -1837,21 +1857,22 @@ h6 {
     }
 
     &__link {
-      display: flex;
-      flex-direction: column;
-
+      
       &--title {
-        font-size: 16px;
+        display: inline-block;
+        font-size: 14px;
         color: $color1;
       }
 
       &--type {
-        font-size: 14px;
+        display: inline-block;
+        font-size: 12px;
         color: $color4;
-        margin-bottom: 5px;
+        margin-bottom: 10px;
       }
     }
-
+    &__summary {
+    }
     &__price {
       min-width: 85px;
       text-align: center;
@@ -1877,6 +1898,7 @@ h6 {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-grow: 1;
 
     &__remove {
       padding: 7px 10px;
