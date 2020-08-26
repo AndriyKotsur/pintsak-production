@@ -770,7 +770,11 @@ h6 {
     }
 
     &-block {
-      margin: 40px -20px 0px;
+      margin: 40px 0px 0px;
+
+      @include screen-l() {
+        margin: 40px -20px 0px;
+      }
     }
   }
 }
@@ -1262,7 +1266,11 @@ h6 {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin: 20px -20px 20px;
+    margin: 20px 0px 20px;
+
+    @include screen-l() {
+      margin: 20px -20px 20px;
+    }
   }
 
   //ANCHOR Catalogue pagination
@@ -1349,7 +1357,7 @@ h6 {
 
 .product {
   &-inner {
-    padding: 30px 0px 123px;
+    padding: 30px 0px 100px;
   }
 
   &-back {
@@ -1357,7 +1365,7 @@ h6 {
     margin: 0px 0px 35px;
     color: $color1;
 
-    @include screen-sm() {
+    @include screen-tb() {
       @include hidden();
     }
 
@@ -1369,7 +1377,7 @@ h6 {
   &-breadcrumbs {
     @include hidden();
 
-    @include screen-sm() {
+    @include screen-tb() {
       display: flex;
       visibility: visible;
       margin: 0px 0px 46px;
@@ -1393,11 +1401,16 @@ h6 {
 
   &__status {
     position: absolute;
-    top: -30px;
+    top: -52px;
+    right: 0;
     margin: 0px 0px 15px;
     font-size: 16px;
     font-weight: 600;
     color: $color5;
+
+    @include screen-tb() {
+      top: -30px;
+    }
   }
 
   &-block {
@@ -1417,28 +1430,52 @@ h6 {
   &-gallery {
     width: 100%;
     display: flex;
+    justify-content: center;
     align-items: center;
 
     @include screen-tb() {
+      width: 50%;
+      margin: 0px 15px 0px 0px;
+    }
+
+    @include screen-l() {
       width: 60%;
       margin: 0px 50px 0px 0px;
     }
 
     &__small {
       display: flex;
-      justify-content: center;
-      align-items: center;
       flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      align-self: start;
       margin: 0px 15px 0px 0px;
+
+      & .isActive {
+        border: 1px solid $color4;
+      }
 
       @include screen-l() {
         margin: 0px 60px 0px 0px;
       }
 
       & img {
-        max-width: 123px;
-        width: 100%;
-        margin: 0px 0px 20px;
+        width: 55px;
+        margin: 0px 0px 15px;
+
+        @include screen-sm() {
+          width: 65px;
+          margin: 0px 0px 20px;
+        }
+
+        @include screen-l() {
+          max-width: 125px;
+          width: 100%;
+        }
+
+        &:last-child {
+          margin: 0px;
+        }
       }
     }
 
@@ -1446,14 +1483,29 @@ h6 {
       position: relative;
       max-width: 537px;
       width: 100%;
-      padding-top: 51.55%;
+      height: 0;
+      align-self: flex-start;
+      padding-top: 56.25%;
       border: 1px solid $color4;
+
+      @include screen-sm() {
+        padding-top: 50%;
+      }
+
+      @include screen-tb() {
+        padding-top: 66.66%;
+      }
+
+      @include screen-l() {
+        padding-top: 51.55%;
+      }
 
       & img {
         position: absolute;
         top: 50%;
         left: 50%;
         width: 50%;
+        height: auto;
         transform: translate(-50%, -50%);
       }
     }
@@ -1466,12 +1518,13 @@ h6 {
     background: #ffecd4;
 
     @include screen-tb() {
-      width: 60%;
+      width: 50%;
       height: 0;
       align-self: start;
-      padding-top: 116px / 344px * 100%;
+      padding-top: 33.33%;
       margin: 0px;
     }
+
     @include screen-l() {
       width: 40%;
       padding-top: 30%;
@@ -1485,11 +1538,11 @@ h6 {
       padding: 30px 15px;
 
       @include screen-tb() {
+        align-items: flex-start;
         position: absolute;
         top: 50%;
         left: 10%;
         transform: translate(0%, -50%);
-        align-items: flex-start;
       }
     }
 
@@ -1531,7 +1584,7 @@ h6 {
       font-weight: 900;
 
       @include screen-l() {
-        margin: 0px 0px 0px 20px;
+        margin: 0px 0px 0px 15px;
         font-size: 24px;
       }
     }
@@ -1539,19 +1592,19 @@ h6 {
     &__btn {
       max-width: 223px;
       display: block;
-      padding: 15px 35px;
+      padding: 15px 40px;
+      border-radius: 4px;
       background: $color5;
       color: #ffffff;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 900;
-      border-radius: 4px;
 
       @include screen-l() {
         font-size: 20px;
       }
 
       .icon-cart {
-        margin-right: 22px;
+        margin-right: 15px;
       }
     }
   }
@@ -1560,14 +1613,17 @@ h6 {
     position: relative;
     max-width: 175px;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: 0px 0px 24px;
 
     &__remove {
-      padding: 12px 13px;
+      padding: 11px 13px;
     }
 
     &__add {
-      padding: 12px 13px;
+      padding: 11px 13px;
     }
 
     &__count {
@@ -1581,6 +1637,11 @@ h6 {
     max-width: 1184px;
     width: 100%;
     margin: 126px auto;
+    overflow-x: scroll;
+
+    @include screen-sm() {
+      overflow-x: hidden;
+    }
 
     &__header {
       margin: 0px 0px 25px;
@@ -1604,8 +1665,20 @@ h6 {
       border-bottom: 2px solid $color2;
 
       & th {
+        width: 140px;
         padding: 18px 0px;
+        line-height: 24px;
+        font-size: 12px;
         font-weight: 600;
+
+        & span {
+          font-weight: 400;
+        }
+
+        @include screen-tb() {
+          width: 100%;
+          font-size: 16px;
+        }
       }
     }
 
@@ -1615,8 +1688,16 @@ h6 {
       }
 
       & td {
+        width: 140px;
         padding: 18px 0px;
+        line-height: 24px;
+        font-size: 12px;
         font-weight: 600;
+
+        @include screen-tb() {
+          width: 100%;
+          font-size: 16px;
+        }
       }
     }
   }
@@ -1628,7 +1709,11 @@ h6 {
     margin: 0px auto;
 
     &-block {
-      margin: 40px -20px 0px;
+      margin: 40px 0px 0px;
+
+      @include screen-l() {
+        margin: 40px -20px 0px;
+      }
     }
 
     &__arrow {
@@ -1642,24 +1727,25 @@ h6 {
 
 // ANCHOR Cart modal
 
-.cart-modal {
+.cart {
   position: fixed;
-  z-index: 20;
   top: 0;
   left: 0;
   width: 100%;
   height: 100vh;
   padding: 27px;
   background: rgba(55, 63, 72, 0.76);
+  z-index: 20;
 
-  display: none;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
 
-  &.active {}
+  &.isActive {
+    display: flex;
+  }
 
-  &-wrapper {
+  &-block {
     position: relative;
     width: 100%;
     max-width: 862px;
@@ -1668,13 +1754,13 @@ h6 {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
 
-  &-top {
+  &-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: $color3;
     padding: 20px 30px;
-    margin-bottom: 30px;
+    margin: 0px 0px 30px;
+    background: $color3;
     border-radius: 4px 4px 0px 0px;
 
     &__title {
@@ -1689,10 +1775,15 @@ h6 {
   }
 
   &-description {
-    display: flex;
+    @include hidden();
     justify-content: flex-end;
     align-items: baseline;
     margin-bottom: 5px;
+
+    @include screen-l() {
+      display: flex;
+      visibility: hidden;
+    }
 
     &__item {
       padding: 0px 30px;
@@ -1706,6 +1797,7 @@ h6 {
 
   &-item {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     padding: 22px 30px;
@@ -1719,7 +1811,12 @@ h6 {
     }
 
     &__close {
-      background: 0 0;
+      background: transparent;
+    }
+
+    &__product {
+      display: flex;
+      flex-direction: row;
     }
 
     &__image {
@@ -1774,6 +1871,13 @@ h6 {
   }
 
   &-calc {
+    position: relative;
+    max-width: 115px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     &__remove {
       padding: 7px 10px;
     }
@@ -2511,18 +2615,16 @@ h6 {
 // ANCHOR Input count product
 
 .calc {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #ffffff;
   border: 1px solid $color1;
+  background: #ffffff;
 
   &__remove {
-    background: #ffffff;
     border-right: 1px solid $color1;
+    background: transparent;
   }
 
   &__count {
+    background: transparent;
     font-size: 14px;
     font-weight: 900;
     text-align: center;
@@ -2535,8 +2637,8 @@ h6 {
   }
 
   &__add {
-    background: #ffffff;
     border-left: 1px solid $color1;
+    background: transparent;
   }
 }
 
