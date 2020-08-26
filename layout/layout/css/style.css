@@ -1208,8 +1208,8 @@ h6 {
 .product-trade {
   position: relative;
   width: 100%;
-  background: #ffecd4;
   margin: 30px 0px 0px;
+  background: #ffecd4;
 }
 
 .product-trade-wrapper {
@@ -1274,7 +1274,7 @@ h6 {
   position: relative;
   max-width: 175px;
   width: 100%;
-  margin-bottom: 24px;
+  margin: 0px 0px 24px;
 }
 
 .product-calc__remove {
@@ -1295,11 +1295,10 @@ h6 {
   max-width: 1184px;
   width: 100%;
   margin: 126px auto;
-  overflow-x: scroll;
 }
 
 .product-table__header {
-  margin-bottom: 25px;
+  margin: 0px 0px 25px;
   font-size: 24px;
   font-weight: 900;
 }
@@ -1322,7 +1321,6 @@ h6 {
 }
 
 .product-table__title th {
-  width: 200px;
   padding: 18px 0px;
   font-weight: 600;
 }
@@ -2562,15 +2560,12 @@ h6 {
     margin: 0px 50px 0px 0px;
   }
 
-  .product-gallery__large {
-    padding-top: 75%;
-  }
-
   .product-trade {
     width: 60%;
+    height: 0;
     -ms-flex-item-align: start;
         align-self: start;
-    padding-top: 30%;
+    padding-top: 33.72093%;
     margin: 0px;
   }
 
@@ -2766,12 +2761,9 @@ h6 {
     margin: 0px 60px 0px 0px;
   }
 
-  .product-gallery__large {
-    padding-top: 51.55%;
-  }
-
   .product-trade {
     width: 40%;
+    padding-top: 30%;
   }
 
   .product-trade__title {

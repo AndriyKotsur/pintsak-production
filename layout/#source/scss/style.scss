@@ -1449,14 +1449,6 @@ h6 {
       padding-top: 51.55%;
       border: 1px solid $color4;
 
-      @include screen-tb() {
-        padding-top: 75%;
-      }
-
-      @include screen-l() {
-        padding-top: 51.55%;
-      }
-
       & img {
         position: absolute;
         top: 50%;
@@ -1470,18 +1462,19 @@ h6 {
   &-trade {
     position: relative;
     width: 100%;
-    background: #ffecd4;
     margin: 30px 0px 0px;
+    background: #ffecd4;
 
     @include screen-tb() {
       width: 60%;
+      height: 0;
       align-self: start;
-      padding-top: 30%;
+      padding-top: 116px / 344px * 100%;
       margin: 0px;
     }
-
     @include screen-l() {
       width: 40%;
+      padding-top: 30%;
     }
 
     &-wrapper {
@@ -1567,7 +1560,7 @@ h6 {
     position: relative;
     max-width: 175px;
     width: 100%;
-    margin-bottom: 24px;
+    margin: 0px 0px 24px;
 
     &__remove {
       padding: 12px 13px;
@@ -1588,10 +1581,9 @@ h6 {
     max-width: 1184px;
     width: 100%;
     margin: 126px auto;
-    overflow-x: scroll;
 
     &__header {
-      margin-bottom: 25px;
+      margin: 0px 0px 25px;
       font-size: 24px;
       font-weight: 900;
     }
@@ -1612,7 +1604,6 @@ h6 {
       border-bottom: 2px solid $color2;
 
       & th {
-        width: 200px;
         padding: 18px 0px;
         font-weight: 600;
       }
