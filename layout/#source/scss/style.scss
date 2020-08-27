@@ -1728,6 +1728,7 @@ h6 {
 // ANCHOR Cart modal
 
 .cart {
+  @include hidden();
   position: fixed;
   top: 0;
   left: 0;
@@ -1736,17 +1737,16 @@ h6 {
   padding: 35px 15px;
   background: rgba(55, 63, 72, 0.76);
   z-index: 30;
+  justify-content: center;
+  align-items: center;
 
   @include screen-l() {
     padding: 27px;
   }
 
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-
   &.isActive {
     display: flex;
+    visibility: visible;
   }
 
   &-block {
@@ -1754,26 +1754,34 @@ h6 {
     width: 100%;
     max-width: 862px;
     border-radius: 4px;
-    background: #ffffff;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    background: #ffffff;
   }
 
   &-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 30px;
-    background: $color3;
+    padding: 20px 20px;
     border-radius: 4px 4px 0px 0px;
+    background: $color3;
 
     @include screen-l() {
+      padding: 20px 30px;
       margin: 0px 0px 30px;
     }
 
     &__title {
-      font-size: 20px;
       font-weight: 900;
       color: $color1;
+
+      @include screen-tb() {
+        font-size: 18px;
+      }
+
+      @include screen-l() {
+        font-size: 20px;
+      }
     }
 
     &__close {
@@ -1805,8 +1813,6 @@ h6 {
   &-item {
     display: flex;
     flex-direction: column;
-    justify-content: left;
-    align-items: flex-start;
     padding: 32px 15px 28px;
 
     @include screen-l() {
@@ -1835,10 +1841,11 @@ h6 {
       background: transparent;
       z-index: 20;
 
-      @include screen-tb() {
+      @include screen-sm() {
         position: relative;
         top: 0;
         left: 0;
+        margin: 0px 25px 0px 0px;
       }
     }
 
@@ -1856,29 +1863,35 @@ h6 {
       background: #ffffff;
       border: 1px solid $color4;
 
+      @include screen-sm() {
+        padding-top: 12%;
+      }
+
       img {
+        width: 50%;
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 50%;
       }
     }
 
     &__link {
-      margin: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
 
       &--title {
-        display: inline-block;
         font-size: 14px;
+        line-height: 16px;
         color: $color1;
       }
 
       &--type {
-        display: inline-block;
         font-size: 12px;
         color: $color4;
-        margin-bottom: 10px;
+        margin: 0px 0px 10px;
       }
     }
 
@@ -1887,24 +1900,30 @@ h6 {
       flex-direction: column;
 
       @include screen-sm() {
+        justify-content: space-between;
         flex-direction: row;
       }
     }
 
-    &__count {}
+    &__count {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 20px 0px 0px;
+    }
 
     &__price {
-      display: inline-block;
       min-width: 85px;
+      margin: 0px 0px 0px 30px;
       text-align: center;
       font-size: 16px;
       color: $color1;
     }
 
     &__sum {
-      display: inline-block;
       min-width: 85px;
       padding: 5px 0px;
+      margin: 0px 0px 0px 30px;
       background: #ffecd4;
       text-align: center;
       border-radius: 4px;
@@ -1920,6 +1939,11 @@ h6 {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 20px 0px 0px;
+
+    @include screen-sm() {
+      margin: 20px 0px 0px 38px;
+    }
 
     &__remove {
       padding: 7px 10px;
@@ -1940,12 +1964,19 @@ h6 {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    margin: 42px 0px;
+    margin: 32px 0px 42px;
+
+    @include screen-l() {
+      flex-direction: row;
+      margin: 42px 0px;
+    }
   }
 
   &-back {
+    margin: 0px 0px 52px;
+
     &__title {
-      margin-right: 12px;
+      margin: 0px 12px 0px 0px;
       font-size: 16px;
       font-weight: 600;
     }
@@ -2830,8 +2861,13 @@ h6 {
   }
 
   &.icon-close--big {
-    width: 21px;
-    height: 21px;
+    width: 15px;
+    height: 15px;
+
+    @include screen-tb() {
+      width: 21px;
+      height: 21px;
+    }
   }
 
   &.icon-close--small {
