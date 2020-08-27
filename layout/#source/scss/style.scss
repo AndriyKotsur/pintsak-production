@@ -1810,6 +1810,9 @@ h6 {
     padding: 32px 15px 28px;
 
     @include screen-l() {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
       padding: 22px 30px;
     }
 
@@ -1831,6 +1834,12 @@ h6 {
       left: 8px;
       background: transparent;
       z-index: 20;
+
+      @include screen-tb() {
+        position: relative;
+        top: 0;
+        left: 0;
+      }
     }
 
     &__product {
@@ -1857,7 +1866,8 @@ h6 {
     }
 
     &__link {
-      
+      margin: auto;
+
       &--title {
         display: inline-block;
         font-size: 14px;
@@ -1871,9 +1881,20 @@ h6 {
         margin-bottom: 10px;
       }
     }
+
     &__summary {
+      display: flex;
+      flex-direction: column;
+
+      @include screen-sm() {
+        flex-direction: row;
+      }
     }
+
+    &__count {}
+
     &__price {
+      display: inline-block;
       min-width: 85px;
       text-align: center;
       font-size: 16px;
@@ -1881,6 +1902,7 @@ h6 {
     }
 
     &__sum {
+      display: inline-block;
       min-width: 85px;
       padding: 5px 0px;
       background: #ffecd4;
@@ -1898,7 +1920,6 @@ h6 {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-grow: 1;
 
     &__remove {
       padding: 7px 10px;
@@ -1916,6 +1937,7 @@ h6 {
 
   &-bottom {
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
     align-items: center;
     margin: 42px 0px;
