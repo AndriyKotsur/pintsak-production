@@ -2038,7 +2038,7 @@ h6 {
 
 // ANCHOR Order page
 
-.order-page {
+.order {
   padding: 60px 0px 100px;
 
   &-inner {
@@ -2058,14 +2058,14 @@ h6 {
     text-align: center;
 
     &__title {
-      margin-bottom: 30px;
+      margin: 0px 0px 30px;
       font-size: 36px;
       font-weight: 900;
       color: $color1;
     }
 
     &__text {
-      margin-bottom: 25px;
+      margin: 0px 0px 25px;
       font-size: 18px;
       line-height: 28px;
       color: $color1;
@@ -2076,10 +2076,10 @@ h6 {
 
   &-field {
     position: relative;
-    margin-bottom: 48px;
+    margin: 0px 0px 48px;
 
     &:last-of-type {
-      margin-bottom: 18px;
+      margin: 0px 0px 18px;
     }
   }
 
@@ -2124,7 +2124,7 @@ h6 {
   }
 
   &__required {
-    margin-bottom: 30px;
+    margin: 0px 0px 30px;
     text-align: left;
     font-size: 18px;
     color: $color4;
@@ -2159,10 +2159,10 @@ h6 {
   }
 
   &-edit {
-    margin-bottom: 45px;
+    margin: 0px 0px 45px;
 
-    &__text {
-      margin-right: 10px;
+    &__title {
+      margin: 0px 10px 0px 0px;
       font-size: 16px;
       font-weight: 600;
       line-height: 22px;
@@ -2177,11 +2177,11 @@ h6 {
     }
   }
 
-  &-total {
+  &-trade {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 45px;
+    margin: 0px 0px 45px;
 
     @include screen-l() {
       order: 0;
@@ -2197,9 +2197,9 @@ h6 {
     }
   }
 
-  &-sum {
-    &__text {
-      margin-right: 20px;
+  &-coast {
+    &__sum {
+      margin: 0px 20px 0px 0px;
       font-size: 16px;
       font-weight: 600;
       color: $color1;
@@ -2217,7 +2217,7 @@ h6 {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 37px;
+      margin: 0px 0px 37px;
       font-size: 16px;
       line-height: 22px;
       color: $color1;

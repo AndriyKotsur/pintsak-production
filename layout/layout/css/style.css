@@ -1686,11 +1686,11 @@ h6 {
   font-weight: 900;
 }
 
-.order-page {
+.order {
   padding: 60px 0px 100px;
 }
 
-.order-page-inner {
+.order-inner {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1706,45 +1706,45 @@ h6 {
           align-items: center;
 }
 
-.order-page-send {
+.order-send {
   max-width: 485px;
   width: 100%;
   text-align: center;
 }
 
-.order-page-send__title {
-  margin-bottom: 30px;
+.order-send__title {
+  margin: 0px 0px 30px;
   font-size: 36px;
   font-weight: 900;
   color: #373f48;
 }
 
-.order-page-send__text {
-  margin-bottom: 25px;
+.order-send__text {
+  margin: 0px 0px 25px;
   font-size: 18px;
   line-height: 28px;
   color: #373f48;
 }
 
-.order-page-field {
+.order-field {
   position: relative;
-  margin-bottom: 48px;
+  margin: 0px 0px 48px;
 }
 
-.order-page-field:last-of-type {
-  margin-bottom: 18px;
+.order-field:last-of-type {
+  margin: 0px 0px 18px;
 }
 
-.order-page__input {
+.order__input {
   width: 100%;
   padding: 15px 25px;
 }
 
-.order-page__input:focus + label {
+.order__input:focus + label {
   visibility: hidden;
 }
 
-.order-page__label {
+.order__label {
   position: absolute;
   top: 50%;
   left: 25px;
@@ -1753,13 +1753,13 @@ h6 {
           transform: translateY(-50%);
 }
 
-.order-page__label::after {
+.order__label::after {
   content: " *";
   font-size: 18px;
   color: #ff8e01;
 }
 
-.order-page__label--textarea {
+.order__label--textarea {
   position: absolute;
   top: 15px;
   left: 25px;
@@ -1767,30 +1767,30 @@ h6 {
   font-size: 18px;
 }
 
-.order-page__textarea {
+.order__textarea {
   width: 100%;
   min-height: 150px;
   padding: 15px 25px;
 }
 
-.order-page__textarea:focus + label {
+.order__textarea:focus + label {
   visibility: hidden;
 }
 
-.order-page__required {
-  margin-bottom: 30px;
+.order__required {
+  margin: 0px 0px 30px;
   text-align: left;
   font-size: 18px;
   color: #999999;
 }
 
-.order-page__required::before {
+.order__required::before {
   content: "* ";
   font-size: 18px;
   color: #ff8e01;
 }
 
-.order-page__btn {
+.order__btn {
   min-height: 59px;
   padding: 16px 62px;
   background: #ff8e01;
@@ -1800,39 +1800,39 @@ h6 {
   color: #ffffff;
 }
 
-.order-page__btn:hover {
+.order__btn:hover {
   background: #ffffff;
   color: #373f48;
   border: 2px solid #ff8e01;
 }
 
-.order-page-trade {
+.order-trade {
   -ms-flex-item-align: start;
       align-self: flex-start;
   max-width: 555px;
   width: 100%;
 }
 
-.order-page-edit {
-  margin-bottom: 45px;
+.order-edit {
+  margin: 0px 0px 45px;
 }
 
-.order-page-edit__text {
-  margin-right: 10px;
+.order-edit__title {
+  margin: 0px 10px 0px 0px;
   font-size: 16px;
   font-weight: 600;
   line-height: 22px;
   color: #373f48;
 }
 
-.order-page-edit__btn {
+.order-edit__btn {
   min-width: 33px;
   padding: 6px 12px;
   border-radius: 4px;
   background: #ff8e01;
 }
 
-.order-page-total {
+.order-trade {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1842,10 +1842,10 @@ h6 {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-bottom: 45px;
+  margin: 0px 0px 45px;
 }
 
-.order-page-total__title {
+.order-trade__title {
   padding: 10px 20px;
   background: #ffecd4;
   border-radius: 4px;
@@ -1854,20 +1854,20 @@ h6 {
   color: #373f48;
 }
 
-.order-page-sum__text {
-  margin-right: 20px;
+.order-coast__sum {
+  margin: 0px 20px 0px 0px;
   font-size: 16px;
   font-weight: 600;
   color: #373f48;
 }
 
-.order-page-sum__price {
+.order-coast__price {
   font-size: 16px;
   font-weight: 600;
   color: #ff8e01;
 }
 
-.order-page-list__item {
+.order-list__item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1877,34 +1877,34 @@ h6 {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-bottom: 37px;
+  margin: 0px 0px 37px;
   font-size: 16px;
   line-height: 22px;
   color: #373f48;
 }
 
-.order-page-list__item:last-child {
+.order-list__item:last-child {
   margin-bottom: 0;
 }
 
-.order-page-list__image {
+.order-list__image {
   max-width: 40px;
   width: 100%;
 }
 
-.order-page-list__title {
+.order-list__title {
   max-width: 240px;
   width: 100%;
   text-align: left;
 }
 
-.order-page-list__size {
+.order-list__size {
   max-width: 80px;
   width: 100%;
   text-align: center;
 }
 
-.order-page-list__price {
+.order-list__price {
   max-width: 110px;
   width: 100%;
   text-align: left;
@@ -3039,14 +3039,14 @@ h6 {
     padding-top: 20%;
   }
 
-  .order-page-inner {
+  .order-inner {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
         -ms-flex-direction: row;
             flex-direction: row;
   }
 
-  .order-page-total {
+  .order-trade {
     -webkit-box-ordinal-group: 1;
         -ms-flex-order: 0;
             order: 0;

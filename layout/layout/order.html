@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/style.min.css">
 </head>
 
-<body>
+<body class="body">
     <header class="header">
     <div class="container">
         <div class="header-inner">
@@ -103,87 +103,58 @@
         </div>
     </div>
 </header>
-    <div class="order-page">
+    <div class="order">
         <div class="container">
-            <div class="order-page-inner">
-
-                <div class="order-page-send">
-                    <h2 class="order-page-send__title">
+            <div class="order-inner">
+                <div class="order-send">
+                    <h2 class="order-send__title">
                         Відправити замовлення
                     </h2>
-                    <p class="order-page-send__text">Будь ласка, заповніть обов'язкові поля і ми зв'яжемося з вами по
+                    <p class="order-send__text">Будь ласка, заповніть обов'язкові поля і ми зв'яжемося з вами по
                         вашому замовленню</p>
 
-                    <form action="#" class="form order-page-form">
-                        <div class="input-field order-page-field">
-                            <input class="input order-page__input" required>
-                            <label for="#" class="label order-page__label">Ваше Ім’я</label>
+                    <form action="#" class="form order-form">
+                        <div class="input-field order-field">
+                            <input class="input order__input" required>
+                            <label for="#" class="label order__label">Ваше Ім’я</label>
                         </div>
-                        <div class="input-field order-page-field">
-                            <input class="input order-page__input" required>
-                            <label for="#" class="label order-page__label">Ваше номер телефону</label>
+                        <div class="input-field order-field">
+                            <input class="input order__input" required>
+                            <label for="#" class="label order__label">Ваше номер телефону</label>
                         </div>
-                        <div class="input-field order-page-field">
-                            <textarea class="textarea order-page__textarea"></textarea>
-                            <label for="#" class="label order-page__label--textarea">Ваш комментарій</label>
+                        <div class="input-field order-field">
+                            <textarea class="textarea order__textarea"></textarea>
+                            <label for="#" class="label order__label--textarea">Ваш комментарій</label>
                         </div>
-                        <p class="order-page__required">обов’язкові поля</p>
-                        <button class="order-page__btn" type="submit">Відправити</button>
+                        <p class="required order__required">обов’язкові поля</p>
+                        <button class="btn-sent btn-orange order__btn" type="submit">Відправити</button>
                     </form>
                 </div>
 
-
-                <div class="order-page-trade">
-
-                    <div class="order-page-edit">
-                        <span class="order-page-edit__text">Редагувати замовлення</span>
-                        <button class="order-page-edit__btn">
+                <div class="order-cart">
+                    <div class="order-edit">
+                        <span class="order-edit__title">Редагувати замовлення</span>
+                        <button class="order-edit__btn">
                             <svg class="icon icon-arrow">
                                 <use href="images/icons/sprite.svg#arrow"></use>
                             </svg>
                         </button>
                     </div>
-
-                    <div class="order-page-total">
-                        <h2 class="order-page-total__title">
+                    <div class="order-trade">
+                        <h2 class="order-trade__title">
                             Замовлення
                         </h2>
-                        <div class="order-page-sum">
-                            <span class="order-page-sum__title">Підсумок:</span>
-                            <span class="order-page-sum__price">172 422,00 грн</span>
+                        <div class="order-trade__coast">
+                            <span class="order-trade__sum">Підсумок:</span>
+                            <span class="order-trade__price">172 422,00 грн</span>
                         </div>
                     </div>
-
-                    <div class="order-page-list">
-
-                        <div class="order-page-list__item">
-                            <img src="images/product-tile-border.png" alt="List image" class="order-page-list__image">
-                            <a class="order-page-list__title">Бордюр парковий поворотний</a>
-                            <span class="order-page-list__size">100 м<sup>2</sup></span>
-                            <span class="order-page-list__price">45675,00 грн</span>
-                        </div>
-
-                        <div class="order-page-list__item">
-                            <img src="images/product-tile-border.png" alt="List image" class="order-page-list__image">
-                            <a class="order-page-list__title">Бордюр парковий поворотний</a>
-                            <span class="order-page-list__size">100 м<sup>2</sup></span>
-                            <span class="order-page-list__price">45675,00 грн</span>
-                        </div>
-
-                        <div class="order-page-list__item">
-                            <img src="images/product-tile-border.png" alt="List image"
-                                class="order-page-list__image">
-                            <a class="order-page-list__title">Бордюр парковий поворотний</a>
-                            <span class="order-page-list__size">100 м<sup>2</sup></span>
-                            <span class="order-page-list__price">45675,00 грн</span>
-                        </div>
-
-                        <div class="order-page-list__item">
-                            <img src="images/product-tile-border.png" alt="List image"
-                                class="order-page-list__image">
-                            <a class="order-page-list__title">Бордюр парковий поворотний</a>
-                            <span class="order-page-list__size">100 м<sup>2</sup></span>
-                            <span class="order-page-list__price">45675,00 грн</span>
+                    <div class="order-list">
+                        <div class="order-list__item">
+                            <img src="images/product-tile-border.png" alt="List image" class="order-list__image">
+                            <a class="order-list__title">Бордюр парковий поворотний</a>
+                            <span class="order-list__size">100 м<sup>2</sup></span>
+                            <span class="order-list__price">45675,00 грн</span>
                         </div>
                     </div>
                 </div>
