@@ -182,7 +182,7 @@ h6 {
 
 // ANCHOR Body
 .body {
-  &.isMobile {
+  &.isActive {
     overflow: hidden;
   }
 }
@@ -1793,40 +1793,45 @@ h6 {
     @include hidden();
     justify-content: flex-end;
     align-items: baseline;
-    margin-bottom: 5px;
+    margin: 0px 0px 15px;
 
     @include screen-l() {
       display: flex;
-      visibility: hidden;
+      visibility: visible;
     }
 
     &__item {
-      padding: 0px 30px;
+      padding: 0px 25px;
       color: $color4;
 
       &:last-child {
-        padding-right: 40px;
+        padding: 0px 35px 0px 0px;
       }
+    }
+  }
+
+  &-content {
+    height: 45vh;
+    overflow-y: auto;
+
+    @include screen-sm() {
+      height: 50vh;
     }
   }
 
   &-item {
     display: flex;
     flex-direction: column;
-    padding: 32px 15px 28px;
+    padding: 32px 0px 28px;
 
     @include screen-l() {
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
       padding: 22px 30px;
-    }
 
-    &:first-child {
-      padding: 0px 30px 22px;
-
-      @include screen-l() {
-        padding: 0px;
+      &:first-child {
+        padding: 15px 30px 22px;
       }
     }
 
@@ -1852,6 +1857,7 @@ h6 {
     &__product {
       position: relative;
       display: flex;
+      flex: 1;
     }
 
     &__image {
@@ -1864,7 +1870,11 @@ h6 {
       border: 1px solid $color4;
 
       @include screen-sm() {
-        padding-top: 12%;
+        padding-top: 13%;
+      }
+
+      @include screen-l() {
+        padding-top: 20%;
       }
 
       img {
@@ -1882,20 +1892,29 @@ h6 {
       justify-content: center;
       align-items: flex-start;
 
-      &--title {
-        font-size: 14px;
-        line-height: 16px;
-        color: $color1;
-      }
+    }
 
-      &--type {
-        font-size: 12px;
-        color: $color4;
-        margin: 0px 0px 10px;
+    &__title {
+      font-size: 14px;
+      line-height: 16px;
+      color: $color1;
+
+      @include screen-tb() {
+        font-size: 16px;
       }
     }
 
-    &__summary {
+    &__type {
+      font-size: 12px;
+      color: $color4;
+      margin: 0px 0px 10px;
+
+      @include screen-tb() {
+        font-size: 14px;
+      }
+    }
+
+    &__total {
       display: flex;
       flex-direction: column;
 
@@ -1905,7 +1924,7 @@ h6 {
       }
     }
 
-    &__count {
+    &__coast {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -1916,7 +1935,6 @@ h6 {
       min-width: 85px;
       margin: 0px 0px 0px 30px;
       text-align: center;
-      font-size: 16px;
       color: $color1;
     }
 
@@ -1927,7 +1945,6 @@ h6 {
       background: #ffecd4;
       text-align: center;
       border-radius: 4px;
-      font-size: 16px;
       color: $color1;
     }
   }
@@ -1959,14 +1976,14 @@ h6 {
     }
   }
 
-  &-bottom {
+  &-order {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     margin: 32px 0px 42px;
 
-    @include screen-l() {
+    @include screen-tb() {
       flex-direction: row;
       margin: 42px 0px;
     }
@@ -1977,7 +1994,6 @@ h6 {
 
     &__title {
       margin: 0px 12px 0px 0px;
-      font-size: 16px;
       font-weight: 600;
     }
 
@@ -1992,10 +2008,10 @@ h6 {
   &-trade {
     text-align: center;
 
-    &__total {
+    &__coast {
       margin-bottom: 15px;
 
-      &__text {
+      &__total {
         margin-right: 8px;
         font-size: 16px;
         color: $color1;
