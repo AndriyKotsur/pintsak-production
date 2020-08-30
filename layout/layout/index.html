@@ -61,6 +61,11 @@
                     <span class="header-info__phone">
                         +380636666666
                     </span>
+                    <div class="tooltip">
+                        <span class="tooltip__title">
+                            Натисніть ще раз, щоб скопіювати в буфер обміну
+                        </span>
+                    </div>
                 </a>
                 <a href="./location.html" class="header-info__link">
                     <svg class="icon icon-location--header">
@@ -91,7 +96,7 @@
                         </a>
                     </div>
                 </div>
-            
+
                 <div href="#" class="header-action__lang">
                     <svg class="icon icon-lang header-action__icon">
                         <use href="images/icons/sprite.svg#language"></use>
@@ -122,7 +127,7 @@
                     </div>
                     <a href="#" class="aside-navigation__download">
                         Каталог
-                        <svg class="icon icon-download">
+                        <svg class="icon icon-download aside-navigation__icon">
                             <use href="images/icons/sprite.svg#download"></use>
                         </svg>
                     </a>
@@ -142,7 +147,7 @@
                     
                     <div class="presentation-carousel__block">
                         <div class="presentation-carousel__item">
-                            <img src="./images/carousel/slide-3.png" alt="Carousel item" class="presentation-carousel__image">
+                            <img src="./images/carousel/slide-1.png" alt="Carousel item" class="presentation-carousel__image">
                         </div>
                         <!-- <div class="presentation-carousel__item">
                             <img src="./images/carousel/slide-2.png" alt="Carousel item" class="presentation-carousel__image">
@@ -181,7 +186,7 @@
                     </div>
                     <a href="#" class="aside-navigation__download">
                         Каталог
-                        <svg class="icon icon-download">
+                        <svg class="icon icon-download aside-navigation__icon">
                             <use href="images/icons/sprite.svg#download-popular"></use>
                         </svg>
                     </a>
@@ -383,6 +388,39 @@
             </div>
         </div>
     </div>
+    <div class="request">
+    <div class="request-menu">
+        <span class="request-menu__background"></span>
+        <div class="request-menu-block">
+            <h2 class="request-menu__title">
+                Зв'яжіться з нами
+            </h2>
+            <form action="#" class="form request-menu-form">
+                <div class="input-field request-menu-field">
+                    <input class="input request-menu__input" required>
+                    <label for="#" class="label request-menu__label">Ваше Ім’я</label>
+                </div>
+                <div class="input-field request-menu-field">
+                    <input class="input request-menu__input" required>
+                    <label for="#" class="label request-menu__label">Ваше номер телефону</label>
+                </div>
+                <div class="input-field request-menu-field">
+                    <textarea class="textarea request-menu__textarea"></textarea>
+                    <label for="#" class="label request-menu__label--textarea">Ваш комментарій</label>
+                </div>
+                <p class="required request-menu__required">обов’язкові поля</p>
+                <button class="btn-sent btn-orange request-menu__btn" type="submit">Відправити</button>
+            </form>
+        </div>
+    </div>
+    <div class="request-button">
+        <button class="request-button__item">
+            <svg class="icon icon-request">
+                <use href="images/icons/sprite.svg#request"></use>
+            </svg>
+        </button>
+    </div>
+</div>
     <footer class="footer">
     <div class="container">
         <div class="footer-inner">

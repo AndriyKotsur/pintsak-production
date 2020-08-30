@@ -66,6 +66,7 @@ $color3: #f2f0f0;
 $color4: #999999;
 $color5: #5ab87f;
 $color6: #ffc174;
+$color7: #ff6363;
 
 /* Null styles */
 * {
@@ -236,11 +237,26 @@ h6 {
 
     &__link {
       margin: 0px 30px 0px 0px;
+      padding: 0px 0px 5px;
       font-weight: 600;
       color: #ffffff;
+      @include transition();
 
       &:last-child {
         margin: 0px;
+      }
+
+      &:hover {
+        color: $color6;
+        @include transition();
+      }
+
+      &.isActive {
+        border-bottom: 2px solid $color2;
+
+        &:hover {
+          color: $color3;
+        }
       }
     }
 
@@ -276,6 +292,12 @@ h6 {
       margin: 0px 40px 0px 0px;
       font-weight: 700;
       color: #ffffff;
+      @include transition();
+
+      &:hover {
+        color: $color6;
+        @include transition();
+      }
 
       &:first-child {
         @include hidden();
@@ -297,12 +319,18 @@ h6 {
     }
 
     &__phone {
+      position: relative;
       @include hidden();
 
       @include screen-tb() {
         display: inline-block;
         visibility: visible;
       }
+    }
+
+    &__phone:hover + .tooltip {
+      display: block;
+      visibility: visible;
     }
 
     &__location {
@@ -324,6 +352,7 @@ h6 {
       margin: 0px 30px -25px 0px;
       padding: 0px 0px 25px;
       color: #ffffff;
+
     }
 
     &__cart:hover .cart-dropdown {
@@ -348,6 +377,13 @@ h6 {
 
     &__icon {
       margin: 0px 12px 0px 0px;
+      fill: $color2;
+      @include transition();
+
+      &:hover {
+        fill: $color6;
+        @include transition();
+      }
 
       @media (max-width: 768px) {
         margin: 0px 6px 0px 0px;
@@ -363,7 +399,7 @@ h6 {
     height: 18px;
     background: $color1;
     margin: 0px 10px 0px 0px;
-    z-index: 25;
+    z-index: 20;
     cursor: pointer;
 
     &.isMobile {
@@ -656,6 +692,12 @@ h6 {
         font-size: 16px;
         font-weight: 700;
         color: $color2;
+        @include transition();
+
+        &:hover {
+          color: $color6;
+          @include transition();
+        }
 
         @include screen-tb() {
           font-size: 20px;
@@ -663,6 +705,16 @@ h6 {
 
         @include screen-l() {
           font-size: 24px;
+        }
+      }
+
+      &__icon {
+        fill: $color2;
+        @include transition();
+
+        &:hover {
+          fill: $color6;
+          @include transition()
         }
       }
     }
@@ -692,9 +744,12 @@ h6 {
       font-weight: 700;
       color: #ffffff;
       opacity: 0.25;
+      @include transition();
 
-      @include screen-l() {
-        font-size: 24px;
+      &:hover {
+        opacity: 1;
+        color: $color6;
+        @include transition();
       }
 
       &:last-child {
@@ -703,7 +758,16 @@ h6 {
 
       &.isActive {
         opacity: 1;
+
+        &:hover {
+          color: #ffffff;
+        }
       }
+
+      @include screen-l() {
+        font-size: 24px;
+      }
+
     }
 
     &__block {
@@ -878,10 +942,6 @@ h6 {
   &__input {
     width: 100%;
     padding: 15px 25px;
-
-    &:focus+label {
-      visibility: hidden;
-    }
   }
 
   &__label {
@@ -909,10 +969,6 @@ h6 {
     width: 100%;
     min-height: 150px;
     padding: 15px 25px;
-
-    &:focus+label {
-      visibility: hidden;
-    }
   }
 
   &__btn {
@@ -1014,6 +1070,12 @@ h6 {
     font-weight: 900;
     color: $color1;
     text-align: center;
+    @include transition();
+
+    &:hover {
+      transform: translateY(-10px);
+      @include transition();
+    }
   }
 
   &__highlight {
@@ -1073,11 +1135,6 @@ h6 {
     display: inline-block;
     margin: 45px 0px 0px;
     padding: 16px 32px;
-
-    &:hover {
-      background: #ffffff;
-      color: $color1;
-    }
   }
 }
 
@@ -1353,7 +1410,7 @@ h6 {
   }
 }
 
-// ANCHOR Catalogue item page
+// ANCHOR Product page
 
 .product {
   &-inner {
@@ -1593,15 +1650,6 @@ h6 {
       max-width: 223px;
       display: block;
       padding: 15px 40px;
-      border-radius: 4px;
-      background: $color5;
-      color: #ffffff;
-      font-size: 14px;
-      font-weight: 900;
-
-      @include screen-l() {
-        font-size: 20px;
-      }
 
       .icon-cart {
         margin-right: 15px;
@@ -1805,7 +1853,7 @@ h6 {
       color: $color4;
 
       &:last-child {
-        padding: 0px 35px 0px 0px;
+        padding: 0px 40px 0px 20px;
       }
     }
   }
@@ -1822,7 +1870,7 @@ h6 {
   &-item {
     display: flex;
     flex-direction: column;
-    padding: 32px 0px 28px;
+    padding: 32px 15px 28px;
 
     @include screen-l() {
       flex-direction: row;
@@ -1985,7 +2033,6 @@ h6 {
 
     @include screen-tb() {
       flex-direction: row;
-      margin: 42px 0px;
     }
   }
 
@@ -2044,7 +2091,7 @@ h6 {
   &-inner {
     display: flex;
     flex-direction: column-reverse;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 
     @include screen-l() {
@@ -2059,20 +2106,30 @@ h6 {
 
     &__title {
       margin: 0px 0px 30px;
-      font-size: 36px;
+      font-size: 24px;
       font-weight: 900;
       color: $color1;
+
+      @include screen-tb() {
+        font-size: 30px;
+      }
+
+      @include screen-l() {
+        font-size: 36px;
+      }
     }
 
     &__text {
       margin: 0px 0px 25px;
-      font-size: 18px;
+      font-size: 16px;
       line-height: 28px;
       color: $color1;
+
+      @include screen-tb() {
+        font-size: 18px;
+      }
     }
   }
-
-  &-form {}
 
   &-field {
     position: relative;
@@ -2086,10 +2143,6 @@ h6 {
   &__input {
     width: 100%;
     padding: 15px 25px;
-
-    &:focus+label {
-      visibility: hidden;
-    }
   }
 
   &__label {
@@ -2117,10 +2170,6 @@ h6 {
     width: 100%;
     min-height: 150px;
     padding: 15px 25px;
-
-    &:focus+label {
-      visibility: hidden;
-    }
   }
 
   &__required {
@@ -2152,10 +2201,16 @@ h6 {
     }
   }
 
-  &-trade {
-    align-self: flex-start;
+  &-cart {
+    align-self: center;
     max-width: 555px;
     width: 100%;
+    margin: 0px 0px 65px;
+
+    @include screen-l() {
+      align-self: start;
+      margin: 0px 0px 0px 60px;
+    }
   }
 
   &-edit {
@@ -2195,11 +2250,15 @@ h6 {
       font-weight: 600;
       color: $color1;
     }
-  }
 
-  &-coast {
+    &__coast {
+      display: flex;
+      flex-direction: column;
+
+    }
+
     &__sum {
-      margin: 0px 20px 0px 0px;
+      margin: 0px 20px 5px 0px;
       font-size: 16px;
       font-weight: 600;
       color: $color1;
@@ -2211,6 +2270,7 @@ h6 {
       color: $color2;
     }
   }
+
 
   &-list {
     &__item {
@@ -2230,24 +2290,29 @@ h6 {
     &__image {
       max-width: 40px;
       width: 100%;
+      margin: 0px 15px 0px 0px;
     }
 
     &__title {
       max-width: 240px;
       width: 100%;
       text-align: left;
+      font-size: 14px;
     }
 
     &__size {
       max-width: 80px;
       width: 100%;
       text-align: center;
+      font-size: 14px;
+
     }
 
     &__price {
       max-width: 110px;
       width: 100%;
       text-align: left;
+      font-size: 14px;
     }
   }
 }
@@ -2380,6 +2445,35 @@ h6 {
   }
 }
 
+// ANCHOR Tooltip dropdown
+
+.tooltip {
+  @include hidden();
+  position: absolute;
+  top: 7%;
+  padding: 12px 13px;
+  box-shadow: 0px 3px 20px rgba(55, 63, 72, 0.1);
+  border-radius: 4px;
+  background: #ffffff;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -15px;
+    left: 40px;
+    width: 0;
+    height: 0;
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
+    border-bottom: 15px solid #ffffff;
+  }
+
+  &__title {
+    font-size: 12px;
+    color: #000000;
+  }
+}
+
 // ANCHOR Cart dropdown
 
 .cart-dropdown {
@@ -2454,6 +2548,12 @@ h6 {
     &.list-dark {
       & .aside-navigation__link {
         color: $color1;
+        @include transition();
+
+        &:hover {
+          color: $color6;
+          @include transition();
+        }
       }
     }
   }
@@ -2463,6 +2563,12 @@ h6 {
     font-size: 14px;
     line-height: 19px;
     color: #ffffff;
+    @include transition();
+
+    &:hover {
+      color: $color6;
+      @include transition();
+    }
 
     &:first-child {
       margin-top: 0;
@@ -2474,6 +2580,10 @@ h6 {
     margin-top: 55px;
     font-size: 14px;
     color: $color2;
+  }
+
+  &__icon {
+    margin: 0px 0px 0px 7px;
   }
 }
 
@@ -2517,9 +2627,22 @@ h6 {
     padding: 10px 15px;
     border-radius: 4px;
     background: $color2;
+    @include transition();
+
+    &:first-child {
+      &:hover {
+        transform: translate(-5px, -5px);
+        @include transition();
+      }
+    }
 
     &:last-child {
       margin-right: 0;
+
+      &:hover {
+        transform: translate(5px, -5px);
+        @include transition();
+      }
     }
   }
 
@@ -2547,6 +2670,18 @@ h6 {
       border: 1px solid $color1;
       font-size: 18px;
       color: $color1;
+
+      &:focus {
+        border: 1px solid $color6;
+      }
+
+      &:focus+label {
+        visibility: hidden;
+      }
+
+      &.isError {
+        border: 1px solid $color7;
+      }
     }
 
     .label {
@@ -2563,6 +2698,18 @@ h6 {
       font-size: 18px;
       color: $color1;
       resize: none;
+
+      &:focus {
+        border: 1px solid $color6;
+      }
+
+      &:focus+label {
+        visibility: hidden;
+      }
+
+      &.isError {
+        border: 1px solid $color7;
+      }
     }
   }
 
@@ -2579,6 +2726,225 @@ h6 {
     @include screen-l() {
       font-size: 18px;
     }
+  }
+}
+
+// ANCHOR Request window
+
+.request {
+  &-button {
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    bottom: 10px;
+    right: 12px;
+    border-radius: 50%;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    background: $color5;
+    @include transition();
+    z-index: 35;
+
+    @include screen-sm() {
+      width: 65px;
+      height: 65px;
+      bottom: 50px;
+      right: 24px;
+    }
+
+    &:hover {
+      transform: translateY(-10px);
+      @include transition();
+    }
+
+    &__item {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: transparent;
+    }
+  }
+
+  &-menu {
+    &.isActive {
+      &>.request-menu__background::after {
+        left: 0;
+        right: 0;
+      }
+
+      &>.request-menu-block {
+        display: block;
+        visibility: visible;
+      }
+
+      &+.request-button:hover {
+        transform: translateY(0px);
+      }
+    }
+
+    &__background {
+      &::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 100%;
+        bottom: 0;
+        background: rgba(55, 63, 72, 0.7);
+        backdrop-filter: blur(10px);
+        @include transition();
+        z-index: 25;
+      }
+    }
+
+    &-block {
+      @include hidden();
+      position: fixed;
+      bottom: 20px;
+      right: 14px;
+      width: 291px;
+      padding: 25px 24px 42px;
+      border-radius: 4px 4px 20px 4px;
+      box-shadow: 0px 4px 30px rgba(55, 63, 72, 0.2);
+      background: #ffffff;
+      z-index: 25;
+
+      @include screen-tb() {
+        width: 336px;
+        bottom: 70px;
+        right: 30px;
+        padding: 25px 45px 42px;
+      }
+    }
+
+    &__title {
+      margin: 0px 0px 20px;
+      font-size: 22px;
+      font-weight: 900;
+      color: $color1;
+      text-align: center;
+    }
+
+    &-form {
+      width: 100%;
+      margin: 0px auto;
+    }
+
+    &-field {
+      margin: 0px 0px 20px;
+
+      &:last-of-type {
+        margin: 0px 0px 18px;
+      }
+    }
+
+    &__required {
+      margin: 0px 0px 15px;
+      text-align: left;
+    }
+
+    &__input {
+      width: 100%;
+      padding: 15px 25px;
+    }
+
+    &__label {
+      position: absolute;
+      top: 50%;
+      left: 25px;
+      transform: translateY(-50%);
+
+      &::after {
+        content: " *";
+        font-size: 18px;
+        color: $color2;
+      }
+
+      &--textarea {
+        position: absolute;
+        top: 15px;
+        left: 25px;
+        font-size: 18px;
+        color: $color4;
+      }
+    }
+
+    &__textarea {
+      width: 100%;
+      min-height: 150px;
+      padding: 15px 25px;
+    }
+
+    &__btn {
+      display: block;
+      min-height: 49px;
+      padding: 14px 32px;
+      margin: 0px auto;
+      font-size: 16px !important;
+
+
+      &:hover {
+        background: #ffffff;
+        color: $color1;
+      }
+    }
+  }
+}
+
+
+// ANCHOR Popup window
+
+.popup {
+  position: fixed;
+  top: -100%;
+  left: 0;
+  right: 0;
+  min-height: 100px;
+  display: flex;
+  background: $color5;
+  @include transition();
+  z-index: 25;
+
+  &.isActive {
+    top: 0;
+  }
+
+  &.isError {
+    background: $color7;
+  }
+
+  &-message {
+    max-width: 730px;
+    width: 100%;
+    margin: 0px auto;
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+    text-align: center;
+
+    &__title {
+      font-size: 16px;
+      font-weight: 900;
+      line-height: 28px;
+      color: #ffffff;
+
+      @include screen-tb() {
+        font-size: 18px;
+        line-height: 30px;
+      }
+
+      @include screen-l() {
+        font-size: 20px;
+        line-height: 32px;
+      }
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
   }
 }
 
@@ -2599,7 +2965,53 @@ h6 {
   }
 }
 
-.btn-green {}
+.btn-catalogue {
+  border-radius: 4px;
+  font-size: 18px;
+  font-weight: 900;
+  color: #ffffff;
+  @include transition();
+
+  &:hover {
+    transform: translate(5px, -5px);
+    box-shadow: 0px 3px 25px rgba(55, 63, 72, 0.22);
+    @include transition();
+  }
+
+  @include screen-tb() {
+    font-size: 18px;
+  }
+
+  @include screen-l() {
+    font-size: 20px;
+  }
+}
+
+.btn-cart {
+  border-radius: 4px;
+  font-size: 18px;
+  font-weight: 900;
+  color: #ffffff;
+  @include transition();
+
+  &:hover {
+    transform: translate(5px, -5px);
+    box-shadow: 0px 3px 25px rgba(55, 63, 72, 0.22);
+    @include transition();
+  }
+
+  @include screen-tb() {
+    font-size: 18px;
+  }
+
+  @include screen-l() {
+    font-size: 20px;
+  }
+}
+
+.btn-green {
+  background: $color5;
+}
 
 .btn-orange {
   border: 2px solid $color2;
@@ -2820,9 +3232,14 @@ h6 {
   }
 
   &.icon-download {
-    margin-left: 7px;
     width: 18px;
     height: 20px;
+    @include transition();
+
+    &:hover {
+      fill: $color6;
+      @include transition();
+    }
   }
 
   &.icon-product {
@@ -2876,6 +3293,16 @@ h6 {
     height: 23px;
   }
 
+  &.icon-request {
+    width: 21px;
+    height: 21px;
+
+    @include screen-tb() {
+      width: 28px;
+      height: 28px;
+    }
+  }
+
   &.icon-close--big {
     width: 15px;
     height: 15px;
@@ -2889,5 +3316,15 @@ h6 {
   &.icon-close--small {
     width: 15px;
     height: 15px;
+  }
+
+  &.icon-close--popup {
+    width: 13px;
+    height: 13px;
+
+    @include screen-tb() {
+      width: 20px;
+      height: 20px;
+    }
   }
 }
