@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/style.min.css">
 </head>
 
-<body>
+<body class="body">
     <header class="header">
     <div class="container">
         <div class="header-inner">
@@ -61,6 +61,11 @@
                     <span class="header-info__phone">
                         +380636666666
                     </span>
+                    <div class="tooltip">
+                        <span class="tooltip__title">
+                            Натисніть ще раз, щоб скопіювати в буфер обміну
+                        </span>
+                    </div>
                 </a>
                 <a href="./location.html" class="header-info__link">
                     <svg class="icon icon-location--header">
@@ -85,13 +90,13 @@
                         <button class="cart-dropdown__btn">Замовити</button>
                         <a href="#" class="cart-dropdown__link">
                             Перейти в кошик
-                            <svg class="icon icon-arrow_cart">
+                            <svg class="icon icon-arrow--cart">
                                 <use href="images/icons/sprite.svg#arrow-cart"></use>
                             </svg>
                         </a>
                     </div>
                 </div>
-            
+
                 <div href="#" class="header-action__lang">
                     <svg class="icon icon-lang header-action__icon">
                         <use href="images/icons/sprite.svg#language"></use>
@@ -103,87 +108,95 @@
         </div>
     </div>
 </header>
-    <div class="order-page">
-        <div class="container">
-            <div class="order-page-inner">
+    <div class="popup">
+    <div class="popup-message">
+        <span class="popup-message__title">
+            Дякуємо. Ваше замовлення було успішно відправлено, ми зв'яжемося з вами найближчим часом!
+        </span>
+    </div>
+    <button class="popup__close">
+        <svg class="icon icon-close--popup">
+            <use href="images/icons/sprite.svg#popup-close"></use>
+        </svg>
+    </button>
+</div>
 
-                <div class="order-page-send">
-                    <h2 class="order-page-send__title">
+    <div class="order">
+        <div class="container">
+            <div class="order-inner">
+                <div class="order-send">
+                    <h2 class="order-send__title">
                         Відправити замовлення
                     </h2>
-                    <p class="order-page-send__text">Будь ласка, заповніть обов'язкові поля і ми зв'яжемося з вами по
+                    <p class="order-send__text">Будь ласка, заповніть обов'язкові поля і ми зв'яжемося з вами по
                         вашому замовленню</p>
 
-                    <form action="#" class="form order-page-form">
-                        <div class="input-field order-page-field">
-                            <input class="input order-page__input" required>
-                            <label for="#" class="label order-page__label">Ваше Ім’я</label>
+                    <form action="#" class="form order-form">
+                        <div class="input-field order-field">
+                            <input class="input order__input" required>
+                            <label for="#" class="label order__label">Ваше Ім’я</label>
                         </div>
-                        <div class="input-field order-page-field">
-                            <input class="input order-page__input" required>
-                            <label for="#" class="label order-page__label">Ваше номер телефону</label>
+                        <div class="input-field order-field">
+                            <input class="input order__input" required>
+                            <label for="#" class="label order__label">Ваше номер телефону</label>
                         </div>
-                        <div class="input-field order-page-field">
-                            <textarea class="textarea order-page__textarea"></textarea>
-                            <label for="#" class="label order-page__label--textarea">Ваш комментарій</label>
+                        <div class="input-field order-field">
+                            <textarea class="textarea order__textarea"></textarea>
+                            <label for="#" class="label order__label--textarea">Ваш комментарій</label>
                         </div>
-                        <p class="order-page__required">обов’язкові поля</p>
-                        <button class="order-page__btn" type="submit">Відправити</button>
+                        <p class="required order__required">обов’язкові поля</p>
+                        <button class="btn-sent btn-orange order__btn" type="submit">Відправити</button>
                     </form>
                 </div>
 
-
-                <div class="order-page-trade">
-
-                    <div class="order-page-edit">
-                        <span class="order-page-edit__text">Редагувати замовлення</span>
-                        <button class="order-page-edit__btn">
+                <div class="order-cart">
+                    <div class="order-edit">
+                        <span class="order-edit__title">Редагувати замовлення</span>
+                        <button class="order-edit__btn">
                             <svg class="icon icon-arrow">
                                 <use href="images/icons/sprite.svg#arrow"></use>
                             </svg>
                         </button>
                     </div>
-
-                    <div class="order-page-total">
-                        <h2 class="order-page-total__title">
+                    <div class="order-trade">
+                        <h2 class="order-trade__title">
                             Замовлення
                         </h2>
-                        <div class="order-page-sum">
-                            <span class="order-page-sum__title">Підсумок:</span>
-                            <span class="order-page-sum__price">172 422,00 грн</span>
+                        <div class="order-trade__coast">
+                            <span class="order-trade__sum">Підсумок:</span>
+                            <span class="order-trade__price">172 422,00 грн</span>
                         </div>
                     </div>
-
-                    <div class="order-page-list">
-
-                        <div class="order-page-list__item">
-                            <img src="images/product-tile-border.png" alt="List image" class="order-page-list__image">
-                            <a class="order-page-list__title">Бордюр парковий поворотний</a>
-                            <span class="order-page-list__size">100 м<sup>2</sup></span>
-                            <span class="order-page-list__price">45675,00 грн</span>
+                    <div class="order-list">
+                        <div class="order-list__item">
+                            <img src="images/product-tile-border.png" alt="List image" class="order-list__image">
+                            <a class="order-list__title">Бордюр поворотний</a>
+                            <span class="order-list__size">75 м<sup>2</sup></span>
+                            <span class="order-list__price">4567,00 грн</span>
                         </div>
-
-                        <div class="order-page-list__item">
-                            <img src="images/product-tile-border.png" alt="List image" class="order-page-list__image">
-                            <a class="order-page-list__title">Бордюр парковий поворотний</a>
-                            <span class="order-page-list__size">100 м<sup>2</sup></span>
-                            <span class="order-page-list__price">45675,00 грн</span>
+                        <div class="order-list__item">
+                            <img src="images/product-tile-border.png" alt="List image" class="order-list__image">
+                            <a class="order-list__title">Бордюр парковий</a>
+                            <span class="order-list__size">10 м<sup>2</sup></span>
+                            <span class="order-list__price">456,00 грн</span>
                         </div>
-
-                        <div class="order-page-list__item">
-                            <img src="images/product-tile-border.png" alt="List image"
-                                class="order-page-list__image">
-                            <a class="order-page-list__title">Бордюр парковий поворотний</a>
-                            <span class="order-page-list__size">100 м<sup>2</sup></span>
-                            <span class="order-page-list__price">45675,00 грн</span>
+                        <div class="order-list__item">
+                            <img src="images/product-tile-border.png" alt="List image" class="order-list__image">
+                            <a class="order-list__title">Бордюр парковий</a>
+                            <span class="order-list__size">10 м<sup>2</sup></span>
+                            <span class="order-list__price">456,00 грн</span>
                         </div>
-
-                        <div class="order-page-list__item">
-                            <img src="images/product-tile-border.png" alt="List image"
-                                class="order-page-list__image">
-                            <a class="order-page-list__title">Бордюр парковий поворотний</a>
-                            <span class="order-page-list__size">100 м<sup>2</sup></span>
-                            <span class="order-page-list__price">45675,00 грн</span>
+                        <div class="order-list__item">
+                            <img src="images/product-tile-border.png" alt="List image" class="order-list__image">
+                            <a class="order-list__title">Бордюр парковий</a>
+                            <span class="order-list__size">10 м<sup>2</sup></span>
+                            <span class="order-list__price">456,00 грн</span>
+                        </div>
+                        <div class="order-list__item">
+                            <img src="images/product-tile-border.png" alt="List image" class="order-list__image">
+                            <a class="order-list__title">Бордюр парковий</a>
+                            <span class="order-list__size">10 м<sup>2</sup></span>
+                            <span class="order-list__price">456,00 грн</span>
                         </div>
                     </div>
                 </div>
