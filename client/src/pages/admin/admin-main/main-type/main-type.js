@@ -26,7 +26,7 @@ class MainType extends Component {
     }
 
     deleteFunc = async (id) => {
-        await axios.delete(`http://localhost:5000/admin/tilestype/${id}`);
+        await axios.delete(`http://localhost:5000/admin/type/${id}`);
         window.location = '/admin/main/type';
     }
     render() { 

@@ -1,9 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
 const fs = require('fs');
 const pool = require('../db');
-const config = require('../config');
 
 // get tile types
 router.get('/', async (req,res) => {
@@ -61,7 +61,7 @@ router.get('/tiles/types/:type', async (req, res) => {
 });
 
 // get one tile
-router.get('/tiles/:id', async (req,res) => {
+router.get('/tile/:id', async (req,res) => {
   try {
     const { id } = req.params;
     const tile = await pool.query(
@@ -98,15 +98,18 @@ router.post('/order-request', async (req,res) => {
   try {
     const { name, phone, comment, order } = req.body;
     const transporter = nodemailer.createTransport({
-      port: config.port,
-      port: config.mailPort,
+      pool: true,
+      service: 'gmail',
+      host: process.env.GMAIL_HOST,
+      port: process.env.GMAIL_PORT,
+      secure: true,
       auth: {
-        user: config.mailUser,
-        pass: config.mailPass
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS
       }
     });
-    let mailOptions = {
-      from: 'noreply@pintsakprod.com',
+    transporter.sendMail ({
+      // from: 'noreply@pintsakprod.com',
       to: 'pintsak@gmail.com',
       subject: 'New order request!',
       html:
@@ -121,8 +124,8 @@ router.post('/order-request', async (req,res) => {
             <tr>Order: ${order.title}, ${order.count}, ${order.color}, ${order.totalPrice}</tr>
           </tbody>
         </table>`
-    };
-    transporter.sendMail(mailOptions, function(err,info) {
+    },
+    (err, info) => {
       if(err)
         console.error(err.message);
       else

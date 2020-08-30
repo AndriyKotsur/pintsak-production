@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import axios from 'axios';
 
 import { HTTP } from '../../../helpers';
 
@@ -14,10 +13,9 @@ const useCatalogue = () => {
 
   useEffect(()=>{
     const fetchTypes = async () => {
-      const res = await HTTP.getTypes();
-      console.log(res);
-      setTypes(res);
-      const typeTitle = res.filter((type) => type.title_url === params.type);
+      const response = await HTTP.getTypes();
+      setTypes(response);
+      const typeTitle = response.filter((type) => type.title_url === params.type);
       setTypeTitle(typeTitle[0].title);
     };
 
@@ -28,8 +26,8 @@ const useCatalogue = () => {
   useEffect(() => {
     const fetchTiles = async () => {
       setLoading(true);
-      const res = await axios.get(`http://localhost:5000/tiles/types/${params.type}${location.search}`);
-      setTiles(res.data);
+      const response = await HTTP.getTiles(params.type, location.search);
+      setTiles(response);
       setLoading(false);
     };
 

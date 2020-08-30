@@ -10,10 +10,9 @@ import MainTile from './admin/admin-main/main-tile';
 import MainType from './admin/admin-main/main-type';
 import AddTile from './admin/admin-add/add-tile';
 import AddType from './admin/admin-add/add-type';
-import EditTile from './admin/admin-edit/edit-tile';
-import EditType from './admin/admin-edit/edit-type';
 
 import { Catalogue } from './public';
+import { EditType, EditTile } from './admin';
 
 import ErrorPage from './errors';
 
@@ -22,10 +21,13 @@ class Main extends Component {
     super(props);
     this.state = {  }
   }
-  render() { 
-    return ( 
+  render() {
+    return (
       <Fragment>
         <Switch>
+
+          {/* admin routes */}
+
           <Route path="/admin" exact component={AdminLogin} />
 
           <Route path="/admin/main" exact component={authRequired(AdminMain)} />
@@ -34,11 +36,18 @@ class Main extends Component {
           <Route path="/admin/add/tile" exact component={authRequired(AddTile)} />
           <Route path="/admin/add/type" exact component={authRequired(AddType)} />
 
-          <Route path="/admin/edit/tile/:id" exact component={authRequired(EditTile)} />
-          <Route path="/admin/edit/type/:id" exact component={authRequired(EditType)} />
-          
+          <Route path="/admin/edit/type/:id">
+            <EditType />
+          </Route>
+
+          <Route path="/admin/edit/tile/:id">
+            <EditTile />
+          </Route>
+
+          {/* public routes */}
+
           <Route path='/catalogue/:type'>
-              <Catalogue/>
+            <Catalogue/>
           </Route>
 
           <Route path="/" component={ErrorPage} />
@@ -47,5 +56,5 @@ class Main extends Component {
     );
   }
 }
- 
+
 export default Main;

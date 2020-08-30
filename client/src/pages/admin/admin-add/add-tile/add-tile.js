@@ -50,7 +50,7 @@ class AddTile extends Component {
             }
         })
         
-        formData.append("title_url", title_url);
+        formData.append("title_url", title_url.toLowerCase());
         formData.append("title", title);
         formData.append("type", type);
         formData.append("width", width);
@@ -80,7 +80,7 @@ class AddTile extends Component {
         };
 
         try {
-            axios.post("http://localhost:5000/admin/tiles/add", formData , config );
+            axios.post("http://localhost:5000/admin//add", formData , config );
             window.location = '/admin/main/tile';
         } catch (err) {
             this.setState({

@@ -8,7 +8,7 @@ const storage = multer.diskStorage({
     if (req.body.folderName && req.body.title_url) {
       folder = `./public/images/${req.body.folderName}/${req.body.title_url}`;
     } else {
-      folder = `./public/docs`;
+      folder = './public/docs';
     }
     fs.exists(folder, exist => {
       if (!exist) {
@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
     })
   },
   filename: function (req, file, cb) {
-    const title = req.body.title || 'Tile-catalogue';
+    const title = req.body.title_url || 'Tile-catalogue';
     cb(null, title + '-' + Date.now() + path.extname(file.originalname));
   }
 });

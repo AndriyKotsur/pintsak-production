@@ -6,7 +6,7 @@ export default function authRequired(ProtectedComponent) {
   class Authorized extends Component {
     async componentDidMount() {
       try {
-        await axios.get('http://localhost:5000/admin/checktoken');
+        await axios.get('http://localhost:5000/admin/check-token');
       } catch (err) {
         localStorage.removeItem('token');
         this.props.history.push('/admin');
@@ -15,7 +15,7 @@ export default function authRequired(ProtectedComponent) {
     }
     async getSnapshotBeforeUpdate() {
       try {
-        await axios.post('http://localhost:5000/admin/checktoken');
+        await axios.post('http://localhost:5000/admin/check-token');
       } catch (err) {
         localStorage.removeItem('token');
         this.props.history.push('/admin');
@@ -24,7 +24,7 @@ export default function authRequired(ProtectedComponent) {
     }
     async componentDidUpdate() {
       try {
-        await axios.post('http://localhost:5000/admin/checktoken');
+        await axios.post('http://localhost:5000/admin/check-token');
       } catch (err) {
         localStorage.removeItem('token');
         this.props.history.push('/admin');

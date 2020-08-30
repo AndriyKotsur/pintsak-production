@@ -24,7 +24,7 @@ class AddType extends Component {
         };
 
         try {
-            axios.post("http://localhost:5000/admin/tilestype/add", type);
+            axios.post("http://localhost:5000/admin/type/add", type);
             window.location = '/admin/main/type';
         } catch (err) {
             this.setState({

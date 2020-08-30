@@ -62,7 +62,7 @@ router.post('/register', async (req,res) => {
 });
 
 // check token
-router.get('/checktoken', (req,res) => {
+router.get('/check-token', (req,res) => {
   try {
     const decoded = parseBearer(req.headers.authorization, req.headers);
     res.status(200).json(
@@ -92,7 +92,7 @@ router.get('/tiles', async (req, res) => {
 });
 
 // get one type
-router.get('/tilestype/:id', async (req,res) => {
+router.get('/type/:id', async (req,res) => {
   try {
     const { id } = req.params;
     const type = await pool.query(
@@ -109,7 +109,7 @@ router.get('/tilestype/:id', async (req,res) => {
 });
 
 // add tile type
-router.post('/tilestype/add', async (req, res) => {
+router.post('/type/add', async (req, res) => {
   try {
     parseBearer(req.headers.authorization, req.headers);
     const { title, title_url } = req.body;
@@ -127,7 +127,7 @@ router.post('/tilestype/add', async (req, res) => {
 });
 
 // add tile
-router.post('/tiles/add', uploadImages, async (req, res) => {
+router.post('/tile/add', uploadImages, async (req, res) => {
   try {
     parseBearer(req.headers.authorization, req.headers);
     const { title, title_url, type, weight_per_meter, pieces_per_meter, color_price, width, height, thickness } = req.body;
@@ -155,8 +155,8 @@ router.post('/tiles/add', uploadImages, async (req, res) => {
   }
 });
 
-// update tiles type
-router.put('/tilestype/:id', async (req, res) => {
+// update  type
+router.put('/type/:id', async (req, res) => {
   try {
     parseBearer(req.headers.authorization, req.headers);
     const { id } = req.params;
@@ -177,7 +177,7 @@ router.put('/tilestype/:id', async (req, res) => {
 });
 
 // update tile
-router.put('/tiles/:id', async (req, res) => {
+router.put('/tile/:id', async (req, res) => {
   try {
     parseBearer(req.headers.authorization, req.headers);
     const { id } = req.params;
@@ -225,7 +225,7 @@ router.put('/tiles/:id', async (req, res) => {
 });
 
 // delete tile type
-router.delete('/tilestype/:id', async (req,res) => {
+router.delete('/type/:id', async (req,res) => {
   try {
     parseBearer(req.headers.authorization, req.headers);
     const { id } = req.params;
@@ -250,7 +250,7 @@ router.delete('/tilestype/:id', async (req,res) => {
 });
 
 // delete tile
-router.delete('/tiles/:id', async (req,res) => {
+router.delete('/tile/:id', async (req,res) => {
   try {
     parseBearer(req.headers.authorization, req.headers);
     const { id } = req.params;
