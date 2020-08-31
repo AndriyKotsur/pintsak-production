@@ -5,7 +5,7 @@ const TileItem = ({ tiles }) => {
   return (
     <> 
       {tiles.map((tile) => (
-        <div className="product-item">
+        <div key={tile.tile_uid} className="product-item">
           <a href="/catalogue-page.html" className="product-link">
             <h3 className="product__title">{tile.title}</h3>
             <div className="product-image-wrapper">

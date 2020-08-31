@@ -44,8 +44,8 @@ const getTiles = ( type, search ) => {
   })
 }
 
-const getType = (id) => {
-  const authToken = localStorage.token || null
+const getType = async ( id ) => {
+  const authToken = await localStorage.token || null
   return request ({
     headers: {
       Accept: "application/json",
@@ -59,8 +59,8 @@ const getType = (id) => {
   })
 }
 
-const updateType = ({ id, title, title_url }) => {
-  const authToken = localStorage.token || null
+const updateType = async ({ id, title, title_url }) => {
+  const authToken = await localStorage.token || null
   return request ({
     headers: {
       Accept: "application/json",
@@ -78,7 +78,7 @@ const updateType = ({ id, title, title_url }) => {
   })
 }
 
-const getTile = (id) => {
+const getTile = ( id ) => {
   return request ({
     headers: {
       Accept: "application/json",
@@ -91,8 +91,8 @@ const getTile = (id) => {
   })
 }
 
-const updateTile = ( id, formData ) => {
-  const authToken = localStorage.token || null
+const updateTile = async ( id, formData ) => {
+  const authToken = await localStorage.token || null
   return request ({
     headers: {
       Accept: "multipart/form-data",
@@ -107,6 +107,41 @@ const updateTile = ( id, formData ) => {
   })
 }
 
+const addType = async ({ title, title_url }) => {
+  const authToken = await localStorage.token || null
+  return request ({
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Authorization": 'Bearer ' + authToken,
+    },
+    options: {
+      url: '/admin/type/add',
+      method: "POST",
+      data: {
+        title,
+        title_url,
+      }
+    }
+  })
+}
+
+const addTile = async ( formData ) => {
+  const authToken = await localStorage.token || null
+  return request ({
+    headers: {
+      Accept: "multipart/form-data",
+      "Content-Type": "multipart/form-data",
+      "Authorization": 'Bearer ' + authToken,
+    },
+    options: {
+      url: '/admin/tile/add',
+      method: "POST",
+      data: formData,
+    }
+  })
+}
+
 const HTTP = {
   getTypes,
   getTiles,
@@ -114,6 +149,8 @@ const HTTP = {
   updateType,
   getTile,
   updateTile,
+  addType,
+  addTile,
 }
 
 export default HTTP;
