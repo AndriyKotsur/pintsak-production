@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
 import useEditTile from './edit-tile.logic'
+import { HTTP } from '../../../../helpers'
 
 const EditTile = () => {
-  const { tile, types, updateTile } = useEditTile()
+  const history = useHistory()
+  const { id } = useParams()
+  const { tile, types } = useEditTile()
   const [tileTitle, setTileTitle] = useState('')
-  const [tileTitle_url, setTileTitle_url] = useState('')
+  const [tileUrl, setTileUrl] = useState('')
   const [tileType, setTileType] = useState('')
   const [tileWidth, setTileWidth] = useState('')
   const [tileHeight, setTileHeight] = useState('')
@@ -24,8 +28,8 @@ const EditTile = () => {
   useEffect(() => {
     if (tile) {
       setTileTitle(tile.title)
-      setTileTitle_url(tile.title_url)
-      setTileType(tile.type_tile)
+      setTileUrl(tile.url)
+      setTileType(tile.type)
       setTileWidth(tile.width)
       setTileHeight(tile.height)
       setTileThickness(tile.thickness)
@@ -54,6 +58,38 @@ const EditTile = () => {
     setTileImagesPreview(imagePre)
   }
 
+  const updateTile = async (e) => {
+    e.preventDefault()
+    try {
+      const formData = new FormData()
+      types.forEach(item => {
+        if (item.title === tileType) formData.append("folderName", item.url);
+      });
+      formData.append("title", tileTitle);
+      formData.append("url", tileUrl);
+      formData.append("type", tileType);
+      formData.append("width", tileWidth);
+      formData.append("height", tileHeight);
+      formData.append("thickness", tileThickness);
+      formData.append("weight_per_meter", tileWeight_per_meter);
+      formData.append("pieces_per_meter", tilePieces_per_meter);
+      const color_price = {
+        grey: tileGrey,
+        yellow: tileYellow,
+        orange: tileOrange,
+        red: tileRed,
+        brown: tileBrown,
+        black: tileBlack
+      }
+      formData.append("color_price", JSON.stringify(color_price));
+      for (let i = 0; i < tileImages.length; i++) {
+        formData.append('images', tileImages[i]);
+      };
+      await HTTP.updateTile( id, formData )
+      history.push('/admin/main/tile')
+    } catch (err) {}
+  }
+
   return (
     <>
       {tile && (
@@ -64,30 +100,13 @@ const EditTile = () => {
                 Редагувати товар
               </h2>
               <form
-                onSubmit={(e) => {updateTile(
-                  e,
-                  tileTitle,
-                  tileTitle_url.toLowerCase(),
-                  tileType,
-                  tileWidth,
-                  tileHeight,
-                  tileThickness,
-                  tileGrey,
-                  tileYellow,
-                  tileOrange,
-                  tileRed,
-                  tileBrown,
-                  tileBlack,
-                  tileWeight_per_meter,
-                  tilePieces_per_meter,
-                  tileImages,
-                )}}
+                onSubmit={(e) => {updateTile(e)}}
                 className="form contact-us-form"
               >
                 <div>
                   <label>Попередні картинки</label>
                   {tileImagesPrevious.map(image => (
-                      <img key={tileImagesPrevious.indexOf(image)} src={image} alt="Alt item"/>
+                    <img key={tileImagesPrevious.indexOf(image)} src={image} alt="Alt item"/>
                   ))}
                 </div>
                 <div className="input-field contact-us-field">
@@ -118,9 +137,9 @@ const EditTile = () => {
                 <div className="input-field contact-us-field">
                   <input
                     type="text"
-                    name="title_url"
-                    value={tileTitle_url}
-                    onChange={(e) => setTileTitle_url(e.target.value)}
+                    name="url"
+                    value={tileUrl}
+                    onChange={(e) => setTileUrl(e.target.value)}
                     className="input contact-us__input"
                     required
                   />
@@ -136,7 +155,7 @@ const EditTile = () => {
                   >
                     {types && tile ? (
                       types.map((type) => (
-                        <option key={type.type_uid} >{type.title}</option>
+                        <option key={type.id} >{type.title}</option>
                       ))
                     ) : <option>Немає доданих категорій</option>
                     }

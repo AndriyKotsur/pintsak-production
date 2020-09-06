@@ -11,18 +11,18 @@ const TilesList = ({ tiles }) => {
   return (
     <>
       {tiles && tiles.map((tile) => (
-        <div key={tile.tile_uid} className="product-item">
-        <Link to={`/tiles/${tile.tile_uid}`} className="product-link" target="_blank" rel="noopener noreferrer">
+        <div key={tile.id} className="product-item">
+        <Link to={`/tiles/${tile.id}`} className="product-link" target="_blank" rel="noopener noreferrer">
           <h3 className="product__title">{tile.title}</h3>
           <div className="product-image-wrapper">
             <img src={tile.images[0]} alt="Product alt" className="product__image"/>
           </div>
         </Link>
         <div className="product-order">
-          <button onClick={() => history.push(`/admin/edit/tile/${tile.tile_uid}`)} className="product__btn--add">
+          <button onClick={() => history.push(`/admin/edit/tile/${tile.id}`)} className="product__btn--add">
             Редагувати
           </button>
-          <button onClick={() => {onDeleteTile(tile.tile_uid)}} className="product__btn--remove">
+          <button onClick={() => {onDeleteTile(tile.id)}} className="product__btn--remove">
             Видалити
           </button>
         </div>

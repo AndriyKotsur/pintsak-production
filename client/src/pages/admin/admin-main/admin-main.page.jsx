@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import AdminLogout from '../admin-page/page-logout'
+import { AdminLogout } from '../'
 
 const AdminMain = () => {
   return (

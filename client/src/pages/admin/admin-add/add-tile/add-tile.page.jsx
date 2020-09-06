@@ -6,7 +6,7 @@ const AddTile = () => {
   const history = useHistory()
   const [types, setTypes] = useState([])
   const [title, setTitle] = useState('')
-  const [title_url, setTitle_url] = useState('')
+  const [url, setUrl] = useState('')
   const [type, setType] = useState('')
   const [width, setWidth] = useState('')
   const [height, setHeight] = useState('')
@@ -37,10 +37,10 @@ const AddTile = () => {
       const formData = new FormData();
       types.forEach(type => {
         if (type.title === type) {
-          formData.append("folderName", type.title_url);
+          formData.append("folderName", type.url);
         }
       })
-      formData.append("title_url", title_url.toLowerCase());
+      formData.append("url", url.toLowerCase());
       formData.append("title", title);
       formData.append("type", type);
       formData.append("width", width);
@@ -48,12 +48,11 @@ const AddTile = () => {
       formData.append("thickness", thickness);
       formData.append("weight_per_meter", weight_per_meter);
       formData.append("pieces_per_meter", pieces_per_meter);
-      const color_price = { grey, yellow, orange, red, brown, black, }
+      const color_price = { grey, yellow, orange, red, brown, black }
       formData.append("color_price", JSON.stringify(color_price));
       for (let i = 0; i < images.length; i++) {
         formData.append('images', images[i]);
       };
-
       await HTTP.addTile(formData)
       history.push('/admin/main/tile')
     } catch (err) {}
@@ -93,13 +92,13 @@ const AddTile = () => {
                 <label className="label contact-us__label">Назва товару</label>
               </div>
               <div className="input-field contact-us-field">
-                <input type="text" name="title_url" onChange={(e) => setTitle_url(e.target.value)} className="input contact-us__input" required/>
+                <input type="text" name="url" onChange={(e) => setUrl(e.target.value)} className="input contact-us__input" required/>
                 <label className="label contact-us__label">Назва товару (aнгл)</label>
               </div>
               <div>
                 <select name="type" defaultValue={type} onChange={(e) => setType(e.target.value)} className="input contact-us__input" required>
                   {types ? types.map((type) => (
-                    <option key={type.type_uid}>{type.title}</option>
+                    <option key={type.id}>{type.title}</option>
                   ))
                   : <option>Немає доданих категорій</option>
                   }

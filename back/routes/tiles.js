@@ -6,10 +6,10 @@ const fs = require('fs');
 const pool = require('../db');
 
 // get tile types
-router.get('/', async (req,res) => {
+router.get('/', async (req, res) => {
   try {
     const tileTypes = await pool.query(
-      'SELECT * FROM tile_type'
+      'SELECT * FROM type'
     );
     res.status(200).json(tileTypes.rows);
   } catch (err) {
@@ -26,16 +26,14 @@ router.get('/tiles/types/:type', async (req, res) => {
     const { type } = req.params;
     const page = req.query.page || 1;
     const limit = 9;
-
     const tileType = await pool.query(
-      `SELECT type_uid FROM tile_type WHERE title_url = $1`,
+      `SELECT id FROM type WHERE url = $1`,
       [type]
     );
-
     if (!req.query.sort && !req.query.order) {
       const tilesOfType = await pool.query(
-        `SELECT title, tile_uid, width, height, thickness, images, color_price FROM tile WHERE type_uid = $1 OFFSET ${(limit * page) - limit} LIMIT ${limit}`,
-        [tileType.rows[0].type_uid]
+        `SELECT title, id, width, height, thickness, images, color_price FROM tile WHERE type_id = $1 OFFSET ${(limit * page) - limit} LIMIT ${limit}`,
+        [tileType.rows[0].id]
       );
       res.status(200).json(tilesOfType.rows);
     } else {
@@ -43,13 +41,11 @@ router.get('/tiles/types/:type', async (req, res) => {
         sort = req.query.sort;
       else
         sort = "color_price->>'grey'";
-
       const order = req.query.order === 'true' ? 'ASC' : 'DESC';
       const tilesOfType = await pool.query(
-        `SELECT title, tile_uid, width, height, thickness, images, color_price FROM tile WHERE type_uid = $1 ORDER BY ${sort} ${order} OFFSET ${(limit * page) - limit} LIMIT ${limit}`,
-        [tileType.rows[0].type_uid]
+        `SELECT title, id, width, height, thickness, images, color_price FROM tile WHERE type_id = $1 ORDER BY ${sort} ${order} OFFSET ${(limit * page) - limit} LIMIT ${limit}`,
+        [tileType.rows[0].id]
       );
-
       res.status(200).json(tilesOfType.rows);
     }
   } catch (err) {
@@ -65,7 +61,7 @@ router.get('/tile/:id', async (req,res) => {
   try {
     const { id } = req.params;
     const tile = await pool.query(
-      'SELECT * FROM tile WHERE tile_uid = $1',
+      'SELECT * FROM tile WHERE id = $1',
       [id]
     );
     res.status(200).json(tile.rows[0]);
@@ -93,7 +89,7 @@ router.get('/download-catalogue', (req,res) => {
   }
 });
 
-// Order request
+// order request
 router.post('/order-request', async (req,res) => {
   try {
     const { name, phone, comment, order } = req.body;

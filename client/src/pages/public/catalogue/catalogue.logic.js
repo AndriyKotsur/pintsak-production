@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-
 import { HTTP } from '../../../helpers';
 
 const useCatalogue = () => {
@@ -15,12 +14,10 @@ const useCatalogue = () => {
     const fetchTypes = async () => {
       const response = await HTTP.getTypes();
       setTypes(response);
-      const typeTitle = response.filter((type) => type.title_url === params.type);
+      const typeTitle = response.filter((type) => type.url === params.type);
       setTypeTitle(typeTitle[0].title);
     };
-
     fetchTypes();
-
   }, []);
 
   useEffect(() => {
@@ -30,9 +27,7 @@ const useCatalogue = () => {
       setTiles(response);
       setLoading(false);
     };
-
     fetchTiles();
-
   }, [params.type, location.search]);
 
   return {

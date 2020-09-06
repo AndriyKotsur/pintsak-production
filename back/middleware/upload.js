@@ -5,8 +5,8 @@ const path = require('path');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    if (req.body.folderName && req.body.title_url) {
-      folder = `./public/images/${req.body.folderName}/${req.body.title_url}`;
+    if (req.body.folderName && req.body.url) {
+      folder = `./public/images/${req.body.folderName}/${req.body.url}`;
     } else {
       folder = './public/docs';
     }
@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
     })
   },
   filename: function (req, file, cb) {
-    const title = req.body.title_url || 'Tile-catalogue';
+    const title = req.body.url || 'tile-catalogue';
     cb(null, title + '-' + Date.now() + path.extname(file.originalname));
   }
 });

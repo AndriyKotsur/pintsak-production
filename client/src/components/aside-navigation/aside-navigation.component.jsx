@@ -9,7 +9,7 @@ const AsideNavigation = ({ types }) => {
       </h2>
       <div className="aside-navigation__list list-dark">
         {types && types.map((type) => (
-          <Link key={type.type_uid} to={`/catalogue/${type.title_url}`} className="aside-navigation__link">{type.title}</Link>
+          <Link key={type.id} to={`/catalogue/${type.url}`} className="aside-navigation__link">{type.title}</Link>
         ))}
       </div>
       <a href="http://localhost:5000/download-catalogue" className="aside-navigation__download">

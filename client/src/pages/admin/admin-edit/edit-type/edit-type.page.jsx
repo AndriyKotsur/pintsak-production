@@ -4,12 +4,12 @@ import useEditType from './edit-type.logic'
 const EditType = () => {
   const { type, updateType } = useEditType()
   const [typeTitle, setTypeTitle] = useState('')
-  const [typeTitle_url, setTypeTitle_url] = useState('')
+  const [typeUrl, setTypeUrl] = useState('')
 
   useEffect(() => {
     if (type) {
       setTypeTitle(type.title)
-      setTypeTitle_url(type.title_url)
+      setTypeUrl(type.url)
     }
   }, [type])
 
@@ -22,7 +22,7 @@ const EditType = () => {
               <h2 className="contact-us__title">
                 Редагувати категорію
               </h2>
-              <form onSubmit={(e) => updateType(e, typeTitle, typeTitle_url.toLowerCase())} className="form contact-us-form">
+              <form onSubmit={(e) => updateType(e, typeTitle, typeUrl.toLowerCase())} className="form contact-us-form">
                 <div className="input-field contact-us-field">
                   <input
                     type="text"
@@ -39,8 +39,8 @@ const EditType = () => {
                     type="text"
                     name="title_url"
                     className="input contact-us__input"
-                    value={typeTitle_url}
-                    onChange={(e) => setTypeTitle_url(e.target.value)}
+                    value={typeUrl}
+                    onChange={(e) => setTypeUrl(e.target.value)}
                     required
                   />
                   <label className="label contact-us__label">Назва категорії (англ.)</label>

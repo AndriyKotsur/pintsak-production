@@ -5,11 +5,11 @@ import { HTTP } from '../../../../helpers'
 const AddType = () => {
   const history = useHistory()
   const [title, setTitle] = useState('')
-  const [title_url, setTitle_url] = useState('')
+  const [url, setUrl] = useState('')
   const addType = async (e) => {
     e.preventDefault();
     try {
-        await HTTP.addType({ title, title_url });
+        await HTTP.addType({ title, url });
         history.push('/admin/main/type')
     } catch (err) {}
   }
@@ -27,7 +27,7 @@ const AddType = () => {
               <label className="label contact-us__label">Назва категорії</label>
             </div>
             <div className="input-field contact-us-field">
-              <input type="text" name="title_url" onChange={(e) => {setTitle_url(e.target.value)}} className="input contact-us__input" required/>
+              <input type="text" name="url" onChange={(e) => {setUrl(e.target.value)}} className="input contact-us__input" required/>
               <label className="label contact-us__label">Назва категорії (англ.)</label>
             </div>
             <p className="contact-us__required">обов’язкові поля</p>

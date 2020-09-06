@@ -1,48 +1,61 @@
 import React, { Fragment } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { COOKIES } from '../helpers'
+import { Catalogue, ErrorPage } from './public'
+import {
+  AdminLogin,
+  AdminMain,
+  MainTile,
+  MainType,
+  AddTile,
+  AddType,
+  EditTile,
+  EditType,
+} from './admin'
 
-import AdminLogin from './admin/admin-page/page-login';
-import { Catalogue } from './public';
-import { EditType, EditTile, AddType, AddTile, AdminMain, MainTile, MainType } from './admin';
-
-import { ErrorPage } from './errors';
+const AuthRoute = ({ children, route, ...otherProps }) => {
+  const authToken = COOKIES.getAuthToken()
+  if (!authToken) {
+    return <Redirect to="/" />
+  }
+  return <Route {...otherProps}>{children}</Route>
+}
 
 const Main = () => {
   return (
     <Fragment>
       <Switch>
-
         {/* admin routes */}
 
         <Route path="/admin" exact component={AdminLogin} />
 
-        <Route exact path="/admin/main" >
+        <AuthRoute exact path="/admin/main" >
           <AdminMain />
-        </Route>
+        </AuthRoute>
 
-        <Route exact path="/admin/main/type" >
+        <AuthRoute exact path="/admin/main/type" >
           <MainType />
-        </Route>
+        </AuthRoute>
 
-        <Route exact path="/admin/main/tile" >
+        <AuthRoute exact path="/admin/main/tile" >
           <MainTile />
-        </Route>
+        </AuthRoute>
 
-        <Route exact path="/admin/edit/type/:id">
+        <AuthRoute exact path="/admin/edit/type/:id">
           <EditType />
-        </Route>
+        </AuthRoute>
 
-        <Route exact path="/admin/edit/tile/:id">
+        <AuthRoute exact path="/admin/edit/tile/:id">
           <EditTile />
-        </Route>
+        </AuthRoute>
 
-        <Route exact path="/admin/add/type">
+        <AuthRoute exact path="/admin/add/type">
           <AddType />
-        </Route>
+        </AuthRoute>
 
-        <Route exact path="/admin/add/tile">
+        <AuthRoute exact path="/admin/add/tile">
           <AddTile />
-        </Route>
+        </AuthRoute>
 
         {/* public routes */}
 
@@ -53,7 +66,6 @@ const Main = () => {
         <Route path="/">
           <ErrorPage />
         </Route>
-
       </Switch>
     </Fragment>
   );

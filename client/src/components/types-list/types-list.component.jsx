@@ -11,11 +11,11 @@ const TypesList = ({ types }) => {
   return (
     <>
       {types && types.map((type) => (
-        <div key={type.type_uid}>
+        <div key={type.id}>
           <div>
             <span>{type.title}</span>
-            <button onClick={() => history.push(`/admin/edit/type/${type.type_uid}`)}>Редагувати</button>
-            <button onClick={() => {onDeleteType(type.type_uid)}}>Видалити</button>
+            <button onClick={() => history.push(`/admin/edit/type/${type.id}`)}>Редагувати</button>
+            <button onClick={() => {onDeleteType(type.id)}}>Видалити</button>
           </div>
         </div>
       ))}

@@ -1,3 +1,5 @@
+export { default as AdminLogin } from './admin-page/page-login'
+export { default as AdminLogout } from './admin-page/page-logout'
 export { default as EditType } from './admin-edit/edit-type/edit-type.container'
 export { default as EditTile } from './admin-edit/edit-tile/edit-tile.container'
 export { default as AddType } from './admin-add/add-type/add-type.page'

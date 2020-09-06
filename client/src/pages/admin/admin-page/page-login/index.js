@@ -8,7 +8,7 @@ import { setUser } from '../../../../store/action-creators';
 let ConnectedLogin = connect(null, { setUser })(AdminLogin);
 
 export default () => (
-    <Provider store={store}>
-        <ConnectedLogin />
-    </Provider>
+  <Provider store={store}>
+    <ConnectedLogin />
+  </Provider>
 )

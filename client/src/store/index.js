@@ -1,8 +1,8 @@
 import { createStore } from "redux";
-import reducers from "./reducers";
+import reducer from "./reducer";
 
 let initialStore = {
   isAuth: false
 };
 
-export default createStore(reducers, initialStore);
+export default createStore(reducer, initialStore);

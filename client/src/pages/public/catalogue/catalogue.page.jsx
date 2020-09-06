@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import useCatalogue from './catalogue.logic';
-
 import { Icon, TileItem, AsideNavigation } from '../../../components';
-
 
 const Catalogue = () => {
   const {loading, tiles, types, typeTitle} = useCatalogue();
@@ -36,13 +34,11 @@ const Catalogue = () => {
                 </div>
               </div>
             )}
-
             {tiles && (
               <div className="catalogue-block">
                 <TileItem tiles={tiles} />
               </div>
             )}
-
             <div className="catalogue-pagination">
               <a href="#" className="catalogue-pagination__btn">
                 <svg className="icon icon-refresh pagination-icon__refresh">

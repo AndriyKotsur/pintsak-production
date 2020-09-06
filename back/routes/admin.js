@@ -96,7 +96,7 @@ router.get('/type/:id', async (req,res) => {
   try {
     const { id } = req.params;
     const type = await pool.query(
-      'SELECT * FROM tile_type WHERE type_uid = $1',
+      'SELECT * FROM type WHERE id = $1',
       [id]
     );
     res.status(200).json(type.rows[0]);
@@ -112,10 +112,10 @@ router.get('/type/:id', async (req,res) => {
 router.post('/type/add', async (req, res) => {
   try {
     parseBearer(req.headers.authorization, req.headers);
-    const { title, title_url } = req.body;
+    const { title, url } = req.body;
     const newType = await pool.query(
-      'INSERT INTO tile_type (type_uid, title, title_url) VALUES ($1, $2, $3) RETURNING *',
-      [uuid(), title, title_url]
+      'INSERT INTO type (id, title, url) VALUES ($1, $2, $3) RETURNING *',
+      [uuid(), title, url]
     );
     res.status(201).json(newType);
   } catch (err) {
@@ -130,21 +130,18 @@ router.post('/type/add', async (req, res) => {
 router.post('/tile/add', uploadImages, async (req, res) => {
   try {
     parseBearer(req.headers.authorization, req.headers);
-    const { title, title_url, type, weight_per_meter, pieces_per_meter, color_price, width, height, thickness } = req.body;
-
+    const { title, url, type, weight_per_meter, pieces_per_meter, color_price, width, height, thickness } = req.body;
     const images = [];
     for (let i = 0; i < req.files.length; i++) {
       images.push('http://localhost:5000' + (req.files[i].destination).slice(1) + '/' + req.files[i].filename);
     };
-
     const tileType = await pool.query(
-      'SELECT * FROM tile_type WHERE title = $1',
+      'SELECT * FROM type WHERE title = $1',
       [type]
     );
-
     const newTile = await pool.query(
-      'INSERT INTO tile (tile_uid, type_uid, title, images, type_tile, weight_per_meter, pieces_per_meter, color_price, width, height, thickness, title_url) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *',
-      [uuid(), tileType.rows[0].type_uid, title, images, type, weight_per_meter, pieces_per_meter, JSON.parse(color_price), width, height, thickness, title_url]
+      'INSERT INTO tile (id, type_id, title, images, type, weight_per_meter, pieces_per_meter, color_price, width, height, thickness, url) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *',
+      [uuid(), tileType.rows[0].id, title, images, type, weight_per_meter, pieces_per_meter, JSON.parse(color_price), width, height, thickness, url]
     );
     res.status(201).json(newTile.rows);
   } catch (err) {
@@ -160,10 +157,10 @@ router.put('/type/:id', async (req, res) => {
   try {
     parseBearer(req.headers.authorization, req.headers);
     const { id } = req.params;
-    const { title, title_url } = req.body;
+    const { title, url } = req.body;
     await pool.query(
-      'UPDATE tile_type SET title = $1, title_url = $2 WHERE type_uid = $3',
-      [title, title_url, id]
+      'UPDATE type SET title = $1, url = $2 WHERE id = $3',
+      [title, url, id]
     );
     res.status(200).json(
       { message: 'Updated' }
@@ -181,36 +178,31 @@ router.put('/tile/:id', async (req, res) => {
   try {
     parseBearer(req.headers.authorization, req.headers);
     const { id } = req.params;
-
     const tile = await pool.query(
-      'SELECT * FROM tile WHERE tile_uid = $1',
+      'SELECT * FROM tile WHERE id = $1',
       [id]
     );
     const type = await pool.query(
-      'SELECT * FROM tile_type WHERE type_uid = $1',
-      [tile.rows[0].type_uid]
+      'SELECT * FROM type WHERE id = $1',
+      [tile.rows[0].type_id]
     );
-
-    removeFolder(`./public/images/${type.rows[0].title_url}/${tile.rows[0].title_url}`);
-
+    removeFolder(`./public/images/${type.rows[0].url}/${tile.rows[0].url}`);
     uploadImages( req, res, async (err) => {
       if (err) {
         throw err;
       }
-      const { title, title_url, type, weight_per_meter, pieces_per_meter, color_price, width, height, thickness } = req.body;
-
+      const { title, url, type, weight_per_meter, pieces_per_meter, color_price, width, height, thickness } = req.body;
       const images = [];
       for (let i = 0; i < req.files.length; i++) {
         images.push('http://localhost:5000' + (req.files[i].destination).slice(1) + '/' + req.files[i].filename);
       };
-
       const tileType = await pool.query(
-        'SELECT * FROM tile_type WHERE title = $1',
+        'SELECT * FROM type WHERE title = $1',
         [type]
       );
       await pool.query(
-        'UPDATE tile SET type_uid = $1, title = $2, images = $3, title_url = $4, weight_per_meter = $5, pieces_per_meter = $6, color_price = $7, width = $8, height = $9, thickness = $10, type_tile = $11 WHERE tile_uid = $12',
-        [tileType.rows[0].type_uid, title, images, title_url, weight_per_meter, pieces_per_meter, JSON.parse(color_price), width, height, thickness, type, id]
+        'UPDATE tile SET type_id = $1, title = $2, images = $3, url = $4, weight_per_meter = $5, pieces_per_meter = $6, color_price = $7, width = $8, height = $9, thickness = $10, type = $11 WHERE id = $12',
+        [tileType.rows[0].id, title, images, url, weight_per_meter, pieces_per_meter, JSON.parse(color_price), width, height, thickness, type, id]
       );
       res.status(200).json(
         { message: 'Updated' }
@@ -230,14 +222,14 @@ router.delete('/type/:id', async (req,res) => {
     parseBearer(req.headers.authorization, req.headers);
     const { id } = req.params;
     const type = await pool.query(
-      'SELECT * FROM tile_type WHERE type_uid = $1',
+      'SELECT * FROM type WHERE id = $1',
       [id]
     );
     await pool.query(
-      'DELETE FROM tile_type WHERE type_uid = $1',
+      'DELETE FROM type WHERE id = $1',
       [id]
     );
-    removeFolder(`./public/images/${type.rows[0].title_url}`);
+    removeFolder(`./public/images/${type.rows[0].url}`);
     res.status(200).json(
       { message: 'Deleted' }
     );
@@ -255,18 +247,18 @@ router.delete('/tile/:id', async (req,res) => {
     parseBearer(req.headers.authorization, req.headers);
     const { id } = req.params;
     const tile = await pool.query(
-      'SELECT * FROM tile WHERE tile_uid = $1',
+      'SELECT * FROM tile WHERE id = $1',
       [id]
     );
     const type = await pool.query(
-      'SELECT * FROM tile_type WHERE type_uid = $1',
-      [tile.rows[0].type_uid]
+      'SELECT * FROM type WHERE id = $1',
+      [tile.rows[0].type_id]
     );
     await pool.query(
-      'DELETE FROM tile WHERE tile_uid = $1',
+      'DELETE FROM tile WHERE id = $1',
       [id]
     );
-    removeFolder(`./public/images/${type.rows[0].title_url}/${tile.rows[0].title_url}`);
+    removeFolder(`./public/images/${type.rows[0].url}/${tile.rows[0].url}`);
     res.status(200).json(
       { message: 'Deleted' }
     );
@@ -282,9 +274,7 @@ router.delete('/tile/:id', async (req,res) => {
 router.patch('/catalogue', async (req,res) => {
   try {
     parseBearer(req.headers.authorization, req.headers);
-
     removeFolder('./public/docs');
-
     uploadFile( req, res, async (err) => {
       if (err) {
         throw err;

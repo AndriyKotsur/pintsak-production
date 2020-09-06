@@ -15,10 +15,10 @@ const useEditType = () => {
     fetchType()
   }, [id])
 
-  const updateType = async (e, title, title_url) => {
+  const updateType = async (e, title, url) => {
     e.preventDefault()
     try {
-      await HTTP.updateType({id, title, title_url})
+      await HTTP.updateType({id, title, url})
       history.push('/admin/main/type')
     } catch (err) {}
   }

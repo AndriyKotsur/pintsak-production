@@ -1,4 +1,5 @@
 import axios from "axios"
+import { COOKIES } from "./"
 
 const request = async function ({ headers, options = true }) {
   const client = axios.create({
@@ -18,6 +19,20 @@ const request = async function ({ headers, options = true }) {
   return client(options).then(onSuccess).catch(onError)
 }
 
+const login = (admin) => {
+  return request ({
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    options: {
+      url: "/admin",
+      method: "POST",
+      data: admin
+    }
+  })
+}
+
 const getTypes = () => {
   return request ({
     headers: {
@@ -28,8 +43,8 @@ const getTypes = () => {
       url: "/",
       method: "GET"
     }
-  });
-};
+  })
+}
 
 const getTiles = ( type, search ) => {
   return request ({
@@ -45,7 +60,7 @@ const getTiles = ( type, search ) => {
 }
 
 const getType = async ( id ) => {
-  const authToken = await localStorage.token || null
+  const authToken = COOKIES.getAuthToken() || ''
   return request ({
     headers: {
       Accept: "application/json",
@@ -59,8 +74,8 @@ const getType = async ( id ) => {
   })
 }
 
-const updateType = async ({ id, title, title_url }) => {
-  const authToken = await localStorage.token || null
+const updateType = async ({ id, title, url }) => {
+  const authToken = COOKIES.getAuthToken() || ''
   return request ({
     headers: {
       Accept: "application/json",
@@ -72,7 +87,7 @@ const updateType = async ({ id, title, title_url }) => {
       method: "PUT",
       data: {
         title,
-        title_url,
+        url,
       }
     }
   })
@@ -92,7 +107,7 @@ const getTile = ( id ) => {
 }
 
 const updateTile = async ( id, formData ) => {
-  const authToken = await localStorage.token || null
+  const authToken = COOKIES.getAuthToken() || ''
   return request ({
     headers: {
       Accept: "multipart/form-data",
@@ -107,8 +122,8 @@ const updateTile = async ( id, formData ) => {
   })
 }
 
-const addType = async ({ title, title_url }) => {
-  const authToken = await localStorage.token || null
+const addType = async ({ title, url }) => {
+  const authToken = COOKIES.getAuthToken() || ''
   return request ({
     headers: {
       Accept: "application/json",
@@ -120,14 +135,14 @@ const addType = async ({ title, title_url }) => {
       method: "POST",
       data: {
         title,
-        title_url,
+        url,
       }
     }
   })
 }
 
 const addTile = async ( formData ) => {
-  const authToken = await localStorage.token || null
+  const authToken = COOKIES.getAuthToken() || ''
   return request ({
     headers: {
       Accept: "multipart/form-data",
@@ -143,7 +158,7 @@ const addTile = async ( formData ) => {
 }
 
 const getAllTiles = async () => {
-  const authToken = await localStorage.token || null
+  const authToken = COOKIES.getAuthToken() || ''
   return request ({
     headers: {
       Accept: "application/json",
@@ -158,7 +173,7 @@ const getAllTiles = async () => {
 }
 
 const deleteTile = async ( id ) => {
-  const authToken = await localStorage.token || null
+  const authToken = COOKIES.getAuthToken() || ''
   return request ({
     headers: {
       Accept: "application/json",
@@ -173,7 +188,7 @@ const deleteTile = async ( id ) => {
 }
 
 const deleteType = async ( id ) => {
-  const authToken = await localStorage.token || null
+  const authToken = COOKIES.getAuthToken() || ''
   return request ({
     headers: {
       Accept: "application/json",
@@ -188,6 +203,7 @@ const deleteType = async ( id ) => {
 }
 
 const HTTP = {
+  login,
   getTypes,
   getTiles,
   getType,

@@ -1,19 +1,20 @@
 import ActionTypes from './action-types';
+import { COOKIES } from '../helpers'
 
-const usersReducer = (state, action) => {
+const reducer = (state, action) => {
   switch (action.type) {
     case ActionTypes.SET_USER:
-      localStorage.setItem('token', action.payload.token)
+      COOKIES.setAuthToken(action.payload.token)
       return {
         isAuth: true
       }
     case ActionTypes.UNSET_USER:
-      localStorage.removeItem('token')
+      COOKIES.removeAuthToken()
       return {
         isAuth: false
       }
     case ActionTypes.GET_USER:
-      if (localStorage.getItem('token')) {
+      if (COOKIES.getAuthToken()) {
         return {
           isAuth: true
         }
@@ -27,4 +28,4 @@ const usersReducer = (state, action) => {
   }
 }
 
-export default usersReducer;
+export default reducer;
