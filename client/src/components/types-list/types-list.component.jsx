@@ -1,22 +1,24 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom'
+import { HTTP } from '../../helpers'
 
-const TypesList = ({ types, editFunc, deleteFunc }) => {
+const TypesList = ({ types }) => {
+  const history = useHistory()
+  const onDeleteType = async (id) => {
+    await HTTP.deleteType(id)
+    window.location = '/admin/main/type'
+  }
   return (
     <>
-      <div className="aside-navigation popular-aside-navigation">
-        <h2 className="aside-navigation__header">
-          Категорії товарів
-        </h2>
-        {types && types.map((type) => (
-          <div key={type.type_uid}>
-            <div>
-              <span>{type.title}</span>
-              <button onClick={()=> editFunc(type.type_uid)}>Редагувати</button>
-              <button onClick={()=>deleteFunc(type.type_uid)}>Видалити</button>
-            </div>
+      {types && types.map((type) => (
+        <div key={type.type_uid}>
+          <div>
+            <span>{type.title}</span>
+            <button onClick={() => history.push(`/admin/edit/type/${type.type_uid}`)}>Редагувати</button>
+            <button onClick={() => {onDeleteType(type.type_uid)}}>Видалити</button>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </>
   )
 }

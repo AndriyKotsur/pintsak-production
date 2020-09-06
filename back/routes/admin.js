@@ -271,7 +271,7 @@ router.delete('/tile/:id', async (req,res) => {
       { message: 'Deleted' }
     );
   } catch (err) {
-    console.error(err.message);
+    console.error(err);
     res.status(400).json(
       { message: 'Bad request' }
     );

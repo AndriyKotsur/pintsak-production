@@ -142,6 +142,51 @@ const addTile = async ( formData ) => {
   })
 }
 
+const getAllTiles = async () => {
+  const authToken = await localStorage.token || null
+  return request ({
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Authorization": 'Bearer ' + authToken
+    },
+    options: {
+      url: '/admin/tiles',
+      method: "GET",
+    }
+  })
+}
+
+const deleteTile = async ( id ) => {
+  const authToken = await localStorage.token || null
+  return request ({
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Authorization": 'Bearer ' + authToken,
+    },
+    options: {
+      url: `/admin/tile/${id}`,
+      method: "DELETE",
+    }
+  })
+}
+
+const deleteType = async ( id ) => {
+  const authToken = await localStorage.token || null
+  return request ({
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Authorization": 'Bearer ' + authToken,
+    },
+    options: {
+      url: `/admin/type/${id}`,
+      method: "DELETE",
+    }
+  })
+}
+
 const HTTP = {
   getTypes,
   getTiles,
@@ -151,6 +196,9 @@ const HTTP = {
   updateTile,
   addType,
   addTile,
+  getAllTiles,
+  deleteTile,
+  deleteType,
 }
 
 export default HTTP;
