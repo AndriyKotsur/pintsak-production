@@ -10,8 +10,8 @@ const storage = multer.diskStorage({
     } else {
       folder = './public/docs';
     }
-    fs.exists(folder, exist => {
-      if (!exist) {
+    fs.access(folder, fs.constants.F_OK, () => {
+      if (!fs.constants.F_OK) {
         return fs.mkdir(folder, {recursive: true}, error => cb(error, folder));
       }
       return cb(null, folder)

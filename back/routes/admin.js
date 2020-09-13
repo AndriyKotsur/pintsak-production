@@ -113,11 +113,13 @@ router.post('/type/add', async (req, res) => {
   try {
     parseBearer(req.headers.authorization, req.headers);
     const { title, url } = req.body;
-    const newType = await pool.query(
+    await pool.query(
       'INSERT INTO type (id, title, url) VALUES ($1, $2, $3) RETURNING *',
       [uuid(), title, url]
     );
-    res.status(201).json(newType);
+    res.status(201).json(
+      { message: 'Added' }
+    );
   } catch (err) {
     console.error(err.message);
     res.status(400).json(
@@ -130,7 +132,7 @@ router.post('/type/add', async (req, res) => {
 router.post('/tile/add', uploadImages, async (req, res) => {
   try {
     parseBearer(req.headers.authorization, req.headers);
-    const { title, url, type, weight_per_meter, pieces_per_meter, color_price, width, height, thickness } = req.body;
+    const { title, url, type, weight_per_meter, pieces_per_meter, color_price, width, height, thickness, popular, in_stock } = req.body;
     const images = [];
     for (let i = 0; i < req.files.length; i++) {
       images.push('http://localhost:5000' + (req.files[i].destination).slice(1) + '/' + req.files[i].filename);
@@ -139,11 +141,13 @@ router.post('/tile/add', uploadImages, async (req, res) => {
       'SELECT * FROM type WHERE title = $1',
       [type]
     );
-    const newTile = await pool.query(
-      'INSERT INTO tile (id, type_id, title, images, type, weight_per_meter, pieces_per_meter, color_price, width, height, thickness, url) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *',
-      [uuid(), tileType.rows[0].id, title, images, type, weight_per_meter, pieces_per_meter, JSON.parse(color_price), width, height, thickness, url]
+    await pool.query(
+      'INSERT INTO tile (id, type_id, title, images, type, weight_per_meter, pieces_per_meter, color_price, width, height, thickness, url, popular, in_stock ) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *',
+      [uuid(), tileType.rows[0].id, title, images, type, weight_per_meter, pieces_per_meter, JSON.parse(color_price), width, height, thickness, url, popular, in_stock]
     );
-    res.status(201).json(newTile.rows);
+    res.status(201).json(
+      { message: 'Added'}
+    );
   } catch (err) {
     console.error(err.message);
     res.status(400).json(
@@ -191,7 +195,7 @@ router.put('/tile/:id', async (req, res) => {
       if (err) {
         throw err;
       }
-      const { title, url, type, weight_per_meter, pieces_per_meter, color_price, width, height, thickness } = req.body;
+      const { title, url, type, weight_per_meter, pieces_per_meter, color_price, width, height, thickness, popular, in_stock } = req.body;
       const images = [];
       for (let i = 0; i < req.files.length; i++) {
         images.push('http://localhost:5000' + (req.files[i].destination).slice(1) + '/' + req.files[i].filename);
@@ -201,8 +205,8 @@ router.put('/tile/:id', async (req, res) => {
         [type]
       );
       await pool.query(
-        'UPDATE tile SET type_id = $1, title = $2, images = $3, url = $4, weight_per_meter = $5, pieces_per_meter = $6, color_price = $7, width = $8, height = $9, thickness = $10, type = $11 WHERE id = $12',
-        [tileType.rows[0].id, title, images, url, weight_per_meter, pieces_per_meter, JSON.parse(color_price), width, height, thickness, type, id]
+        'UPDATE tile SET type_id = $1, title = $2, images = $3, url = $4, weight_per_meter = $5, pieces_per_meter = $6, color_price = $7, width = $8, height = $9, thickness = $10, type = $11, popular = $12, in_stock = $13 WHERE id = $14',
+        [tileType.rows[0].id, title, images, url, weight_per_meter, pieces_per_meter, JSON.parse(color_price), width, height, thickness, type, popular, in_stock, id]
       );
       res.status(200).json(
         { message: 'Updated' }

@@ -7,41 +7,45 @@ const EditTile = () => {
   const history = useHistory()
   const { id } = useParams()
   const { tile, types } = useEditTile()
-  const [tileTitle, setTileTitle] = useState('')
-  const [tileUrl, setTileUrl] = useState('')
-  const [tileType, setTileType] = useState('')
-  const [tileWidth, setTileWidth] = useState('')
-  const [tileHeight, setTileHeight] = useState('')
-  const [tileThickness, setTileThickness] = useState('')
-  const [tileGrey, setTileGrey] = useState('')
-  const [tileRed, setTileRed] = useState('')
-  const [tileYellow, setTileYellow] = useState('')
-  const [tileOrange, setTileOrange] = useState('')
-  const [tileBrown, setTileBrown] = useState('')
-  const [tileBlack, setTileBlack] = useState('')
-  const [tileWeight_per_meter, setTileWeight_per_meter] = useState('')
-  const [tilePieces_per_meter, setTilePieces_per_meter] = useState('')
-  const [tileImages, setTileImages] = useState([])
-  const [tileImagesPreview, setTileImagesPreview] = useState([])
-  const [tileImagesPrevious, setTileImagesPrevious] = useState([])
+  const [title, setTitle] = useState('')
+  const [url, setUrl] = useState('')
+  const [type, setType] = useState('')
+  const [width, setWidth] = useState('')
+  const [height, setHeight] = useState('')
+  const [thickness, setThickness] = useState('')
+  const [grey, setGrey] = useState('')
+  const [red, setRed] = useState('')
+  const [yellow, setYellow] = useState('')
+  const [orange, setOrange] = useState('')
+  const [brown, setBrown] = useState('')
+  const [black, setBlack] = useState('')
+  const [weight_per_meter, setWeight_per_meter] = useState('')
+  const [pieces_per_meter, setPieces_per_meter] = useState('')
+  const [images, setImages] = useState([])
+  const [imagesPreview, setImagesPreview] = useState([])
+  const [imagesPrevious, setImagesPrevious] = useState([])
+  const [popular, setPopular] = useState(false)
+  const [in_stock, setIn_stock] = useState(false)
 
   useEffect(() => {
     if (tile) {
-      setTileTitle(tile.title)
-      setTileUrl(tile.url)
-      setTileType(tile.type)
-      setTileWidth(tile.width)
-      setTileHeight(tile.height)
-      setTileThickness(tile.thickness)
-      setTileGrey(tile.color_price.grey)
-      setTileRed(tile.color_price.red)
-      setTileYellow(tile.color_price.yellow)
-      setTileOrange(tile.color_price.orange)
-      setTileBrown(tile.color_price.brown)
-      setTileBlack(tile.color_price.black)
-      setTileWeight_per_meter(tile.weight_per_meter)
-      setTilePieces_per_meter(tile.pieces_per_meter)
-      setTileImagesPrevious(tile.images)
+      setTitle(tile.title)
+      setUrl(tile.url)
+      setType(tile.type)
+      setWidth(tile.width)
+      setHeight(tile.height)
+      setThickness(tile.thickness)
+      setGrey(tile.color_price.grey)
+      setRed(tile.color_price.red)
+      setYellow(tile.color_price.yellow)
+      setOrange(tile.color_price.orange)
+      setBrown(tile.color_price.brown)
+      setBlack(tile.color_price.black)
+      setWeight_per_meter(tile.weight_per_meter)
+      setPieces_per_meter(tile.pieces_per_meter)
+      setImagesPrevious(tile.images)
+      setPopular(tile.popular)
+      setIn_stock(tile.in_stock)
     }
   }, [tile])
 
@@ -54,8 +58,8 @@ const EditTile = () => {
         imagePre.push(URL.createObjectURL(imageObj[0][i]));
         imageArr.push(imageObj[0][i]);
     }
-    setTileImages(imageArr)
-    setTileImagesPreview(imagePre)
+    setImages(imageArr)
+    setImagesPreview(imagePre)
   }
 
   const updateTile = async (e) => {
@@ -63,27 +67,29 @@ const EditTile = () => {
     try {
       const formData = new FormData()
       types.forEach(item => {
-        if (item.title === tileType) formData.append("folderName", item.url);
+        if (item.title === type) formData.append("folderName", item.url);
       });
-      formData.append("title", tileTitle);
-      formData.append("url", tileUrl);
-      formData.append("type", tileType);
-      formData.append("width", tileWidth);
-      formData.append("height", tileHeight);
-      formData.append("thickness", tileThickness);
-      formData.append("weight_per_meter", tileWeight_per_meter);
-      formData.append("pieces_per_meter", tilePieces_per_meter);
+      formData.append("title", title);
+      formData.append("url", url);
+      formData.append("type", type);
+      formData.append("width", width);
+      formData.append("height", height);
+      formData.append("thickness", thickness);
+      formData.append("weight_per_meter", weight_per_meter);
+      formData.append("pieces_per_meter", pieces_per_meter);
+      formData.append("popular", popular);
+      formData.append("in_stock", in_stock);
       const color_price = {
-        grey: tileGrey,
-        yellow: tileYellow,
-        orange: tileOrange,
-        red: tileRed,
-        brown: tileBrown,
-        black: tileBlack
+        grey: grey,
+        yellow: yellow,
+        orange: orange,
+        red: red,
+        brown: brown,
+        black: black
       }
       formData.append("color_price", JSON.stringify(color_price));
-      for (let i = 0; i < tileImages.length; i++) {
-        formData.append('images', tileImages[i]);
+      for (let i = 0; i < images.length; i++) {
+        formData.append('images', images[i]);
       };
       await HTTP.updateTile( id, formData )
       history.push('/admin/main/tile')
@@ -105,8 +111,8 @@ const EditTile = () => {
               >
                 <div>
                   <label>Попередні картинки</label>
-                  {tileImagesPrevious.map(image => (
-                    <img key={tileImagesPrevious.indexOf(image)} src={image} alt="Alt item"/>
+                  {imagesPrevious.map(image => (
+                    <img key={imagesPrevious.indexOf(image)} src={image} alt="Alt item"/>
                   ))}
                 </div>
                 <div className="input-field contact-us-field">
@@ -117,8 +123,8 @@ const EditTile = () => {
                     className="input contact-us__input"
                     multiple
                   />
-                  {tileImagesPreview.length > 0 && tileImagesPreview.map(image => (
-                    <img key={tileImagesPreview.indexOf(image)} src={image} alt="Alt item"/>
+                  {imagesPreview.length > 0 && imagesPreview.map(image => (
+                    <img key={imagesPreview.indexOf(image)} src={image} alt="Alt item"/>
                   ))}
                   <br />
                   <label>Нові картинки</label>
@@ -127,8 +133,8 @@ const EditTile = () => {
                   <input
                     type="text"
                     name="title"
-                    value={tileTitle}
-                    onChange={(e) => setTileTitle(e.target.value)}
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
                     className="input contact-us__input"
                     required
                   />
@@ -138,8 +144,8 @@ const EditTile = () => {
                   <input
                     type="text"
                     name="url"
-                    value={tileUrl}
-                    onChange={(e) => setTileUrl(e.target.value)}
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
                     className="input contact-us__input"
                     required
                   />
@@ -147,8 +153,8 @@ const EditTile = () => {
                 </div>
                 <div>
                   <select
-                    value={tileType}
-                    onChange={(e) => setTileType(e.target.value)}
+                    value={type}
+                    onChange={(e) => setType(e.target.value)}
                     name="type"
                     className="input contact-us__input"
                     required
@@ -166,8 +172,8 @@ const EditTile = () => {
                   <input
                     type="number"
                     name="width"
-                    value={tileWidth}
-                    onChange={(e) => setTileWidth(e.target.value)}
+                    value={width}
+                    onChange={(e) => setWidth(e.target.value)}
                     className="input contact-us__input"
                     required
                   />
@@ -177,8 +183,8 @@ const EditTile = () => {
                   <input
                     type="number"
                     name="height"
-                    value={tileHeight}
-                    onChange={(e) => setTileHeight(e.target.value)}
+                    value={height}
+                    onChange={(e) => setHeight(e.target.value)}
                     className="input contact-us__input"
                     required
                   />
@@ -188,8 +194,8 @@ const EditTile = () => {
                   <input
                     type="number"
                     name="thickness"
-                    value={tileThickness}
-                    onChange={(e) => setTileThickness(e.target.value)}
+                    value={thickness}
+                    onChange={(e) => setThickness(e.target.value)}
                     className="input contact-us__input"
                     required
                   />
@@ -199,8 +205,8 @@ const EditTile = () => {
                   <input
                     type="number"
                     name="weight_per_meter"
-                    value={tileWeight_per_meter}
-                    onChange={(e) => setTileWeight_per_meter(e.target.value)}
+                    value={weight_per_meter}
+                    onChange={(e) => setWeight_per_meter(e.target.value)}
                     className="input contact-us__input"
                     required
                   />
@@ -210,8 +216,8 @@ const EditTile = () => {
                   <input
                     type="number"
                     name="pieces_per_meter"
-                    value={tilePieces_per_meter}
-                    onChange={(e) => setTilePieces_per_meter(e.target.value)}
+                    value={pieces_per_meter}
+                    onChange={(e) => setPieces_per_meter(e.target.value)}
                     className="input contact-us__input"
                     required
                   />
@@ -221,8 +227,8 @@ const EditTile = () => {
                   <input
                     type="number"
                     name="grey"
-                    value={tileGrey}
-                    onChange={(e) => setTileGrey(e.target.value)}
+                    value={grey}
+                    onChange={(e) => setGrey(e.target.value)}
                     pattern="[0-9]"
                     className="input contact-us__input"
                     required
@@ -233,8 +239,8 @@ const EditTile = () => {
                   <input
                     type="text"
                     name="yellow"
-                    value={tileYellow}
-                    onChange={(e) => setTileYellow(e.target.value)}
+                    value={yellow}
+                    onChange={(e) => setYellow(e.target.value)}
                     pattern="[0-9-]+"
                     className="input contact-us__input"
                     required
@@ -245,8 +251,8 @@ const EditTile = () => {
                   <input
                     type="text"
                     name="orange"
-                    value={tileOrange}
-                    onChange={(e) => setTileOrange(e.target.value)}
+                    value={orange}
+                    onChange={(e) => setOrange(e.target.value)}
                     pattern="[0-9-]+"
                     className="input contact-us__input"
                     required
@@ -257,8 +263,8 @@ const EditTile = () => {
                   <input
                     type="text"
                     name="red"
-                    value={tileRed}
-                    onChange={(e) => setTileRed(e.target.value)}
+                    value={red}
+                    onChange={(e) => setRed(e.target.value)}
                     pattern="[0-9-]+"
                     className="input contact-us__input"
                     required
@@ -269,8 +275,8 @@ const EditTile = () => {
                   <input
                     type="text"
                     name="brown"
-                    value={tileBrown}
-                    onChange={(e) => setTileBrown(e.target.value)}
+                    value={brown}
+                    onChange={(e) => setBrown(e.target.value)}
                     pattern="[0-9-]+"
                     className="input contact-us__input"
                     required
@@ -281,15 +287,35 @@ const EditTile = () => {
                   <input
                     type="text"
                     name="black"
-                    value={tileBlack}
-                    onChange={(e) => setTileBlack(e.target.value)}
+                    value={black}
+                    onChange={(e) => setBlack(e.target.value)}
                     pattern="[0-9-]+"
                     className="input contact-us__input"
                     required
                   />
                   <label className="label contact-us__label">Ціна чорної</label>
                 </div>
-                <p className="contact-us__required">обов’язкові поля</p>
+                <div className="input-field contact-us-field">
+                  <input
+                    type="checkbox"
+                    name="popular"
+                    checked={popular ? true : false}
+                    onChange={(e) => setPopular(e.target.checked)}
+                    className="input"
+                  />
+                  <label className="label contact-us__label">Популярна</label>
+                </div>
+                <div className="input-field contact-us-field">
+                  <input
+                    type="checkbox"
+                    name="in_stock"
+                    checked={in_stock ? true : false}
+                    onChange={(e) => setIn_stock(e.target.checked)}
+                    className="input"
+                  />
+                  <label className="label contact-us__label">В наявності</label>
+                </div>
+                <p className="contact-us__required">обов’язкові поля *</p>
                 <button className="contact-us__btn">Пітвердити</button>
               </form>
             </div>

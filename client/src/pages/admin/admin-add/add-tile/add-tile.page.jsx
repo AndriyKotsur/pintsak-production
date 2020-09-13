@@ -21,6 +21,8 @@ const AddTile = () => {
   const [pieces_per_meter, setPieces_per_meter] = useState('')
   const [images, setImages] = useState([])
   const [imagesPreview, setImagesPreview] = useState([])
+  const [popular, setPopular] = useState(false)
+  const [in_stock, setIn_stock] = useState(false)
 
   useEffect(() => {
     const fetchTypes = async () => {
@@ -35,9 +37,9 @@ const AddTile = () => {
     e.preventDefault()
     try {
       const formData = new FormData();
-      types.forEach(type => {
-        if (type.title === type) {
-          formData.append("folderName", type.url);
+      types.forEach(item => {
+        if (item.title === type) {
+          formData.append("folderName", item.url);
         }
       })
       formData.append("url", url.toLowerCase());
@@ -48,6 +50,8 @@ const AddTile = () => {
       formData.append("thickness", thickness);
       formData.append("weight_per_meter", weight_per_meter);
       formData.append("pieces_per_meter", pieces_per_meter);
+      formData.append("popular", popular);
+      formData.append("in_stock", in_stock);
       const color_price = { grey, yellow, orange, red, brown, black }
       formData.append("color_price", JSON.stringify(color_price));
       for (let i = 0; i < images.length; i++) {
@@ -64,8 +68,8 @@ const AddTile = () => {
     let imageArr = [];
     let imagePre = [];
     for(let i = 0; i < imageObj[0].length; i++) {
-        imagePre.push(URL.createObjectURL(imageObj[0][i]));
-        imageArr.push(imageObj[0][i]);
+      imagePre.push(URL.createObjectURL(imageObj[0][i]));
+      imageArr.push(imageObj[0][i]);
     }
     setImages(imageArr)
     setImagesPreview(imagePre)
@@ -149,7 +153,15 @@ const AddTile = () => {
                 <input type="number" name="black" onChange={(e) => setBlack(e.target.value)} className="input contact-us__input" />
                 <label className="label contact-us__label">Ціна чорної</label>
               </div>
-              <p className="contact-us__required">обов’язкові поля</p>
+              <div className="input-field contact-us-field">
+                <input type="checkbox" name="popular" onChange={(e) => setPopular(e.target.checked)} className="input" />
+                <label className="label contact-us__label">Популярна</label>
+              </div>
+              <div className="input-field contact-us-field">
+                <input type="checkbox" name="in_stock" onChange={(e) => setIn_stock(e.target.checked)} className="input" />
+                <label className="label contact-us__label">В наявності</label>
+              </div>
+              <p className="contact-us__required">обов’язкові поля *</p>
               <button className="contact-us__btn">Пітвердити</button>
             </form>
           </div>
