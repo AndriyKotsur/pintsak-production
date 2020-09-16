@@ -24,8 +24,8 @@ const EditTile = () => {
   const [images, setImages] = useState([])
   const [imagesPreview, setImagesPreview] = useState([])
   const [imagesPrevious, setImagesPrevious] = useState([])
-  const [popular, setPopular] = useState(false)
-  const [in_stock, setIn_stock] = useState(false)
+  const [is_popular, setIs_popular] = useState(false)
+  const [is_available, setIs_available] = useState(false)
 
   useEffect(() => {
     if (tile) {
@@ -44,8 +44,8 @@ const EditTile = () => {
       setWeight_per_meter(tile.weight_per_meter)
       setPieces_per_meter(tile.pieces_per_meter)
       setImagesPrevious(tile.images)
-      setPopular(tile.popular)
-      setIn_stock(tile.in_stock)
+      setIs_popular(tile.is_popular)
+      setIs_available(tile.is_available)
     }
   }, [tile])
 
@@ -77,8 +77,8 @@ const EditTile = () => {
       formData.append("thickness", thickness);
       formData.append("weight_per_meter", weight_per_meter);
       formData.append("pieces_per_meter", pieces_per_meter);
-      formData.append("popular", popular);
-      formData.append("in_stock", in_stock);
+      formData.append("is_popular", is_popular);
+      formData.append("is_available", is_available);
       const color_price = {
         grey: grey,
         yellow: yellow,
@@ -298,9 +298,9 @@ const EditTile = () => {
                 <div className="input-field contact-us-field">
                   <input
                     type="checkbox"
-                    name="popular"
-                    checked={popular ? true : false}
-                    onChange={(e) => setPopular(e.target.checked)}
+                    name="is_popular"
+                    checked={is_popular ? true : false}
+                    onChange={(e) => setIs_popular(e.target.checked)}
                     className="input"
                   />
                   <label className="label contact-us__label">Популярна</label>
@@ -308,9 +308,9 @@ const EditTile = () => {
                 <div className="input-field contact-us-field">
                   <input
                     type="checkbox"
-                    name="in_stock"
-                    checked={in_stock ? true : false}
-                    onChange={(e) => setIn_stock(e.target.checked)}
+                    name="is_available"
+                    checked={is_available ? true : false}
+                    onChange={(e) => setIs_available(e.target.checked)}
                     className="input"
                   />
                   <label className="label contact-us__label">В наявності</label>

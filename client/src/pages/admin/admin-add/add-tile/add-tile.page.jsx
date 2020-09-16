@@ -21,8 +21,8 @@ const AddTile = () => {
   const [pieces_per_meter, setPieces_per_meter] = useState('')
   const [images, setImages] = useState([])
   const [imagesPreview, setImagesPreview] = useState([])
-  const [popular, setPopular] = useState(false)
-  const [in_stock, setIn_stock] = useState(false)
+  const [is_popular, setIs_popular] = useState(false)
+  const [is_available, setIs_available] = useState(false)
 
   useEffect(() => {
     const fetchTypes = async () => {
@@ -50,8 +50,8 @@ const AddTile = () => {
       formData.append("thickness", thickness);
       formData.append("weight_per_meter", weight_per_meter);
       formData.append("pieces_per_meter", pieces_per_meter);
-      formData.append("popular", popular);
-      formData.append("in_stock", in_stock);
+      formData.append("is_popular", is_popular);
+      formData.append("is_available", is_available);
       const color_price = { grey, yellow, orange, red, brown, black }
       formData.append("color_price", JSON.stringify(color_price));
       for (let i = 0; i < images.length; i++) {
@@ -154,11 +154,11 @@ const AddTile = () => {
                 <label className="label contact-us__label">Ціна чорної</label>
               </div>
               <div className="input-field contact-us-field">
-                <input type="checkbox" name="popular" onChange={(e) => setPopular(e.target.checked)} className="input" />
+                <input type="checkbox" name="is_popular" onChange={(e) => setIs_popular(e.target.checked)} className="input" />
                 <label className="label contact-us__label">Популярна</label>
               </div>
               <div className="input-field contact-us-field">
-                <input type="checkbox" name="in_stock" onChange={(e) => setIn_stock(e.target.checked)} className="input" />
+                <input type="checkbox" name="is_available" onChange={(e) => setIs_available(e.target.checked)} className="input" />
                 <label className="label contact-us__label">В наявності</label>
               </div>
               <p className="contact-us__required">обов’язкові поля *</p>
