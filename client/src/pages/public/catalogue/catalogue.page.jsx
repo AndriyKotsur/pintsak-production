@@ -22,11 +22,11 @@ const Catalogue = () => {
                 <div className="catalogue-sort">
                   <span className="catalogue-sort__title">Сортування:</span>
                   <div className="catalogue-sort__block">
-                    <Link to={`?sort=width&order=${sortByWidth}`} className="catalogue-sort__size" onClick={() => setSortByWidth(!sortByWidth)} >
+                    <Link to={`?sort=width&order=${sortByWidth ? 'ASC' : 'DESC'}`} className="catalogue-sort__size" onClick={() => setSortByWidth(!sortByWidth)} >
                       за розміром
                       <Icon name='arrowSort' className={`icon icon-arrow--sort catalogue-sort__icon ${sortByWidth ? "isActive" : ""}`} />
                     </Link>
-                    <Link to={`?sort=price&order=${sortByPrice}`} className="catalogue-sort__price" onClick={() => setSortByPrice(!sortByPrice)}>
+                    <Link to={`?sort=price&order=${sortByPrice ? 'ASC' : 'DESC'}`} className="catalogue-sort__price" onClick={() => setSortByPrice(!sortByPrice)}>
                       за ціною
                       <Icon name='arrowSort' className={`icon icon-arrow--sort catalogue-sort__icon ${sortByPrice ? "isActive" : ""}`} />
                     </Link>

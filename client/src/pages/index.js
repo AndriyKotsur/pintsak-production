@@ -1,7 +1,10 @@
-import React, { Fragment } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { COOKIES } from '../helpers'
-import { Catalogue, ErrorPage } from './public'
+import {
+  Catalogue,
+  ErrorPage
+} from './public'
 import {
   AdminLogin,
   AdminMain,
@@ -13,7 +16,7 @@ import {
   EditType,
 } from './admin'
 
-const AuthRoute = ({ children, route, ...otherProps }) => {
+const AuthRoute = ({ children, ...otherProps }) => {
   const authToken = COOKIES.getAuthToken()
   if (!authToken) {
     return <Redirect to="/" />
@@ -23,11 +26,12 @@ const AuthRoute = ({ children, route, ...otherProps }) => {
 
 const Main = () => {
   return (
-    <Fragment>
+    <Router>
       <Switch>
-        {/* admin routes */}
 
-        <Route path="/admin" exact component={AdminLogin} />
+        <Route path="/admin" exact>
+          <AdminLogin />
+        </Route>
 
         <AuthRoute exact path="/admin/main" >
           <AdminMain />
@@ -57,8 +61,6 @@ const Main = () => {
           <AddTile />
         </AuthRoute>
 
-        {/* public routes */}
-
         <Route path='/catalogue/:type'>
           <Catalogue/>
         </Route>
@@ -66,8 +68,9 @@ const Main = () => {
         <Route path="/">
           <ErrorPage />
         </Route>
+
       </Switch>
-    </Fragment>
+    </Router>
   );
 }
 

@@ -1,10 +1,10 @@
 const multer = require('multer');
-const jimp = require('jimp');
 const fs = require('fs');
 const path = require('path');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
+    let folder
     if (req.body.folderName && req.body.url) {
       folder = `./public/images/${req.body.folderName}/${req.body.url}`;
     } else {
@@ -49,7 +49,7 @@ const uploadImages = multer ({
   storage: storage
 }).array('images', 100);
 
-removeFolder = (folderPath) => {
+const removeFolder = (folderPath) => {
   if (fs.existsSync(folderPath)) {
     fs.readdirSync(folderPath).forEach(file => {
       const currentPath = folderPath + '/' + file;
@@ -63,24 +63,4 @@ removeFolder = (folderPath) => {
   };
 };
 
-const optimizeImages = async (req, res, next) => {
-  await Promise.all(
-    req.files.map(async file => {
-      const image = await jimp.read(file.path);
-      const widthProps = image.bitmap.width;
-      const heightProps = image.bitmap.height;
-      if (widthProps < heightProps) {
-        image.resize(400, 800);
-        image.quality(70);
-        image.writeAsync(file.path);
-      } else {
-        image.resize(1200, 800);
-        image.quality(70);
-        image.writeAsync(file.path);
-      }
-    })
-  )
-  next();
-};
-
-module.exports = { uploadImages, uploadFile, optimizeImages, removeFolder };
+module.exports = { uploadImages, uploadFile, removeFolder };

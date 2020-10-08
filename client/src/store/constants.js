@@ -1,0 +1,9 @@
+const LoginTypes = {
+  LOGIN_SUCCESS: "LOGIN_SUCCESS",
+  LOGIN_ERROR: "LOGIN_ERROR",
+	LOGIN_LOADING: "LOGIN_LOADING",
+	LOGOUT: "LOGOUT",
+	CHANGE_FORM: "CHANGE_FORM"
+}
+
+export default LoginTypes

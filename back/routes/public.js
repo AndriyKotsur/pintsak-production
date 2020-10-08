@@ -37,13 +37,13 @@ router.get('/tiles/types/:type', async (req, res) => {
       );
       res.status(200).json(tilesOfType.rows);
     } else {
+      let sort
       if (req.query.sort === 'width')
         sort = req.query.sort;
       else
         sort = "color_price->>'grey'";
-      const order = req.query.order === 'true' ? 'ASC' : 'DESC';
       const tilesOfType = await pool.query(
-        `SELECT title, id, width, height, thickness, images, color_price FROM tile WHERE type_id = $1 ORDER BY ${sort} ${order} OFFSET ${(limit * page) - limit} LIMIT ${limit}`,
+        `SELECT title, id, width, height, thickness, images, color_price FROM tile WHERE type_id = $1 ORDER BY ${sort} ${req.query.order} OFFSET ${(limit * page) - limit} LIMIT ${limit}`,
         [tileType.rows[0].id]
       );
       res.status(200).json(tilesOfType.rows);

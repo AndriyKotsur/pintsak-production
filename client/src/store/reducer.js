@@ -1,31 +1,45 @@
-import ActionTypes from './action-types';
-import { COOKIES } from '../helpers'
+import LoginTypes from './constants'
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case ActionTypes.SET_USER:
-      COOKIES.setAuthToken(action.payload.token)
-      return {
-        isAuth: true
-      }
-    case ActionTypes.UNSET_USER:
-      COOKIES.removeAuthToken()
-      return {
-        isAuth: false
-      }
-    case ActionTypes.GET_USER:
-      if (COOKIES.getAuthToken()) {
-        return {
-          isAuth: true
-        }
-      } else {
-        return {
-          isAuth: false
-        }
-      }
-    default:
-      return state;
-  }
+let initialState = {
+	email: '',
+	password: '',
+	isAuth: false,
+	loginStatus: ''
 }
 
-export default reducer;
+export default function login (state = initialState, action) {
+	switch(action.type) {
+		case LoginTypes.LOGIN_SUCCESS:
+			return {
+				...state,
+				isAuth: true,
+				loginStatus: 'success'
+			}
+		case LoginTypes.LOGIN_ERROR:
+			return {
+				...state,
+				isAuth: false,
+				loginStatus: 'error'
+			}
+		case LoginTypes.LOGIN_LOADING:
+			return {
+				...state,
+				loginStatus: 'loading'
+			}
+		case LoginTypes.LOGOUT:
+			return {
+				...state,
+				isAuth: false,
+				email: '',
+				password: '',
+				loginStatus: ''
+			}
+		case LoginTypes.CHANGE_FORM:
+			return {
+				...state,
+				...action.form,
+			}
+		default:
+			return state
+	}
+}

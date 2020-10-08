@@ -2,12 +2,13 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
 function parseBearer(bearer, headers) {
+  let token
   if (bearer.startsWith('Bearer ')) {
     token = bearer.slice(7, bearer.length);
   } else {
     token = bearer;
   }
-  return decoded = jwt.verify(token, prepareSecret(headers));
+  return jwt.verify(token, prepareSecret(headers));
 }
 
 function prepareToken(data, headers) {
