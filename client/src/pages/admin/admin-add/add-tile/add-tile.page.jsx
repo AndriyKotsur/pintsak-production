@@ -63,13 +63,11 @@ const AddTile = () => {
   }
 
   const onImageChange = (e) => {
-    let imageObj = [];
-    imageObj.push(e.target.files);
     let imageArr = [];
     let imagePre = [];
-    for(let i = 0; i < imageObj[0].length; i++) {
-      imagePre.push(URL.createObjectURL(imageObj[0][i]));
-      imageArr.push(imageObj[0][i]);
+    for(let i = 0; i < e.target.files.length; i++) {
+      imagePre.push(URL.createObjectURL(e.target.files[i]));
+      imageArr.push(e.target.files[i]);
     }
     setImages(imageArr)
     setImagesPreview(imagePre)
