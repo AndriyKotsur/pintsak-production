@@ -1,22 +1,22 @@
-require('dotenv').config();
-const jwt = require('jsonwebtoken');
+require('dotenv').config()
+const jwt = require('jsonwebtoken')
 
 function parseBearer(bearer, headers) {
-  let token
-  if (bearer.startsWith('Bearer ')) {
-    token = bearer.slice(7, bearer.length);
-  } else {
-    token = bearer;
-  }
-  return jwt.verify(token, prepareSecret(headers));
+	let token
+	if (bearer.startsWith('Bearer '))
+		token = bearer.slice(7, bearer.length)
+	else
+		token = bearer
+
+	return jwt.verify(token, prepareSecret(headers))
 }
 
 function prepareToken(data, headers) {
-  return jwt.sign(data, prepareSecret(headers), { expiresIn: process.env.TOKEN_EXPIRES });
+	return jwt.sign(data, prepareSecret(headers), { expiresIn: process.env.TOKEN_EXPIRES })
 }
 
 function prepareSecret(headers) {
-  return process.env.TOKEN_KEY + headers['user-agent'] + headers['accept-language'];
+	return process.env.TOKEN_KEY + headers['user-agent'] + headers['accept-language']
 }
 
-module.exports = { parseBearer, prepareToken };
+module.exports = { parseBearer, prepareToken }
