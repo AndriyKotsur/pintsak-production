@@ -2,22 +2,22 @@
 import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import * as AuthActions from '../../../store/actions'
+import * as AuthActions from '../../../actions/login.action'
 
 const AdminLogin = () => {
 	const history = useHistory()
 	const dispatch = useDispatch()
-  const login = useSelector(state => state)
+	const login = useSelector(state => state.login)
 
 	useEffect(() => {
 		if (login.loginStatus === 'success')
 			history.push('/admin/main')
-  }, [login.loginStatus])
-  
-  const onSubmit = e => {
-    e.preventDefault()
-    dispatch(AuthActions.login(login))
-  }
+	}, [login.loginStatus])
+
+	const onSubmit = e => {
+		e.preventDefault()
+		dispatch(AuthActions.login(login))
+	}
 
 	return (
 		<div className="contact-us">
@@ -26,7 +26,7 @@ const AdminLogin = () => {
 					<h2 className="contact-us__title">
 						Вхід в профіль
 					</h2>
-					<form onSubmit={(e) => onSubmit(e)} className="form contact-us-form">
+					<form onSubmit={e => onSubmit(e)} className="form contact-us-form">
 						<div className="input-field contact-us-field">
 							<input
 								type="email"

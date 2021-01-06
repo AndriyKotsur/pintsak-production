@@ -1,28 +1,33 @@
-import LoginTypes from './constants'
+import {
+	LOGIN_SUCCESS,
+	LOGIN_ERROR,
+	LOGIN_LOADING,
+	LOGOUT,
+	CHANGE_FORM,
+} from '../constants/login'
 import { COOKIES, HTTP } from '../helpers'
 
 export const login = ({email, password}) => {
 	return async dispatch => {
-		dispatch({ type: LoginTypes.LOGIN_LOADING })
+		dispatch({ type: LOGIN_LOADING })
 		try {
-			console.log(email, password);
 			const response = await HTTP.login({email, password})
 			COOKIES.setAuthToken(response.token)
-			return dispatch({ type: LoginTypes.LOGIN_SUCCESS })
+			return dispatch({ type: LOGIN_SUCCESS })
 		} catch (err) {
-			return dispatch({ type: LoginTypes.LOGIN_ERROR })
+			return dispatch({ type: LOGIN_ERROR })
 		}
 	}
 }
 
 export const logout = () => {
 	COOKIES.removeAuthToken()
-	return dispatch => dispatch({ type: LoginTypes.LOGOUT })
+	return dispatch => dispatch({ type: LOGOUT })
 }
 
 export const handleChange = event => {
 	return {
-		type: LoginTypes.CHANGE_FORM,
+		type: CHANGE_FORM,
 		form: {[event.target.name]:event.target.value},
 	}
 }

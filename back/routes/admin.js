@@ -43,6 +43,7 @@ router.post('/register', async (req,res) => {
 		const { email, password } = req.body
 		const salt = await bcrypt.genSalt(10)
 		const hash = await bcrypt.hash(password, salt)
+		console.log(email, password)
 		const newAdmin = await pool.query(
 			'INSERT INTO admin (uid, email, password) VALUES ($1, $2, $3) RETURNING *',
 			[uuid(), email, hash],
