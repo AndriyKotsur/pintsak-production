@@ -1,0 +1,10 @@
+@import './_mixins.scss';
+
+.container {
+  @include container_width();
+  padding: 0 15px;
+
+  @include screen-tb {
+    padding: 0 20px;
+  }
+}

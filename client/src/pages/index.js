@@ -1,77 +1,67 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import React from 'react'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import { COOKIES } from '../helpers'
 import {
-  Catalogue,
-  ErrorPage
+	Catalogue,
+	ErrorPage,
 } from './public'
 import {
-  AdminLogin,
-  AdminMain,
-  MainTile,
-  MainType,
-  AddTile,
-  AddType,
-  EditTile,
-  EditType,
+	AdminLogin,
+	AdminDashboard,
+	AddTile,
+	AddType,
+	EditTile,
+	EditType,
 } from './admin'
 
 const AuthRoute = ({ children, ...otherProps }) => {
-  const authToken = COOKIES.getAuthToken()
-  if (!authToken) {
-    return <Redirect to="/" />
-  }
-  return <Route {...otherProps}>{children}</Route>
+	const authToken = COOKIES.getAuthToken()
+	if (!authToken)
+		return <Redirect to="/" />
+
+	return <Route {...otherProps}>{children}</Route>
 }
 
 const Main = () => {
-  return (
-    <Router>
-      <Switch>
+	return (
+		<Router>
+			<Switch>
 
-        <Route path="/admin" exact>
-          <AdminLogin />
-        </Route>
+				<Route path="/admin" exact>
+					<AdminLogin />
+				</Route>
 
-        <AuthRoute exact path="/admin/main" >
-          <AdminMain />
-        </AuthRoute>
+				<AuthRoute exact path="/admin/dashboard" >
+					<AdminDashboard />
+				</AuthRoute>
 
-        <AuthRoute exact path="/admin/main/type" >
-          <MainType />
-        </AuthRoute>
+				<AuthRoute exact path="/admin/edit/type/:id">
+					<EditType />
+				</AuthRoute>
 
-        <AuthRoute exact path="/admin/main/tile" >
-          <MainTile />
-        </AuthRoute>
+				<AuthRoute exact path="/admin/edit/tile/:id">
+					<EditTile />
+				</AuthRoute>
 
-        <AuthRoute exact path="/admin/edit/type/:id">
-          <EditType />
-        </AuthRoute>
+				<AuthRoute exact path="/admin/add/type">
+					<AddType />
+				</AuthRoute>
 
-        <AuthRoute exact path="/admin/edit/tile/:id">
-          <EditTile />
-        </AuthRoute>
+				<AuthRoute exact path="/admin/add/tile">
+					<AddTile />
+				</AuthRoute>
 
-        <AuthRoute exact path="/admin/add/type">
-          <AddType />
-        </AuthRoute>
+				<Route path='/catalogue/:type'>
+					<Catalogue/>
+				</Route>
 
-        <AuthRoute exact path="/admin/add/tile">
-          <AddTile />
-        </AuthRoute>
+				<Route path="/">
+					<ErrorPage />
+				</Route>
 
-        <Route path='/catalogue/:type'>
-          <Catalogue/>
-        </Route>
-
-        <Route path="/">
-          <ErrorPage />
-        </Route>
-
-      </Switch>
-    </Router>
-  );
+			</Switch>
+		</Router>
+	)
 }
 
-export default Main;
+export default Main
