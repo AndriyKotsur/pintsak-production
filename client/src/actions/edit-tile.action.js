@@ -1,16 +1,38 @@
 import {
-	ADD_TILE_SUCCESS,
-	ADD_TILE_ERROR,
-	ADD_TILE_LOADING,
+	EDIT_TILE_SUCCESS,
+	EDIT_TILE_ERROR,
+	EDIT_TILE_LOADING,
+	GET_TILE_SUCCESS,
+	GET_TILE_ERROR,
+	GET_TILE_LOADING,
 	GET_TILE_TYPES_SUCCESS,
 	GET_TILE_TYPES_LOADING,
 	GET_TILE_TYPES_ERROR,
 	CHANGE_STATE,
 	CLEAR_STATE,
-} from 'constants/add-tile'
+} from '../constants/edit-tile'
 import {
 	HTTP,
 } from 'helpers'
+
+export const getTile = id => {
+	return async dispatch => {
+		dispatch({
+			type: GET_TILE_LOADING,
+		})
+		try {
+			const response = await HTTP.getTile(id)
+			return dispatch({
+				type: GET_TILE_SUCCESS,
+				payload: response,
+			})
+		} catch (err) {
+			return dispatch({
+				type: GET_TILE_ERROR,
+			})
+		}
+	}
+}
 
 export const getTileTypes = () => {
 	return async dispatch => {
@@ -31,7 +53,7 @@ export const getTileTypes = () => {
 	}
 }
 
-export const addTile = ({
+export const editTile = (id, {
 	types,
 	images,
 	url,
@@ -53,7 +75,7 @@ export const addTile = ({
 }) => {
 	return async dispatch => {
 		dispatch({
-			type: ADD_TILE_LOADING,
+			type: EDIT_TILE_LOADING,
 		})
 		try {
 			const formData = new FormData()
@@ -83,13 +105,13 @@ export const addTile = ({
 			for (let i = 0; i < images.length; i++)
 				formData.append('images', images[i])
 
-			await HTTP.addTile(formData)
+			await HTTP.updateTile(id, formData)
 			return dispatch({
-				type: ADD_TILE_SUCCESS,
+				type: EDIT_TILE_SUCCESS,
 			})
 		} catch (err) {
 			return dispatch({
-				type: ADD_TILE_ERROR,
+				type: EDIT_TILE_ERROR,
 			})
 		}
 	}

@@ -1,0 +1,5 @@
+export const ADD_TYPE_SUCCESS = 'ADD_TYPE_SUCCESS'
+export const ADD_TYPE_ERROR = 'ADD_TYPE_ERROR'
+export const ADD_TYPE_LOADING = 'ADD_TYPE_LOADING'
+export const CHANGE_STATE = 'CHANGE_STATE'
+export const CLEAR_STATE = 'CLEAR_STATE'

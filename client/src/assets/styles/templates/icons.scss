@@ -1,0 +1,181 @@
+.icon {
+  width: 1em;
+  height: 1em;
+
+  &.icon-logo {
+    width: 78px;
+    height: 32px;
+  }
+
+  &.icon-logo--mobile {
+    width: 25px;
+    height: 25px;
+  }
+
+  &.icon-phone {
+    margin-right: 12px;
+    width: 19px;
+    height: 19px;
+  }
+
+  &.icon-location {
+    margin-right: 12px;
+    width: 15px;
+    height: 20px;
+  }
+
+  &.icon-location--header {
+    margin-right: 12px;
+    width: 18px;
+    height: 23px;
+
+    @media (max-width: 768px) {
+      width: 14px;
+      height: 18px;
+    }
+  }
+
+  &.icon-location--map {
+    margin-right: 12px;
+    width: 18px;
+    height: 23px;
+  }
+
+  &.icon-clock {
+    margin-right: 12px;
+    width: 22px;
+    height: 21px;
+  }
+
+  &.icon-cart {
+    width: 21px;
+    height: 23px;
+
+    @media (max-width: 768px) {
+      width: 17px;
+      height: 18px;
+    }
+  }
+
+  &.icon-lang {
+    width: 23px;
+    height: 23px;
+
+    @media (max-width: 768px) {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  &.icon-arrow {
+    width: 11px;
+    height: 9px;
+  }
+
+  &.icon-arrow--cart {
+    width: 10px;
+    height: 9px;
+  }
+
+  &.icon-arrow--more {
+    width: 51px;
+    height: 14px;
+  }
+
+  &.icon-download {
+    width: 18px;
+    height: 20px;
+    @include transition();
+
+    &:hover {
+      fill: $color6;
+      @include transition();
+    }
+  }
+
+  &.icon-product {
+    width: 385px;
+    height: 385px;
+  }
+
+  &.icon-arrow--carousel {
+    width: 16px;
+    height: 14px;
+  }
+
+  &.icon-arrow--sort {
+    margin-left: 10px;
+    width: 11px;
+    height: 7px;
+  }
+
+  &.icon-arrow--pagination {
+    width: 16px;
+    height: 14px;
+  }
+
+  &.icon-advntg--delivery {
+    width: 76px;
+    height: 51px;
+  }
+
+  &.icon-advntg--individual {
+    width: 66px;
+    height: 65px;
+  }
+
+  &.icon-advntg--price {
+    width: 69px;
+    height: 68px;
+  }
+
+  &.icon-minus {
+    width: 12px;
+    height: 4px;
+  }
+
+  &.icon-plus {
+    width: 13px;
+    height: 12px;
+  }
+
+  &.icon-refresh {
+    width: 23px;
+    height: 23px;
+  }
+
+  &.icon-request {
+    width: 21px;
+    height: 21px;
+
+    @include screen-tb() {
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  &.icon-close--big {
+    width: 15px;
+    height: 15px;
+
+    @include screen-tb() {
+      width: 21px;
+      height: 21px;
+    }
+  }
+
+  &.icon-close--small {
+    width: 15px;
+    height: 15px;
+  }
+
+  &.icon-close--popup {
+    width: 13px;
+    height: 13px;
+
+    @include screen-tb() {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}

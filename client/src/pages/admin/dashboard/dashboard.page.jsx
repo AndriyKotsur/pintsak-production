@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { HTTP } from '../../../helpers'
-import { TilesList } from '../../../components'
-import { TypesList } from '../../../components'
-import { AdminLogout } from '..'
+import { TilesList } from 'components'
+import { TypesList } from 'components'
+import { Logout } from '..'
+import classNames from 'classnames'
+import s from './style.module.scss'
 
-const AdminDashboard = () => {
+const Dashboard = () => {
 	const [tiles, setTiles] = useState([])
 	const [types, setTypes] = useState([])
 
@@ -24,24 +26,35 @@ const AdminDashboard = () => {
 		}
 		fetchTypes()
 	}, [])
+
 	return (
-		<>
-			<h1>Панель керування</h1>
-			<div>
-				<div>
-					<Link to="/admin/add/type">Додати категорію</Link>
+		<section className={s.dashboard}>
+			<div className={classNames('container', s.container)}>
+				<h1 className={s.title}>Панель керування</h1>
+				<div className={s.inner}>
+					<div className={s.type}>
+						<Link
+							to="/admin/add/type"
+							className={classNames('btn-sent', 'btn-orange', s.btn)}>
+							Додати нову категорію
+						</Link>
+						<TypesList types={types}
+							className={s.list} />
+					</div>
+					<div className={s.tiles}>
+						<Link
+							to="/admin/add/tile"
+							className={classNames('btn-sent', 'btn-orange', s.btn)}>
+							Додати новий товар
+						</Link>
+						<TilesList tiles={tiles}
+							className={s.list} />
+					</div>
 				</div>
-				<TypesList types={types} />
+				<Logout />
 			</div>
-			<div>
-				<div>
-					<Link to="/admin/add/tile">Додати товар</Link>
-				</div>
-				<TilesList tiles={tiles} />
-			</div>
-			<AdminLogout />
-		</>
+		</ section>
 	)
 }
 
-export default AdminDashboard
+export default Dashboard

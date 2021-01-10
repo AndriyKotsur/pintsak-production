@@ -1,0 +1,67 @@
+.btn-sent {
+  border-radius: 4px;
+  font-size: 18px;
+  font-weight: 900;
+  color: #ffffff;
+
+  @include screen-tb() {
+    font-size: 18px;
+  }
+
+  @include screen-l() {
+    font-size: 20px;
+  }
+}
+
+.btn-catalogue {
+  border-radius: 4px;
+  font-size: 18px;
+  font-weight: 900;
+  color: #ffffff;
+  @include transition();
+
+  &:hover {
+    transform: translate(5px, -5px);
+    box-shadow: 0px 3px 25px rgba(55, 63, 72, 0.22);
+    @include transition();
+  }
+
+  @include screen-tb() {
+    font-size: 18px;
+  }
+
+  @include screen-l() {
+    font-size: 20px;
+  }
+}
+
+.btn-cart {
+  border-radius: 4px;
+  font-size: 18px;
+  font-weight: 900;
+  color: #ffffff;
+  @include transition();
+
+  &:hover {
+    transform: translate(5px, -5px);
+    box-shadow: 0px 3px 25px rgba(55, 63, 72, 0.22);
+    @include transition();
+  }
+
+  @include screen-tb() {
+    font-size: 18px;
+  }
+
+  @include screen-l() {
+    font-size: 20px;
+  }
+}
+
+.btn-green {
+  background: $color5;
+}
+
+.btn-orange {
+  border: 2px solid $color2;
+  background: $color2;
+}

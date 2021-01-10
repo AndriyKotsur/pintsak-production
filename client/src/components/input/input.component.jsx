@@ -1,10 +1,17 @@
 import React from 'react'
 import s from './style.module.scss'
 
-const Input = ({ name, title, onChange }) => {
+const Input = ({ type, name, value, title, isRequired, onChange }) => {
 	return (
 		<div className={s.field}>
-			<input type="text" name={name} onChange={onChange} className={s.input} placeholder={title} required/>
+			<input
+				type={type}
+				name={name}
+				value={value}
+				onChange={onChange}
+				className={s.input}
+				placeholder={title}
+				required={isRequired}  />
 		</div>
 	)
 }

@@ -3,15 +3,17 @@ import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as AuthActions from '../../../actions/login.action'
+import classNames from 'classnames'
+import s from './style.module.scss'
 
-const AdminLogin = () => {
+const Login = () => {
 	const history = useHistory()
 	const dispatch = useDispatch()
 	const login = useSelector(state => state.login)
 
 	useEffect(() => {
 		if (login.loginStatus === 'success')
-			history.push('/admin/main')
+			history.push('/admin/dashboard')
 	}, [login.loginStatus])
 
 	const onSubmit = e => {
@@ -20,12 +22,12 @@ const AdminLogin = () => {
 	}
 
 	return (
-		<div className="contact-us">
-			<div className="container">
-				<div className="contact-us-inner">
-					<h2 className="contact-us__title">
-						Вхід в профіль
-					</h2>
+		<section className={s.authorization}>
+			<div className={classNames('container', s.container)}>
+				<div className={s.inner}>
+					<h1 className={s.title}>
+						Вхід в панель керування
+					</h1>
 					<form onSubmit={e => onSubmit(e)} className="form contact-us-form">
 						<div className="input-field contact-us-field">
 							<input
@@ -49,16 +51,21 @@ const AdminLogin = () => {
 							/>
 							<label className="label contact-us__label">Пароль</label>
 						</div>
-						<p className="contact-us__required">обов’язкові поля</p>
-						<button type="submit" className="contact-us__btn">Увійти</button>
+						<p className={s.required}>обов’язкові поля</p>
+						<button
+							type="submit"
+							className={classNames('btn-sent', 'btn-orange', s.btn)}
+						>Увійти
+						</button>
 					</form>
-					{login.loginStatus === 'error' && (
-						<div style={{color: 'red'}}>не правильні логін або пароль</div>
-					)}
+					{
+						login.loginStatus === 'error' && (
+							<div style={{color: 'red'}}>Не правильний логін або пароль :(</div>)
+					}
 				</div>
 			</div>
-		</div>
+		</section>
 	)
 }
 
-export default AdminLogin
+export default Login

@@ -6,8 +6,8 @@ import {
 	ErrorPage,
 } from './public'
 import {
-	AdminLogin,
-	AdminDashboard,
+	Login,
+	Dashboard,
 	AddTile,
 	AddType,
 	EditTile,
@@ -28,11 +28,11 @@ const Main = () => {
 			<Switch>
 
 				<Route path="/admin" exact>
-					<AdminLogin />
+					<Login />
 				</Route>
 
 				<AuthRoute exact path="/admin/dashboard" >
-					<AdminDashboard />
+					<Dashboard />
 				</AuthRoute>
 
 				<AuthRoute exact path="/admin/edit/type/:id">

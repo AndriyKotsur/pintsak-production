@@ -28,7 +28,7 @@ const AddTile = () => {
 
 	useEffect(() => {
 		if(state.add_tile_status === 'success')
-			history.push('/admin/main/tile')
+			history.push('/admin/dashboard')
 	}, [state.add_tile_status])
 
 	useEffect(() => {
@@ -52,8 +52,16 @@ const AddTile = () => {
 								))}
 								<label>Картинка товару</label>
 							</div>
-							<Input name={'title'} title={'Назва товару'} onChange={e => dispatch(AddTileActions.handleChange(e))} />
-							<Input name={'url'} title={'Назва товару (aнгл)'} onChange={e => dispatch(AddTileActions.handleChange(e))} />
+							<Input
+								name={'title'}
+								title={'Назва товару'}
+								onChange={e => dispatch(AddTileActions.handleChange(e))}
+								isRequired />
+							<Input
+								name={'url'}
+								title={'Назва товару (aнгл)'}
+								onChange={e => dispatch(AddTileActions.handleChange(e))}
+								isRequired />
 							<div>
 								<select name="type" defaultValue={state.type} onChange={e => dispatch(AddTileActions.handleChange(e))} className="input contact-us__input" required>
 									{state.types ? state.types.map(type => (
@@ -64,16 +72,52 @@ const AddTile = () => {
 								</select>
 								<label>Категорія товару</label>
 							</div>
-							<Input name={'width'} title={'Ширина товару'} onChange={e => dispatch(AddTileActions.handleChange(e))} />
-							<Input name={'height'} title={'Висота товару'} onChange={e => dispatch(AddTileActions.handleChange(e))} />
-							<Input name={'thickness'} title={'Товщина товару'} onChange={e => dispatch(AddTileActions.handleChange(e))} />
-							<Input name={'weight_per_meter'} title={'Вага на метр кв.'} onChange={e => dispatch(AddTileActions.handleChange(e))} />
-							<Input name={'pieces_per_meter'} title={'Кількість на метр кв.'} onChange={e => dispatch(AddTileActions.handleChange(e))} />
-							<Input name={'grey'} title={'Ціна сірої'} onChange={e => dispatch(AddTileActions.handleChange(e))} />
-							<Input name={'orange'} title={'Ціна оранжевої'} onChange={e => dispatch(AddTileActions.handleChange(e))} />
-							<Input name={'red'} title={'Ціна червоної'} onChange={e => dispatch(AddTileActions.handleChange(e))} />
-							<Input name={'brown'} title={'Ціна коричневої'} onChange={e => dispatch(AddTileActions.handleChange(e))} />
-							<Input name={'black'} title={'Ціна чорної'} onChange={e => dispatch(AddTileActions.handleChange(e))} />
+							<Input
+								name={'width'}
+								title={'Ширина товару'}
+								onChange={e => dispatch(AddTileActions.handleChange(e))}
+								isRequired/>
+							<Input
+								name={'height'}
+								title={'Висота товару'}
+								onChange={e => dispatch(AddTileActions.handleChange(e))}
+								isRequired/>
+							<Input
+								name={'thickness'}
+								title={'Товщина товару'}
+								onChange={e => dispatch(AddTileActions.handleChange(e))}
+								isRequired/>
+							<Input
+								name={'weight_per_meter'}
+								title={'Вага на метр кв.'}
+								onChange={e => dispatch(AddTileActions.handleChange(e))}
+								isRequired/>
+							<Input
+								name={'pieces_per_meter'}
+								title={'Кількість на метр кв.'}
+								onChange={e => dispatch(AddTileActions.handleChange(e))}
+								isRequired/>
+							<Input
+								name={'grey'}
+								title={'Ціна сірої'}
+								onChange={e => dispatch(AddTileActions.handleChange(e))}
+								isRequired/>
+							<Input
+								name={'orange'}
+								title={'Ціна оранжевої'}
+								onChange={e => dispatch(AddTileActions.handleChange(e))} />
+							<Input
+								name={'red'}
+								title={'Ціна червоної'}
+								onChange={e => dispatch(AddTileActions.handleChange(e))} />
+							<Input
+								name={'brown'}
+								title={'Ціна коричневої'}
+								onChange={e => dispatch(AddTileActions.handleChange(e))} />
+							<Input
+								name={'black'}
+								title={'Ціна чорної'}
+								onChange={e => dispatch(AddTileActions.handleChange(e))} />
 							<div className="input-field contact-us-field">
 								<input type="checkbox" name="is_popular" onChange={e => dispatch(AddTileActions.handleChange(e))} className="input" />
 								<label className="label contact-us__label">Популярна</label>
