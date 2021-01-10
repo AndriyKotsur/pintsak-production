@@ -115,6 +115,8 @@ router.post('/type/add', async (req, res) => {
 	try {
 		parseBearer(req.headers.authorization, req.headers)
 		const { title, url } = req.body
+
+		console.log(title, url)
 		await pool.query(
 			'INSERT INTO type (id, title, url) VALUES ($1, $2, $3) RETURNING *',
 			[uuid(), title, url],

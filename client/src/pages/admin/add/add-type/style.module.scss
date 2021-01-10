@@ -1,0 +1,16 @@
+.required {
+  margin: 40px 0;
+  font-size: 16px;
+  text-align: center;
+  color: #999999;
+
+  &::before {
+    content: "* ";
+    font-size: 18px;
+    color: #ff8e01;
+  }
+
+  @media (min-width: 1440) {
+    font-size: 18px;
+  }
+}

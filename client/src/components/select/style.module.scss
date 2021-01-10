@@ -1,0 +1,20 @@
+.field {
+  position: relative;
+  margin: 0px 0px 35px;
+}
+
+.input {
+  width: 100%;
+  padding: 15px 25px;
+  border: 1px solid #373f48;
+  font-size: 18px;
+  color: #373f48;
+
+  &:focus {
+    border: 1px solid #ffc174;
+  }
+
+  &.error {
+    border: 1px solid #ff6363;
+  }
+}

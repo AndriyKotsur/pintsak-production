@@ -14,7 +14,7 @@
 }
 
 .title {
-  margin-bottom: 40px;
+  margin-bottom: 80px;
   font-size: 24px;
   font-weight: 900;
   color: #373f48;
@@ -28,21 +28,9 @@
   }
 }
 
-.required {
-  margin: 40px 0;
-  font-size: 16px;
-  text-align: left;
-  color: #999999;
-
-  &::before {
-    content: "* ";
-    font-size: 18px;
-    color: #ff8e01;
-  }
-
-  @media (min-width: 1440) {
-    font-size: 18px;
-  }
+.form {
+  max-width: 620px;
+  width: 100%;
 }
 
 .btn {
@@ -68,4 +56,11 @@
   @media (min-width: 1440px) {
     font-size: 30px;
   }
+}
+
+.error {
+  margin-top: 40px;
+  font-size: 18px;
+  font-weight: 900;
+  color: #ff6363;
 }

@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as AuthActions from '../../../actions/login.action'
+import { Input } from 'components'
 import classNames from 'classnames'
 import s from './style.module.scss'
 
@@ -28,30 +29,22 @@ const Login = () => {
 					<h1 className={s.title}>
 						Вхід в панель керування
 					</h1>
-					<form onSubmit={e => onSubmit(e)} className="form contact-us-form">
-						<div className="input-field contact-us-field">
-							<input
-								type="email"
-								name="email"
-								value={login.email}
-								onChange={e => dispatch(AuthActions.handleChange(e))}
-								className="input contact-us__input"
-								required
-							/>
-							<label className="label contact-us__label">Логін</label>
-						</div>
-						<div className="input-field contact-us-field">
-							<input
-								type="password"
-								name="password"
-								value={login.password}
-								onChange={e => dispatch(AuthActions.handleChange(e))}
-								className="input contact-us__input"
-								required
-							/>
-							<label className="label contact-us__label">Пароль</label>
-						</div>
-						<p className={s.required}>обов’язкові поля</p>
+					<form onSubmit={e => onSubmit(e)}
+						className={s.form}>
+						<Input
+							type='email'
+							name='email'
+							value={login.email}
+							title='Введіть логін *'
+							onChange={e => dispatch(AuthActions.handleChange(e))}
+							isRequired />
+						<Input
+							type='password'
+							name='password'
+							value={login.password}
+							title='Введіть пароль *'
+							onChange={e => dispatch(AuthActions.handleChange(e))}
+							isRequired />
 						<button
 							type="submit"
 							className={classNames('btn-sent', 'btn-orange', s.btn)}
@@ -60,7 +53,7 @@ const Login = () => {
 					</form>
 					{
 						login.loginStatus === 'error' && (
-							<div style={{color: 'red'}}>Не правильний логін або пароль :(</div>)
+							<span className={s.error}>Не правильний логін або пароль :(</span>)
 					}
 				</div>
 			</div>

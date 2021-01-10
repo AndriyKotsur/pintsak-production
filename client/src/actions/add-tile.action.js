@@ -61,6 +61,7 @@ export const addTile = ({
 				if (item.title === type)
 					formData.append('folderName', item.url)
 			})
+
 			formData.append('url', url.toLowerCase())
 			formData.append('title', title)
 			formData.append('type', type)
@@ -71,6 +72,7 @@ export const addTile = ({
 			formData.append('pieces_per_meter', pieces_per_meter)
 			formData.append('is_popular', is_popular)
 			formData.append('is_available', is_available)
+
 			const color_price = {
 				grey,
 				yellow,

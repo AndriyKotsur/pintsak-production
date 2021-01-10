@@ -1,6 +1,8 @@
 export { default as Icon } from './icon/icon.component'
 export { default as AsideNavigation } from './aside-navigation/aside-navigation.component'
 export { default as Input } from './input/input.component'
+export { default as Select } from './select/select.component'
+export { default as Checkbox } from './checkbox/checkbox.component'
 export { default as TileItem } from './tile-item/tile-item.component'
 export { default as TilesList } from './tiles-list/tiles-list.component'
 export { default as TypesList } from './types-list/types-list.component'

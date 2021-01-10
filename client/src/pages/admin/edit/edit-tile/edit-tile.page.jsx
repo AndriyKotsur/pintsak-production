@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as EditTileActions from 'actions/edit-tile.action'
-import { Input } from 'components'
+import { Input, Select, Checkbox } from 'components'
 
 const EditTile = () => {
 	const history = useHistory()
@@ -90,23 +90,11 @@ const EditTile = () => {
 									placeholder='Назва товару (aнгл)'
 									onChange={e => dispatch(EditTileActions.handleChange(e))}
 									isRequired/>
-								<div>
-									<select
-										value={state.type}
-										onChange={e => dispatch(EditTileActions.handleChange(e))}
-										name="type"
-										className="input contact-us__input"
-										required
-									>
-										{state.types ? (
-											state.types.map(type => (
-												<option key={type.id} >{type.title}</option>
-											))
-										) : <option>Немає доданих категорій</option>
-										}
-									</select>
-									<label>Категорія товару</label>
-								</div>
+								<Select
+									name='type'
+									value={state.type}
+									data={state.types}
+									onChange={e => dispatch(EditTileActions.handleChange(e))} />
 								<Input
 									type='number'
 									name='width'
@@ -179,26 +167,16 @@ const EditTile = () => {
 									value={state.black}
 									placeholder='Ціна чорної продукції'
 									onChange={e => dispatch(EditTileActions.handleChange(e))}/>
-								<div className="input-field contact-us-field">
-									<input
-										type="checkbox"
-										name="is_popular"
-										checked={state.is_popular ? true : false}
-										onChange={e => dispatch(EditTileActions.handleChange(e))}
-										className="input"
-									/>
-									<label className="label contact-us__label">Популярна</label>
-								</div>
-								<div className="input-field contact-us-field">
-									<input
-										type="checkbox"
-										name="is_available"
-										checked={state.is_available ? true : false}
-										onChange={e => dispatch(EditTileActions.handleChange(e))}
-										className="input"
-									/>
-									<label className="label contact-us__label">В наявності</label>
-								</div>
+								<Checkbox
+									name='is_popular'
+									label='Популярна'
+									checked={state.is_available}
+									onChange={e => dispatch(EditTileActions.handleChange(e))} />
+								<Checkbox
+									name='is_available'
+									label='В наявності'
+									checked={state.is_popular}
+									onChange={e => dispatch(EditTileActions.handleChange(e))} />
 								<p className="contact-us__required">обов’язкові поля</p>
 								<button className="contact-us__btn">Пітвердити</button>
 							</form>

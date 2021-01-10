@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as AddTileActions from 'actions/add-tile.action'
-import Input from 'components/input/input.component'
+import { Input, Select, Checkbox } from 'components'
 
 const AddTile = () => {
 	const history = useHistory()
@@ -53,79 +53,86 @@ const AddTile = () => {
 								<label>Картинка товару</label>
 							</div>
 							<Input
-								name={'title'}
-								title={'Назва товару'}
+								type='text'
+								name='title'
+								title='Назва товару'
 								onChange={e => dispatch(AddTileActions.handleChange(e))}
 								isRequired />
 							<Input
-								name={'url'}
-								title={'Назва товару (aнгл)'}
+								type='text'
+								name='url'
+								title='Назва товару (aнгл)'
 								onChange={e => dispatch(AddTileActions.handleChange(e))}
 								isRequired />
-							<div>
-								<select name="type" defaultValue={state.type} onChange={e => dispatch(AddTileActions.handleChange(e))} className="input contact-us__input" required>
-									{state.types ? state.types.map(type => (
-										<option key={type.id}>{type.title}</option>
-									))
-										: <option>Немає доданих категорій</option>
-									}
-								</select>
-								<label>Категорія товару</label>
-							</div>
-							<Input
-								name={'width'}
-								title={'Ширина товару'}
-								onChange={e => dispatch(AddTileActions.handleChange(e))}
-								isRequired/>
-							<Input
-								name={'height'}
-								title={'Висота товару'}
-								onChange={e => dispatch(AddTileActions.handleChange(e))}
-								isRequired/>
-							<Input
-								name={'thickness'}
-								title={'Товщина товару'}
-								onChange={e => dispatch(AddTileActions.handleChange(e))}
-								isRequired/>
-							<Input
-								name={'weight_per_meter'}
-								title={'Вага на метр кв.'}
-								onChange={e => dispatch(AddTileActions.handleChange(e))}
-								isRequired/>
-							<Input
-								name={'pieces_per_meter'}
-								title={'Кількість на метр кв.'}
-								onChange={e => dispatch(AddTileActions.handleChange(e))}
-								isRequired/>
-							<Input
-								name={'grey'}
-								title={'Ціна сірої'}
-								onChange={e => dispatch(AddTileActions.handleChange(e))}
-								isRequired/>
-							<Input
-								name={'orange'}
-								title={'Ціна оранжевої'}
+							<Select
+								name='type'
+								value={state.type}
+								data={state.types}
 								onChange={e => dispatch(AddTileActions.handleChange(e))} />
 							<Input
-								name={'red'}
-								title={'Ціна червоної'}
+								type='number'
+								name='width'
+								title='Ширина товару'
+								onChange={e => dispatch(AddTileActions.handleChange(e))}
+								isRequired />
+							<Input
+								type='number'
+								name='height'
+								title='Висота товару'
+								onChange={e => dispatch(AddTileActions.handleChange(e))}
+								isRequired />
+							<Input
+								type='number'
+								name='thickness'
+								title='Товщина товару'
+								onChange={e => dispatch(AddTileActions.handleChange(e))}
+								isRequired/>
+							<Input
+								type='number'
+								name='weight_per_meter'
+								title='Вага на метр кв.'
+								onChange={e => dispatch(AddTileActions.handleChange(e))}
+								isRequired />
+							<Input
+								type='number'
+								name='pieces_per_meter'
+								title='Кількість на метр кв.'
+								onChange={e => dispatch(AddTileActions.handleChange(e))}
+								isRequired />
+							<Input
+								type='number'
+								name='grey'
+								title='Ціна сірої'
+								onChange={e => dispatch(AddTileActions.handleChange(e))}
+								isRequired />
+							<Input
+								type='number'
+								name='orange'
+								title='Ціна оранжевої'
 								onChange={e => dispatch(AddTileActions.handleChange(e))} />
 							<Input
-								name={'brown'}
-								title={'Ціна коричневої'}
+								type='number'
+								name='red'
+								title='Ціна червоної'
 								onChange={e => dispatch(AddTileActions.handleChange(e))} />
 							<Input
-								name={'black'}
-								title={'Ціна чорної'}
+								type='number'
+								name='brown'
+								title='Ціна коричневої'
 								onChange={e => dispatch(AddTileActions.handleChange(e))} />
-							<div className="input-field contact-us-field">
-								<input type="checkbox" name="is_popular" onChange={e => dispatch(AddTileActions.handleChange(e))} className="input" />
-								<label className="label contact-us__label">Популярна</label>
-							</div>
-							<div className="input-field contact-us-field">
-								<input type="checkbox" name="is_available" onChange={e => dispatch(AddTileActions.handleChange(e))} className="input" />
-								<label className="label contact-us__label">В наявності</label>
-							</div>
+							<Input
+								type='number'
+								name='black'
+								title='Ціна чорної'
+								onChange={e => dispatch(AddTileActions.handleChange(e))} />
+							<Checkbox
+								name='is_popular'
+								label='Популярна'
+								onChange={e => dispatch(AddTileActions.handleChange(e))} />
+							<Checkbox
+								name='is_available'
+								label='В наявності'
+								onChange={e => dispatch(AddTileActions.handleChange(e))} />
 							<p className="contact-us__required">обов’язкові поля *</p>
 							<button className="contact-us__btn">Пітвердити</button>
 						</form>
