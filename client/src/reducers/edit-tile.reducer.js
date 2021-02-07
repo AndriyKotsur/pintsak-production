@@ -32,9 +32,9 @@ let initialState = {
 	imagesPreview: [],
 	is_popular: false,
 	is_available: false,
-	edit_tile_status: '',
 	get_tile_status: '',
 	get_types_status: '',
+	edit_tile_status: '',
 }
 
 export default function editTile (state = initialState, action) {

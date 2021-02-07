@@ -1,5 +1,6 @@
 export { default as Icon } from './icon/icon.component'
 export { default as AsideNavigation } from './aside-navigation/aside-navigation.component'
+export { default as Form } from './form/form.component'
 export { default as Input } from './input/input.component'
 export { default as Select } from './select/select.component'
 export { default as Checkbox } from './checkbox/checkbox.component'

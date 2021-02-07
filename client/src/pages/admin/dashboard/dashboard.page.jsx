@@ -51,8 +51,8 @@ const Dashboard = () => {
 							className={s.list} />
 					</div>
 				</div>
-				<Logout />
 			</div>
+			<Logout />
 		</ section>
 	)
 }

@@ -2,9 +2,13 @@ import axios from 'axios'
 import { COOKIES } from './'
 
 const request = async function ({ headers, options = true }) {
+	const authToken = COOKIES.getAuthToken() || ''
 	const client = axios.create({
 		baseURL: 'http://localhost:5000',
-		headers: headers,
+		headers: {
+			...headers,
+			Authorization: authToken,
+		},
 		responseType: 'json',
 	})
 
@@ -107,12 +111,12 @@ const getTile = id => {
 }
 
 const updateTile = async ( id, formData ) => {
-	const authToken = COOKIES.getAuthToken() || ''
+	// const authToken = COOKIES.getAuthToken() || ''
 	return request ({
 		headers: {
 			Accept: 'multipart/form-data',
 			'Content-Type': 'multipart/form-data',
-			'Authorization': 'Bearer ' + authToken,
+			// 'Authorization': 'Bearer ' + authToken,
 		},
 		options: {
 			url: `/admin/tile/${id}`,

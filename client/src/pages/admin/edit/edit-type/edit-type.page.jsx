@@ -1,57 +1,57 @@
-import React, { useState, useEffect } from 'react'
-import useEditType from './edit-type.logic'
+import React, { useEffect } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import * as EditTypeActions from 'actions/edit-type.action'
+import { Input, Form } from 'components'
 
 const EditType = () => {
-	const { type, updateType } = useEditType()
-	const [typeTitle, setTypeTitle] = useState('')
-	const [typeUrl, setTypeUrl] = useState('')
+	const history = useHistory()
+	const { id } = useParams()
+	const dispatch = useDispatch()
+	const state = useSelector(state => state.editType)
+
+	const updateType = async e => {
+		e.preventDefault()
+		dispatch(EditTypeActions.editType(id, state))
+	}
 
 	useEffect(() => {
-		if (type) {
-			setTypeTitle(type.title)
-			setTypeUrl(type.url)
-		}
-	}, [type])
+		if(state.edit_type_status === 'success')
+			history.push('/admin/dashboard')
+	}, [state.edit_type_status])
+
+	useEffect(() => {
+		dispatch(EditTypeActions.getType(id))
+		return () =>  dispatch(EditTypeActions.clear())
+	}, [id])
 
 	return (
 		<>
-			{type && (
-				<div className="contact-us">
-					<div className="container">
-						<div className="contact-us-inner">
-							<h2 className="contact-us__title">
-                Редагувати категорію
-							</h2>
-							<form onSubmit={e => updateType(e, typeTitle, typeUrl.toLowerCase())} className="form contact-us-form">
-								<div className="input-field contact-us-field">
-									<input
-										type="text"
-										name="title"
-										className="input contact-us__input"
-										value={typeTitle}
-										onChange={e => setTypeTitle(e.target.value)}
-										required
-									/>
-									<label className="label contact-us__label">Назва категорії</label>
-								</div>
-								<div className="input-field contact-us-field">
-									<input
-										type="text"
-										name="title_url"
-										className="input contact-us__input"
-										value={typeUrl}
-										onChange={e => setTypeUrl(e.target.value)}
-										required
-									/>
-									<label className="label contact-us__label">Назва категорії (англ.)</label>
-								</div>
-								<p className="contact-us__required">обов’язкові поля</p>
-								<button className="contact-us__btn">Пітвердити</button>
-							</form>
-						</div>
-					</div>
-				</div>
-			)}
+			{
+				state.get_type_status === 'loading' && 'Loading...'
+			}
+			{
+				state.get_type_status === 'success' && (
+					<Form
+						title="Редагувати категорію"
+						handler={updateType}>
+						<Input
+							type='text'
+							name='title'
+							value={state.title}
+							placeholder='Назва категорії'
+							onChange={e => dispatch(EditTypeActions.handleChange(e))}
+							isRequired />
+						<Input
+							type='text'
+							name='url'
+							value={state.url}
+							placeholder='Назва категорії (англ.)'
+							onChange={e => dispatch(EditTypeActions.handleChange(e))}
+							isRequired />
+					</Form>
+				)
+			}
 		</>
 	)
 }
