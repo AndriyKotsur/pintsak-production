@@ -79,7 +79,7 @@ router.get('/check-token', (req,res) => {
 })
 
 // get all
-router.get('/tiles', async (req, res) => {
+router.get('/tiles', async (_, res) => {
 	try {
 		const allTiles = await pool.query(
 			'SELECT * FROM tile',
@@ -88,7 +88,7 @@ router.get('/tiles', async (req, res) => {
 	} catch (err) {
 		console.error(err.message)
 		res.status(404).json(
-			{ message: 'Not found' },
+			{ message: err.message },
 		)
 	}
 })
@@ -105,7 +105,7 @@ router.get('/type/:id', async (req,res) => {
 	} catch (err) {
 		console.error(err.message)
 		res.status(404).json(
-			{ message: 'Not found' },
+			{ message: err.message },
 		)
 	}
 })
@@ -127,7 +127,7 @@ router.post('/type/add', async (req, res) => {
 	} catch (err) {
 		console.error(err.message)
 		res.status(400).json(
-			{ message: 'Bad request' },
+			{ message: err.message },
 		)
 	}
 })
@@ -155,7 +155,7 @@ router.post('/tile/add', uploadImages, async (req, res) => {
 	} catch (err) {
 		console.error(err.message)
 		res.status(400).json(
-			{ message: 'Bad request' },
+			{ message: err.message },
 		)
 	}
 })
@@ -176,7 +176,7 @@ router.put('/type/:id', async (req, res) => {
 	} catch (err) {
 		console.error(err.message)
 		res.status(400).json(
-			{ message: 'Bad request' },
+			{ message: err.message },
 		)
 	}
 })
@@ -219,7 +219,7 @@ router.put('/tile/:id', async (req, res) => {
 	} catch (err) {
 		console.error(err.message)
 		res.status(400).json(
-			{ message: 'Bad request' },
+			{ message: err.message },
 		)
 	}
 })
@@ -244,7 +244,7 @@ router.delete('/type/:id', async (req,res) => {
 	} catch (err) {
 		console.error(err.message)
 		res.status(400).json(
-			{ message: 'Bad request' },
+			{ message: err.message },
 		)
 	}
 })
@@ -273,7 +273,7 @@ router.delete('/tile/:id', async (req,res) => {
 	} catch (err) {
 		console.error(err)
 		res.status(400).json(
-			{ message: 'Bad request' },
+			{ message: err.message },
 		)
 	}
 })
@@ -294,7 +294,7 @@ router.patch('/catalogue', async (req,res) => {
 	} catch (err) {
 		console.error(err.message)
 		res.status(400).json(
-			{ message: 'Bad request' },
+			{ message: err.message },
 		)
 	}
 })
