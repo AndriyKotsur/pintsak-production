@@ -111,12 +111,12 @@ const getTile = id => {
 }
 
 const updateTile = async ( id, formData ) => {
-	// const authToken = COOKIES.getAuthToken() || ''
+	const authToken = COOKIES.getAuthToken() || ''
 	return request ({
 		headers: {
 			Accept: 'multipart/form-data',
 			'Content-Type': 'multipart/form-data',
-			// 'Authorization': 'Bearer ' + authToken,
+			'Authorization': 'Bearer ' + authToken,
 		},
 		options: {
 			url: `/admin/tile/${id}`,

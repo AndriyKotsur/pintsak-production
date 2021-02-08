@@ -1,3 +1,44 @@
+.wrapper {
+  padding: 80px 0px;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 80px;
+  font-size: 24px;
+  font-weight: 900;
+  color: #373f48;
+
+  @media (min-width: 768px) {
+    font-size: 30px;
+  }
+
+  @media (min-width: 1440px) {
+    font-size: 36px;
+  }
+}
+
+.form {
+  max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.btn {
+  display: inline-block;
+  padding: 15px 40px;
+}
+
 .required {
   margin: 40px 0;
   font-size: 16px;
