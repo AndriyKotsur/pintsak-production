@@ -1,39 +1,40 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import s from './style.module.scss'
 
 const File = ({ name, label, previous, onChange}) => {
 	const [filename, setFilename] = React.useState(label)
 	const [images, setImages] = useState([])
 
+	const filenameHandler = files => {
+		let text = 'картинок/и вибрано'
+
+		if(files.length == 1) setFilename(files[0].name)
+		else if (files.length > 1) setFilename(files.length + ' ' + text)
+	}
+
 	const clickHandler = e => {
+		let files = e.target.files
 		let current = []
 		let previous = []
 
-		for(let i = 0; i < e.target.files.length; i++) {
-			if(e.target.files.length == 1) setFilename(e.target.files[0].name)
-
-			previous.push(URL.createObjectURL(e.target.files[i]))
-			current.push(e.target.files[i])
+		for(let i = 0; i < files.length; i++) {
+			previous.push(URL.createObjectURL(files[i]))
+			current.push(files[i])
 		}
+
+		filenameHandler(files)
 		setImages(previous)
 		onChange(current)
 	}
-
-	useEffect(() => {
-		if(images.length > 1) setFilename(`${images.length} картинки вибрано`)
-	}, [images])
 
 	return(
 		<>
 			{
 				previous && previous.length > 0 &&
 				<div className={s.previous}>
-					<span>Попередня галерея</span>
 					{ previous.map(image => (
 						<picture key={previous.indexOf(image)} className={s.image}>
-							<img
-								src={image}
-								alt="Preview image"/>
+							<img src={image} alt="Preview image"/>
 						</picture>
 					)) }
 				</div>
@@ -57,9 +58,7 @@ const File = ({ name, label, previous, onChange}) => {
 				<div className={s.images}>
 					{images.length > 0 && images.map(image => (
 						<picture key={images.indexOf(image)} className={s.image}>
-							<img
-								src={image}
-								alt="Preview image"/>
+							<img src={image} alt="Preview image"/>
 						</picture>
 					))}
 				</div>

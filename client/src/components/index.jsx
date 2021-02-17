@@ -1,4 +1,5 @@
 export { default as Icon } from './icons/icons.component'
+export { default as Preloader } from './preloader/preloader.component'
 export { default as AsideNavigation } from './aside-navigation/aside-navigation.component'
 export { default as Tiles } from './tiles/tiles.component'
 export { default as Types } from './types/types.component'

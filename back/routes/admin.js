@@ -114,7 +114,7 @@ router.get('/type/:id', auth, async (req,res) => {
 // add tile type
 router.post('/type/add', auth, async (req, res) => {
 	try {
-		// parseBearer(req.headers.authorization, req.headers)
+		parseBearer(req.headers.authorization, req.headers)
 		const { title } = req.body
 		const url = Math.random().toString(36).slice(-8)
 
@@ -136,7 +136,7 @@ router.post('/type/add', auth, async (req, res) => {
 // add tile
 router.post('/tile/add', auth, uploadImages, async (req, res) => {
 	try {
-		// parseBearer(req.headers.authorization, req.headers)
+		parseBearer(req.headers.authorization, req.headers)
 		const {
 			title,
 			type,

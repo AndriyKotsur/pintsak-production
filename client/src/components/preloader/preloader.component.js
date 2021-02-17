@@ -1,18 +1,22 @@
 import React from 'react'
+
+import classNames from 'classnames'
 import s from './style.module.scss'
 
 const Preloader = () => {
-	<div className="sk-cube-grid">
-		<div className="sk-cube sk-cube1"></div>
-		<div className="sk-cube sk-cube2"></div>
-		<div className="sk-cube sk-cube3"></div>
-		<div className="sk-cube sk-cube4"></div>
-		<div className="sk-cube sk-cube5"></div>
-		<div className="sk-cube sk-cube6"></div>
-		<div className="sk-cube sk-cube7"></div>
-		<div className="sk-cube sk-cube8"></div>
-		<div className="sk-cube sk-cube9"></div>
-	</div>
+	return (
+		<div className={s.preloader}>
+			<div className={classNames(s.item, s.one)}></div>
+			<div className={classNames(s.item, s.two)}></div>
+			<div className={classNames(s.item, s.three)}></div>
+			<div className={classNames(s.item, s.four)}></div>
+			<div className={classNames(s.item, s.five)}></div>
+			<div className={classNames(s.item, s.six)}></div>
+			<div className={classNames(s.item, s.seven)}></div>
+			<div className={classNames(s.item, s.eight)}></div>
+			<div className={classNames(s.item, s.nine)}></div>
+		</div>
+	)
 }
 
 export default Preloader
