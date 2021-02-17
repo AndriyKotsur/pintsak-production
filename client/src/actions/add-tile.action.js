@@ -34,7 +34,6 @@ export const getTileTypes = () => {
 export const addTile = ({
 	types,
 	images,
-	url,
 	title,
 	type,
 	width,
@@ -61,8 +60,6 @@ export const addTile = ({
 				if (item.title === type)
 					formData.append('folderName', item.url)
 			})
-
-			formData.append('url', url.toLowerCase())
 			formData.append('title', title)
 			formData.append('type', type)
 			formData.append('width', width)

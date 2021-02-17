@@ -114,9 +114,9 @@ router.get('/type/:id', async (req,res) => {
 router.post('/type/add', async (req, res) => {
 	try {
 		// parseBearer(req.headers.authorization, req.headers)
-		const { title, url } = req.body
+		const { title } = req.body
+		const url = Math.random().toString(36).slice(-8)
 
-		console.log(title, url)
 		await pool.query(
 			'INSERT INTO type (id, title, url) VALUES ($1, $2, $3) RETURNING *',
 			[uuid(), title, url],
@@ -136,8 +136,22 @@ router.post('/type/add', async (req, res) => {
 router.post('/tile/add', uploadImages, async (req, res) => {
 	try {
 		// parseBearer(req.headers.authorization, req.headers)
-		const { title, url, type, weight_per_meter, pieces_per_meter, color_price, width, height, thickness, is_popular, is_available } = req.body
+		const {
+			title,
+			type,
+			weight_per_meter,
+			pieces_per_meter,
+			color_price,
+			width,
+			height,
+			thickness,
+			is_popular,
+			is_available,
+		} = req.body
+
+		const url = Math.random().toString(36).slice(-8)
 		const images = []
+
 		for (let i = 0; i < req.files.length; i++)
 			images.push('http://localhost:5000' + (req.files[i].destination).slice(1) + '/' + req.files[i].filename)
 
@@ -165,11 +179,11 @@ router.put('/type/:id', async (req, res) => {
 	try {
 		// parseBearer(req.headers.authorization, req.headers)
 		const { id } = req.params
-		const { title, url } = req.body
+		const { title } = req.body
 
 		await pool.query(
-			'UPDATE type SET title = $1, url = $2 WHERE id = $3',
-			[title, url, id],
+			'UPDATE type SET title = $1 WHERE id = $2',
+			[title, id],
 		)
 		res.status(200).json(
 			{ message: 'Updated' },
@@ -200,7 +214,7 @@ router.put('/tile/:id', async (req, res) => {
 			if (err)
 				throw err
 
-			const { title, url, type, weight_per_meter, pieces_per_meter, color_price, width, height, thickness, is_popular, is_available } = req.body
+			const { title, type, weight_per_meter, pieces_per_meter, color_price, width, height, thickness, is_popular, is_available } = req.body
 			const images = []
 			for (let i = 0; i < req.files.length; i++)
 				images.push('http://localhost:5000' + (req.files[i].destination).slice(1) + '/' + req.files[i].filename)
@@ -210,8 +224,8 @@ router.put('/tile/:id', async (req, res) => {
 				[type],
 			)
 			await pool.query(
-				'UPDATE tile SET type_id = $1, title = $2, images = $3, url = $4, weight_per_meter = $5, pieces_per_meter = $6, color_price = $7, width = $8, height = $9, thickness = $10, type = $11, is_popular = $12, is_available = $13 WHERE id = $14',
-				[tileType.rows[0].id, title, images, url, weight_per_meter, pieces_per_meter, JSON.parse(color_price), width, height, thickness, type, is_popular, is_available, id],
+				'UPDATE tile SET type_id = $1, title = $2, images = $3, weight_per_meter = $4, pieces_per_meter = $5, color_price = $6, width = $7, height = $8, thickness = $9, type = $10, is_popular = $11, is_available = $12 WHERE id = $13',
+				[tileType.rows[0].id, title, images, weight_per_meter, pieces_per_meter, JSON.parse(color_price), width, height, thickness, type, is_popular, is_available, id],
 			)
 			res.status(200).json(
 				{ message: 'Updated' },

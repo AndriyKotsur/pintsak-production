@@ -78,7 +78,7 @@ const getType = async id => {
 	})
 }
 
-const updateType = async ({ id, title, url }) => {
+const updateType = async ({ id, title }) => {
 	const authToken = COOKIES.getAuthToken() || ''
 	return request ({
 		headers: {
@@ -91,7 +91,6 @@ const updateType = async ({ id, title, url }) => {
 			method: 'PUT',
 			data: {
 				title,
-				url,
 			},
 		},
 	})
@@ -126,7 +125,7 @@ const updateTile = async ( id, formData ) => {
 	})
 }
 
-const addType = async ({ title, url }) => {
+const addType = async ({ title }) => {
 	const authToken = COOKIES.getAuthToken() || ''
 	return request ({
 		headers: {
@@ -139,7 +138,6 @@ const addType = async ({ title, url }) => {
 			method: 'POST',
 			data: {
 				title,
-				url,
 			},
 		},
 	})

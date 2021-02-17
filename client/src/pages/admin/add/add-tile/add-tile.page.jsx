@@ -1,29 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as AddTileActions from 'actions/add-tile.action'
-import { Form, Input, Select, Checkbox } from 'components'
+import { Form, Input, Select, Checkbox, File } from 'components'
 
 const AddTile = () => {
 	const history = useHistory()
 	const dispatch = useDispatch()
 	const state = useSelector(state => state.addTile)
-	const [imagesPreview, setImagesPreview] = useState([])
 
 	const addTile = async e => {
 		e.preventDefault()
 		dispatch(AddTileActions.addTile(state))
-	}
-
-	const onImageChange = e => {
-		let imageArr = []
-		let imagePre = []
-		for(let i = 0; i < e.target.files.length; i++) {
-			imagePre.push(URL.createObjectURL(e.target.files[i]))
-			imageArr.push(e.target.files[i])
-		}
-		dispatch(AddTileActions.handleChange(imageArr))
-		setImagesPreview(imagePre)
 	}
 
 	useEffect(() => {
@@ -41,29 +29,28 @@ const AddTile = () => {
 			<Form
 				title="Додати товар"
 				handler={addTile}>
-				<div className="input-field contact-us-field">
-					<input type="file" name="images" onChange={e => onImageChange(e)} className="input contact-us__input" multiple/>
-					{imagesPreview.length > 0 && imagesPreview.map(image => (
-						<img key={imagesPreview.indexOf(image)} src={image} alt="Alt item"/>
-					))}
-					<label>Картинка товару</label>
-				</div>
+				<File
+					name={'images'}
+					label={'Додати галерею товару'}
+					onChange={image => dispatch(AddTileActions.handleChange(image))} />
 				<Input
 					type='text'
 					name='title'
 					title='Назва товару'
 					onChange={e => dispatch(AddTileActions.handleChange(e))}
 					isRequired />
-				<Input
-					type='text'
-					name='url'
-					title='Назва товару (aнгл)'
-					onChange={e => dispatch(AddTileActions.handleChange(e))}
-					isRequired />
 				<Select
 					name='type'
 					value={state.type}
 					data={state.types}
+					onChange={e => dispatch(AddTileActions.handleChange(e))} />
+				<Checkbox
+					name='is_popular'
+					label='Чи продукт популярний?'
+					onChange={e => dispatch(AddTileActions.handleChange(e))} />
+				<Checkbox
+					name='is_available'
+					label='Чи продукт в наявності?'
 					onChange={e => dispatch(AddTileActions.handleChange(e))} />
 				<Input
 					type='number'
@@ -120,14 +107,6 @@ const AddTile = () => {
 					type='number'
 					name='black'
 					title='Ціна чорної'
-					onChange={e => dispatch(AddTileActions.handleChange(e))} />
-				<Checkbox
-					name='is_popular'
-					label='Популярна'
-					onChange={e => dispatch(AddTileActions.handleChange(e))} />
-				<Checkbox
-					name='is_available'
-					label='В наявності'
 					onChange={e => dispatch(AddTileActions.handleChange(e))} />
 			</Form>
 		</>

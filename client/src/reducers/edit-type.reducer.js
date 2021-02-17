@@ -11,7 +11,6 @@ import {
 
 let initialState = {
 	title: '',
-	url: '',
 	get_type_status: '',
 	edit_type_status: '',
 }

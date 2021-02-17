@@ -56,7 +56,6 @@ export const getTileTypes = () => {
 export const editTile = (id, {
 	types,
 	images,
-	url,
 	title,
 	type,
 	width,
@@ -83,7 +82,6 @@ export const editTile = (id, {
 				if (item.title === type)
 					formData.append('folderName', item.url)
 			})
-			formData.append('url', url.toLowerCase())
 			formData.append('title', title)
 			formData.append('type', type)
 			formData.append('width', width)

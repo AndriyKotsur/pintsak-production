@@ -9,14 +9,13 @@ import { HTTP } from 'helpers'
 
 export const addType = ({
 	title,
-	url,
 }) => {
 	return async dispatch => {
 		dispatch({
 			type: ADD_TYPE_LOADING,
 		})
 		try {
-			await HTTP.addType({title, url})
+			await HTTP.addType({ title })
 			return dispatch({
 				type: ADD_TYPE_SUCCESS,
 			})

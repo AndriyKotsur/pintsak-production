@@ -32,13 +32,13 @@ export const getType = id => {
 	}
 }
 
-export const editType = (id, {title, url}) => {
+export const editType = (id, { title }) => {
 	return async dispatch => {
 		dispatch({
 			type: EDIT_TYPE_LOADING,
 		})
 		try {
-			await HTTP.updateType({id, title, url})
+			await HTTP.updateType({ id, title })
 			return dispatch({
 				type: EDIT_TYPE_SUCCESS,
 			})

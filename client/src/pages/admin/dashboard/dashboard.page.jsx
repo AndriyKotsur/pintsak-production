@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as GetTilesActions from 'actions/get-tiles.action'
 import * as GetTypesActions from 'actions/get-types.action'
 
-import { TilesList } from 'components'
-import { TypesList } from 'components'
+import { Tiles } from 'components'
+import { Types } from 'components'
 import { Logout } from '..'
 
 import classNames from 'classnames'
@@ -15,6 +15,29 @@ const Dashboard = () => {
 	const dispatch = useDispatch()
 	const tiles = useSelector(tiles => tiles.getTiles)
 	const types = useSelector(types => types.getTypes)
+	const [activeSwitch, setActiveSwitch] = useState('types')
+
+	const switcher = useMemo(() => {
+		const switchers = {
+			'types':
+			<>
+				<span className={s.count}>Кількість категорій: {types.types.length}</span>
+				<Types
+					types={types.types}
+					settings={{ edit: true }}
+					className={s.type} />
+			</>,
+			'tiles':
+			<>
+				<span className={s.count}>Кількість продуктів: {tiles.tiles.length}</span>
+				<Tiles
+					tiles={tiles.tiles}
+					settings={{ edit: true }}
+					className={s.tiles} />
+			</>,
+		}
+		return switchers[activeSwitch]
+	}, [types, activeSwitch])
 
 	useEffect(() => {
 		dispatch(GetTilesActions.getTiles())
@@ -31,21 +54,32 @@ const Dashboard = () => {
 			<div className={classNames('container', s.container)}>
 				<h1 className={s.title}>Панель керування</h1>
 				<div className={s.inner}>
-					<div className={s.type}>
+					<div className={s.append}>
 						<Link
 							to="/admin/add/type"
-							className={classNames('btn-sent', 'btn-orange', s.btn)}>
-							Додати нову категорію
+							className={classNames('btn-sent', 'btn-orange', s.appender)}>
+						Додати нову категорію
 						</Link>
-						<TypesList types={types.types} className={s.list} />
-					</div>
-					<div className={s.tiles}>
 						<Link
 							to="/admin/add/tile"
-							className={classNames('btn-sent', 'btn-orange', s.btn)}>
-							Додати новий товар
+							className={classNames('btn-sent', 'btn-orange', s.appender)}>
+						Додати новий товар
 						</Link>
-						<TilesList tiles={tiles.tiles} className={s.list} />
+					</div>
+					<div className={s.switch}>
+						<button
+							onClick={() => setActiveSwitch('types')}
+							className={classNames(s.switcher, {[s.active]: activeSwitch === 'types'})}>
+								Категорії
+						</button>
+						<button
+							onClick={() => setActiveSwitch('tiles')}
+							className={classNames(s.switcher, {[s.active]: activeSwitch === 'tiles'})}>
+								Продукти
+						</button>
+					</div>
+					<div className={s.items}>
+						{switcher}
 					</div>
 				</div>
 			</div>

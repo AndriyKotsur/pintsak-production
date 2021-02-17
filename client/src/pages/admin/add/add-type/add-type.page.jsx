@@ -34,13 +34,6 @@ const AddType = () => {
 				title='Назва категорії'
 				onChange={e => dispatch(AddTypeActions.handleChange(e))}
 				isRequired />
-			<Input
-				type='text'
-				name='url'
-				title='Назва категорії (англ.)'
-				value={state.url}
-				onChange={e => dispatch(AddTypeActions.handleChange(e))}
-				isRequired/>
 		</Form>
 	)
 }

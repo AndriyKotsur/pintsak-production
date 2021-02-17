@@ -42,13 +42,6 @@ const EditType = () => {
 							placeholder='Назва категорії'
 							onChange={e => dispatch(EditTypeActions.handleChange(e))}
 							isRequired />
-						<Input
-							type='text'
-							name='url'
-							value={state.url}
-							placeholder='Назва категорії (англ.)'
-							onChange={e => dispatch(EditTypeActions.handleChange(e))}
-							isRequired />
 					</Form>
 				)
 			}

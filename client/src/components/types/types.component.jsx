@@ -1,9 +1,10 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 import { HTTP } from '../../helpers'
 import s from './style.module.scss'
 
-const TypesList = ({ types, className }) => {
+const Types = ({ types, settings  }) => {
 	const history = useHistory()
 	const onDeleteType = async id => {
 		await HTTP.deleteType(id)
@@ -15,21 +16,22 @@ const TypesList = ({ types, className }) => {
 			<ul className={s.list}>
 				{types && types.map(type => (
 					<li key={type.id} className={s.item}>
-						<div className={s.wrapper}>
-							<p className={s.title}>{type.title}</p>
+						<Link to="" className={s.link}>{type.title}</Link>
+						{
+							settings && settings.edit &&
 							<div className={s.action}>
 								<button
 									onClick={() => history.push(`/admin/edit/type/${type.id}`)}
-									className={s.btn_edit}>
-										Редагувати
+									className={s.edit}>
+											Редагувати
 								</button>
 								<button
 									onClick={() => {onDeleteType(type.id)}}
-									className={s.btnDelete}>
-										Видалити
+									className={s.delete}>
+											Видалити
 								</button>
 							</div>
-						</div>
+						}
 					</li>
 				))}
 			</ul>
@@ -37,4 +39,4 @@ const TypesList = ({ types, className }) => {
 	)
 }
 
-export default TypesList
+export default Types

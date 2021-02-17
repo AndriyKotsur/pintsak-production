@@ -12,7 +12,6 @@ import {
 let initialState = {
 	types: [],
 	title: '',
-	url: '',
 	type: '',
 	width: '',
 	height: '',

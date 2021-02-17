@@ -8,7 +8,6 @@ import {
 
 let initialState = {
 	title: '',
-	url: '',
 	add_type_status: '',
 }
 

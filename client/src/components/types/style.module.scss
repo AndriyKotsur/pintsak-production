@@ -1,0 +1,49 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 30px;
+}
+
+.item {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  &:not(:last-child) {
+    margin-bottom: 35px;
+  }
+}
+
+.link {
+  transition: all 0.3s ease-out;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 19px;
+  color: #373f48;
+
+  &:hover {
+    transition: all 0.3s ease-out;
+    color: #ffc174;
+  }
+}
+
+.action {
+  margin-left: 140px;
+}
+
+.edit {
+  margin-right: 35px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #373f48;
+}
+
+.delete {
+  font-size: 14px;
+  font-weight: 700;
+  color: #373f48;
+}

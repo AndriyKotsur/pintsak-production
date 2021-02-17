@@ -1,32 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as EditTileActions from 'actions/edit-tile.action'
-import { Form, Input, Select, Checkbox } from 'components'
+import { Form, Input, Select, Checkbox, File } from 'components'
 
 const EditTile = () => {
 	const history = useHistory()
 	const { id } = useParams()
 	const dispatch = useDispatch()
 	const state = useSelector(state => state.editTile)
-	const [imagesPreview, setImagesPreview] = useState([])
 
 	const updateTile = async e => {
 		e.preventDefault()
 		dispatch(EditTileActions.editTile(id, state))
-	}
-
-	const onImageChange = e => {
-		let imageObj = []
-		imageObj.push(e.target.files)
-		let imageArr = []
-		let imagePre = []
-		for(let i = 0; i < imageObj[0].length; i++) {
-			imagePre.push(URL.createObjectURL(imageObj[0][i]))
-			imageArr.push(imageObj[0][i])
-		}
-		dispatch(EditTileActions.handleChange(imageArr))
-		setImagesPreview(imagePre)
 	}
 
 	useEffect(() => {
@@ -50,26 +36,11 @@ const EditTile = () => {
 				<Form
 					title="Редагувати товар"
 					handler={updateTile}>
-					<div>
-						<label>Попередні картинки</label>
-						{state.imagesPreview.map(image => (
-							<img key={state.imagesPreview.indexOf(image)} src={image} alt="Alt item"/>
-						))}
-					</div>
-					<div className="input-field contact-us-field">
-						<input
-							type="file"
-							name="images"
-							onChange={onImageChange}
-							className="input contact-us__input"
-							multiple
-						/>
-						{imagesPreview.length > 0 && imagesPreview.map(image => (
-							<img key={imagesPreview.indexOf(image)} src={image} alt="Alt item"/>
-						))}
-						<br />
-						<label>Нові картинки</label>
-					</div>
+					<File
+						name={'images'}
+						label={'Редагувати галерею товару'}
+						previous={state.imagesPreview}
+						onChange={image => dispatch(EditTileActions.handleChange(image))} />
 					<Input
 						type='text'
 						name='title'
@@ -77,17 +48,20 @@ const EditTile = () => {
 						placeholder='Назва товару'
 						onChange={e => dispatch(EditTileActions.handleChange(e))}
 						isRequired/>
-					<Input
-						type='text'
-						name='url'
-						value={state.url}
-						placeholder='Назва товару (aнгл)'
-						onChange={e => dispatch(EditTileActions.handleChange(e))}
-						isRequired/>
 					<Select
 						name='type'
 						value={state.type}
 						data={state.types}
+						onChange={e => dispatch(EditTileActions.handleChange(e))} />
+					<Checkbox
+						name='is_popular'
+						label='Чи продукт популярний?'
+						checked={state.is_available}
+						onChange={e => dispatch(EditTileActions.handleChange(e))} />
+					<Checkbox
+						name='is_available'
+						label='Чи продукт в наявності?'
+						checked={state.is_popular}
 						onChange={e => dispatch(EditTileActions.handleChange(e))} />
 					<Input
 						type='number'
@@ -161,16 +135,6 @@ const EditTile = () => {
 						value={state.black}
 						placeholder='Ціна чорної продукції'
 						onChange={e => dispatch(EditTileActions.handleChange(e))}/>
-					<Checkbox
-						name='is_popular'
-						label='Популярна'
-						checked={state.is_available}
-						onChange={e => dispatch(EditTileActions.handleChange(e))} />
-					<Checkbox
-						name='is_available'
-						label='В наявності'
-						checked={state.is_popular}
-						onChange={e => dispatch(EditTileActions.handleChange(e))} />
 				</Form>
 			)}
 		</>
