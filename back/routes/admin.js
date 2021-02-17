@@ -4,6 +4,7 @@ const { uuid } = require('uuidv4')
 const bcrypt = require('bcryptjs')
 const { uploadImages, uploadFile, removeFolder} = require('../middleware/upload')
 const { parseBearer, prepareToken } = require('../middleware/token')
+const auth = require('../middleware/auth')
 const pool = require('../db')
 
 // login admin
@@ -64,7 +65,7 @@ router.post('/register', async (req,res) => {
 })
 
 // check token
-router.get('/check-token', (req,res) => {
+router.get('/check-token', auth, (req,res) => {
 	try {
 		const decoded = parseBearer(req.headers.authorization, req.headers)
 		res.status(200).json(
@@ -79,7 +80,7 @@ router.get('/check-token', (req,res) => {
 })
 
 // get all
-router.get('/tiles', async (_, res) => {
+router.get('/tiles', auth, async (req, res) => {
 	try {
 		const allTiles = await pool.query(
 			'SELECT * FROM tile',
@@ -94,7 +95,7 @@ router.get('/tiles', async (_, res) => {
 })
 
 // get one type
-router.get('/type/:id', async (req,res) => {
+router.get('/type/:id', auth, async (req,res) => {
 	try {
 		const { id } = req.params
 		const type = await pool.query(
@@ -111,7 +112,7 @@ router.get('/type/:id', async (req,res) => {
 })
 
 // add tile type
-router.post('/type/add', async (req, res) => {
+router.post('/type/add', auth, async (req, res) => {
 	try {
 		// parseBearer(req.headers.authorization, req.headers)
 		const { title } = req.body
@@ -133,7 +134,7 @@ router.post('/type/add', async (req, res) => {
 })
 
 // add tile
-router.post('/tile/add', uploadImages, async (req, res) => {
+router.post('/tile/add', auth, uploadImages, async (req, res) => {
 	try {
 		// parseBearer(req.headers.authorization, req.headers)
 		const {
@@ -175,9 +176,8 @@ router.post('/tile/add', uploadImages, async (req, res) => {
 })
 
 // update  type
-router.put('/type/:id', async (req, res) => {
+router.put('/type/:id', auth, async (req, res) => {
 	try {
-		// parseBearer(req.headers.authorization, req.headers)
 		const { id } = req.params
 		const { title } = req.body
 
@@ -197,9 +197,8 @@ router.put('/type/:id', async (req, res) => {
 })
 
 // update tile
-router.put('/tile/:id', async (req, res) => {
+router.put('/tile/:id', auth, async (req, res) => {
 	try {
-		// parseBearer(req.headers.authorization, req.headers)
 		const { id } = req.params
 		const tile = await pool.query(
 			'SELECT * FROM tile WHERE id = $1',
@@ -240,9 +239,8 @@ router.put('/tile/:id', async (req, res) => {
 })
 
 // delete tile type
-router.delete('/type/:id', async (req,res) => {
+router.delete('/type/:id', auth, async (req,res) => {
 	try {
-		// parseBearer(req.headers.authorization, req.headers)
 		const { id } = req.params
 		const type = await pool.query(
 			'SELECT * FROM type WHERE id = $1',
@@ -265,9 +263,8 @@ router.delete('/type/:id', async (req,res) => {
 })
 
 // delete tile
-router.delete('/tile/:id', async (req,res) => {
+router.delete('/tile/:id', auth, async (req,res) => {
 	try {
-		// parseBearer(req.headers.authorization, req.headers)
 		const { id } = req.params
 		const tile = await pool.query(
 			'SELECT * FROM tile WHERE id = $1',
@@ -294,7 +291,7 @@ router.delete('/tile/:id', async (req,res) => {
 })
 
 // change catalogue
-router.patch('/catalogue', async (req,res) => {
+router.patch('/catalogue', auth, async (req,res) => {
 	try {
 		parseBearer(req.headers.authorization, req.headers)
 		removeFolder('./public/docs')
