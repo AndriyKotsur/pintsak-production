@@ -6,8 +6,8 @@ const router = express.Router()
 
 module.exports = router.use( async (req, res, next) => {
 	try {
-		console.log(req.headers)
-		const payload = parseBearer(req.headers.authorization, req.headers)
+		const token = req.headers.authorization.slice(7, req.headers.authorization.length)
+		const payload = parseBearer(token, req.headers)
 
 		const admin = await pool.query(
 			'SELECT * FROM admin WHERE uid = $1',
