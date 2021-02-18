@@ -3,7 +3,7 @@ const router = express.Router()
 const { uuid } = require('uuidv4')
 const bcrypt = require('bcryptjs')
 const { uploadImages, uploadFile, removeFolder} = require('../middleware/upload')
-const { parseBearer, prepareToken } = require('../middleware/token')
+const { prepareToken } = require('../middleware/token')
 const auth = require('../middleware/auth')
 const pool = require('../db')
 
@@ -67,7 +67,6 @@ router.post('/register', async (req,res) => {
 // check token
 router.get('/check-token', auth, (req,res) => {
 	try {
-		const decoded = parseBearer(req.headers.authorization, req.headers)
 		res.status(200).json(
 			{ id: decoded.id },
 		)
@@ -114,7 +113,6 @@ router.get('/type/:id', auth, async (req,res) => {
 // add tile type
 router.post('/type/add', auth, async (req, res) => {
 	try {
-		parseBearer(req.headers.authorization, req.headers)
 		const { title } = req.body
 		const url = Math.random().toString(36).slice(-8)
 
@@ -136,7 +134,6 @@ router.post('/type/add', auth, async (req, res) => {
 // add tile
 router.post('/tile/add', auth, uploadImages, async (req, res) => {
 	try {
-		parseBearer(req.headers.authorization, req.headers)
 		const {
 			title,
 			type,
@@ -293,7 +290,6 @@ router.delete('/tile/:id', auth, async (req,res) => {
 // change catalogue
 router.patch('/catalogue', auth, async (req,res) => {
 	try {
-		parseBearer(req.headers.authorization, req.headers)
 		removeFolder('./public/docs')
 		uploadFile( req, res, async err => {
 			if (err)

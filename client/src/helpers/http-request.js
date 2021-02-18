@@ -3,11 +3,12 @@ import { COOKIES } from './'
 
 const request = async function ({ headers, options = true }) {
 	const authToken = COOKIES.getAuthToken() || ''
+	console.log(authToken);
 	const client = axios.create({
 		baseURL: 'http://localhost:5000',
 		headers: {
 			...headers,
-			Authorization: authToken,
+			Authorization: 'Bearer ' + authToken,
 		},
 		responseType: 'json',
 	})
@@ -64,12 +65,10 @@ const getTiles = ( type, search ) => {
 }
 
 const getType = async id => {
-	const authToken = COOKIES.getAuthToken() || ''
 	return request ({
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'Authorization': 'Bearer ' + authToken,
 		},
 		options: {
 			url: `/admin/type/${id}`,
@@ -79,12 +78,10 @@ const getType = async id => {
 }
 
 const updateType = async ({ id, title }) => {
-	const authToken = COOKIES.getAuthToken() || ''
 	return request ({
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'Authorization': 'Bearer ' + authToken,
 		},
 		options: {
 			url: `/admin/type/${id}`,
@@ -110,12 +107,10 @@ const getTile = id => {
 }
 
 const updateTile = async ( id, formData ) => {
-	const authToken = COOKIES.getAuthToken() || ''
 	return request ({
 		headers: {
 			Accept: 'multipart/form-data',
 			'Content-Type': 'multipart/form-data',
-			'Authorization': 'Bearer ' + authToken,
 		},
 		options: {
 			url: `/admin/tile/${id}`,
@@ -126,12 +121,10 @@ const updateTile = async ( id, formData ) => {
 }
 
 const addType = async ({ title }) => {
-	const authToken = COOKIES.getAuthToken() || ''
 	return request ({
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'Authorization': 'Bearer ' + authToken,
 		},
 		options: {
 			url: '/admin/type/add',
@@ -144,12 +137,10 @@ const addType = async ({ title }) => {
 }
 
 const addTile = async formData => {
-	const authToken = COOKIES.getAuthToken() || ''
 	return request ({
 		headers: {
 			Accept: 'multipart/form-data',
 			'Content-Type': 'multipart/form-data',
-			'Authorization': 'Bearer ' + authToken,
 		},
 		options: {
 			url: '/admin/tile/add',
@@ -160,12 +151,10 @@ const addTile = async formData => {
 }
 
 const getAllTiles = async () => {
-	const authToken = COOKIES.getAuthToken() || ''
 	return request ({
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'Authorization': 'Bearer ' + authToken,
 		},
 		options: {
 			url: '/admin/tiles',
@@ -175,12 +164,10 @@ const getAllTiles = async () => {
 }
 
 const deleteTile = async id => {
-	const authToken = COOKIES.getAuthToken() || ''
 	return request ({
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'Authorization': 'Bearer ' + authToken,
 		},
 		options: {
 			url: `/admin/tile/${id}`,
@@ -190,12 +177,10 @@ const deleteTile = async id => {
 }
 
 const deleteType = async id => {
-	const authToken = COOKIES.getAuthToken() || ''
 	return request ({
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			'Authorization': 'Bearer ' + authToken,
 		},
 		options: {
 			url: `/admin/type/${id}`,
