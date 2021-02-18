@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as EditTileActions from 'actions/edit-tile.action'
-import { Form, Input, Select, Checkbox, File } from 'components'
+import { Preloader, Form, Input, Select, Checkbox, File } from 'components'
 
 const EditTile = () => {
 	const history = useHistory()
@@ -30,7 +30,7 @@ const EditTile = () => {
 	return (
 		<>
 			{
-				(state.get_tile_status === 'loading' || state.get_types_status === 'loading') && 'Loading...'
+				(state.get_tile_status === 'loading' || state.get_types_status === 'loading') && <Preloader />
 			}
 			{ state.get_tile_status === 'success' && state.get_types_status && (
 				<Form

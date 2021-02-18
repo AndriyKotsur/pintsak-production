@@ -4,8 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as GetTilesActions from 'actions/get-tiles.action'
 import * as GetTypesActions from 'actions/get-types.action'
 
-import { Tiles } from 'components'
-import { Types } from 'components'
+import { Tiles, Types, Preloader } from 'components'
 import { Logout } from '..'
 
 import classNames from 'classnames'
