@@ -1,9 +1,10 @@
 require('dotenv').config()
 const express = require('express')
 const router = express.Router()
-const nodemailer = require('nodemailer')
 const fs = require('fs')
-const pool = require('../db')
+
+const { sendMail } = require('../../middleware/sendmail')
+const pool = require('../../db')
 
 // get tile types
 router.get('/', async (req, res) => {
@@ -93,40 +94,21 @@ router.get('/download-catalogue', (req,res) => {
 router.post('/order-request', async (req,res) => {
 	try {
 		const { name, phone, comment, order } = req.body
-		const transporter = nodemailer.createTransport({
-			pool: true,
-			service: 'gmail',
-			host: process.env.GMAIL_HOST,
-			port: process.env.GMAIL_PORT,
-			secure: true,
-			auth: {
-				user: process.env.GMAIL_USER,
-				pass: process.env.GMAIL_PASS,
-			},
-		})
-		transporter.sendMail ({
-			// from: 'noreply@pintsakprod.com',
-			to: 'pintsak@gmail.com',
-			subject: 'New order request!',
-			html:
-        `<table>
-          <tbody>
-            <tr>Customer: ${name}</tr>
-            </br>
-            <tr>Phone: ${phone}</tr>
-            </br>
-            <tr>Comment: ${comment}</tr>
-            </br>
-            <tr>Order: ${order.title}, ${order.count}, ${order.color}, ${order.totalPrice}</tr>
-          </tbody>
-        </table>`,
-		},
-		(err, info) => {
-			if(err)
-				console.error(err.message)
-			else
-				console.log('Email sent: ' + info.response)
-		})
+		const content =
+			`<table>
+				<tbody>
+					<tr>Customer: ${name}</tr>
+					</br>
+					<tr>Phone: ${phone}</tr>
+					</br>
+					<tr>Comment: ${comment}</tr>
+					</br>
+					<tr>Order: ${order.title}, ${order.count}, ${order.color}, ${order.totalPrice}</tr>
+				</tbody>
+			</table>`
+
+		await sendMail({ fromEmail: 'pintsak-tiles.com.ua', subject: 'New order request!', content })
+
 	} catch (err) {
 		console.error(err.message)
 		res.status(400).json(

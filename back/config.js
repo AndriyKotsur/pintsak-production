@@ -1,5 +1,7 @@
 require('dotenv').config()
 
+const port = process.env.PORT || 5000
+
 const jwtInfo = {
 	expiresIn: process.env.TOKEN_EXPIRES,
 	secret: process.env.TOKEN_KEY,
@@ -14,7 +16,8 @@ const database = {
 }
 
 const mailInfo = {
-
+	secretKey: process.env.SENDGRID_KEY,
+	defaultEmail: process.env.SENDGRID_EMAIL,
 }
 
-module.exports = { jwtInfo, database }
+module.exports = { port, jwtInfo, database, mailInfo }

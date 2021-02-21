@@ -37,6 +37,7 @@ export default function addTile (state = initialState, action) {
 		return {
 			...state,
 			types: action.payload,
+			type: action.payload[0].title,
 			get_types_status: 'success',
 		}
 	case GET_TILE_TYPES_ERROR:
