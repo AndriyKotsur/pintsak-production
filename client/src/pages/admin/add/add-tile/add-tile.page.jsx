@@ -20,8 +20,9 @@ const AddTile = () => {
 	}, [state.add_tile_status])
 
 	useEffect(() => {
-		dispatch(AddTileActions.clear())
 		dispatch(AddTileActions.getTileTypes())
+
+		return () => dispatch(AddTileActions.clear())
 	}, [])
 
 	return (
@@ -92,6 +93,11 @@ const AddTile = () => {
 					type='number'
 					name='orange'
 					title='Ціна оранжевої'
+					onChange={e => dispatch(AddTileActions.handleChange(e))} />
+				<Input
+					type='number'
+					name='yellow'
+					title='Ціна жовтої'
 					onChange={e => dispatch(AddTileActions.handleChange(e))} />
 				<Input
 					type='number'

@@ -17,4 +17,8 @@
   &.error {
     border: 1px solid #ff6363;
   }
+
+  &.disabled {
+    cursor: not-allowed;
+  }
 }

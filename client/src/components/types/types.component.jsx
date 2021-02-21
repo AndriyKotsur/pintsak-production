@@ -1,15 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
-import { HTTP } from '../../helpers'
+import { useDispatch, useSelector } from 'react-redux'
+import * as DeleteTypeActions from 'actions/delete-type.action'
 import s from './style.module.scss'
 
 const Types = ({ types, settings  }) => {
 	const history = useHistory()
-	const onDeleteType = async id => {
-		await HTTP.deleteType(id)
-		window.location = '/admin/dashboard'
+	const dispatch = useDispatch()
+	const state = useSelector(state => state.deleteType)
+
+	const deleteType = async id => {
+		dispatch(DeleteTypeActions.deleteType(id))
 	}
+
+	useEffect(() => {
+		if(state.delete_type_status === 'success')
+			window.location = '/admin/dashboard'
+	}, [state])
 
 	return (
 		<>
@@ -26,7 +34,7 @@ const Types = ({ types, settings  }) => {
 											Редагувати
 								</button>
 								<button
-									onClick={() => {onDeleteType(type.id)}}
+									onClick={() => {deleteType(type.id)}}
 									className={s.delete}>
 											Видалити
 								</button>

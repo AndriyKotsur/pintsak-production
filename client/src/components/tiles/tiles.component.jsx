@@ -1,16 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import { HTTP } from '../../helpers'
-import s from './style.module.scss'
-
+import { useDispatch, useSelector } from 'react-redux'
+import * as DeleteTileActions from 'actions/delete-tile.action'
 import { Icon } from 'components'
+import s from './style.module.scss'
 
 const Tiles = ({ tiles, settings }) => {
 	const history = useHistory()
-	const onDeleteTile = async id => {
-		await HTTP.deleteTile(id)
-		window.location = '/admin/dashboard'
+	const dispatch = useDispatch()
+	const state = useSelector(state => state.deleteTile)
+
+	const deleteTile = async id => {
+		dispatch(DeleteTileActions.deleteTile(id))
 	}
+
+	useEffect(() => {
+		if(state.delete_tile_status === 'success')
+			window.location = '/admin/dashboard'
+	}, [state])
 
 	return (
 		<ul className={s.list}>
@@ -39,7 +46,7 @@ const Tiles = ({ tiles, settings }) => {
 										Редагувати
 								</button>
 								<button
-									onClick={() => {onDeleteTile(tile.id)}}
+									onClick={() => {deleteTile(tile.id)}}
 									className={s.delete}>
 										Видалити
 								</button>

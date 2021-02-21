@@ -20,7 +20,7 @@ const AddType = () => {
 	}, [state.add_type_status])
 
 	useEffect(() => {
-		dispatch(AddTypeActions.clear())
+		return () => dispatch(AddTypeActions.clear())
 	}, [])
 
 	return (
