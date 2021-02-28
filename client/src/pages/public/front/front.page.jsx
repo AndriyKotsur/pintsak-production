@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as GetTypesActions from 'actions/get-types.action'
 
-import { Icon } from 'components'
-import { Types } from 'components'
+import { Icon, Form, Input, Background } from 'components'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
+import { Types } from 'components'
 
 import s from './style.module.scss'
 import './slider.scss'
@@ -15,14 +15,44 @@ import Slide1 from 'assets/images/slide-1.png'
 import Slide2 from 'assets/images/slide-2.png'
 import Slide3 from 'assets/images/slide-3.png'
 
+const hero = {
+	type: 'loop',
+	perPage: 1,
+	perMove: 1,
+	width: 450,
+	arrows: false,
+	pagination: false,
+	breakpoints: {
+		1024: {
+			width: 325,
+		},
+		767: {
+			width: 260,
+		},
+	},
+}
+const heroControls = {
+	type: 'slide',
+	rewind: true,
+	perPage: 3,
+	perMove: 1,
+	arrows: false,
+	pagination: false,
+	isNavigation: true,
+	updateOnMove: true,
+}
+
 const FrontPage = () => {
 	const dispatch = useDispatch()
 	const types = useSelector(types => types.getTypes)
-	const presentationSlider = {
-		perPage: 1,
-		perMove: 1,
-		arrows: false,
-	}
+
+	const heroRef = useRef()
+	const heroControlsRef = useRef()
+
+	useLayoutEffect(() => {
+		heroRef.current.sync(heroControlsRef.current.splide)
+	}, [])
+
 	useEffect(() => {
 		dispatch(GetTypesActions.getTypes())
 		return () => dispatch(GetTypesActions.clear())
@@ -30,41 +60,50 @@ const FrontPage = () => {
 
 	return (
 		<>
-			<div className={s.presentation}>
+			<div className={s.hero}>
 				<div className="container">
-					<div className={s.presentation_wrapper}>
-						<Types types={types.types} settings={{ public: true, light: true }} styleName={s.presentation_navigation} />
-						<div className={s.presentation_carousel}>
-							<div className={s.presentation_header}>
-								<h1 className={s.presentation_title}>Тротуарна плитка</h1>
-								<Link to="/about" className={s.presentation_description}>Дізнатися більше
-									<Icon name="description" className={classNames('icon', 'icon-description', s.presentation_icon)} />
+					<div className={s.hero_wrapper}>
+						<Types types={types.types} settings={{ public: true, light: true }} styleName={s.hero_navigation} />
+						<div className={s.hero_carousel}>
+							<div className={s.hero_header}>
+								<h1 className={s.hero_title}>Тротуарна плитка</h1>
+								<Link to="/about" className={s.hero_description}>Дізнатися більше
+									<Icon name="description" className={classNames('icon', 'icon-description', s.hero_icon)} />
 								</Link>
 							</div>
-							<div className={s.presentation_block}>
+							<div className={s.hero_block}>
 								<Splide
-									options={presentationSlider}>
+									ref={heroRef}
+									options={hero}>
 									<SplideSlide>
-										<picture className={s.presentation_item}>
+										<picture className={s.hero_item}>
 											<img src={Slide1} alt="Carousel image" />
 										</picture>
 									</SplideSlide>
 									<SplideSlide>
-										<picture className={s.presentation_item}>
+										<picture className={s.hero_item}>
 											<img src={Slide2} alt="Carousel image" />
 										</picture>
 									</SplideSlide>
 									<SplideSlide>
-										<picture className={s.presentation_item}>
+										<picture className={s.hero_item}>
 											<img src={Slide3} alt="Carousel image" />
 										</picture>
 									</SplideSlide>
 								</Splide>
 							</div>
-							<div className={s.presentation_controls}>
-								<a href="#" className={s.presentation_dot}>01</a>
-								<a href="#" className={s.presentation_dot}>02</a>
-								<a href="#" className={s.presentation_dot}>03</a>
+							<div className={s.hero_controls}>
+								<Splide options={heroControls} ref={heroControlsRef} onClick={( splide, prev, next ) => { console.log( prev, next )}}>
+									<SplideSlide>
+										<span className={s.hero_dot}>01</span>
+									</SplideSlide>
+									<SplideSlide>
+										<span className={s.hero_dot}>02</span>
+									</SplideSlide>
+									<SplideSlide>
+										<span className={s.hero_dot}>03</span>
+									</SplideSlide>
+								</Splide>
 							</div>
 						</div>
 					</div>
@@ -74,20 +113,16 @@ const FrontPage = () => {
 			<div className={s.popular}>
 				<div className="container">
 					<div className={s.popular_wrapper}>
-						<Types types={types.types} settings={{ public: true }} />
-						<div className={s.popular_slider}>
+						<Types types={types.types} settings={{ public: true }} styleName={s.popular_navigation} />
+						<div className={s.popular_carousel}>
 							<div className={s.popular_header}>
 								<h2 className={s.popular_title}>Популярні товари</h2>
 								<div className={s.popular_controls}>
 									<span className={s.popular_step}>
-										<svg className="icon icon-arrow--carousel carousel__arrow--left">
-											<use href="images/icons/sprite.svg#arrow"></use>
-										</svg>
+										<Icon name="carousel" className={classNames('icon', 'icon-carousel', s.popular_arrow_left)} />
 									</span>
 									<span className={s.popular_step}>
-										<svg className="icon icon-arrow--carousel carousel__arrow--right">
-											<use href="images/icons/sprite.svg#arrow"></use>
-										</svg>
+										<Icon name="carousel" className={classNames('icon', 'icon-carousel', s.popular_arrow_right)} />
 									</span>
 								</div>
 							</div>
@@ -96,7 +131,6 @@ const FrontPage = () => {
 					</div>
 				</div>
 			</div>
-
 			<div className={s.cons}>
 				<div className="container">
 					<div className={s.cons_wrapper}>
@@ -121,29 +155,32 @@ const FrontPage = () => {
 					</div>
 				</div>
 			</div>
-
-			<div className="contact-us">
+			<div className={s.contact}>
+				<Background settings={{ hiddenLeft: false, hiddenRight: false }} />
 				<div className="container">
-					<div className="contact-us-inner">
-						<h2 className="contact-us__title">
-                    Звяжіться з нами
-						</h2>
-						<form action="#" className="form contact-us-form">
-							<div className="input-field contact-us-field">
-								<input className="input contact-us__input" required />
-								<label htmlFor="#" className="label contact-us__label">Ваше Ім’я</label>
-							</div>
-							<div className="input-field contact-us-field">
-								<input className="input contact-us__input" required />
-								<label htmlFor="#" className="label contact-us__label">Ваше номер телефону</label>
-							</div>
-							<div className="input-field contact-us-field">
-								<textarea className="textarea contact-us__textarea"></textarea>
-								<label htmlFor="#" className="label contact-us__label--textarea">Ваш комментарій</label>
-							</div>
-							<p className="required contact-us__required">обов’язкові поля</p>
-							<button className="btn-sent btn-orange contact-us__btn" type="submit">Відправити</button>
-						</form>
+					<div className={s.contact_wrapper}>
+						<Form
+							title="Звяжіться з нами"
+							required>
+							<Input
+								type='text'
+								name='title'
+								title='Ваше Ім’я'
+								// onChange={e => dispatch(AddTileActions.handleChange(e))}
+								isRequired />
+							<Input
+								type='text'
+								name='title'
+								title='Ваше номер телефону'
+								// onChange={e => dispatch(AddTileActions.handleChange(e))}
+								isRequired />
+							<Input
+								type='text'
+								name='title'
+								title='Ваш комментарій'
+								// onChange={e => dispatch(AddTileActions.handleChange(e))}
+								isRequired />
+						</Form>
 					</div>
 				</div>
 			</div>

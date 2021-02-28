@@ -1,8 +1,7 @@
-.wrapper {
-  padding: 80px 0px;
-}
+@import './src/assets/styles/general/_mixins.scss';
+@import './src/assets/styles/general/_variables.scss';
 
-.inner {
+.wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -11,10 +10,10 @@
 .title {
   display: flex;
   justify-content: center;
-  margin-bottom: 80px;
+  margin-bottom: 40px;
   font-size: 24px;
   font-weight: 900;
-  color: #373f48;
+  color: $color1;
 
   @media (min-width: 768px) {
     font-size: 30px;
@@ -26,7 +25,7 @@
 }
 
 .form {
-  max-width: 720px;
+  max-width: 486px;
   width: 100%;
   margin: 0 auto;
   display: flex;
@@ -35,20 +34,29 @@
 }
 
 .btn {
-  display: inline-block;
-  padding: 15px 40px;
+  width: 250px;
+  min-height: 49px;
+  padding: 16px 62px;
+  margin: 0 auto;
+  border-radius: 4px;
+  box-shadow: 0px 4px 30px rgba(55, 63, 72, 0.22);
+
+  &:hover {
+    background: #ffffff;
+    color: $color1;
+  }
 }
 
 .required {
-  margin: 40px 0;
+  margin-bottom: 30px;
   font-size: 16px;
-  text-align: center;
+  text-align: left;
   color: #999999;
 
   &::before {
     content: "* ";
     font-size: 18px;
-    color: #ff8e01;
+    color: $color2;
   }
 
   @media (min-width: 1440) {

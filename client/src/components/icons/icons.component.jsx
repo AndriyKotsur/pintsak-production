@@ -13,6 +13,7 @@ import { ReactComponent as IconDelivery } from '../../assets/svg/icon-delivery.s
 import { ReactComponent as IconApproach } from '../../assets/svg/icon-approach.svg'
 import { ReactComponent as IconPrice } from '../../assets/svg/icon-price.svg'
 import { ReactComponent as IconCatalogue } from '../../assets/svg/icon-catalogue.svg'
+import { ReactComponent as IconCarousel } from '../../assets/svg/icon-carousel.svg'
 import { ReactComponent as IconCheckbox } from '../../assets/svg/icon-checkbox.svg'
 import { ReactComponent as IconDropdown } from '../../assets/svg/icon-dropdown.svg'
 import { ReactComponent as IconPlus } from '../../assets/svg/icon-plus.svg'
@@ -33,6 +34,7 @@ const SVGs = {
 	approach: IconApproach,
 	price: IconPrice,
 	catalogue: IconCatalogue,
+	carousel: IconCarousel,
 	checkbox: IconCheckbox,
 	dropdown: IconDropdown,
 	plus: IconPlus,

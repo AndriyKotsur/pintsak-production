@@ -67,6 +67,11 @@
     height: 65px;
   }
 
+  &-carousel {
+    width: 16px;
+    height: 14px;
+  }
+
   &-price {
     width: 69px;
     height: 68px;
@@ -110,11 +115,6 @@
   &.icon-product {
     width: 385px;
     height: 385px;
-  }
-
-  &.icon-arrow--carousel {
-    width: 16px;
-    height: 14px;
   }
 
   &.icon-arrow--sort {
