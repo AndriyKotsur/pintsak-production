@@ -1,0 +1,53 @@
+@import './src/assets/styles/general/_mixins.scss';
+@import './src/assets/styles/general/_variables.scss';
+
+.splide__pagination {
+  align-self: center;
+  margin: 55px 0px 0px;
+  
+  @include screen-tb() {
+    align-self: flex-start;
+    margin: 90px 0px 0px;
+  }
+  
+  &::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: $color2;
+    margin: 25px 0px 0px;
+  }
+}
+
+// &_dot {
+//   margin: 0px 28px 0px 0px;
+//   font-size: 20px;
+//   font-weight: 700;
+//   color: #ffffff;
+//   opacity: 0.25;
+//   @include transition();
+
+//   &:hover {
+//     opacity: 1;
+//     color: $color6;
+//     @include transition();
+//   }
+
+//   &:last-child {
+//     margin: 0px;
+//   }
+
+//   &.isActive {
+//     opacity: 1;
+
+//     &:hover {
+//       color: #ffffff;
+//     }
+//   }
+
+//   @include screen-l() {
+//     font-size: 24px;
+//   }
+
+// }

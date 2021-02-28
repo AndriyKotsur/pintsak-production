@@ -1,9 +1,31 @@
+@import './src/assets/styles/general/_mixins.scss';
+@import './src/assets/styles/general/_variables.scss';
+
+.light {
+  .link {
+    color: #ffffff;
+  }
+
+  .icon {
+    path {
+      fill: #ffffff;
+    }
+  }
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1.362;
+  color: $color2;
+}
+
 .list {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: 40px 30px;
+  margin-top: 36.5px;
 }
 
 .item {
@@ -23,12 +45,23 @@
   font-size: 14px;
   font-weight: 700;
   line-height: 19px;
-  color: #373f48;
+  color: $color1;
 
   &:hover {
     transition: all 0.3s ease-out;
-    color: #ffc174;
+    color: $color2;
   }
+}
+
+.download {
+  display: inline-block;
+  margin-top: 55px;
+  font-size: 14px;
+  color: $color2;
+}
+
+.icon {
+  margin-left: 7px;
 }
 
 .action {
@@ -39,11 +72,11 @@
   margin-right: 35px;
   font-size: 14px;
   font-weight: 700;
-  color: #373f48;
+  color: $color1;
 }
 
 .delete {
   font-size: 14px;
   font-weight: 700;
-  color: #373f48;
+  color: $color1;
 }

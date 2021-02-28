@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as DeleteTypeActions from 'actions/delete-type.action'
+import { Icon } from 'components'
 import s from './style.module.scss'
+import classNames from 'classnames'
 
-const Types = ({ types, settings  }) => {
+const Types = ({ types, settings, styleName  }) => {
 	const history = useHistory()
 	const dispatch = useDispatch()
 	const state = useSelector(state => state.deleteType)
@@ -20,7 +22,11 @@ const Types = ({ types, settings  }) => {
 	}, [state])
 
 	return (
-		<>
+		<div className={classNames(styleName, {[s.light]: settings.light})}>
+			{
+				settings && settings.public &&
+				<h2 className={s.title}>Види продукції</h2>
+			}
 			<ul className={s.list}>
 				{types && types.map(type => (
 					<li key={type.id} className={s.item}>
@@ -43,7 +49,13 @@ const Types = ({ types, settings  }) => {
 					</li>
 				))}
 			</ul>
-		</>
+			{
+				settings && settings.public &&
+				<a href="http://localhost:5000/download-catalogue" className={s.download}>Каталог
+					<Icon name="popular" className={classNames('icon', 'icon-download', s.icon)} />
+				</a>
+			}
+		</div>
 	)
 }
 

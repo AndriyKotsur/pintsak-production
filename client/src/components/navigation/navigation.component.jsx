@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const AsideNavigation = ({ types }) => {
+const Navigation = ({ types }) => {
 	return (
 		<div className="aside-navigation catalogue-aside-navigation">
 			<h2 className="aside-navigation__header">
@@ -22,4 +22,4 @@ const AsideNavigation = ({ types }) => {
 	)
 }
 
-export default AsideNavigation
+export default Navigation

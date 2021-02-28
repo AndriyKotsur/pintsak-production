@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import useCatalogue from './catalogue.logic'
-import { Icon, AsideNavigation } from '../../../components'
+import { Icon, Navigation } from 'components'
 
 const Catalogue = () => {
 	const {loading, tiles, types, typeTitle} = useCatalogue()
@@ -13,7 +13,7 @@ const Catalogue = () => {
 			<div className="container">
 				<div className="catalogue-inner">
 					<div className="catalogue-aside">
-						<AsideNavigation types={types} />
+						<Navigation types={types} />
 					</div>
 					<div className="catalogue-wrapper">
 						{types && typeTitle && (

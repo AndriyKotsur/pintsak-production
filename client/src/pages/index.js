@@ -1,8 +1,12 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import { COOKIES } from '../helpers'
+import { Layout } from 'components'
 import {
+	FrontPage,
 	Catalogue,
+	AboutPage,
+	LocationPage,
 	ErrorPage,
 } from './public'
 import {
@@ -51,13 +55,31 @@ const Main = () => {
 					<AddTile />
 				</AuthRoute>
 
-				<Route path='/catalogue/:type'>
-					<Catalogue/>
-				</Route>
+				<Layout>
+					<Switch>
 
-				<Route path="/">
-					<ErrorPage />
-				</Route>
+						<Route exact path='/'>
+							<FrontPage />
+						</Route>
+
+						<Route exact path='/catalogue/:type'>
+							<Catalogue />
+						</Route>
+
+						<Route exact path='/about'>
+							<AboutPage />
+						</Route>
+
+						<Route exact path='/location'>
+							<LocationPage />
+						</Route>
+
+						<Route path="/">
+							<ErrorPage />
+						</Route>
+
+					</Switch>
+				</Layout>
 
 			</Switch>
 		</Router>

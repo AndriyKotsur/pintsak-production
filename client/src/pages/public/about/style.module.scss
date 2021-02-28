@@ -1,0 +1,143 @@
+@import './src/assets/styles/general/_mixins.scss';
+@import './src/assets/styles/general/_variables.scss';
+
+.section {
+  position: relative;
+  overflow: hidden;
+}
+
+.wrapper {
+  max-width: 1090px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 30px 20px 175px;
+  overflow: hidden;
+}
+
+.background {
+  position: relative;
+  width: 100%;
+  height: 95px;
+  display: block;
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(55, 63, 72, 0.71) 0%, rgba(55, 63, 72, 0) 100%);
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.catalogue {
+  max-width: 200px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 45px;
+  padding: 15px 20px;
+  border: 2px solid $color1;
+  border-radius: 4px;
+  @include transition();
+  font-size: 20px;
+  font-weight: 900;
+  color: $color1;
+  text-align: center;
+
+  &:hover {
+    transform: translateY(-10px);
+    @include transition();
+  }
+}
+
+.block {
+  &:first-child {
+    position: relative;
+  }
+}
+
+.title {
+  margin-bottom: 45px;
+  font-size: 24px;
+  font-weight: 900;
+  color: $color2;
+  text-align: center;
+
+  @include screen-tb() {
+    font-size: 28px;
+  }
+
+  @include screen-l() {
+    font-size: 32px;
+  }
+}
+
+.text {
+  margin-bottom: 45px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 28px;
+  color: $color1;
+
+  &>span {
+    font-weight: 900;
+
+    &>b {
+      color: $color2;
+    }
+  }
+
+  @include screen-tb() {
+    font-size: 18px;
+  }
+
+  @include screen-l() {
+    font-size: 22px;
+  }
+}
+
+.list {
+  font-size: 16px;
+  font-weight: 400;
+  color: $color1;
+  counter-reset: counter-list;
+  list-style: none;
+
+  @include screen-l() {
+    font-size: 22px;
+  }
+}
+
+.item {
+  counter-increment: counter-list;
+
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
+
+  &::before {
+    content: counter(counter-list) ".";
+    margin-right: 10px;
+    font-size: 20px;
+    font-weight: 900;
+    color: $color2;
+
+    @include screen-l() {
+      font-size: 24px;
+    }
+  }
+}
+
+.link {
+  display: inline-block;
+  margin-top: 45px;
+  padding: 16px 32px;
+}

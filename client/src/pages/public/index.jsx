@@ -1,3 +1,5 @@
+export { default as FrontPage } from './front/front.page'
 export { default as Catalogue } from './catalogue/catalogue.container'
 export { default as AboutPage } from './about/about.page'
+export { default as LocationPage } from './location/location.page'
 export { default as ErrorPage } from './error/error.page'

@@ -1,0 +1,29 @@
+@import './src/assets/styles/general/_mixins.scss';
+@import './src/assets/styles/general/_variables.scss';
+
+.wrapper {
+  @include hidden();
+  position: absolute;
+  top: 7%;
+  padding: 12px 13px;
+  box-shadow: 0px 3px 20px rgba(55, 63, 72, 0.1);
+  border-radius: 4px;
+  background: #ffffff;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -15px;
+    left: 40px;
+    width: 0;
+    height: 0;
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
+    border-bottom: 15px solid #ffffff;
+  }
+}
+
+.title {
+  font-size: 12px;
+  color: #000000;
+}
