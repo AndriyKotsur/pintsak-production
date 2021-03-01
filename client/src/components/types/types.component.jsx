@@ -28,7 +28,7 @@ const Types = ({ types, settings, styleName  }) => {
 				<h2 className={s.title}>Види продукції</h2>
 			}
 			<ul className={s.list}>
-				{types && types.map(type => (
+				{types.length > 0 && types.map(type => (
 					<li key={type.id} className={s.item}>
 						<Link to="" className={s.link}>{type.title}</Link>
 						{
