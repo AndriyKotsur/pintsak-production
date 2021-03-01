@@ -7,17 +7,11 @@ const jwtInfo = {
 	secret: process.env.TOKEN_KEY,
 }
 
-const database = {
-	userName: process.env.DB_USER,
-	userPassword: process.env.DB_PASSWORD,
-	host: process.env.DB_HOST,
-	port: process.env.DB_PORT,
-	name: process.env.DB_NAME,
-}
+const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/pintsak_tiles'
 
 const mailInfo = {
 	secretKey: process.env.SENDGRID_KEY,
 	defaultEmail: process.env.SENDGRID_EMAIL,
 }
 
-module.exports = { port, jwtInfo, database, mailInfo }
+module.exports = { port, jwtInfo, mongoUri, mailInfo }

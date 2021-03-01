@@ -1,12 +1,12 @@
 {
   "name": "back",
   "version": "1.0.0",
-  "description": "node.js + postgresql",
-  "main": "server.js",
+  "description": "node.js",
+  "main": "index.js",
   "scripts": {
-    "server": "node server.js"
+    "start": "node index.js"
   },
-  "author": "myros96",
+  "author": "myroslavtokar AndriyKotsur",
   "license": "ISC",
   "dependencies": {
     "@sendgrid/mail": "^7.4.2",
@@ -16,10 +16,9 @@
     "express": "^4.17.1",
     "helmet": "^4.1.1",
     "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.15",
     "morgan": "^1.10.0",
-    "multer": "^1.4.2",
-    "pg": "^8.2.1",
-    "uuidv4": "^6.0.9"
+    "multer": "^1.4.2"
   },
   "devDependencies": {
     "eslint": "^7.16.0",

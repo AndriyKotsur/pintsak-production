@@ -5,7 +5,7 @@ const request = async function ({ headers, options = true }) {
 	const authToken = COOKIES.getAuthToken() || ''
 	console.log(authToken);
 	const client = axios.create({
-		baseURL: 'http://localhost:5000',
+		baseURL: 'http://localhost:5000/v1',
 		headers: {
 			...headers,
 			Authorization: 'Bearer ' + authToken,
@@ -120,17 +120,18 @@ const updateTile = async ( id, formData ) => {
 	})
 }
 
-const addType = async ({ title }) => {
+const addType = async ({ title, url }) => {
 	return request ({
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 		},
 		options: {
-			url: '/admin/type/add',
+			url: '/admin/type',
 			method: 'POST',
 			data: {
 				title,
+				url
 			},
 		},
 	})
@@ -143,7 +144,7 @@ const addTile = async formData => {
 			'Content-Type': 'multipart/form-data',
 		},
 		options: {
-			url: '/admin/tile/add',
+			url: '/admin/tile',
 			method: 'POST',
 			data: formData,
 		},
