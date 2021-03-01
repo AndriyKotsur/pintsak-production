@@ -72,7 +72,7 @@ router.get('/tiles', auth, async (_, res) => {
 	try {
 		const tiles = await Tile.find()
 
-		res.status(200).json({ success: true, tiles })
+		res.status(200).json({ success: true, data: tiles })
 	} catch (err) {
 		res.status(400).json({ success: false, message: err.message })
 	}

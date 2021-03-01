@@ -10,7 +10,7 @@ router.get('/', async (_, res) => {
 	try {
 		const types = await Type.find()
 
-		res.status(200).json({ success: true, types })
+		res.status(200).json({ success: true, data: types })
 	} catch (err) {
 		res.status(404).json({ success: false, message: 'Not found' })
 	}
@@ -58,7 +58,7 @@ router.get('/tile/:id', async (req, res) => {
 
 		const tile = await Tile.findById(id).populate('type')
 
-		res.status(200).json({ success: true, tile })
+		res.status(200).json({ success: true, data: tile })
 	} catch (err) {
 		res.status(404).json({ success: false, message: err.message })
 	}

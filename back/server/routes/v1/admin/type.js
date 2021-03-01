@@ -12,7 +12,7 @@ router.get('/:id', auth, async (req, res) => {
 		const type = await Type.findById(id)
 		if (!type) return res.status(404).json({ success: true, message: 'Type not found' })
 
-		res.status(200).json({ success: true, type })
+		res.status(200).json({ success: true, data: type })
 	} catch (err) {
 		res.status(404).json({ success: false, message: err.message })
 	}

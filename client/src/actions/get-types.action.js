@@ -15,10 +15,12 @@ export const getTypes = () => {
 		})
 		try {
 			const response = await HTTP.getTypes()
-			return dispatch({
-				type: GET_TYPES_SUCCESS,
-				payload: response,
-			})
+			if (response.success)
+				return dispatch({
+					type: GET_TYPES_SUCCESS,
+					payload: response.data,
+				})
+			else throw new Error()
 		} catch (err) {
 			return dispatch({
 				type: GET_TYPES_ERROR,
