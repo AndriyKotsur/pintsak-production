@@ -22,7 +22,7 @@ const Types = ({ types, settings, styleName  }) => {
 	}, [state])
 
 	return (
-		<div className={classNames(styleName, {[s.light]: settings.light})}>
+		<div className={classNames(styleName, {[s.light]: settings.light, [s.mobile]: settings.mobile})}>
 			{
 				settings && settings.public &&
 				<h2 className={s.title}>Види продукції</h2>

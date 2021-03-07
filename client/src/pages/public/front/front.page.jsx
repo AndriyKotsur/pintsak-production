@@ -22,6 +22,7 @@ const hero = {
 	width: 450,
 	arrows: false,
 	pagination: false,
+	autoplay: true,
 	breakpoints: {
 		1024: {
 			width: 325,
@@ -31,6 +32,7 @@ const hero = {
 		},
 	},
 }
+
 const heroControls = {
 	type: 'slide',
 	rewind: true,
@@ -45,7 +47,6 @@ const heroControls = {
 const FrontPage = () => {
 	const dispatch = useDispatch()
 	const types = useSelector(types => types.getTypes)
-
 	const heroRef = useRef()
 	const heroControlsRef = useRef()
 

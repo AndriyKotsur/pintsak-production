@@ -140,11 +140,6 @@
       height: 255px;
     }
 
-    // @include screen-l() {
-    //   width: 400px;
-    //   height: 300px;
-    // }
-
     @include screen-xl() {
       width: 450px;
       height: 360px;
@@ -152,10 +147,13 @@
   }
 
   &_controls {
+    position: relative;
+    right: -14px;
     align-self: center;
     margin-top: 55px;
 
     @include screen-tb() {
+      right: 0;
       align-self: flex-start;
       margin-top: 90px;
     }
@@ -163,7 +161,7 @@
     &::after {
       content: "";
       display: block;
-      width: 100%;
+      width: 82%;
       height: 2px;
       margin-top: 25px;
       background: $color2;

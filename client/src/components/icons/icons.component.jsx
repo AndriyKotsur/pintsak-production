@@ -19,6 +19,7 @@ import { ReactComponent as IconDropdown } from '../../assets/svg/icon-dropdown.s
 import { ReactComponent as IconPlus } from '../../assets/svg/icon-plus.svg'
 import { ReactComponent as IconMinus } from '../../assets/svg/icon-minus.svg'
 import { ReactComponent as IconCart } from '../../assets/svg/icon-cart.svg'
+import { ReactComponent as IconArrow } from '../../assets/svg/icon-arrow.svg'
 
 const SVGs = {
 	logo: IconLogo,
@@ -40,6 +41,7 @@ const SVGs = {
 	plus: IconPlus,
 	minus: IconMinus,
 	cart: IconCart,
+	arrow: IconArrow,
 }
 
 const Icon = ({ name, ...props }) => {

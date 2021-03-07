@@ -13,6 +13,36 @@
   }
 }
 
+.mobile {
+  position: fixed;
+  top: 110px;
+  width: 200px;
+  margin: 0;
+  z-index: 20;
+
+  .list {
+    margin-top: 25px;
+  }
+
+  .link {
+    color: #ffffff;
+
+    &:not(:first-child) {
+      margin-top: 25px;
+    }
+  }
+
+  .icon {
+    path {
+      fill: #ffffff;
+    }
+  }
+
+  .download {
+    margin-top: 30px;
+  }
+}
+
 .title {
   font-size: 16px;
   font-weight: 900;

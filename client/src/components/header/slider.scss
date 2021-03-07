@@ -1,0 +1,12 @@
+@import './src/assets/styles/general/_mixins.scss';
+@import './src/assets/styles/general/_variables.scss';
+
+#splide02-list {
+
+  li {
+    &.is-active>span {
+      opacity: 1;
+      color: $color6;
+    }
+  }
+}

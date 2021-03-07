@@ -96,18 +96,12 @@
   display: block;
   width: 27px;
   height: 18px;
-  background: $color1;
   margin-right: 10px;
-  z-index: 20;
+  z-index: 25;
   cursor: pointer;
 
   @include screen-l() {
     @include hidden();
-  }
-
-  &.mobile {
-    display: block;
-    visibility: visible;
   }
 
   &_btn {
@@ -116,7 +110,6 @@
     left: 0;
     width: 100%;
     height: 2px;
-    transform: translateX(-50%);
     border-radius: 2px;
     background-color: $color2;
   }
@@ -130,6 +123,7 @@
     height: 2px;
     border-radius: 2px;
     background: $color2;
+    @include transition();
   }
 
   &::after {
@@ -146,14 +140,16 @@
 
   &.mobile::before {
     height: 3px;
-    background: $color4;
     transform: rotate(-45deg) translate(-8px, 2px);
+    background: $color4;
+    @include transition()
   }
 
   &.mobile::after {
     height: 3px;
     transform: rotate(45deg) translate(-8px, -3px);
     background: $color4;
+    @include transition()
   }
 }
 
@@ -168,7 +164,6 @@
   }
 
   &_link {
-    margin-right: 40px;
     font-weight: 700;
     color: #ffffff;
     @include transition();
@@ -176,39 +171,6 @@
     &:hover {
       color: $color6;
       @include transition();
-    }
-
-    &:first-child {
-      @include hidden();
-
-      @include screen-tb() {
-        visibility: visible;
-        display: block;
-        margin-right: 120px;
-      }
-    }
-
-    &:last-child {
-      margin: 0px;
-    }
-
-    @include screen-l() {
-      margin-right: 90px;
-    }
-  }
-
-  &_phone {
-    position: relative;
-    @include hidden();
-
-    &::hover+.tooltip {
-      visibility: visible;
-      display: block;
-    }
-
-    @include screen-tb() {
-      visibility: visible;
-      display: inline-block;
     }
   }
 
@@ -225,50 +187,6 @@
 .action {
   display: flex;
   align-items: center;
-
-  &_cart {
-    position: relative;
-    margin: 0px 30px -25px 0px;
-    padding: 0px 0px 25px;
-    color: #ffffff;
-
-    &:hover {
-      .cart-dropdown {
-        display: block;
-        visibility: visible;
-      }
-    }
-  }
-
-  &_lang {
-    position: relative;
-    margin: 0px 0px -20px;
-    padding: 0px 0px 20px;
-  }
-
-  &_text {
-    font-size: 16px;
-    color: #ffffff;
-
-    @include screen-tb() {
-      font-size: 18px;
-    }
-  }
-
-  &_icon {
-    fill: $color2;
-    margin-right: 12px;
-    @include transition();
-
-    &:hover {
-      fill: $color6;
-      @include transition();
-    }
-
-    @media (max-width: 768px) {
-      margin-right: 6px;
-    }
-  }
 }
 
 .menu {
@@ -277,10 +195,10 @@
   left: -220px;
   bottom: 0;
   width: 220px;
-  background: $color1;
   padding: 15px;
-  z-index: 20;
+  background: $color1;
   transition: right 0.25s linear;
+  z-index: 20;
 
   &.mobile {
     left: 0;
@@ -304,34 +222,3 @@
     transition: right 0.25s linear;
   }
 }
-
-//   &__aside {
-//     @include hidden();
-//     width: 200px;
-//     position: fixed;
-//     top: 110px;
-//     margin: 0px;
-//     z-index: 20;
-
-//     &.isMobile {
-//       display: block;
-//       visibility: visible;
-//     }
-
-//     &>.aside-navigation__list {
-//       margin: 25px 0px 0px;
-
-//       &>.aside-navigation__link {
-//         margin: 25px 0px 0px;
-
-//         &:first-child {
-//           margin: 0px;
-//         }
-//       }
-//     }
-
-//     &>.aside-navigation__download {
-//       margin: 30px 0px 0px;
-//     }
-//   }
-// }
