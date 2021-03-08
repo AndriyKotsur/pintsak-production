@@ -21,9 +21,9 @@ const Tiles = ({ tiles, settings }) => {
 
 	return (
 		<ul className={s.list}>
-			{tiles && tiles.map(tile => (
+			{tiles.length > 0 && tiles.map(tile => (
 				<li key={tile.id} className={s.item}>
-					<Link to={`/tiles/${tile.id}`} className={s.link}>
+					<Link to={`/tiles/${tile._id}`} className={s.link}>
 						<h3 className={s.title}>{tile.title}</h3>
 						<div className={s.wrapper}>
 							<picture className={s.image}>
@@ -41,12 +41,12 @@ const Tiles = ({ tiles, settings }) => {
 						settings && settings.edit ?
 							<div className={s.action}>
 								<button
-									onClick={() => history.push(`/admin/edit/tile/${tile.id}`)}
+									onClick={() => history.push(`/admin/edit/tile/${tile._id}`)}
 									className={s.edit}>
 										Редагувати
 								</button>
 								<button
-									onClick={() => {deleteTile(tile.id)}}
+									onClick={() => {deleteTile(tile._id)}}
 									className={s.delete}>
 										Видалити
 								</button>

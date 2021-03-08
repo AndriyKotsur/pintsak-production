@@ -31,7 +31,7 @@ router.post('/', auth, uploadImages, async (req, res) => {
 			type,
 			weight_per_meter,
 			pieces_per_meter,
-			color_price,
+			color_price: JSON.parse(color_price),
 			width,
 			height,
 			thickness,
@@ -62,13 +62,12 @@ router.put('/:id', auth, async (req, res) => {
 			const images = []
 			for (let i = 0; i < req.files.length; i++)
 				images.push('http://localhost:5000' + (req.files[i].destination).slice(1) + '/' + req.files[i].filename)
-
 			await tile.update({
 				title,
 				type,
 				weight_per_meter,
 				pieces_per_meter,
-				color_price,
+				color_price: JSON.parse(color_price),
 				width,
 				height,
 				thickness,

@@ -22,6 +22,11 @@ const Header = () => {
 		return () => dispatch(GetTypesActions.clear())
 	}, [])
 
+	useEffect(() => {
+		isMobile && document.body.classList.add(s.hidden)
+		!isMobile && document.body.classList.remove(s.hidden)
+	}, [isMobile])
+
 	return(
 		<header className={s.header}>
 			<div className={classNames('container')}>

@@ -22,7 +22,7 @@ export const getType = id => {
 			const response = await HTTP.getType(id)
 			return dispatch({
 				type: GET_TYPE_SUCCESS,
-				payload: response,
+				payload: response.data,
 			})
 		} catch (err) {
 			return dispatch({

@@ -24,7 +24,7 @@ export const getTile = id => {
 			const response = await HTTP.getTile(id)
 			return dispatch({
 				type: GET_TILE_SUCCESS,
-				payload: response,
+				payload: response.data,
 			})
 		} catch (err) {
 			return dispatch({
@@ -43,7 +43,7 @@ export const getTileTypes = () => {
 			const response = await HTTP.getTypes()
 			return dispatch({
 				type: GET_TILE_TYPES_SUCCESS,
-				payload: response,
+				payload: response.data,
 			})
 		} catch (err) {
 			return dispatch({
@@ -82,8 +82,9 @@ export const editTile = (id, {
 				if (item.title === type)
 					formData.append('folderName', item.url)
 			})
+
 			formData.append('title', title)
-			formData.append('type', type)
+			formData.append('type', type._id)
 			formData.append('width', width)
 			formData.append('height', height)
 			formData.append('thickness', thickness)
@@ -91,6 +92,7 @@ export const editTile = (id, {
 			formData.append('pieces_per_meter', pieces_per_meter)
 			formData.append('is_popular', is_popular)
 			formData.append('is_available', is_available)
+
 			const color_price = {
 				grey,
 				yellow,
@@ -99,6 +101,7 @@ export const editTile = (id, {
 				brown,
 				black,
 			}
+
 			formData.append('color_price', JSON.stringify(color_price))
 			for (let i = 0; i < images.length; i++)
 				formData.append('images', images[i])
@@ -120,7 +123,7 @@ export const handleChange = event => {
 		return {
 			type: CHANGE_STATE,
 			form: {
-				[event.target.name]: event.target.value ? event.target.value : event.target.checked,
+				[event.target.name]:  event.target.checked ?  event.target.checked : event.target.value,
 			},
 		}
 	} else {

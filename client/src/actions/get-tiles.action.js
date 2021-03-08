@@ -17,7 +17,7 @@ export const getTiles = () => {
 			const response = await HTTP.getAllTiles()
 			return dispatch({
 				type: GET_TILES_SUCCESS,
-				payload: response,
+				payload: response.data,
 			})
 		} catch (err) {
 			return dispatch({

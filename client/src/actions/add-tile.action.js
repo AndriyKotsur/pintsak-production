@@ -21,7 +21,7 @@ export const getTileTypes = () => {
 			const response = await HTTP.getTypes()
 			return dispatch({
 				type: GET_TILE_TYPES_SUCCESS,
-				payload: response,
+				payload: response.data,
 			})
 		} catch (err) {
 			return dispatch({
@@ -78,7 +78,9 @@ export const addTile = ({
 				brown,
 				black,
 			}
+
 			formData.append('color_price', JSON.stringify(color_price))
+
 			for (let i = 0; i < images.length; i++)
 				formData.append('images', images[i])
 
@@ -99,7 +101,7 @@ export const handleChange = event => {
 		return {
 			type: CHANGE_STATE,
 			form: {
-				[event.target.name]: event.target.value ? event.target.value : event.target.checked,
+				[event.target.name]: event.target.checked ? event.target.checked : event.target.value,
 			},
 		}
 	} else {

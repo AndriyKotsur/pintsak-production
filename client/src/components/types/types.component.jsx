@@ -29,18 +29,18 @@ const Types = ({ types, settings, styleName  }) => {
 			}
 			<ul className={s.list}>
 				{types.length > 0 && types.map(type => (
-					<li key={type.id} className={s.item}>
+					<li key={type._id} className={s.item}>
 						<Link to="" className={s.link}>{type.title}</Link>
 						{
 							settings && settings.edit &&
 							<div className={s.action}>
 								<button
-									onClick={() => history.push(`/admin/edit/type/${type.id}`)}
+									onClick={() => history.push(`/admin/edit/type/${type._id}`)}
 									className={s.edit}>
 											Редагувати
 								</button>
 								<button
-									onClick={() => {deleteType(type.id)}}
+									onClick={() => {deleteType(type._id)}}
 									className={s.delete}>
 											Видалити
 								</button>
