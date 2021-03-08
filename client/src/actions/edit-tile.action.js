@@ -77,39 +77,40 @@ export const editTile = (id, {
 			type: EDIT_TILE_LOADING,
 		})
 		try {
-			const formData = new FormData()
-			types.forEach(item => {
-				if (item.title === type)
-					formData.append('folderName', item.url)
-			})
+			const color_price = { grey, yellow, orange, red, brown, black }
 
-			formData.append('title', title)
-			formData.append('type', type._id)
-			formData.append('width', width)
-			formData.append('height', height)
-			formData.append('thickness', thickness)
-			formData.append('weight_per_meter', weight_per_meter)
-			formData.append('pieces_per_meter', pieces_per_meter)
-			formData.append('is_popular', is_popular)
-			formData.append('is_available', is_available)
-
-			const color_price = {
-				grey,
-				yellow,
-				orange,
-				red,
-				brown,
-				black,
+			const data = {
+				title,
+				type,
+				width,
+				height,
+				thickness,
+				weight_per_meter,
+				pieces_per_meter,
+				color_price,
+				is_popular,
+				is_available,
 			}
 
-			formData.append('color_price', JSON.stringify(color_price))
-			for (let i = 0; i < images.length; i++)
-				formData.append('images', images[i])
+			const tile = await HTTP.updateTile(id, data)
+			if (tile.success) {
+				const formData = new FormData()
+				const folderType = types.find(el => el._id === type)
+				formData.append('folderName', folderType.url)
+				for (let i = 0; i < images.length; i++)
+					formData.append('images', images[i])
+				formData.append('url', tile.url)
 
-			await HTTP.updateTile(id, formData)
-			return dispatch({
-				type: EDIT_TILE_SUCCESS,
-			})
+				await HTTP.uploadImages({ id: tile._id, formData })
+				
+				return dispatch({
+					type: EDIT_TILE_SUCCESS,
+				})
+			} else {
+				return dispatch({
+					type: EDIT_TILE_ERROR,
+				})
+			}
 		} catch (err) {
 			return dispatch({
 				type: EDIT_TILE_ERROR,

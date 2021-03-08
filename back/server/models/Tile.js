@@ -20,10 +20,7 @@ const TileSchema = new Schema({
 		unique: true,
 		default: Math.random().toString(36).slice(-8),
 	},
-	images: [{
-		type: Schema.Types.String,
-		required: true,
-	}],
+	images: [Schema.Types.String],
 	width: {
 		type: Schema.Types.Number,
 		required: true,

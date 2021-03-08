@@ -3,7 +3,7 @@ const fs = require('fs')
 const path = require('path')
 
 const storage = multer.diskStorage({
-	destination: (req, file, cb) => {
+	destination: (req, _, cb) => {
 		let folder
 		if (req.body.folderName && req.body.url)
 			folder = `./public/images/${req.body.folderName}/${req.body.url}`
@@ -27,7 +27,7 @@ const uploadFile = multer ({
 	limits: {
 		fileSize: 50000000,
 	},
-	fileFilter(req, file, cb) {
+	fileFilter(_, file, cb) {
 		if (!file.originalname.match(/\.(doc|docx|pdf|xls|xlsx)$/))
 			return cb(new Error('Please upload a file'))
 
@@ -40,7 +40,7 @@ const uploadImages = multer ({
 	limits: {
 		fileSize: 2000000,
 	},
-	fileFilter(req, file, cb) {
+	fileFilter(_, file, cb) {
 		if (!file.originalname.match(/\.(jpg|jpeg|png)$/))
 			return cb(new Error('Please upload an image'))
 
