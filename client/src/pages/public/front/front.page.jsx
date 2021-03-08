@@ -171,14 +171,14 @@ const FrontPage = () => {
 								isRequired />
 							<Input
 								type='text'
-								name='title'
+								name='phone'
 								title='Ваше номер телефону'
 								// onChange={e => dispatch(AddTileActions.handleChange(e))}
 								isRequired />
 							<Input
 								type='text'
-								name='title'
-								title='Ваш комментарій'
+								name='message'
+								title='Ваш комментар'
 								// onChange={e => dispatch(AddTileActions.handleChange(e))}
 								isRequired />
 						</Form>

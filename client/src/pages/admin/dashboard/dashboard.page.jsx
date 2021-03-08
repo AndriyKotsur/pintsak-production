@@ -12,8 +12,8 @@ import s from './style.module.scss'
 
 const Dashboard = () => {
 	const dispatch = useDispatch()
-	const tiles = useSelector(tiles => tiles.getTiles)
 	const types = useSelector(types => types.getTypes)
+	const tiles = useSelector(tiles => tiles.getTiles)
 	const [activeSwitch, setActiveSwitch] = useState('types')
 
 	const switcher = useMemo(() => {

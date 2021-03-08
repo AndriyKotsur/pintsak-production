@@ -1,70 +1,51 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import useCatalogue from './catalogue.logic'
-import { Icon, Navigation } from 'components'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import * as GetTilesActions from 'actions/get-tiles.action'
+import * as GetTypesActions from 'actions/get-types.action'
 
-const Catalogue = () => {
-	const {loading, tiles, types, typeTitle} = useCatalogue()
-	const [sortByWidth, setSortByWidth] = useState(false)
-	const [sortByPrice, setSortByPrice] = useState(false)
+import { Types, Tiles } from 'components'
+import Sort from './components/sort/sort.component'
+import Pagination from './components/pagination/pagination.component'
+
+import classNames from 'classnames'
+import s from './style.module.scss'
+
+const CataloguePage = () => {
+	const dispatch = useDispatch()
+	const types = useSelector(types => types.getTypes)
+	const tiles = useSelector(tiles => tiles.getTiles)
+
+	useEffect(() => {
+		dispatch(GetTypesActions.getTypes())
+		return () => dispatch(GetTypesActions.clear())
+	}, [])
+
+	useEffect(() => {
+		dispatch(GetTilesActions.getTiles())
+		return () => dispatch(GetTilesActions.clear())
+	}, [])
 
 	return (
-		<div className="catalogue">
+		<div className={s.section}>
 			<div className="container">
-				<div className="catalogue-inner">
-					<div className="catalogue-aside">
-						<Navigation types={types} />
+				<div className={s.wrapper}>
+					<div className={s.navigation}>
+						<Types
+							types={types.types}
+							settings={{ public: true }}
+							styleName={s.hero_navigation} />
 					</div>
-					<div className="catalogue-wrapper">
-						{types && typeTitle && (
-							<div className="catalogue-header">
-								<h1 className="catalogue__title">{typeTitle}</h1>
-								<div className="catalogue-sort">
-									<span className="catalogue-sort__title">Сортування:</span>
-									<div className="catalogue-sort__block">
-										<Link to={`?sort=width&order=${sortByWidth ? 'ASC' : 'DESC'}`} className="catalogue-sort__size" onClick={() => setSortByWidth(!sortByWidth)} >
-                      за розміром
-											<Icon name='arrowSort' className={`icon icon-arrow--sort catalogue-sort__icon ${sortByWidth ? 'isActive' : ''}`} />
-										</Link>
-										<Link to={`?sort=price&order=${sortByPrice ? 'ASC' : 'DESC'}`} className="catalogue-sort__price" onClick={() => setSortByPrice(!sortByPrice)}>
-                      за ціною
-											<Icon name='arrowSort' className={`icon icon-arrow--sort catalogue-sort__icon ${sortByPrice ? 'isActive' : ''}`} />
-										</Link>
-									</div>
-								</div>
-							</div>
-						)}
-						{tiles && (
-							<div className="catalogue-block">
-								{/* <TileItem tiles={tiles} /> */}
-							</div>
-						)}
-						<div className="catalogue-pagination">
-							<a href="#" className="catalogue-pagination__btn">
-								<svg className="icon icon-refresh pagination-icon__refresh">
-									<use href="images/icons/sprite.svg#refresh"></use>
-								</svg>
-                Показати ще 12 товарів
-							</a>
-							<div className="catalogue-pagination-block">
-								<a href="#" className="catalogue-pagination__step">
-									<svg className="icon icon-arrow--pagination pagination-icon__left">
-										<use href="images/icons/sprite.svg#arrow"></use>
-									</svg>
-								</a>
-								<div className="catalogue-pagination-pages">
-									<a href="#" className="catalogue-pagination__link">1</a>
-									<a href="#" className="catalogue-pagination__link">2</a>
-									<a href="#" className="catalogue-pagination__link">3</a>
-									<a href="#" className="catalogue-pagination__link">4</a>
-								</div>
-								<a href="#" className="catalogue-pagination__step">
-									<svg className="icon icon-arrow--pagination pagination-icon__right">
-										<use href="images/icons/sprite.svg#arrow"></use>
-									</svg>
-								</a>
-							</div>
+					<div className={s.catalogue}>
+						<div className={s.sort}>
+							<h1 className={s.title}>Усі товари</h1>
+							<Sort />
 						</div>
+						<div className={s.products}>
+							<Tiles
+								tiles={tiles.tiles}
+								settings={{ public: true }}/>
+						</div>
+						<Pagination />
 					</div>
 				</div>
 			</div>
@@ -72,4 +53,4 @@ const Catalogue = () => {
 	)
 }
 
-export default Catalogue
+export default CataloguePage

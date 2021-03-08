@@ -57,6 +57,22 @@
     }
   }
 
+  &-sort {
+    margin-left: 10px;
+    width: 11px;
+    height: 7px;
+  }
+
+  &-refresh {
+    width: 23px;
+    height: 23px;
+  }
+
+  &-pagination {
+    width: 16px;
+    height: 14px;
+  }
+
   &-delivery {
     width: 76px;
     height: 51px;
@@ -110,22 +126,6 @@
   &.icon-product {
     width: 385px;
     height: 385px;
-  }
-
-  &.icon-arrow--sort {
-    margin-left: 10px;
-    width: 11px;
-    height: 7px;
-  }
-
-  &.icon-arrow--pagination {
-    width: 16px;
-    height: 14px;
-  }
-
-  &.icon-refresh {
-    width: 23px;
-    height: 23px;
   }
 
   &.icon-request {

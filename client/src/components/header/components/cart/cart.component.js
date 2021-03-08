@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Icon } from 'components'
+
 import s from './style.module.scss'
 import classNames from 'classnames'
 

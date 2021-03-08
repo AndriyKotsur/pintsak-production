@@ -4,7 +4,8 @@ import { COOKIES } from '../helpers'
 import { Layout } from 'components'
 import {
 	FrontPage,
-	Catalogue,
+	CataloguePage,
+	OrderPage,
 	AboutPage,
 	LocationPage,
 	ErrorPage,
@@ -62,8 +63,12 @@ const Main = () => {
 							<FrontPage />
 						</Route>
 
-						<Route exact path='/catalogue/:type'>
-							<Catalogue />
+						<Route exact path='/catalogue'>
+							<CataloguePage />
+						</Route>
+
+						<Route exact path='/order'>
+							<OrderPage />
 						</Route>
 
 						<Route exact path='/about'>
