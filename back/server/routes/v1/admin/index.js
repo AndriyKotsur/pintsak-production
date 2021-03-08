@@ -5,7 +5,7 @@ const router = express.Router()
 const { uploadFile, removeFolder} = require('../../../middlewares/upload')
 const auth = require('../../../middlewares/auth')
 const { prepareToken } = require('../../../services/jwt')
-const { Admin, Tile } = require('../../../models')
+const { Admin } = require('../../../models')
 
 const tileRouter = require('./tile')
 const typeRouter = require('./type')

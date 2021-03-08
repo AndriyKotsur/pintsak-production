@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
-import { COOKIES } from '../helpers'
+import { COOKIES } from 'helpers'
 import { Layout } from 'components'
 import {
 	FrontPage,

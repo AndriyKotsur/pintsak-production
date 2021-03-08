@@ -3,7 +3,6 @@ import { COOKIES } from './'
 
 const request = async function ({ headers, options = true }) {
 	const authToken = COOKIES.getAuthToken() || ''
-	console.log(authToken)
 	const client = axios.create({
 		baseURL: 'http://localhost:5000/v1',
 		headers: {
