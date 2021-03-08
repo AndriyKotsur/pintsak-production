@@ -5,6 +5,7 @@ import { Layout } from 'components'
 import {
 	FrontPage,
 	CataloguePage,
+	ProductPage,
 	OrderPage,
 	AboutPage,
 	LocationPage,
@@ -65,6 +66,10 @@ const Main = () => {
 
 						<Route exact path='/catalogue'>
 							<CataloguePage />
+						</Route>
+
+						<Route exact path='/catalogue/:id'>
+							<ProductPage />
 						</Route>
 
 						<Route exact path='/order'>

@@ -5,7 +5,7 @@ import * as GetTypesActions from 'actions/get-types.action'
 
 import { Icon, Form, Input, Background } from 'components'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
-import { Types } from 'components'
+import { Types, Carousel } from 'components'
 
 import s from './style.module.scss'
 import './slider.scss'
@@ -114,21 +114,11 @@ const FrontPage = () => {
 			<div className={s.popular}>
 				<div className="container">
 					<div className={s.popular_wrapper}>
-						<Types types={types.types} settings={{ public: true }} styleName={s.popular_navigation} />
-						<div className={s.popular_carousel}>
-							<div className={s.popular_header}>
-								<h2 className={s.popular_title}>Популярні товари</h2>
-								<div className={s.popular_controls}>
-									<span className={s.popular_step}>
-										<Icon name="carousel" className={classNames('icon', 'icon-carousel', s.popular_arrow_left)} />
-									</span>
-									<span className={s.popular_step}>
-										<Icon name="carousel" className={classNames('icon', 'icon-carousel', s.popular_arrow_right)} />
-									</span>
-								</div>
-							</div>
-							<div className={s.popular_block}></div>
-						</div>
+						<Types
+							types={types.types}
+							settings={{ public: true }}
+							styleName={s.popular_navigation} />
+						<Carousel />
 					</div>
 				</div>
 			</div>

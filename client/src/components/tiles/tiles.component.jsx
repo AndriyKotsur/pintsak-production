@@ -23,7 +23,7 @@ const Tiles = ({ tiles, settings }) => {
 		<ul className={s.list}>
 			{tiles.length > 0 && tiles.map(tile => (
 				<li key={tile.id} className={s.item}>
-					<Link to={`/tiles/${tile._id}`} className={s.link}>
+					<Link to={`/catalogue/${tile._id}`} className={s.link}>
 						<h3 className={s.title}>{tile.title}</h3>
 						<div className={s.wrapper}>
 							<picture className={s.image}>

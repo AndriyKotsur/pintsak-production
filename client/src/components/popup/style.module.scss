@@ -1,0 +1,53 @@
+.popup {
+  position: fixed;
+  top: -100%;
+  left: 0;
+  right: 0;
+  min-height: 100px;
+  display: flex;
+  background: $color5;
+  @include transition();
+  z-index: 25;
+
+  &.isActive {
+    top: 0;
+  }
+
+  &.isError {
+    background: $color7;
+  }
+
+  &-message {
+    max-width: 730px;
+    width: 100%;
+    margin: 0px auto;
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+    text-align: center;
+
+    &__title {
+      font-size: 16px;
+      font-weight: 900;
+      line-height: 28px;
+      color: #ffffff;
+
+      @include screen-tb() {
+        font-size: 18px;
+        line-height: 30px;
+      }
+
+      @include screen-l() {
+        font-size: 20px;
+        line-height: 32px;
+      }
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+  }
+}
