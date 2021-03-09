@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Icon, Carousel } from 'components'
+import { Icon, Counter, Carousel } from 'components'
 import Breadcrumbs from './components/breadcrumbs/breadcrumbs.component'
 import Table from './components/table/table.component'
 
@@ -35,16 +35,7 @@ const ProductPage = () => {
 							<div className={s.product_wrapper}>
 								<h1 className={s.product_title}>Коврова</h1>
 								<p className={s.product_price}>190,<sup> 00 грн</sup></p>
-								<div className={s.product_counter}>
-									<button className={s.product_remove}>
-										<Icon name='minus' className='icon icon-minus' />
-									</button>
-									<input type="number" className={s.product_count} min="1" value="1" />
-									<button className={s.product_add}>
-										<Icon name='plus' className='icon icon-plus' />
-									</button>
-									<span className={s.product_size}>м<sup>2</sup></span>
-								</div>
+								<Counter />
 								<Link to="/order" className={classNames('btn-green', 'btn-cart', s.product_btn)}>
 									<Icon name='cart' className='icon icon-cart' />
                   В кошик

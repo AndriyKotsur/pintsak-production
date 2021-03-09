@@ -116,43 +116,6 @@
     }
   }
 
-  &_size {
-    position: absolute;
-    left: 100%;
-    margin-left: 10px;
-    font-size: 18px;
-    font-weight: 900;
-
-    @include screen-l() {
-      margin-left: 15px;
-      font-size: 24px;
-    }
-  }
-
-  &_counter {
-    position: relative;
-    max-width: 175px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 24px;
-  }
-
-  &_remove {
-    padding: 11px 13px;
-  }
-
-  &_add {
-    padding: 11px 13px;
-  }
-
-  &_count {
-    max-width: 75px;
-    font-size: 18px;
-    padding: 10px 0;
-  }
-
   &_btn {
     max-width: 223px;
     display: block;

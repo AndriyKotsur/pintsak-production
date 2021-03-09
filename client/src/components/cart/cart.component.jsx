@@ -1,144 +1,61 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { Icon, Counter } from 'components'
+
+import classNames from 'classnames'
+import s from './style.module.scss'
 
 const Cart = () => {
 	return (
-		<div className="cart">
-			<div className="cart-block">
-				<div className="cart-header">
-					<h2 className="cart-header__title">Товари в кошику</h2>
-					<button className="cart-header__close" type="button">
-						<svg className="icon icon-close--big">
-							<use href="images/icons/sprite.svg#close"></use>
-						</svg>
+		<div className={s.section}>
+			<div className={s.wrapper}>
+				<div className={s.head}>
+					<h2 className={s.head_title}>Товари в кошику</h2>
+					<button className={s.head_close} type="button">
+						<Icon name="close" className="icon icon-close--big" />
 					</button>
 				</div>
-				<div className="cart-description">
-					<span className="cart-description__item">Кількість, м<sup>2</sup></span>
-					<span className="cart-description__item">Ціна, грн</span>
-					<span className="cart-description__item">Сума, грн</span>
+				<div className={s.description}>
+					<span className={s.description_item}>Кількість, м<sup>2</sup></span>
+					<span className={s.description_item}>Ціна, грн</span>
+					<span className={s.description_item}>Сума, грн</span>
 				</div>
-				<div className="cart-content">
-					<div className="cart-item">
-						<div className="cart-item__product">
-							<button className="cart-item__close" type="button">
-								<svg className="icon icon-close-small">
-									<use href="images/icons/sprite.svg#close"></use>
-								</svg>
+				<div className={s.list}>
+					<div className={s.item}>
+						<div className={s.item_wrapper}>
+							<button className={s.item_close} type="button">
+								<Icon name="close" className="icon icon-close--small" />
 							</button>
-							<a href="#" className="cart-item__image">
-								<img src="images/product-tile-rome.png" alt="Product image" />
-							</a>
-							<div className="cart-item__link">
-								<a href="#" className="cart-item__type">Дорожні блоки та плити</a>
-								<a href="#" className="cart-item__title">Бордюр парковий поворотний</a>
+							<picture className={s.item_image}>
+								<img src="" alt="Product image" />
+							</picture>
+							<div className={s.item_text}>
+								<Link to="" className={s.item_type}>Дорожні блоки та плити</Link>
+								<Link to="" className={s.item_title}>Бордюр парковий поворотний</Link>
 							</div>
 						</div>
-						<div className="cart-item__total">
-							<div className="calc cart-calc">
-								<button className="calc__remove cart-calc__remove">
-									<svg className="icon icon-minus">
-										<use href="images/icons/sprite.svg#minus"></use>
-									</svg>
-								</button>
-								<input type="number" className="calc__count cart-calc__count" min="1" value="1" />
-								<button className="calc__add cart-calc__add">
-									<svg className="icon icon-plus">
-										<use href="images/icons/sprite.svg#plus"></use>
-									</svg>
-								</button>
-							</div>
-							<div className="cart-item__coast">
-								<span className="cart-item__price">120,<sup>00</sup></span>
-								<span className="cart-item__sum">1200,<sup>00</sup></span>
-							</div>
-						</div>
-					</div>
-					<div className="cart-item">
-						<div className="cart-item__product">
-							<button className="cart-item__close" type="button">
-								<svg className="icon icon-close-small">
-									<use href="images/icons/sprite.svg#close"></use>
-								</svg>
-							</button>
-							<a href="#" className="cart-item__image">
-								<img src="images/product-tile-rome.png" alt="Product image" />
-							</a>
-							<div className="cart-item__link">
-								<a href="#" className="cart-item__type">Дорожні блоки та плити</a>
-								<a href="#" className="cart-item__title">Бордюр парковий поворотний</a>
-							</div>
-						</div>
-						<div className="cart-item__total">
-							<div className="calc cart-calc">
-								<button className="calc__remove cart-calc__remove">
-									<svg className="icon icon-minus">
-										<use href="images/icons/sprite.svg#minus"></use>
-									</svg>
-								</button>
-								<input type="number" className="calc__count cart-calc__count" min="1" value="1" />
-								<button className="calc__add cart-calc__add">
-									<svg className="icon icon-plus">
-										<use href="images/icons/sprite.svg#plus"></use>
-									</svg>
-								</button>
-							</div>
-							<div className="cart-item__coast">
-								<span className="cart-item__price">35,<sup>00</sup></span>
-								<span className="cart-item__sum">350,<sup>00</sup></span>
-							</div>
-						</div>
-					</div>
-					<div className="cart-item">
-						<div className="cart-item__product">
-							<button className="cart-item__close" type="button">
-								<svg className="icon icon-close-small">
-									<use href="images/icons/sprite.svg#close"></use>
-								</svg>
-							</button>
-							<a href="#" className="cart-item__image">
-								<img src="images/product-tile-rome.png" alt="Product image" />
-							</a>
-							<div className="cart-item__link">
-								<a href="#" className="cart-item__type">Дорожні блоки та плити</a>
-								<a href="#" className="cart-item__title">Бордюр парковий поворотний</a>
-							</div>
-						</div>
-						<div className="cart-item__total">
-							<div className="calc cart-calc">
-								<button className="calc__remove cart-calc__remove">
-									<svg className="icon icon-minus">
-										<use href="images/icons/sprite.svg#minus"></use>
-									</svg>
-								</button>
-								<input type="number" className="calc__count cart-calc__count" min="1" value="1" />
-								<button className="calc__add cart-calc__add">
-									<svg className="icon icon-plus">
-										<use href="images/icons/sprite.svg#plus"></use>
-									</svg>
-								</button>
-							</div>
-							<div className="cart-item__coast">
-								<span className="cart-item__price">1200,<sup>00</sup></span>
-								<span className="cart-item__sum">12000,<sup>00</sup></span>
+						<div className={s.item_total}>
+							<Counter />
+							<div className={s.item_coast}>
+								<span className={s.item_price}>120,<sup>00</sup></span>
+								<span className={s.item_summary}>1200,<sup>00</sup></span>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div className="cart-order">
-					<div className="cart-back">
-						<span className="cart-back__title">Продовжити покупки</span>
-						<button className="cart-back__btn">
-							<svg className="icon icon-arrow">
-								<use href="images/icons/sprite.svg#arrow"></use>
-							</svg>
+				<div className={s.order}>
+					<div className={s.back}>
+						<span className={s.back_text}>Продовжити покупки</span>
+						<button className={s.back_btn}>
+							<Icon name="arrow" className="icon icon-arrow" />
 						</button>
 					</div>
-					<div className="cart-trade">
-						<div className="cart-trade__coast">
-							<span className="cart-trade__total">Підсумок</span>
-							<span className="cart-trade__sum">199980,<sup>00 грн</sup></span>
+					<div className={s.total}>
+						<div className={s.coast}>
+							<span className={s.total}>Підсумок</span>
+							<span className={s.summary}>199980,<sup>00 грн</sup></span>
 						</div>
-						<button className="cart-trade__btn">Замовити</button>
+						<button className={s.btn}>Замовити</button>
 					</div>
 				</div>
 			</div>

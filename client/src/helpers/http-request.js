@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { COOKIES } from './'
 
-const request = async function ({ headers, options = true }) {
+const request = async function ({ options = true, headers = {} }) {
 	const authToken = COOKIES.getAuthToken() || ''
 	const client = axios.create({
 		baseURL: 'http://localhost:5000/v1',

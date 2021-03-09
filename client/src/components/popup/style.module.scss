@@ -1,4 +1,4 @@
-.popup {
+.section {
   position: fixed;
   top: -100%;
   left: 0;
@@ -16,38 +16,38 @@
   &.isError {
     background: $color7;
   }
+}
 
-  &-message {
-    max-width: 730px;
-    width: 100%;
-    margin: 0px auto;
-    display: flex;
-    justify-content: center;
-    padding: 30px;
-    text-align: center;
+.wrapper {
+  max-width: 730px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+  text-align: center;
+}
 
-    &__title {
-      font-size: 16px;
-      font-weight: 900;
-      line-height: 28px;
-      color: #ffffff;
+.title {
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 28px;
+  color: #ffffff;
 
-      @include screen-tb() {
-        font-size: 18px;
-        line-height: 30px;
-      }
-
-      @include screen-l() {
-        font-size: 20px;
-        line-height: 32px;
-      }
-    }
+  @include screen-tb() {
+    font-size: 18px;
+    line-height: 30px;
   }
 
-  &__close {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: transparent;
+  @include screen-l() {
+    font-size: 20px;
+    line-height: 32px;
   }
+}
+
+.close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
 }
