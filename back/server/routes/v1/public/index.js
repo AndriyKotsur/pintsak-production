@@ -5,6 +5,29 @@ const fs = require('fs')
 const { Type, Tile } = require('../../../models')
 const { sendMail } = require('../../../services/sendgrid')
 
+// get tiles by sorting
+router.get('/', async (req, res) => {
+	try {
+		const { sort, page, order, typeId } = req.query
+		const skip = page || 1
+		const limit = 9
+
+		const findBy = typeId ? { type: typeId } : { }
+		const sortBy = sort ? { [sort]: order } : { }
+
+		const tiles = await Tile
+			.find(findBy)
+			.sort(sortBy)
+			.skip(skip * limit)
+			.limit(limit)
+			.populate('type')
+
+		res.status(200).json({ success: true, data: tiles })
+	} catch (err) {
+		res.status(404).json({ success: false, message: err.message })
+	}
+})
+
 // get tile
 router.get('/tile/:id', async (req, res) => {
 	try {
@@ -36,41 +59,6 @@ router.get('/tiles', async (_, res) => {
 		res.status(200).json({ success: true, data: tiles })
 	} catch (err) {
 		res.status(400).json({ success: false, message: err.message })
-	}
-})
-
-// get tiles by sorting
-router.get('/:type', async (req, res) => {
-	try {
-		const { type } = req.params
-		const page = req.query.page || 1
-		const limit = 9
-		// const tileType = await pool.query(
-		// 	'SELECT id FROM type WHERE url = $1',
-		// 	[type],
-		// )
-		// if (!req.query.sort && !req.query.order) {
-		// 	const tiles = await Tile.find({ type }).populate('type')
-		// 	const tilesOfType = await pool.query(
-		// 		`SELECT title, id, width, height, thickness, images, color_price FROM tile WHERE type_id = $1 OFFSET ${(limit * page) - limit} LIMIT ${limit}`,
-		// 		[tileType.rows[0].id],
-		// 	)
-		// 	res.status(200).json(tilesOfType.rows)
-		// } else {
-		// 	let sort
-		// 	if (req.query.sort === 'width')
-		// 		sort = req.query.sort
-		// 	else
-		// 		sort = "color_price->>'grey'"
-		// 	const tilesOfType = await pool.query(
-		// 		`SELECT title, id, width, height, thickness, images, color_price FROM tile WHERE type_id = $1 ORDER BY ${sort} ${req.query.order} OFFSET ${(limit * page) - limit} LIMIT ${limit}`,
-		// 		[tileType.rows[0].id],
-		// 	)
-		// 	res.status(200).json(tilesOfType.rows)
-		// }
-		res.status(200)
-	} catch (err) {
-		res.status(404).json({ success: false, message: 'Not found' })
 	}
 })
 

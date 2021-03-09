@@ -3,12 +3,13 @@ import { COOKIES } from './'
 
 const request = async function ({ headers, options = true }) {
 	const authToken = COOKIES.getAuthToken() || ''
-	console.log(authToken)
 	const client = axios.create({
 		baseURL: 'http://localhost:5000/v1',
 		headers: {
-			...headers,
+			Accept: 'application/json',
+			'Content-Type': 'application/json',
 			Authorization: 'Bearer ' + authToken,
+			...headers,
 		},
 		responseType: 'json',
 	})
@@ -26,10 +27,6 @@ const request = async function ({ headers, options = true }) {
 
 const login = admin => {
 	return request ({
-		headers: {
-			Accept: 'application/json',
-			'Content-Type': 'application/json',
-		},
 		options: {
 			url: '/admin',
 			method: 'POST',
@@ -40,10 +37,6 @@ const login = admin => {
 
 const getType = async id => {
 	return request ({
-		headers: {
-			Accept: 'application/json',
-			'Content-Type': 'application/json',
-		},
 		options: {
 			url: `/admin/type/${id}`,
 			method: 'GET',
@@ -53,10 +46,6 @@ const getType = async id => {
 
 const getTile = id => {
 	return request ({
-		headers: {
-			Accept: 'application/json',
-			'Content-Type': 'application/json',
-		},
 		options: {
 			url: `/tile/${id}`,
 			method: 'GET',
@@ -66,10 +55,6 @@ const getTile = id => {
 
 const getTypes = () => {
 	return request ({
-		headers: {
-			Accept: 'application/json',
-			'Content-Type': 'application/json',
-		},
 		options: {
 			url: '/types',
 			method: 'GET',
@@ -79,10 +64,6 @@ const getTypes = () => {
 
 const getTiles = async () => {
 	return request ({
-		headers: {
-			Accept: 'application/json',
-			'Content-Type': 'application/json',
-		},
 		options: {
 			url: '/tiles',
 			method: 'GET',
@@ -90,12 +71,22 @@ const getTiles = async () => {
 	})
 }
 
-const addType = async ({ title, url }) => {
+const uploadImages = async ({ id, formData }) => {
 	return request ({
 		headers: {
-			Accept: 'application/json',
-			'Content-Type': 'application/json',
+			Accept: 'multipart/form-data',
+			'Content-Type': 'multipart/form-data',
 		},
+		options: {
+			url: `/admin/tile/images/${id}`,
+			method: 'PUT',
+			data: formData,
+		},
+	})
+}
+
+const addType = async ({ title, url }) => {
+	return request ({
 		options: {
 			url: '/admin/type',
 			method: 'POST',
@@ -107,26 +98,18 @@ const addType = async ({ title, url }) => {
 	})
 }
 
-const addTile = async formData => {
+const addTile = async data => {
 	return request ({
-		headers: {
-			Accept: 'multipart/form-data',
-			'Content-Type': 'multipart/form-data',
-		},
 		options: {
 			url: '/admin/tile',
 			method: 'POST',
-			data: formData,
+			data,
 		},
 	})
 }
 
 const updateType = async ({ id, title }) => {
 	return request ({
-		headers: {
-			Accept: 'application/json',
-			'Content-Type': 'application/json',
-		},
 		options: {
 			url: `/admin/type/${id}`,
 			method: 'PUT',
@@ -137,26 +120,18 @@ const updateType = async ({ id, title }) => {
 	})
 }
 
-const updateTile = async ( id, formData ) => {
+const updateTile = async ( id, data ) => {
 	return request ({
-		headers: {
-			Accept: 'multipart/form-data',
-			'Content-Type': 'multipart/form-data',
-		},
 		options: {
 			url: `/admin/tile/${id}`,
 			method: 'PUT',
-			data: formData,
+			data,
 		},
 	})
 }
 
 const deleteTile = async id => {
 	return request ({
-		headers: {
-			Accept: 'application/json',
-			'Content-Type': 'application/json',
-		},
 		options: {
 			url: `/admin/tile/${id}`,
 			method: 'DELETE',
@@ -166,10 +141,6 @@ const deleteTile = async id => {
 
 const deleteType = async id => {
 	return request ({
-		headers: {
-			Accept: 'application/json',
-			'Content-Type': 'application/json',
-		},
 		options: {
 			url: `/admin/type/${id}`,
 			method: 'DELETE',
@@ -182,6 +153,7 @@ const HTTP = {
 	getTypes,
 	getTiles,
 	getType,
+	uploadImages,
 	updateType,
 	getTile,
 	updateTile,
