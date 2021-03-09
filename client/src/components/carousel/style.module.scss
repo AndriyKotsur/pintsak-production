@@ -85,3 +85,24 @@
     margin: 40px -20px 0;
   }
 }
+
+// .product-carousel {
+//   max-width: 1184px;
+//   width: 100%;
+//   margin: 0px auto;
+
+//   &-block {
+//     margin: 40px 0px 0px;
+
+//     @include screen-l() {
+//       margin: 40px -20px 0px;
+//     }
+//   }
+
+//   &__arrow {
+//     &--left {
+//       transform: rotateZ(180deg);
+//       fill-opacity: 0.5;
+//     }
+//   }
+// }

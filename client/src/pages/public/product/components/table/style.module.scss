@@ -1,0 +1,71 @@
+@import './src/assets/styles/general/_mixins.scss';
+@import './src/assets/styles/general/_variables.scss';
+
+.wrapper {
+  max-width: 1184px;
+  width: 100%;
+  margin: 126px auto;
+  overflow-x: scroll;
+
+  @include screen-sm() {
+    overflow-x: hidden;
+  }
+}
+
+.title {
+  margin-bottom: 25px;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.table {
+  width: 100%;
+  background: #ffffff;
+  table-layout: fixed;
+  border-collapse: collapse;
+  border-spacing: 0;
+  box-shadow: 0px 0px 10px rgba(55, 63, 72, 0.1);
+  font-size: 16px;
+  text-align: center;
+}
+
+.head {
+  background: #f2f0f0;
+  border-bottom: 2px solid $color2;
+
+  th {
+    width: 140px;
+    padding: 18px 0;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 24px;
+
+    span {
+      font-weight: 400;
+    }
+
+    @include screen-tb() {
+      width: 100%;
+      font-size: 16px;
+    }
+  }
+}
+
+.body {
+  tr:not(:last-child) {
+    border-bottom: 1px solid #c4c4c4;
+  }
+
+  td {
+    width: 140px;
+    padding: 18px 0;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 24px;
+
+    @include screen-tb() {
+      width: 100%;
+      font-size: 16px;
+    }
+  }
+}

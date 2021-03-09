@@ -5,9 +5,7 @@ const Cart = () => {
 		<div className="cart">
 			<div className="cart-block">
 				<div className="cart-header">
-					<h2 className="cart-header__title">
-                Товари в кошику
-					</h2>
+					<h2 className="cart-header__title">Товари в кошику</h2>
 					<button className="cart-header__close" type="button">
 						<svg className="icon icon-close--big">
 							<use href="images/icons/sprite.svg#close"></use>
