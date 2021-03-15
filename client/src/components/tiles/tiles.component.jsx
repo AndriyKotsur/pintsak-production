@@ -23,7 +23,7 @@ const Tiles = ({ tiles, settings }) => {
 		<ul className={s.list}>
 			{tiles.length > 0 && tiles.map(tile => (
 				<li key={tile.id} className={s.item}>
-					<Link to={`/catalogue/${tile._id}`} className={s.link}>
+					<Link to={`/catalogue/${tile.url}`} className={s.link}>
 						<h3 className={s.title}>{tile.title}</h3>
 						<div className={s.wrapper}>
 							<picture className={s.image}>
@@ -31,17 +31,17 @@ const Tiles = ({ tiles, settings }) => {
 							</picture>
 						</div>
 						<span className={s.size}>
-							{tile.width} x {tile.height}
+							{tile.sizes.width} x {tile.sizes.height}
 						</span>
 						<span className={s.price}>
-							{tile.color_price.grey}
+							{tile.prices.grey}
 						</span>
 					</Link>
 					{
 						settings && settings.edit ?
 							<div className={s.action}>
 								<button
-									onClick={() => history.push(`/admin/edit/tile/${tile._id}`)}
+									onClick={() => history.push(`/admin/edit/tile/${tile.url}`)}
 									className={s.edit}>
 										Редагувати
 								</button>

@@ -18,30 +18,39 @@ const TileSchema = new Schema({
 		required: true,
 		trim: true,
 		unique: true,
-		default: Math.random().toString(36).slice(-8),
+	},
+	is_popular: {
+		type: Schema.Types.Boolean,
+		default: false,
+	},
+	is_available: {
+		type: Schema.Types.Boolean,
+		default: false,
 	},
 	images: [Schema.Types.String],
-	width: {
-		type: Schema.Types.Number,
-		required: true,
+	sizes: {
+		width: {
+			type: Schema.Types.Number,
+			required: true,
+		},
+		height: {
+			type: Schema.Types.Number,
+			required: true,
+		},
+		thickness: {
+			type: Schema.Types.Number,
+			required: true,
+		},
+		weight_per_meter: {
+			type: Schema.Types.Number,
+			required: true,
+		},
+		pieces_per_meter: {
+			type: Schema.Types.Number,
+			required: true,
+		},
 	},
-	height: {
-		type: Schema.Types.Number,
-		required: true,
-	},
-	thickness: {
-		type: Schema.Types.Number,
-		required: true,
-	},
-	weight_per_meter: {
-		type: Schema.Types.Number,
-		required: true,
-	},
-	pieces_per_meter: {
-		type: Schema.Types.Number,
-		required: true,
-	},
-	color_price: {
+	prices: {
 		grey: {
 			type: Schema.Types.Number,
 			required: true,
@@ -61,14 +70,6 @@ const TileSchema = new Schema({
 		black: {
 			type: Schema.Types.Number,
 		},
-	},
-	is_popular: {
-		type: Schema.Types.Boolean,
-		default: false,
-	},
-	is_available: {
-		type: Schema.Types.Boolean,
-		default: false,
 	},
 }, { timestamps: true })
 

@@ -17,7 +17,6 @@ const TypeSchema = new Schema({
 		required: true,
 		trim: true,
 		unique: true,
-		default: Math.random().toString(36).slice(-8),
 	},
 }, { timestamps: true })
 

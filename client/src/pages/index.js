@@ -45,7 +45,7 @@ const Main = () => {
 					<EditType />
 				</AuthRoute>
 
-				<AuthRoute exact path="/admin/edit/tile/:id">
+				<AuthRoute exact path="/admin/edit/tile/:url">
 					<EditTile />
 				</AuthRoute>
 
@@ -68,7 +68,7 @@ const Main = () => {
 							<CataloguePage />
 						</Route>
 
-						<Route exact path='/catalogue/:id'>
+						<Route exact path='/catalogue/:url'>
 							<ProductPage />
 						</Route>
 

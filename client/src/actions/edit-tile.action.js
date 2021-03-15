@@ -53,56 +53,47 @@ export const getTileTypes = () => {
 	}
 }
 
-export const editTile = (id, {
+export const editTile = (url, {
 	types,
 	images,
 	title,
 	type,
-	width,
-	height,
-	thickness,
-	weight_per_meter,
-	pieces_per_meter,
+	sizes,
 	is_popular,
 	is_available,
-	grey,
-	yellow,
-	orange,
-	red,
-	brown,
-	black,
+	prices,
 }) => {
 	return async dispatch => {
 		dispatch({
 			type: EDIT_TILE_LOADING,
 		})
+
 		try {
-			const color_price = { grey, yellow, orange, red, brown, black }
 
 			const data = {
 				title,
 				type,
-				width,
-				height,
-				thickness,
-				weight_per_meter,
-				pieces_per_meter,
-				color_price,
+				sizes,
+				prices,
 				is_popular,
 				is_available,
 			}
 
-			const tile = await HTTP.updateTile(id, data)
-			if (tile.success) {
+			const response = await HTTP.updateTile(url, data)
+			if (response.success) {
 				const formData = new FormData()
+
 				const folderType = types.find(el => el._id === type)
+
 				formData.append('folderName', folderType.url)
+
 				for (let i = 0; i < images.length; i++)
 					formData.append('images', images[i])
-				formData.append('url', tile.url)
 
-				await HTTP.uploadImages({ id: tile._id, formData })
-				
+				formData.append('url', response.data.url)
+
+				await HTTP.uploadImages({ id: response.data._id, formData })
+
 				return dispatch({
 					type: EDIT_TILE_SUCCESS,
 				})
@@ -119,13 +110,25 @@ export const editTile = (id, {
 	}
 }
 
-export const handleChange = event => {
+export const handleChange = (event, field) => {
 	if (event.target) {
-		return {
-			type: CHANGE_STATE,
-			form: {
-				[event.target.name]:  event.target.checked ?  event.target.checked : event.target.value,
-			},
+		if (field) {
+			return {
+				type: CHANGE_STATE,
+				field: field,
+				form: {
+					[field]: {
+						[event.target.name]: event.target.value,
+					},
+				},
+			}
+		} else {
+			return {
+				type: CHANGE_STATE,
+				form: {
+					[event.target.name]: event.target.checked ? event.target.checked : event.target.value,
+				},
+			}
 		}
 	} else {
 		return {

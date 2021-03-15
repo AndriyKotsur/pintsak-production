@@ -13,17 +13,21 @@ let initialState = {
 	types: [],
 	title: '',
 	type: '',
-	width: '',
-	height: '',
-	thickness: '',
-	grey: null,
-	yellow: '-',
-	orange: '-',
-	red: '-',
-	brown: '-',
-	black: '-',
-	weight_per_meter: '',
-	pieces_per_meter: '',
+	sizes: {
+		width: '',
+		height: '',
+		thickness: '',
+		weight_per_meter: '',
+		pieces_per_meter: '',
+	},
+	prices: {
+		grey: null,
+		yellow: '-',
+		orange: '-',
+		red: '-',
+		brown: '-',
+		black: '-',
+	},
 	images: [],
 	is_popular: false,
 	is_available: false,
@@ -31,13 +35,13 @@ let initialState = {
 	get_types_status: '',
 }
 
-export default function addTile (state = initialState, action) {
-	switch(action.type) {
+export default function addTile (state = initialState, {type, payload, form, field}) {
+	switch(type) {
 	case GET_TILE_TYPES_SUCCESS:
 		return {
 			...state,
-			types: action.payload,
-			type: action.payload[0].title,
+			types: payload,
+			type: payload[0]._id,
 			get_types_status: 'success',
 		}
 	case GET_TILE_TYPES_ERROR:
@@ -66,9 +70,19 @@ export default function addTile (state = initialState, action) {
 			add_tile_status: 'loading',
 		}
 	case CHANGE_STATE:
-		return {
-			...state,
-			...action.form,
+		if(field) {
+			return {
+				...state,
+				[field]: {
+					...state[field],
+					...form[field],
+				},
+			}
+		} else {
+			return {
+				...state,
+				...form,
+			}
 		}
 	case CLEAR_STATE:
 		return {

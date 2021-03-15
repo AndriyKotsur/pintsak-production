@@ -6,10 +6,10 @@ const { Type, Tile } = require('../../../models')
 const { sendMail } = require('../../../services/sendgrid')
 
 // get tiles by sorting
-router.get('/', async (req, res) => {
+router.get('/tiles', async (req, res) => {
 	try {
-		const { sort, page, order, typeId } = req.query
-		const skip = page || 1
+		const { page, sort, order, typeId } = req.query
+		const default = page ? page - 1 : 0
 		const limit = 9
 
 		const findBy = typeId ? { type: typeId } : { }
@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
 		const tiles = await Tile
 			.find(findBy)
 			.sort(sortBy)
-			.skip(skip * limit)
+			.skip(default * limit)
 			.limit(limit)
 			.populate('type')
 
@@ -29,10 +29,11 @@ router.get('/', async (req, res) => {
 })
 
 // get tile
-router.get('/tile/:id', async (req, res) => {
+router.get('/tile/:url', async (req, res) => {
 	try {
-		const { id } = req.params
-		const tile = await Tile.findById(id).populate('type')
+		const { url } = req.params
+		const tile = await Tile.findOne({ url }).populate('type')
+		console.log(tile)
 
 		res.status(200).json({ success: true, data: tile })
 	} catch (err) {
@@ -48,17 +49,6 @@ router.get('/types', async (_, res) => {
 		res.status(200).json({ success: true, data: types })
 	} catch (err) {
 		res.status(404).json({ success: false, message: 'Not found' })
-	}
-})
-
-// get tiles
-router.get('/tiles', async (_, res) => {
-	try {
-		const tiles = await Tile.find()
-
-		res.status(200).json({ success: true, data: tiles })
-	} catch (err) {
-		res.status(400).json({ success: false, message: err.message })
 	}
 })
 

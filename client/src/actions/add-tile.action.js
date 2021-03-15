@@ -36,36 +36,23 @@ export const addTile = ({
 	images,
 	title,
 	type,
-	width,
-	height,
-	thickness,
-	weight_per_meter,
-	pieces_per_meter,
+	prices,
+	sizes,
 	is_popular,
 	is_available,
-	grey,
-	yellow,
-	orange,
-	red,
-	brown,
-	black,
 }) => {
 	return async dispatch => {
 		dispatch({
 			type: ADD_TILE_LOADING,
 		})
+
 		try {
-			const color_price = { grey, yellow, orange, red, brown, black }
 
 			const data = {
 				title,
 				type,
-				width,
-				height,
-				thickness,
-				weight_per_meter,
-				pieces_per_meter,
-				color_price,
+				sizes,
+				prices,
 				is_popular,
 				is_available,
 			}
@@ -73,14 +60,17 @@ export const addTile = ({
 			const tile = await HTTP.addTile(data)
 			if (tile.success) {
 				const formData = new FormData()
+
 				const folderType = types.find(el => el._id === type)
 				formData.append('folderName', folderType.url)
+
 				for (let i = 0; i < images.length; i++)
 					formData.append('images', images[i])
-				formData.append('url', tile.url)
 
-				await HTTP.uploadImages({ id: tile._id, formData })
-				
+				formData.append('url', tile.data.url)
+
+				await HTTP.uploadImages({ id: tile.data._id, formData })
+
 				return dispatch({
 					type: ADD_TILE_SUCCESS,
 				})
@@ -97,13 +87,25 @@ export const addTile = ({
 	}
 }
 
-export const handleChange = event => {
+export const handleChange = (event, field) => {
 	if (event.target) {
-		return {
-			type: CHANGE_STATE,
-			form: {
-				[event.target.name]: event.target.checked ? event.target.checked : event.target.value,
-			},
+		if (field) {
+			return {
+				type: CHANGE_STATE,
+				field: field,
+				form: {
+					[field]: {
+						[event.target.name]: event.target.value,
+					},
+				},
+			}
+		} else {
+			return {
+				type: CHANGE_STATE,
+				form: {
+					[event.target.name]: event.target.checked ? event.target.checked : event.target.value,
+				},
+			}
 		}
 	} else {
 		return {

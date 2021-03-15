@@ -57,63 +57,63 @@ const AddTile = () => {
 					type='number'
 					name='width'
 					title='Ширина товару'
-					onChange={e => dispatch(AddTileActions.handleChange(e))}
+					onChange={e => dispatch(AddTileActions.handleChange(e, 'sizes'))}
 					isRequired />
 				<Input
 					type='number'
 					name='height'
 					title='Висота товару'
-					onChange={e => dispatch(AddTileActions.handleChange(e))}
+					onChange={e => dispatch(AddTileActions.handleChange(e, 'sizes'))}
 					isRequired />
 				<Input
 					type='number'
 					name='thickness'
 					title='Товщина товару'
-					onChange={e => dispatch(AddTileActions.handleChange(e))}
+					onChange={e => dispatch(AddTileActions.handleChange(e, 'sizes'))}
 					isRequired/>
 				<Input
 					type='number'
 					name='weight_per_meter'
 					title='Вага на метр кв.'
-					onChange={e => dispatch(AddTileActions.handleChange(e))}
+					onChange={e => dispatch(AddTileActions.handleChange(e, 'sizes'))}
 					isRequired />
 				<Input
 					type='number'
 					name='pieces_per_meter'
 					title='Кількість на метр кв.'
-					onChange={e => dispatch(AddTileActions.handleChange(e))}
+					onChange={e => dispatch(AddTileActions.handleChange(e, 'sizes'))}
 					isRequired />
 				<Input
 					type='number'
 					name='grey'
 					title='Ціна сірої'
-					onChange={e => dispatch(AddTileActions.handleChange(e))}
+					onChange={e => dispatch(AddTileActions.handleChange(e, 'prices'))}
 					isRequired />
 				<Input
 					type='number'
 					name='orange'
 					title='Ціна оранжевої'
-					onChange={e => dispatch(AddTileActions.handleChange(e))} />
+					onChange={e => dispatch(AddTileActions.handleChange(e, 'prices'))} />
 				<Input
 					type='number'
 					name='yellow'
 					title='Ціна жовтої'
-					onChange={e => dispatch(AddTileActions.handleChange(e))} />
+					onChange={e => dispatch(AddTileActions.handleChange(e, 'prices'))} />
 				<Input
 					type='number'
 					name='red'
 					title='Ціна червоної'
-					onChange={e => dispatch(AddTileActions.handleChange(e))} />
+					onChange={e => dispatch(AddTileActions.handleChange(e, 'prices'))} />
 				<Input
 					type='number'
 					name='brown'
 					title='Ціна коричневої'
-					onChange={e => dispatch(AddTileActions.handleChange(e))} />
+					onChange={e => dispatch(AddTileActions.handleChange(e, 'prices'))} />
 				<Input
 					type='number'
 					name='black'
 					title='Ціна чорної'
-					onChange={e => dispatch(AddTileActions.handleChange(e))} />
+					onChange={e => dispatch(AddTileActions.handleChange(e, 'prices'))} />
 			</Form>
 		</>
 	)

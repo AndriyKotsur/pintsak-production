@@ -1,6 +1,9 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Icon, Carousel } from 'components'
+import React, { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import * as GetTileActions from 'actions/get-tile.action'
+
+import { Icon, Preloader, Counter, Carousel, Cart } from 'components'
 import Breadcrumbs from './components/breadcrumbs/breadcrumbs.component'
 import Table from './components/table/table.component'
 
@@ -8,54 +11,64 @@ import classNames from 'classnames'
 import s from './style.module.scss'
 
 const ProductPage = () => {
+	const [cart, setCart] = useState(false)
+
+	const { url } = useParams()
+	const dispatch = useDispatch()
+
+	const tile = useSelector(tile => tile.getTile)
+
+	useEffect(() => {
+		dispatch(GetTileActions.getTile(url))
+	}, [])
+
 	return (
 		<div className={s.section}>
-			<div className="container">
-				<div className={s.wrapper}>
-					<Link to="" className={s.back}>
-						<Icon name='arrow' className={classNames('icon', 'icon-back', s.back)} />
-            Тротуарна
-					</Link>
-					<Breadcrumbs type="Тротуарна плитка" tile="Тротуарна" />
-					<div className={s.product}>
-						<span className={s.status}>В наявності</span>
-						<div className={s.gallery}>
-							<div className={s.gallery_small}>
-								<picture className={s.image_small}>
-									<img src="" alt="Gallery image" />
-								</picture>
-							</div>
-							<div className={s.gallery_large}>
-								<picture className={s.image_large}>
-									<img src="" alt="Gallery image" />
-								</picture>
-							</div>
-						</div>
-						<div className={s.product_block}>
-							<div className={s.product_wrapper}>
-								<h1 className={s.product_title}>Коврова</h1>
-								<p className={s.product_price}>190,<sup> 00 грн</sup></p>
-								<div className={s.product_counter}>
-									<button className={s.product_remove}>
-										<Icon name='minus' className='icon icon-minus' />
-									</button>
-									<input type="number" className={s.product_count} min="1" value="1" />
-									<button className={s.product_add}>
-										<Icon name='plus' className='icon icon-plus' />
-									</button>
-									<span className={s.product_size}>м<sup>2</sup></span>
+			{ tile.get_tile_status === 'loading' &&  <Preloader /> }
+			{ tile.get_tile_status === 'success' && tile.get_tile_status && (
+				<div className="container">
+					<div className={s.wrapper}>
+						<Link to="" className={s.back}>
+							<Icon name='arrow' className={classNames('icon', 'icon-back', s.back)} />
+							{tile.title}
+						</Link>
+						<Breadcrumbs type={tile.type.title} tile={tile.title} />
+						<div className={s.product}>
+							<span className={classNames(s.status, {[s.available]: tile.is_available})}>{tile.is_available ? 'В наявності' : 'Нема у наявності'}</span>
+							<div className={s.gallery}>
+								<div className={s.gallery_small}>
+									{
+										tile.images.length > 0 && tile.images.map((item, index) => (
+											<picture key={index} className={s.image_small}>
+												<img src={item} alt="Gallery image" />
+											</picture>
+										))
+									}
 								</div>
-								<Link to="/order" className={classNames('btn-green', 'btn-cart', s.product_btn)}>
-									<Icon name='cart' className='icon icon-cart' />
-                  В кошик
-								</Link>
+								<div className={s.gallery_large}>
+									<picture className={s.image_large}>
+										<img src={tile.images[0]} alt="Gallery image" />
+									</picture>
+								</div>
+							</div>
+							<div className={s.product_block}>
+								<div className={s.product_wrapper}>
+									<h1 className={s.product_title}>{tile.title}</h1>
+									<p className={s.product_price}>{tile.prices.grey},<sup> 00 грн</sup></p>
+									<Counter />
+									<button onClick={() => setCart(prev => !prev)} className={classNames('btn-green', 'btn-cart', s.product_btn)}>
+										<Icon name='cart' className={classNames('icon', 'icon-cart', s.product_icon)} />
+										В кошик
+									</button>
+								</div>
 							</div>
 						</div>
+						<Table />
+						<Carousel />
 					</div>
-					<Table />
-					<Carousel />
 				</div>
-			</div>
+			)}
+			{ cart && <Cart /> }
 		</div>
 	)
 }

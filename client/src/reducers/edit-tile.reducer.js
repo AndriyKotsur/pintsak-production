@@ -16,17 +16,21 @@ let initialState = {
 	types: [],
 	title: '',
 	type: '',
-	width: '',
-	height: '',
-	thickness: '',
-	grey: null,
-	yellow: '-',
-	orange: '-',
-	red: '-',
-	brown: '-',
-	black: '-',
-	weight_per_meter: '',
-	pieces_per_meter: '',
+	sizes: {
+		width: '',
+		height: '',
+		thickness: '',
+		weight_per_meter: '',
+		pieces_per_meter: '',
+	},
+	prices: {
+		grey: null,
+		yellow: '-',
+		orange: '-',
+		red: '-',
+		brown: '-',
+		black: '-',
+	},
 	images: [],
 	imagesPreview: [],
 	is_popular: false,
@@ -36,19 +40,13 @@ let initialState = {
 	edit_tile_status: '',
 }
 
-export default function editTile (state = initialState, action) {
-	switch(action.type) {
+export default function editTile (state = initialState, {type, payload, form, field}) {
+	switch(type) {
 	case GET_TILE_SUCCESS:
 		return {
 			...state,
-			...action.payload,
-			imagesPreview: action.payload.images,
-			grey: action.payload.color_price.grey,
-			red: action.payload.color_price.red,
-			yellow: action.payload.color_price.yellow,
-			orange: action.payload.color_price.orange,
-			brown: action.payload.color_price.brown,
-			black: action.payload.color_price.black,
+			...payload,
+			imagesPreview: payload.images,
 			get_tile_status: 'success',
 		}
 	case GET_TILE_ERROR:
@@ -64,7 +62,7 @@ export default function editTile (state = initialState, action) {
 	case GET_TILE_TYPES_SUCCESS:
 		return {
 			...state,
-			types: action.payload,
+			types: payload,
 			get_types_status: 'success',
 		}
 	case GET_TILE_TYPES_ERROR:
@@ -93,9 +91,19 @@ export default function editTile (state = initialState, action) {
 			edit_tile_status: 'loading',
 		}
 	case CHANGE_STATE:
-		return {
-			...state,
-			...action.form,
+		if(field) {
+			return {
+				...state,
+				[field]: {
+					...state[field],
+					...form[field],
+				},
+			}
+		} else {
+			return {
+				...state,
+				...form,
+			}
 		}
 	case CLEAR_STATE:
 		return {

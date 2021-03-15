@@ -8,7 +8,7 @@ const { Tile, Type } = require('../../../models')
 // add tile
 router.post('/', auth, async (req, res) => {
 	try {
-		const tile = await Tile.create(req.body)
+		const tile = await Tile.create({ ...req.body, url: Math.random().toString(36).slice(-8) })
 
 		res.status(201).json({ success: true, data: tile })
 	} catch (err) {
@@ -17,14 +17,14 @@ router.post('/', auth, async (req, res) => {
 })
 
 // update tile
-router.put('/:id', auth, async (req, res) => {
+router.put('/:url', auth, async (req, res) => {
 	try {
-		const { id } = req.params
+		const { url } = req.params
 
-		const tile = await Tile.findById(id).populate('type')
+		const tile = await Tile.findOne({ url }).populate('type')
 		if (!tile) return res.status(404).json({ success: false, message: 'Tile not found' })
 
-		await tile.update(req.body)
+		await tile.update({ ...req.body, url: Math.random().toString(36).slice(-8) })
 
 		res.status(200).json({ success: true, message: 'Successfully updated' })
 	} catch (err) {

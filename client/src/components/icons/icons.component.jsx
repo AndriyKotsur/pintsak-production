@@ -16,6 +16,8 @@ import { ReactComponent as IconCatalogue } from '../../assets/svg/icon-catalogue
 import { ReactComponent as IconRefresh } from '../../assets/svg/icon-refresh.svg'
 import { ReactComponent as IconPagination } from '../../assets/svg/icon-pagination.svg'
 import { ReactComponent as IconCarousel } from '../../assets/svg/icon-carousel.svg'
+import { ReactComponent as IconClose } from '../../assets/svg/icon-close.svg'
+import { ReactComponent as IconRequest } from '../../assets/svg/icon-request.svg'
 import { ReactComponent as IconCheckbox } from '../../assets/svg/icon-checkbox.svg'
 import { ReactComponent as IconDropdown } from '../../assets/svg/icon-dropdown.svg'
 import { ReactComponent as IconPlus } from '../../assets/svg/icon-plus.svg'
@@ -40,6 +42,8 @@ const SVGs = {
 	refresh: IconRefresh,
 	pagination: IconPagination,
 	carousel: IconCarousel,
+	close: IconClose,
+	request: IconRequest,
 	checkbox: IconCheckbox,
 	dropdown: IconDropdown,
 	plus: IconPlus,

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { COOKIES } from './'
 
-const request = async function ({ headers, options = true }) {
+const request = async function ({ options = true, headers = {} }) {
 	const authToken = COOKIES.getAuthToken() || ''
 	const client = axios.create({
 		baseURL: 'http://localhost:5000/v1',
@@ -44,10 +44,10 @@ const getType = async id => {
 	})
 }
 
-const getTile = id => {
+const getTile = url => {
 	return request ({
 		options: {
-			url: `/tile/${id}`,
+			url: `/tile/${url}`,
 			method: 'GET',
 		},
 	})
@@ -62,10 +62,11 @@ const getTypes = () => {
 	})
 }
 
-const getTiles = async () => {
+const getTiles = async ({page = 1, sortBy = '', orderBy = 1}) => {
+	console.log(page, sortBy, orderBy)
 	return request ({
 		options: {
-			url: '/tiles',
+			url: `/tiles?page=${page}&sort=${sortBy}&order=${orderBy}`,
 			method: 'GET',
 		},
 	})
@@ -120,10 +121,10 @@ const updateType = async ({ id, title }) => {
 	})
 }
 
-const updateTile = async ( id, data ) => {
+const updateTile = async ( url, data ) => {
 	return request ({
 		options: {
-			url: `/admin/tile/${id}`,
+			url: `/admin/tile/${url}`,
 			method: 'PUT',
 			data,
 		},

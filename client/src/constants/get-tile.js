@@ -1,0 +1,4 @@
+export const GET_TILE_SUCCESS = 'GET_TILE_SUCCESS'
+export const GET_TILE_ERROR = 'GET_TILE_ERROR'
+export const GET_TILE_LOADING = 'GET_TILE_LOADING'
+export const CLEAR_STATE = 'CLEAR_STATE'

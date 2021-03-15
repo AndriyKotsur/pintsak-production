@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as GetTilesActions from 'actions/get-tiles.action'
 import * as GetTypesActions from 'actions/get-types.action'
@@ -15,14 +15,17 @@ const CataloguePage = () => {
 	const types = useSelector(types => types.getTypes)
 	const tiles = useSelector(tiles => tiles.getTiles)
 
+	const [page, setPage] = useState(1)
+	const [sortBy, setSortBy] = useState('')
+	const [orderBy, setOrderBy] = useState(1)
+
+	useEffect(() => {
+		dispatch(GetTilesActions.getTiles(page, sortBy, orderBy))
+	}, [page, sortBy, orderBy])
+
 	useEffect(() => {
 		dispatch(GetTypesActions.getTypes())
 		return () => dispatch(GetTypesActions.clear())
-	}, [])
-
-	useEffect(() => {
-		dispatch(GetTilesActions.getTiles())
-		return () => dispatch(GetTilesActions.clear())
 	}, [])
 
 	return (
@@ -38,7 +41,7 @@ const CataloguePage = () => {
 					<div className={s.catalogue}>
 						<div className={s.sort}>
 							<h1 className={s.title}>Усі товари</h1>
-							<Sort />
+							<Sort sortBy={sortBy} orderBy={orderBy} handleSortBy={setSortBy} handleOrderBy={setOrderBy} />
 						</div>
 						<div className={s.products}>
 							<Tiles

@@ -6,13 +6,13 @@ import { Preloader, Form, Input, Select, Checkbox, File } from 'components'
 
 const EditTile = () => {
 	const history = useHistory()
-	const { id } = useParams()
+	const { url } = useParams()
 	const dispatch = useDispatch()
 	const state = useSelector(state => state.editTile)
 
 	const updateTile = async e => {
 		e.preventDefault()
-		dispatch(EditTileActions.editTile(id, state))
+		dispatch(EditTileActions.editTile(url, state))
 	}
 
 	useEffect(() => {
@@ -21,11 +21,11 @@ const EditTile = () => {
 	}, [state.edit_tile_status])
 
 	useEffect(() => {
-		dispatch(EditTileActions.getTile(id))
+		dispatch(EditTileActions.getTile(url))
 		dispatch(EditTileActions.getTileTypes())
 
 		return () => dispatch(EditTileActions.clear())
-	}, [id])
+	}, [url])
 
 	return (
 		<>
@@ -66,75 +66,75 @@ const EditTile = () => {
 					<Input
 						type='number'
 						name='width'
-						value={state.width}
+						value={state.sizes.width}
 						placeholder='Ширина товару'
-						onChange={e => dispatch(EditTileActions.handleChange(e))}
+						onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))}
 						isRequired/>
 					<Input
 						type='number'
 						name='height'
-						value={state.height}
+						value={state.sizes.height}
 						placeholder='Висота товару'
-						onChange={e => dispatch(EditTileActions.handleChange(e))}
+						onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))}
 						isRequired/>
 					<Input
 						type='number'
 						name='thickness'
-						value={state.thickness}
+						value={state.sizes.thickness}
 						placeholder='Товщина товару'
-						onChange={e => dispatch(EditTileActions.handleChange(e))}
+						onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))}
 						isRequired/>
 					<Input
 						type='number'
 						name='weight_per_meter'
-						value={state.weight_per_meter}
+						value={state.sizes.weight_per_meter}
 						placeholder='Вага на метр кв.'
-						onChange={e => dispatch(EditTileActions.handleChange(e))}
+						onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))}
 						isRequired/>
 					<Input
 						type='number'
 						name='pieces_per_meter'
-						value={state.pieces_per_meter}
+						value={state.sizes.pieces_per_meter}
 						placeholder='Кількість на метр кв.'
-						onChange={e => dispatch(EditTileActions.handleChange(e))}
+						onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))}
 						isRequired/>
 					<Input
 						type='number'
 						name='grey'
-						value={state.grey}
+						value={state.prices.grey}
 						placeholder='Ціна сірої продукції'
-						onChange={e => dispatch(EditTileActions.handleChange(e))}
+						onChange={e => dispatch(EditTileActions.handleChange(e, 'prices'))}
 						isRequired/>
 					<Input
 						type='number'
 						name='yellow'
-						value={state.yellow}
+						value={state.prices.yellow}
 						placeholder='Ціна жовтої продукції'
-						onChange={e => dispatch(EditTileActions.handleChange(e))}/>
+						onChange={e => dispatch(EditTileActions.handleChange(e, 'prices'))}/>
 					<Input
 						type='number'
 						name='orange'
-						value={state.orange}
+						value={state.prices.orange}
 						placeholder='Ціна помаранчевої продукції'
-						onChange={e => dispatch(EditTileActions.handleChange(e))}/>
+						onChange={e => dispatch(EditTileActions.handleChange(e, 'prices'))}/>
 					<Input
 						type='number'
 						name='red'
-						value={state.red}
+						value={state.prices.red}
 						placeholder='Ціна червоної продукції'
-						onChange={e => dispatch(EditTileActions.handleChange(e))}/>
+						onChange={e => dispatch(EditTileActions.handleChange(e, 'prices'))}/>
 					<Input
 						type='number'
 						name='brown'
-						value={state.brown}
+						value={state.prices.brown}
 						placeholder='Ціна коричневої продукції'
-						onChange={e => dispatch(EditTileActions.handleChange(e))}/>
+						onChange={e => dispatch(EditTileActions.handleChange(e, 'prices'))}/>
 					<Input
 						type='number'
 						name='black'
-						value={state.black}
+						value={state.prices.black}
 						placeholder='Ціна чорної продукції'
-						onChange={e => dispatch(EditTileActions.handleChange(e))}/>
+						onChange={e => dispatch(EditTileActions.handleChange(e, 'prices'))}/>
 				</Form>
 			)}
 		</>
