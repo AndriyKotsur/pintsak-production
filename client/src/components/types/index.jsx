@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as DeleteTypeActions from 'actions/delete-type.action'
 import { Icon } from 'components'
@@ -22,7 +21,7 @@ const Types = ({ types, settings, styleName  }) => {
 	}, [state])
 
 	return (
-		<div className={classNames(styleName, {[s.light]: settings.light, [s.mobile]: settings.mobile})}>
+		<div className={classNames(styleName, { [s.light]: settings.light, [s.mobile]: settings.mobile })}>
 			{
 				settings && settings.public &&
 				<h2 className={s.title}>Види продукції</h2>
@@ -35,7 +34,7 @@ const Types = ({ types, settings, styleName  }) => {
 							settings && settings.edit &&
 							<div className={s.action}>
 								<button
-									onClick={() => history.push(`/admin/edit/type/${type._id}`)}
+									onClick={() => history.push(`/admin/type/${type._id}`)}
 									className={s.edit}>
 											Редагувати
 								</button>

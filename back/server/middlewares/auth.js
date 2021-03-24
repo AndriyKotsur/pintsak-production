@@ -14,7 +14,7 @@ module.exports = router.use( async (req, _, next) => {
 
 		req.admin = admin
 
-		return next()
+		next()
 	} catch (err) {
 		next(err)
 	}

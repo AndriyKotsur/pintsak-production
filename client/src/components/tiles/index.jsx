@@ -41,7 +41,7 @@ const Tiles = ({ tiles, settings }) => {
 						settings && settings.edit ?
 							<div className={s.action}>
 								<button
-									onClick={() => history.push(`/admin/edit/tile/${tile.url}`)}
+									onClick={() => history.push(`/admin/tile/${tile.url}`)}
 									className={s.edit}>
 										Редагувати
 								</button>

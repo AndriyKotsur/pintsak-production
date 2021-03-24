@@ -55,12 +55,12 @@ const Dashboard = () => {
 				<div className={s.inner}>
 					<div className={s.append}>
 						<Link
-							to="/admin/add/type"
+							to="/admin/type"
 							className={classNames('btn-sent', 'btn-orange', s.appender)}>
 						Додати нову категорію
 						</Link>
 						<Link
-							to="/admin/add/tile"
+							to="/admin/tile"
 							className={classNames('btn-sent', 'btn-orange', s.appender)}>
 						Додати новий товар
 						</Link>
@@ -68,12 +68,12 @@ const Dashboard = () => {
 					<div className={s.switch}>
 						<button
 							onClick={() => setActiveSwitch('types')}
-							className={classNames(s.switcher, {[s.active]: activeSwitch === 'types'})}>
+							className={classNames(s.switcher, { [s.active]: activeSwitch === 'types' })}>
 								Категорії
 						</button>
 						<button
 							onClick={() => setActiveSwitch('tiles')}
-							className={classNames(s.switcher, {[s.active]: activeSwitch === 'tiles'})}>
+							className={classNames(s.switcher, { [s.active]: activeSwitch === 'tiles' })}>
 								Продукти
 						</button>
 					</div>

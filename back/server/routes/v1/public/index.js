@@ -9,7 +9,7 @@ const { sendMail } = require('../../../services/sendgrid')
 router.get('/tiles', async (req, res) => {
 	try {
 		const { page, sort, order, typeId } = req.query
-		const default = page ? page - 1 : 0
+		const _page = page ? page - 1 : 0
 		const limit = 9
 
 		const findBy = typeId ? { type: typeId } : { }
@@ -18,7 +18,7 @@ router.get('/tiles', async (req, res) => {
 		const tiles = await Tile
 			.find(findBy)
 			.sort(sortBy)
-			.skip(default * limit)
+			.skip(_page * limit)
 			.limit(limit)
 			.populate('type')
 
@@ -33,7 +33,6 @@ router.get('/tile/:url', async (req, res) => {
 	try {
 		const { url } = req.params
 		const tile = await Tile.findOne({ url }).populate('type')
-		console.log(tile)
 
 		res.status(200).json({ success: true, data: tile })
 	} catch (err) {

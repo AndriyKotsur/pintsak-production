@@ -32,6 +32,7 @@ module.exports = {
 		'no-tabs': ['error', { 'allowIndentationTabs': true }],
 		'no-trailing-spaces': 'error',
 		'no-use-before-define': ['error', { 'functions': false }],
+		'object-curly-spacing': ['error', 'always'],
 		'object-curly-newline': ['error', { 'multiline': true, 'consistent': true }],
 		'quotes': ['error', 'single', { 'avoidEscape': true }],
 		'semi': ['error', 'never'],
