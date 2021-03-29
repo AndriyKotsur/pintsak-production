@@ -4,8 +4,8 @@ import * as GetTilesActions from 'actions/get-tiles.action'
 import * as GetTypesActions from 'actions/get-types.action'
 
 import { Types, Tiles } from 'components'
-import Sort from './components/sort/sort.component'
-import Pagination from './components/pagination/pagination.component'
+import Sort from './components/sort'
+import Pagination from './components/pagination'
 
 import classNames from 'classnames'
 import s from './style.module.scss'

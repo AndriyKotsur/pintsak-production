@@ -10,8 +10,7 @@ import './App.scss'
 
 const AuthRoute = ({ children, ...otherProps }) => {
 	const authToken = COOKIES.getAuthToken()
-	if (!authToken)
-		return <Redirect to="/" />
+	if (!authToken) return <Redirect to="/admin" />
 
 	return <Route {...otherProps}>{children}</Route>
 }

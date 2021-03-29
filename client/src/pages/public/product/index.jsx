@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as GetTileActions from 'actions/get-tile.action'
 
 import { Icon, Preloader, Counter, Carousel, Cart } from 'components'
-import Breadcrumbs from './components/breadcrumbs/breadcrumbs.component'
-import Table from './components/table/table.component'
+import Breadcrumbs from './components/breadcrumbs'
+import Table from './components/table'
 
 import classNames from 'classnames'
 import s from './style.module.scss'

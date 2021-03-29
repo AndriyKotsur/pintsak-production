@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as GetTypesActions from 'actions/get-types.action'
 
 import { Icon, Types } from 'components'
-import Clipboard from './components/clipboard/clipboard.component'
-import Cart from './components/cart/cart.component'
-import Language from './components/language/language.component'
+import Clipboard from './components/clipboard'
+import Cart from './components/cart'
+import Language from './components/language'
 
 import classNames from 'classnames'
 import s from './style.module.scss'
