@@ -35,6 +35,8 @@ module.exports = {
 		'object-curly-newline': ['error', { 'multiline': true, 'consistent': true }],
 		'quotes': ['error', 'single', { 'avoidEscape': true }],
 		'semi': ['error', 'never'],
+		'eol-last': ['error', 'always'],
+		'newline-before-return': 'error',
 	},
 	settings: {
 		'import/resolver': {
