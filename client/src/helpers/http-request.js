@@ -62,11 +62,10 @@ const getTypes = () => {
 	})
 }
 
-const getTiles = async ({page = 1, sortBy = '', orderBy = 1}) => {
-	console.log(page, sortBy, orderBy)
+const getTiles = async ({page = 1, typeBy= '', sortBy = '', orderBy = 1}) => {
 	return request ({
 		options: {
-			url: `/tiles?page=${page}&sort=${sortBy}&order=${orderBy}`,
+			url: `/tiles?&page=${page}&type=${typeBy}&sort=${sortBy}&order=${orderBy}`,
 			method: 'GET',
 		},
 	})

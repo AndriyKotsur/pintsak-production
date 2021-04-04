@@ -8,13 +8,13 @@ import {
 	HTTP,
 } from 'helpers'
 
-export const getTiles = (page, sortBy, orderBy) => {
+export const getTiles = (page, typeBy, sortBy, orderBy) => {
 	return async dispatch => {
 		dispatch({
 			type: GET_TILES_LOADING,
 		})
 		try {
-			const response = await HTTP.getTiles({page, sortBy, orderBy})
+			const response = await HTTP.getTiles({page, typeBy, sortBy, orderBy})
 			return dispatch({
 				type: GET_TILES_SUCCESS,
 				payload: response.data,

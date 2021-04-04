@@ -50,6 +50,15 @@
   color: $color2;
 }
 
+.length {
+  display: block;
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #373f48;
+  text-align: center;
+}
+
 .list {
   display: flex;
   flex-direction: column;

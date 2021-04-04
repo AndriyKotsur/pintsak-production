@@ -13,7 +13,7 @@ const Breadcrumbs = ({ type, tile }) => {
 				<Link to="/catalogue" className={s.link}>Види продукції</Link>
 			</li>
 			<li className={s.item}>
-				<Link to="/catalogue" className={s.link}>{type}</Link>
+				<Link to={`/catalogue/${type.url}`} className={s.link}>{type.title}</Link>
 			</li>
 			<li className={s.item}>{tile}</li>
 		</ul>

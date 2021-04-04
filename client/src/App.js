@@ -53,11 +53,11 @@ const App = () => {
 									<Front />
 								</Route>
 
-								<Route exact path='/catalogue'>
+								<Route exact path={['/catalogue', '/catalogue/:typeBy']}>
 									<Catalogue />
 								</Route>
 
-								<Route exact path='/catalogue/:url'>
+								<Route exact path='/catalogue/:typeBy/:url'>
 									<Product />
 								</Route>
 
