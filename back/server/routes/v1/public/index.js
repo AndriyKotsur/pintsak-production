@@ -2,8 +2,8 @@ const express = require('express')
 const router = express.Router()
 const fs = require('fs')
 
-const {Type, Tile} = require('../../../models')
-const {sendMail} = require('../../../services/sendgrid')
+const { Type, Tile, Customer } = require('../../../models')
+const { sendMail } = require('../../../services/sendgrid')
 
 // get tiles by sorting
 router.get('/tiles', async (req, res) => {
@@ -101,28 +101,35 @@ router.get('/download-catalogue', (_, res) => {
 
 // order request
 router.post('/order-request', async (req, res) => {
-    try {
-        const {name, phone, comment, order} = req.body
-        const content =
-            `<table>
-				<tbody>
-					<tr>Customer: ${name}</tr>
-					</br>
-					<tr>Phone: ${phone}</tr>
-					</br>
-					<tr>Comment: ${comment}</tr>
-					</br>
-					<tr>Order: ${order.title}, ${order.count}, ${order.color}, ${order.totalPrice}</tr>
-				</tbody>
-			</table>`
+	try {
+		const { name, phone, comment, order } = req.body
 
-        const response = await sendMail({fromEmail: 'pintsak-tiles.com.ua', subject: 'New order request!', content})
-        if (response[0].statusCode !== 202) return res.status(400).json({success: false, message: 'Email error'})
+		const newOrder = await Customer.create(req.body)
 
-        res.status(201).json({success: true, message: 'Successfully sended'})
-    } catch (err) {
-        res.status(400).json({success: false, message: err.message})
-    }
+		if (newOrder) {
+			const content =
+				`<table>
+					<tbody>
+						<tr>Customer: ${name}</tr>
+						</br>
+						<tr>Phone: ${phone}</tr>
+						</br>
+						<tr>Comment: ${comment}</tr>
+						</br>
+						<tr>Order: ${order.title}, ${order.count}, ${order.color}, ${order.totalPrice}</tr>
+					</tbody>
+				</table>`
+
+			const response = await sendMail({ fromEmail: 'pintsak-tiles.com.ua', subject: 'New order request!', content })
+			if (response[0].statusCode !== 202) return res.status(400).json({ success: false, message: 'Email error' })
+
+			res.status(201).json({ success: true, message: 'Successfully sended' })
+		}
+
+		res.status(400).json({ success: false, message: 'Something went wrong' })
+	} catch (err) {
+		res.status(400).json({ success: false, message: err.message })
+	}
 })
 
 module.exports = router
