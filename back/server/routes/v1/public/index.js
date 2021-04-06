@@ -65,12 +65,14 @@ router.get('/tiles', async (req, res) => {
 // get tile
 router.get('/tile/:url', async (req, res) => {
     try {
-        const {url} = req.params
-        const tile = await Tile.findOne({url}).populate('type')
+        const { url } = req.params
+        const tile = await Tile.findOne({ url }).populate('type')
+	
+	const tiles = await Tile.find({ url: { $ne: tile.url }, type: tile.type }).limit(9).populate('type')
 
-        res.status(200).json({success: true, data: tile})
+        res.status(200).json({ success: true, data: { tile, tiles } })
     } catch (err) {
-        res.status(404).json({success: false, message: err.message})
+        res.status(404).json({ success: false, message: err.message })
     }
 })
 
@@ -79,11 +81,22 @@ router.get('/types', async (_, res) => {
     try {
         const types = await Type.find()
 
-        res.status(200).json({success: true, data: types})
+        res.status(200).json({ success: true, data: types })
     } catch (err) {
-        res.status(404).json({success: false, message: 'Not found'})
+        res.status(404).json({ success: false, message: err.message })
     }
 })
+
+// get populars tiles
+router.get('/popular', (_, res) => {
+	try {
+		const tiles = await Tile.find({ is_popular: true }).populate('type')
+		
+		res.status(200).json({ success: true, data: tiles })
+	} catch (err) {
+		res.status(404).json({ success: false, message: err.message })
+	}
+}
 
 // download catalogue
 router.get('/download-catalogue', (_, res) => {
