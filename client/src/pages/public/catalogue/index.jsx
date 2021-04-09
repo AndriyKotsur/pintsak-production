@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import {useParams} from "react-router-dom"
 import {useDispatch, useSelector} from 'react-redux'
 import * as GetTilesActions from 'actions/get-tiles.action'
 import * as GetTypesActions from 'actions/get-types.action'
@@ -9,7 +10,6 @@ import Pagination from './components/pagination'
 
 import classNames from 'classnames'
 import s from './style.module.scss'
-import {useParams} from "react-router-dom"
 
 const CataloguePage = () => {
     const {typeBy} = useParams()
@@ -20,10 +20,11 @@ const CataloguePage = () => {
     const [page, setPage] = useState(1)
     const [sortBy, setSortBy] = useState('')
     const [orderBy, setOrderBy] = useState(-1)
+    const [loadMore, setLoadMore] = React.useState(false)
 
     useEffect(() => {
-        dispatch(GetTilesActions.getTiles(page, typeBy, sortBy, orderBy))
-    }, [page, typeBy, sortBy, orderBy])
+        dispatch(GetTilesActions.getTiles(page, typeBy, sortBy, orderBy, loadMore))
+    }, [page, typeBy, sortBy, orderBy, loadMore])
 
     useEffect(() => {
         dispatch(GetTypesActions.getTypes())
@@ -57,6 +58,7 @@ const CataloguePage = () => {
                         <Pagination
                             page={page}
                             pages={tiles.pages}
+                            handleloadMore={setLoadMore}
                             handlePageBy={setPage}/>
                     </div>
                 </div>

@@ -2,15 +2,15 @@ const express = require('express')
 const router = express.Router()
 const fs = require('fs')
 
-const { Type, Tile, Customer } = require('../../../models')
-const { sendMail } = require('../../../services/sendgrid')
+const {Type, Tile, Customer} = require('../../../models')
+const {sendMail} = require('../../../services/sendgrid')
 
 // get tiles by sorting
 router.get('/tiles', async (req, res) => {
     try {
         const {page, type, sort, order} = req.query
         const _page = page ? page - 1 : 0
-        const limit = 9
+        const limit = 2
 
         const findBy = type ? {'type.url': type} : {}
         const sortBy = sort ? {[sort]: Number(order)} : {createdAt: -1}
@@ -101,14 +101,14 @@ router.get('/download-catalogue', (_, res) => {
 
 // order request
 router.post('/order-request', async (req, res) => {
-	try {
-		const { name, phone, comment, order } = req.body
+    try {
+        const {name, phone, comment, order} = req.body
 
-		const newOrder = await Customer.create(req.body)
+        const newOrder = await Customer.create(req.body)
 
-		if (newOrder) {
-			const content =
-				`<table>
+        if (newOrder) {
+            const content =
+                `<table>
 					<tbody>
 						<tr>Customer: ${name}</tr>
 						</br>
@@ -120,16 +120,16 @@ router.post('/order-request', async (req, res) => {
 					</tbody>
 				</table>`
 
-			const response = await sendMail({ fromEmail: 'pintsak-tiles.com.ua', subject: 'New order request!', content })
-			if (response[0].statusCode !== 202) return res.status(400).json({ success: false, message: 'Email error' })
+            const response = await sendMail({fromEmail: 'pintsak-tiles.com.ua', subject: 'New order request!', content})
+            if (response[0].statusCode !== 202) return res.status(400).json({success: false, message: 'Email error'})
 
-			res.status(201).json({ success: true, message: 'Successfully sended' })
-		}
+            res.status(201).json({success: true, message: 'Successfully sended'})
+        }
 
-		res.status(400).json({ success: false, message: 'Something went wrong' })
-	} catch (err) {
-		res.status(400).json({ success: false, message: err.message })
-	}
+        res.status(400).json({success: false, message: 'Something went wrong'})
+    } catch (err) {
+        res.status(400).json({success: false, message: err.message})
+    }
 })
 
 module.exports = router

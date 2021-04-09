@@ -3,6 +3,7 @@
 
 .footer {
   padding: 55px 0px;
+  margin-top: auto;
   background: $color1;
 
   @include screen-tb() {

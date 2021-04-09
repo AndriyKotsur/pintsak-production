@@ -38,6 +38,7 @@
   border-radius: 4px;
   background: #ffffff;
   text-align: center;
+  z-index: 5;
 
   &::before {
     content: "";

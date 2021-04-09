@@ -56,6 +56,7 @@ const FrontPage = () => {
 
 	useEffect(() => {
 		dispatch(GetTypesActions.getTypes())
+
 		return () => dispatch(GetTypesActions.clear())
 	}, [])
 
@@ -64,12 +65,14 @@ const FrontPage = () => {
 			<div className={s.hero}>
 				<div className="container">
 					<div className={s.hero_wrapper}>
-						<Types types={types.types} settings={{ public: true, light: true }} styleName={s.hero_navigation} />
+						<Types types={types.types} settings={{ public: true, light: true }}
+							styleName={s.hero_navigation}/>
 						<div className={s.hero_carousel}>
 							<div className={s.hero_header}>
 								<h1 className={s.hero_title}>Тротуарна плитка</h1>
 								<Link to="/about" className={s.hero_description}>Дізнатися більше
-									<Icon name="description" className={classNames('icon', 'icon-description', s.hero_icon)} />
+									<Icon name="description"
+										className={classNames('icon', 'icon-description', s.hero_icon)}/>
 								</Link>
 							</div>
 							<div className={s.hero_block}>
@@ -78,23 +81,23 @@ const FrontPage = () => {
 									options={hero}>
 									<SplideSlide>
 										<picture className={s.hero_item}>
-											<img src={Slide1} alt="Carousel image" />
+											<img src={Slide1} alt="Carousel image"/>
 										</picture>
 									</SplideSlide>
 									<SplideSlide>
 										<picture className={s.hero_item}>
-											<img src={Slide2} alt="Carousel image" />
+											<img src={Slide2} alt="Carousel image"/>
 										</picture>
 									</SplideSlide>
 									<SplideSlide>
 										<picture className={s.hero_item}>
-											<img src={Slide3} alt="Carousel image" />
+											<img src={Slide3} alt="Carousel image"/>
 										</picture>
 									</SplideSlide>
 								</Splide>
 							</div>
 							<div className={s.hero_controls}>
-								<Splide options={heroControls} ref={heroControlsRef} onClick={( splide, prev, next ) => { console.log( prev, next )}}>
+								<Splide options={heroControls} ref={heroControlsRef}>
 									<SplideSlide>
 										<span className={s.hero_dot}>01</span>
 									</SplideSlide>
@@ -117,8 +120,8 @@ const FrontPage = () => {
 						<Types
 							types={types.types}
 							settings={{ public: true }}
-							styleName={s.popular_navigation} />
-						<Carousel />
+							styleName={s.popular_navigation}/>
+						<Carousel/>
 					</div>
 				</div>
 			</div>
@@ -128,26 +131,26 @@ const FrontPage = () => {
 						<div className={s.cons_item}>
 							<h3 className={s.cons_title}>Доставка по регіону</h3>
 							<div className={s.cons_image}>
-								<Icon name="delivery" className="icon icon-delivery" />
+								<Icon name="delivery" className="icon icon-delivery"/>
 							</div>
 						</div>
 						<div className={s.cons_item}>
 							<h3 className={s.cons_title}>Індивідуальний підхід</h3>
 							<div className={s.cons_image}>
-								<Icon name="approach" className="icon icon-approach" />
+								<Icon name="approach" className="icon icon-approach"/>
 							</div>
 						</div>
 						<div className={s.cons_item}>
 							<h3 className={s.cons_title}>Лояльні ціни</h3>
 							<div className={s.cons_image}>
-								<Icon name="price" className="icon icon-price" />
+								<Icon name="price" className="icon icon-price"/>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div className={s.contact}>
-				<Background settings={{ hiddenLeft: false, hiddenRight: false }} />
+				<Background settings={{ hiddenLeft: false, hiddenRight: false }}/>
 				<div className="container">
 					<div className={s.contact_wrapper}>
 						<Form
@@ -158,19 +161,19 @@ const FrontPage = () => {
 								name='title'
 								title='Ваше Ім’я'
 								// onChange={e => dispatch(AddTileActions.handleChange(e))}
-								isRequired />
+								isRequired/>
 							<Input
 								type='text'
 								name='phone'
 								title='Ваше номер телефону'
 								// onChange={e => dispatch(AddTileActions.handleChange(e))}
-								isRequired />
+								isRequired/>
 							<Input
 								type='text'
 								name='message'
 								title='Ваш комментар'
 								// onChange={e => dispatch(AddTileActions.handleChange(e))}
-								isRequired />
+								isRequired/>
 						</Form>
 					</div>
 				</div>
