@@ -58,17 +58,6 @@
   }
 }
 
-.products {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 20px 0;
-
-  @include screen-l() {
-    margin: 20px -20px 20px;
-  }
-}
-
 // .aside-popular {
 //   &__header {
 //     margin: 0px 0px 25px;

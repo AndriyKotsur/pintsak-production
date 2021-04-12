@@ -7,11 +7,14 @@
 
 # testing
 /coverage
+/.idea
+/.vscode
 
 # production
 /build
 
 /.idea
+/.vscode
 
 # misc
 .DS_Store

@@ -25,7 +25,7 @@ const request = async function ({ options = true, headers = {} }) {
 	return client(options).then(onSuccess).catch(onError)
 }
 
-const login = admin => {
+const login = async admin => {
 	return request ({
 		options: {
 			url: '/admin',
@@ -44,7 +44,7 @@ const getType = async id => {
 	})
 }
 
-const getTile = url => {
+const getTile = async url => {
 	return request ({
 		options: {
 			url: `/tile/${url}`,
@@ -53,7 +53,7 @@ const getTile = url => {
 	})
 }
 
-const getTypes = () => {
+const getTypes = async () => {
 	return request ({
 		options: {
 			url: '/types',
@@ -66,6 +66,15 @@ const getTiles = async ({page = 1, typeBy= '', sortBy = '', orderBy = 1}) => {
 	return request ({
 		options: {
 			url: `/tiles?&page=${page}&type=${typeBy}&sort=${sortBy}&order=${orderBy}`,
+			method: 'GET',
+		},
+	})
+}
+
+const getPopularTiles = async () => {
+	return request({
+		options: {
+			url: '/popular',
 			method: 'GET',
 		},
 	})
@@ -150,15 +159,16 @@ const deleteType = async id => {
 
 const useHTTPRequest = {
 	login,
+	getType,
+	getTile,
 	getTypes,
 	getTiles,
-	getType,
+	getPopularTiles,
 	uploadImages,
-	updateType,
-	getTile,
-	updateTile,
 	addType,
 	addTile,
+	updateType,
+	updateTile,
 	deleteTile,
 	deleteType,
 }

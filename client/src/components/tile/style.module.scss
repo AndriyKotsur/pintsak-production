@@ -1,9 +1,22 @@
+@import './src/assets/styles/general/_mixins.scss';
+@import './src/assets/styles/general/_variables.scss';
+
 .item {
-  min-width: 290px;
-  width: calc(33.333% - 40px);
-  margin: 0px 20px 40px;
+  width: 290px;
   padding: 27px 0px 30px;
+  margin: 0 0 30px;
   border: 1px solid #373f48;
+
+  @include screen-tb {
+    min-width: 290px;
+    width: calc(33.333% - 40px);
+    margin: 0 20px 30px;
+  }
+
+  @include screen-xl {
+    width: 341px;
+    margin: 0 20.5px 40px;
+  }
 }
 
 .link {

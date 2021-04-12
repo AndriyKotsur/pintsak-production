@@ -1,3 +1,25 @@
+@import './src/assets/styles/general/_mixins.scss';
+@import './src/assets/styles/general/_variables.scss';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+
+  @include screen-tb {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  @include screen-l() {
+    margin: 0 -19.5px 40px;
+  }
+}
+
 .length {
   display: block;
   margin-bottom: 20px;
@@ -5,12 +27,4 @@
   font-weight: 700;
   color: #373f48;
   text-align: center;
-}
-
-.list {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: flex-start;
 }

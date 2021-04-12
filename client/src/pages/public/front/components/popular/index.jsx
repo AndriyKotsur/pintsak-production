@@ -4,7 +4,7 @@ import {Types, Carousel} from "components"
 
 import s from "./style.module.scss"
 
-const Popular = ({ types }) => {
+const Popular = ({ types, tiles }) => {
 
     return (
         <div className={s.popular}>
@@ -14,7 +14,7 @@ const Popular = ({ types }) => {
                         types={types.types}
                         settings={{public: true}}
                         styleName={s.popular_navigation}/>
-                    <Carousel styleName={s.carousel}/>
+                    <Carousel items={tiles.tiles} styleName={s.carousel}/>
                 </div>
             </div>
         </div>

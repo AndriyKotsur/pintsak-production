@@ -8,7 +8,6 @@ import {Types, Tiles, Preloader} from 'components'
 import Sort from './components/sort'
 import Pagination from './components/pagination'
 
-import classNames from 'classnames'
 import s from './style.module.scss'
 
 const CataloguePage = () => {
@@ -49,15 +48,13 @@ const CataloguePage = () => {
                                 handleSortBy={setSortBy}
                                 handleOrderBy={setOrderBy}/>
                         </div>
-                        <div className={s.products}>
-                            {
-                                tiles.get_tiles_status === 'success' && tiles.get_tiles_status
-                                    ? <Tiles
-                                        tiles={tiles.tiles}
-                                        settings={{public: true}}/>
-                                    : <Preloader/>
-                            }
-                        </div>
+                        {
+                            tiles.get_tiles_status === 'success' && tiles.get_tiles_status
+                                ? <Tiles
+                                    tiles={tiles.tiles}
+                                    settings={{public: true}}/>
+                                : <Preloader/>
+                        }
                         <Pagination
                             page={page}
                             pages={tiles.pages}

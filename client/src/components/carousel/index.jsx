@@ -1,8 +1,7 @@
 import React, {useRef} from "react"
 import {Splide, SplideSlide} from "@splidejs/react-splide"
-import {Icon, Tile} from "components"
+import {Tile} from "components"
 
-import classNames from "classnames"
 import s from "./style.module.scss"
 
 const Carousel = ({items, styleName}) => {
@@ -22,11 +21,12 @@ const Carousel = ({items, styleName}) => {
         pagination: false,
         breakpoints: {
             1024: {
-                width: 325,
+                fixedWidth: 341,
                 perPage: 3,
             },
             767: {
-                width: 260,
+                fixedWidth: '100%',
+                perPage: 1,
             },
         },
     }
@@ -36,7 +36,7 @@ const Carousel = ({items, styleName}) => {
             <div className={s.header}>
                 <h2 className={s.title}>Популярні товари</h2>
             </div>
-            <ul className={s.list}>
+            <div className={s.list}>
                 <Splide options={carousel} ref={carouselRef}>
                     {items && items.length > 0 && items.map(tile => (
                         <SplideSlide>
@@ -44,7 +44,7 @@ const Carousel = ({items, styleName}) => {
                         </SplideSlide>
                     ))}
                 </Splide>
-            </ul>
+            </div>
         </div>
     )
 }
