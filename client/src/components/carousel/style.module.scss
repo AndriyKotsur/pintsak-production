@@ -1,14 +1,6 @@
 @import './src/assets/styles/general/_mixins.scss';
 @import './src/assets/styles/general/_variables.scss';
 
-.wrapper {
-  width: 100%;
-
-  @include screen-l() {
-    width: 80%;
-  }
-}
-
 .header {
   display: flex;
   flex-direction: column;
@@ -16,6 +8,7 @@
 
   @include screen-tb() {
     flex-direction: row;
+    margin-bottom: 50px;
   }
 }
 
@@ -30,6 +23,9 @@
 }
 
 .controls {
+  position: absolute;
+  top: -70px;
+  right: 0;
   align-self: center;
   margin: 35px 0px 0px;
 
@@ -40,15 +36,29 @@
 }
 
 .step {
-  min-width: 50px;
-  display: inline-block;
+  position: relative;
+  width: 50px;
+  height: 40px;
   margin-right: 30px;
-  padding: 10px 15px;
+  //padding: 10px 15px;
   border-radius: 4px;
   background: $color2;
   @include transition();
 
+  svg {
+    width: 25px;
+    height: 35px;
+
+    path {
+      fill: #ffffff;
+    }
+  }
+
   &:first-child {
+    path {
+      //transform: rotateY(180deg);
+    }
+
     &:hover {
       transform: translate(-5px, -5px);
       @include transition();
@@ -64,45 +74,3 @@
     }
   }
 }
-
-.arrow {
-  &_left {
-    transform: rotateY(180deg);
-  }
-}
-
-.block {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
-
-.block {
-  margin-top: 40px 0 0;
-
-  @include screen-l() {
-    margin: 40px -20px 0;
-  }
-}
-
-// .product-carousel {
-//   max-width: 1184px;
-//   width: 100%;
-//   margin: 0px auto;
-
-//   &-block {
-//     margin: 40px 0px 0px;
-
-//     @include screen-l() {
-//       margin: 40px -20px 0px;
-//     }
-//   }
-
-//   &__arrow {
-//     &--left {
-//       transform: rotateZ(180deg);
-//       fill-opacity: 0.5;
-//     }
-//   }
-// }

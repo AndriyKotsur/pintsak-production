@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import * as GetTilesActions from 'actions/get-tiles.action'
 import * as GetTypesActions from 'actions/get-types.action'
 
-import {Types, Tiles} from 'components'
+import {Types, Tiles, Preloader} from 'components'
 import Sort from './components/sort'
 import Pagination from './components/pagination'
 
@@ -20,11 +20,10 @@ const CataloguePage = () => {
     const [page, setPage] = useState(1)
     const [sortBy, setSortBy] = useState('')
     const [orderBy, setOrderBy] = useState(-1)
-    const [loadMore, setLoadMore] = React.useState(false)
 
     useEffect(() => {
-        dispatch(GetTilesActions.getTiles(page, typeBy, sortBy, orderBy, loadMore))
-    }, [page, typeBy, sortBy, orderBy, loadMore])
+        dispatch(GetTilesActions.getTiles(page, typeBy, sortBy, orderBy))
+    }, [page, typeBy, sortBy, orderBy])
 
     useEffect(() => {
         dispatch(GetTypesActions.getTypes())
@@ -51,14 +50,17 @@ const CataloguePage = () => {
                                 handleOrderBy={setOrderBy}/>
                         </div>
                         <div className={s.products}>
-                            <Tiles
-                                tiles={tiles.tiles}
-                                settings={{public: true}}/>
+                            {
+                                tiles.get_tiles_status === 'success' && tiles.get_tiles_status
+                                    ? <Tiles
+                                        tiles={tiles.tiles}
+                                        settings={{public: true}}/>
+                                    : <Preloader/>
+                            }
                         </div>
                         <Pagination
                             page={page}
                             pages={tiles.pages}
-                            handleloadMore={setLoadMore}
                             handlePageBy={setPage}/>
                     </div>
                 </div>

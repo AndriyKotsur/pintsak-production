@@ -1,0 +1,26 @@
+@import './src/assets/styles/general/_mixins.scss';
+@import './src/assets/styles/general/_variables.scss';
+
+.popular {
+  padding: 50px 0 90px;
+
+  &_wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &_navigation {
+    @include hidden();
+
+    @include screen-xl() {
+      display: block;
+      visibility: visible;
+    }
+  }
+}
+
+.carousel {
+  @include screen-l() {
+    width: 80%;
+  }
+}

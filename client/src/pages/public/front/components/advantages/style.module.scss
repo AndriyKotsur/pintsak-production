@@ -1,0 +1,46 @@
+@import './src/assets/styles/general/_mixins.scss';
+@import './src/assets/styles/general/_variables.scss';
+
+.cons {
+  padding: 62px 0 70px;
+  background: $color3;
+
+  &_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+
+    @include screen-tb() {
+      flex-direction: row;
+    }
+  }
+
+  &_item {
+    margin: 0 0 60px;
+
+    &:last-child {
+      margin: 0;
+    }
+
+    @include screen-tb() {
+      margin: 0;
+    }
+  }
+
+  &_title {
+    font-size: 16px;
+    font-weight: 700;
+    color: $color1;
+
+    @include screen-l() {
+      font-size: 18px;
+    }
+  }
+
+  &_image {
+    height: 70px;
+    margin: 50px auto 0;
+  }
+}

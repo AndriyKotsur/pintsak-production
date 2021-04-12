@@ -1,6 +1,7 @@
 export { default as Layout } from './layout'
 export { default as Header } from './header'
 export { default as Footer } from './footer'
+export { default as Tile } from './tile'
 export { default as Tiles } from './tiles'
 export { default as Types } from './types'
 export { default as Cart } from './cart'

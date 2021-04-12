@@ -51,7 +51,7 @@ const ProductPage = () => {
 							</div>
 						</div>
 						<Table options={tile.sizes}/>
-						<Carousel/>
+						<Carousel items={tile.tiles} styleName={s.carousel}/>
 					</div>
 				</div>
 			)}

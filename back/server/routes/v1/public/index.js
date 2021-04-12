@@ -10,7 +10,7 @@ router.get('/tiles', async (req, res) => {
     try {
         const {page, type, sort, order} = req.query
         const _page = page ? page - 1 : 0
-        const limit = 2
+        const limit = 9
 
         const findBy = type ? {'type.url': type} : {}
         const sortBy = sort ? {[sort]: Number(order)} : {createdAt: -1}
@@ -67,7 +67,7 @@ router.get('/tile/:url', async (req, res) => {
     try {
         const { url } = req.params
         const tile = await Tile.findOne({ url }).populate('type')
-	
+
 	const tiles = await Tile.find({ url: { $ne: tile.url }, type: tile.type }).limit(9).populate('type')
 
         res.status(200).json({ success: true, data: { tile, tiles } })
@@ -88,15 +88,15 @@ router.get('/types', async (_, res) => {
 })
 
 // get populars tiles
-router.get('/popular', (_, res) => {
+router.get('/popular', async (_, res) => {
 	try {
 		const tiles = await Tile.find({ is_popular: true }).populate('type')
-		
+
 		res.status(200).json({ success: true, data: tiles })
 	} catch (err) {
 		res.status(404).json({ success: false, message: err.message })
 	}
-}
+})
 
 // download catalogue
 router.get('/download-catalogue', (_, res) => {
