@@ -29,9 +29,7 @@ const EditTile = () => {
 
 	return (
 		<>
-			{
-				(state.get_tile_status === 'loading' || state.get_types_status === 'loading') && <Preloader />
-			}
+			{ (state.get_tile_status === 'loading' || state.get_types_status === 'loading') && <Preloader /> }
 			{ state.get_tile_status === 'success' && state.get_types_status && (
 				<Form
 					title="Редагувати товар"
@@ -56,12 +54,12 @@ const EditTile = () => {
 					<Checkbox
 						name='is_popular'
 						label='Чи продукт популярний?'
-						checked={state.is_available}
+						checked={state.is_popular}
 						onChange={e => dispatch(EditTileActions.handleChange(e))} />
 					<Checkbox
 						name='is_available'
 						label='Чи продукт в наявності?'
-						checked={state.is_popular}
+						checked={state.is_available}
 						onChange={e => dispatch(EditTileActions.handleChange(e))} />
 					<Input
 						type='number'

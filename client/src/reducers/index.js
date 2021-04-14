@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+import cart from './cart.reducer'
 import getTile from './get-tile.reducer'
 import getTiles from './get-tiles.reducer'
 import getPopularTiles from './get-popular-tiles.reducer'
@@ -12,6 +13,7 @@ import deleteType from './delete-type.reducer'
 import login from './login.reducer'
 
 export default combineReducers({
+	cart,
 	getTile,
 	getTiles,
 	getPopularTiles,

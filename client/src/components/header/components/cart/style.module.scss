@@ -12,22 +12,11 @@
   &:hover {
     @include transition();
     color: $color6;
-
-    .icon {
-      path {
-        fill: $color6;
-        @include transition();
-      }
-    }
   }
 }
 
 .icon {
   margin-right: 12px;
-
-  path {
-    @include transition();
-  }
 
   @media (max-width: 768px) {
     margin-right: 6px;

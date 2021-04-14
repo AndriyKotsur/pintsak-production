@@ -5,11 +5,13 @@ import {
 	GET_TILE_TYPES_SUCCESS,
 	GET_TILE_TYPES_LOADING,
 	GET_TILE_TYPES_ERROR,
+	CHANGE_STEP,
 	CHANGE_STATE,
 	CLEAR_STATE,
 } from '../constants/add-tile'
 
 let initialState = {
+	step: 0,
 	types: [],
 	title: '',
 	type: '',
@@ -83,6 +85,11 @@ export default function addTile (state = initialState, {type, payload, form, fie
 				...state,
 				...form,
 			}
+		}
+	case CHANGE_STEP:
+		return {
+			...state,
+			step: payload,
 		}
 	case CLEAR_STATE:
 		return {

@@ -7,6 +7,7 @@ import {
 	GET_TILE_TYPES_ERROR,
 	CHANGE_STATE,
 	CLEAR_STATE,
+	CHANGE_STEP,
 } from 'constants/add-tile'
 import {
 	HTTP,
@@ -114,6 +115,12 @@ export const handleChange = (event, field) => {
 				images: event,
 			},
 		}
+	}
+}
+
+export const changeStep = currentStep => {
+	return dispatch => {
+		return dispatch({ type: CHANGE_STEP, payload: currentStep })
 	}
 }
 

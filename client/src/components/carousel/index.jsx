@@ -8,17 +8,18 @@ const Carousel = ({items, styleName}) => {
     const carouselRef = useRef(null)
 
     const carousel = {
+        type: 'slide',
+        perPage: 3,
+        perMove: 1,
+        arrows: true,
         arrowPath: 'M7.2541 0.683838L14.7785 6.68384H14.7785H14.7787V6.68394L15.988 7.68384L14.7787 8.68374V8.68384L14.7785 8.68384L14.7785 8.68384L7.1883 14.5552L6.64992 12.7526L11.9098 8.68384H0.0496826V6.68384H12.142L6.71572 2.48642L7.2541 0.683838Z',
+        pagination: false,
+        drag: false,
         classes: {
             arrows: s.controls,
             prev  : `splide__arrow--prev ${s.step}`,
             next  : `splide__arrow--prev ${s.step}`,
         },
-        type: 'loop',
-        perPage: 3,
-        perMove: 1,
-        arrows: true,
-        pagination: false,
         breakpoints: {
             1024: {
                 fixedWidth: 341,

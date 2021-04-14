@@ -45,8 +45,8 @@ export default function editTile (state = initialState, {type, payload, form, fi
 	case GET_TILE_SUCCESS:
 		return {
 			...state,
-			...payload,
-			imagesPreview: payload.images,
+			...payload.tile,
+			imagesPreview: payload.tile.images,
 			get_tile_status: 'success',
 		}
 	case GET_TILE_ERROR:

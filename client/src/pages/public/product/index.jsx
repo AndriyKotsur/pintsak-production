@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import * as CartActions from 'actions/cart-action'
 import * as GetTileActions from 'actions/get-tile.action'
 
 import { Icon, Preloader, Counter, Carousel, Cart } from 'components'
@@ -13,6 +14,9 @@ import s from './style.module.scss'
 
 const ProductPage = () => {
 	const [cart, setCart] = useState(false)
+	const [quantity, setQuanity] = useState(1)
+	const [variant, setVariant] = useState('grey')
+
 	const dispatch = useDispatch()
 	const { url } = useParams()
 
@@ -21,7 +25,7 @@ const ProductPage = () => {
 	useEffect(() => {
 		dispatch(GetTileActions.getTile(url))
 	}, [])
-
+	
 	return (
 		<div className={s.section}>
 			{tile.get_tile_status === 'loading' && <Preloader/>}
@@ -42,7 +46,7 @@ const ProductPage = () => {
 									<h1 className={s.product_title}>{tile.title}</h1>
 									<p className={s.product_price}>{tile.prices.grey},<sup> 00 грн</sup></p>
 									<Counter />
-									<button onClick={() => setCart(prev => !prev)}
+									<button onClick={() => dispatch(CartActions.addCartItem(tile, quantity, variant))}
 										className={classNames('btn-green', 'btn-cart', s.product_btn)}>
 										<Icon name='cart' className={classNames('icon', 'icon-cart', s.product_icon)}/>
                                         В кошик
