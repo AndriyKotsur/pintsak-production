@@ -29,7 +29,7 @@
 }
 
 .clipboard {
-  @include hidden();
+  visibility: hidden;
   position: absolute;
   top: 40px;
   width: 355px;
@@ -38,6 +38,8 @@
   border-radius: 4px;
   background: #ffffff;
   text-align: center;
+  transition: all 0.3s ease-out;
+  opacity: 0;
   z-index: 5;
 
   &::before {
@@ -58,7 +60,8 @@
 
   &:hover+.clipboard {
     visibility: visible;
-    display: block;
+    transition: all 0.3s ease-out;
+    opacity: 1;
   }
 
   @include screen-tb() {

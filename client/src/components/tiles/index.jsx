@@ -9,7 +9,7 @@ const Tiles = ({tiles, settings}) => {
         <Fragment>
             {settings && settings.edit && <span className={s.length}>Кількість продуктів: {tiles.length}</span>}
             <div className={s.wrapper}>
-                {tiles.length > 0 && tiles.map(tile => (<Tile tile={tile} settings={settings} />))}
+                {tiles && tiles.length > 0 && tiles.map((tile, index) => (<Tile key={'tile_'+index}  tile={tile} settings={settings} />))}
             </div>
         </Fragment>
     )

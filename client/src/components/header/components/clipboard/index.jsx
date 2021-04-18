@@ -4,7 +4,7 @@ import useCopyToClipboard from 'hooks/useCopyToClipboard'
 import s from './style.module.scss'
 import classNames from 'classnames'
 
-const Clipboard = () => {
+const DropdownClipboard = () => {
 	const copyText = '+380636666666'
 	const [isCopied, handleCopy] = useCopyToClipboard(3000)
 
@@ -19,4 +19,4 @@ const Clipboard = () => {
 	)
 }
 
-export default Clipboard
+export default DropdownClipboard

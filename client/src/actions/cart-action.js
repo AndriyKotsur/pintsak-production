@@ -6,12 +6,21 @@ import {
     ADD_CART_ITEM,
     EDIT_CART_ITEM,
     DELETE_CART_ITEM,
-    CLEAR_STATE,
+    CLEAR_STATE, HANDLE_CART,
 } from '../constants/cart'
 
 import {
     HTTP,
 } from 'helpers'
+
+export const handleCart = handler => {
+    return dispatch => {
+        dispatch({
+            type: HANDLE_CART,
+            payload: handler,
+        })
+    }
+}
 
 export const orderCartItems = () => {
     return async dispatch => {
@@ -41,7 +50,10 @@ export const getCartItems = () => {
 
         dispatch({
             type: GET_CART_ITEMS,
-            payload: { items, subtotal }
+            payload: {
+                items,
+                subtotal,
+            },
         })
     }
 }
@@ -49,9 +61,13 @@ export const getCartItems = () => {
 export const addCartItem = (item, quantity, variant) => {
     return dispatch => {
         const newItem = {
-            ...item,
             quantity,
             variant,
+            _id: item._id,
+            title: item.title,
+            type: item.type,
+            url: item.url,
+            image: item.images[0],
             price: item.prices[variant],
         }
         const cartItems = JSON.parse(localStorage.getItem('cart_items')) || []
@@ -74,7 +90,7 @@ export const addCartItem = (item, quantity, variant) => {
 export const deleteCartItem = id => {
     return dispatch => {
         const cartItems = JSON.parse(localStorage.getItem('cart_items'))
-        const cartSubtotal = localStorage.getItem('cart_subtotal')
+        const cartSubtotal = localStorage.getItem('cart_subtotal') || 0
 
         const items = cartItems.filter(element => element._id !== id)
         const deletedItem = cartItems.find(element => element._id === id)
@@ -85,26 +101,33 @@ export const deleteCartItem = id => {
 
         dispatch({
             type: DELETE_CART_ITEM,
-            items,
-            subtotal: total,
+            payload: {
+                items,
+                subtotal: total,
+            }
         })
     }
 }
 
 export const editCartItem = (id, operator) => {
     return dispatch => {
-        const cartItems = JSON.parse(localStorage.getItem('cart_items'))
-        const cartSubtotal = localStorage.getItem('cart_subtotal')
+        const cartItems = JSON.parse(localStorage.getItem('cart_items')) || []
+        const cartSubtotal = localStorage.getItem('cart_subtotal') || 0
 
         const editedItem = cartItems.find(element => element._id === id)
-        const total = operator === 'plus' ? cartSubtotal + editedItem.price : cartSubtotal - editedItem.price
 
-        localStorage.setItem('cart_subtotal', total)
+        if(editedItem) {
+            const total = operator === 'plus' ? Number(cartSubtotal) + editedItem.price : Number(cartSubtotal) - editedItem.price
 
-        dispatch({
-            type: EDIT_CART_ITEM,
-            subtotal: total,
-        })
+            localStorage.setItem('cart_subtotal', total)
+
+            dispatch({
+                type: EDIT_CART_ITEM,
+                payload: {
+                    subtotal: total,
+                }
+            })
+        }
     }
 }
 

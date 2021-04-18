@@ -13,14 +13,18 @@ import classNames from 'classnames'
 import s from './style.module.scss'
 
 const ProductPage = () => {
-	const [cart, setCart] = useState(false)
-	const [quantity, setQuanity] = useState(1)
-	const [variant, setVariant] = useState('grey')
-
 	const dispatch = useDispatch()
 	const { url } = useParams()
-
 	const tile = useSelector(tile => tile.getTile)
+	const cart = useSelector(cart => cart.cart)
+
+	const [quantity, setQuantity] = useState(1)
+	const [variant, setVariant] = useState('grey')
+
+	const handleCart = () => {
+		dispatch(CartActions.addCartItem(tile, quantity, variant))
+		dispatch(CartActions.handleCart(true))
+	}
 
 	useEffect(() => {
 		dispatch(GetTileActions.getTile(url))
@@ -32,22 +36,22 @@ const ProductPage = () => {
 			{tile.get_tile_status === 'success' && tile.get_tile_status && (
 				<div className="container">
 					<div className={s.wrapper}>
-						<Link to="" className={s.back}>
-							<Icon name='arrow' className={classNames('icon', 'icon-back', s.back)}/>
+						<button type="button" onClick={() => window && window.history.back()} className={s.back}>
+							<Icon name='arrow' className={classNames('icon', 'icon-back', s.back_icon)}/>
 							{tile.title}
-						</Link>
+						</button>
 						<Breadcrumbs type={tile.type} tile={tile.title}/>
 						<div className={s.product}>
-							<span
-								className={classNames(s.status, { [s.available]: tile.is_available })}>{tile.is_available ? 'В наявності' : 'Нема у наявності'}</span>
+							<span className={classNames(s.status, { [s.available]: tile.is_available })}>{tile.is_available ? 'В наявності' : 'Нема у наявності'}</span>
 							<Gallery images={tile.images}/>
 							<div className={s.product_block}>
 								<div className={s.product_wrapper}>
 									<h1 className={s.product_title}>{tile.title}</h1>
 									<p className={s.product_price}>{tile.prices.grey},<sup> 00 грн</sup></p>
-									<Counter />
-									<button onClick={() => dispatch(CartActions.addCartItem(tile, quantity, variant))}
-										className={classNames('btn-green', 'btn-cart', s.product_btn)}>
+									<Counter type="product" id={tile._id} quantity={quantity} handleQuantity={setQuantity} />
+									<button onClick={handleCart}
+										className={classNames('btn-green', 'btn-cart', s.product_btn, { [s.disabled]: !tile.is_available })}
+										disabled={!tile.is_available}>
 										<Icon name='cart' className={classNames('icon', 'icon-cart', s.product_icon)}/>
                                         В кошик
 									</button>
@@ -59,7 +63,7 @@ const ProductPage = () => {
 					</div>
 				</div>
 			)}
-			{cart && <Cart/>}
+			{cart.is_active && <Cart/>}
 		</div>
 	)
 }

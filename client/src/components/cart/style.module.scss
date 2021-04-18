@@ -202,7 +202,7 @@
 
   &_price {
     min-width: 85px;
-    margin-left: 30px;
+    margin-left: 43px;
     text-align: center;
     color: $color1;
   }
@@ -232,6 +232,7 @@
 
 .back {
   margin-bottom: 52px;
+  cursor: pointer;
 
   &_title {
     margin-right: 12px;
@@ -241,8 +242,15 @@
   &_btn {
     min-width: 33px;
     padding: 6px 12px;
+    margin-left: 15px;
     border-radius: 4px;
     background: $color2;
+  }
+
+  &_icon {
+    path {
+      fill: #ffffff;
+    }
   }
 }
 
@@ -275,30 +283,3 @@
   font-weight: 900;
   color: #ffffff;
 }
-
-// &-calc {
-//   position: relative;
-//   max-width: 115px;
-//   width: 100%;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   margin: 20px 0px 0px;
-
-//   @include screen-sm() {
-//     margin: 20px 0px 0px 38px;
-//   }
-
-//   &__remove {
-//     padding: 7px 10px;
-//   }
-
-//   &__count {
-//     max-width: 55px;
-//     padding: 6px 0px;
-//   }
-
-//   &__add {
-//     padding: 7px 10px;
-//   }
-// }

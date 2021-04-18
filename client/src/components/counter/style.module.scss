@@ -11,34 +11,140 @@
   margin-bottom: 24px;
   background: #ffffff;
   border: 1px solid $color1;
+
+  &.catalogue {
+    max-width: unset;
+    justify-content: left;
+    border: unset;
+    border-top: 1px solid #ff8e01;
+    border-bottom: 1px solid #ff8e01;
+
+    .remove {
+      height: 31px;
+      border-right: 1px solid #ff8e01;
+    }
+
+    .add {
+      height: 31px;
+      border-left: 1px solid #ff8e01;
+    }
+
+    .count {
+      max-width: 89px;
+      padding: 6px 0;
+    }
+  }
+
+  &.cart {
+    max-width: 115px;
+    margin-top: 20px;
+    margin-bottom: 0;
+
+    @include screen-sm {
+      margin: 20px 0 0 38px;
+    }
+
+    .remove {
+      width: 30px;
+      height: 31px;
+    }
+
+    .add {
+      width: 30px;
+      height: 31px;
+    }
+
+    .count {
+      max-width: 55px;
+      padding: 6px 0;
+    }
+  }
 }
 
 .remove {
-  padding: 11px 13px;
+  width: 60px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
   background: transparent;
   border-right: 1px solid $color1;
+
+  &.disabled {
+    opacity: .7;
+    cursor: not-allowed;
+  }
+}
+
+.minus {
+  display: block;
+  width: 10px;
+  height: 2px;
+  background: $color1;
 }
 
 .add {
-  padding: 11px 13px;
+  width: 60px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
   background: transparent;
   border-left: 1px solid $color1;
 }
 
+.plus {
+  position: relative;
+  display: block;
+  width: 10px;
+  height: 2px;
+  background: $color1;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+    width: 2px;
+    height: 10px;
+    background: $color1;
+  }
+}
+
 .count {
   max-width: 75px;
-  font-size: 18px;
+  width: 100%;
+  font-size: 16px;
   padding: 10px 0;
   background: transparent;
   font-size: 14px;
   font-weight: 900;
   text-align: center;
 
+  & > span {
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 14px;
+  }
+
   &::-webkit-inner-spin-button,
   &::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
+}
+
+.button {
+  position: absolute;
+  left: 70%;
+  padding: 10px 15px;
+  background: #ff8e01;
+  border-radius: 4px;
+  box-shadow: 0px 2px 5px rgba(55, 63, 72, 0.2);
 }
 
 .size {

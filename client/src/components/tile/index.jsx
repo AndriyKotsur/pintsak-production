@@ -1,9 +1,9 @@
-import React, {useEffect} from "react"
+import React, {useEffect, useState} from "react"
 import {Link, useHistory} from "react-router-dom"
 import {useDispatch, useSelector} from 'react-redux'
 import * as DeleteTileActions from 'actions/delete-tile.action'
 
-import {Icon} from "components"
+import { Counter } from "components"
 
 import s from "./style.module.scss"
 
@@ -48,18 +48,7 @@ const Tile = ({ tile, settings }) => {
                         </button>
                     </div>
                     :
-                    <div className={s.counter}>
-                        <button className={s.remove}>
-                            <Icon name='minus' className='icon icon-minus'/>
-                        </button>
-                        <input type="number" className={s.count} min="1" value="1"/>
-                        <button className={s.add}>
-                            <Icon name='plus' className='icon icon-plus'/>
-                        </button>
-                        <button className={s.cart}>
-                            <Icon name='cart' className='icon icon-cart'/>
-                        </button>
-                    </div>
+                    <Counter id={tile.id} type="catalogue" />
             }
         </div>
     )

@@ -1,11 +1,21 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Link } from 'react-router-dom'
-import { Icon, Form, Input } from 'components'
+import {useDispatch, useSelector} from 'react-redux'
+import * as CartActions from 'actions/cart-action'
+
+import {Icon, Form, Input, Cart} from 'components'
 
 import classNames from 'classnames'
 import s from './style.module.scss'
 
 const OrderPage = () => {
+	const dispatch = useDispatch()
+	const cart = useSelector(cart => cart.cart)
+
+	useEffect(() => {
+		dispatch(CartActions.getCartItems())
+	}, [])
+
 	return (
 		<div className={s.section}>
 			<div className="container">
@@ -36,32 +46,37 @@ const OrderPage = () => {
 						</Form>
 					</div>
 					<div className={s.order}>
-						<div className={s.edit}>
+						<div className={s.edit} onClick={() => dispatch(CartActions.handleCart(true))}>
 							<span className={s.edit_title}>Редагувати замовлення</span>
-							<button className={s.edit_btn}>
-								<Icon name="arrow" className="icon icon-arrow"/>
+							<button type="button" className={s.edit_btn}>
+								<Icon name="arrow" className={classNames('icon', 'icon-arrow', s.edit_icon)}/>
 							</button>
 						</div>
 						<div className={s.summary}>
 							<h2 className={s.summary_title}>Замовлення</h2>
 							<div className={s.summary_box}>
 								<span className={s.summary_text}>Підсумок:</span>
-								<span className={s.summary_price}>172 422,00 грн</span>
+								<span className={s.summary_price}>{cart.subtotal} грн</span>
 							</div>
 						</div>
 						<div className={s.list}>
-							<div className={s.list_item}>
-								<picture className={s.list_image}>
-									<img src="" alt="Product image" />
-								</picture>
-								<Link to="" className={s.list_title}>Бордюр поворотний</Link>
-								<span className={s.list_size}>75 м<sup>2</sup></span>
-								<span className={s.list_price}>4567,00 грн</span>
-							</div>
+							{
+								cart.items.length > 0 && cart.items.map((item, index) => (
+									<div key={'item_'+ index} className={s.list_item}>
+										<picture className={s.list_image}>
+											<img src={item.image} alt={item.title} />
+										</picture>
+										<Link to={`/catalogue/${item.type.url}/${item.url}`} className={s.list_title}>{item.title}</Link>
+										<span className={s.list_size}>{item.quantity} м<sup>2</sup></span>
+										<span className={s.list_price}>{item.quantity * item.price},00 грн</span>
+									</div>
+								))
+							}
 						</div>
 					</div>
 				</div>
 			</div>
+			{ cart.is_active && <Cart /> }
 		</div>
 	)
 }

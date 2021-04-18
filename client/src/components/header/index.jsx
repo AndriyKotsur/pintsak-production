@@ -5,12 +5,14 @@ import * as GetTypesActions from 'actions/get-types.action'
 
 import { Icon, Types } from 'components'
 import Clipboard from './components/clipboard'
-import Cart from './components/cart'
+import DropdownCart from './components/cart'
 import Language from './components/language'
 
 import classNames from 'classnames'
 import s from './style.module.scss'
 import './slider.scss'
+import DropdownClipboard from "./components/clipboard";
+import DropdownLanguage from "./components/language";
 
 const Header = () => {
 	const [isMobile, setIsMobile] = useState(false)
@@ -47,15 +49,15 @@ const Header = () => {
 						<Link to="/catalogue" className={s.navigation_link}>Види продукції</Link>
 					</nav>
 					<div className={s.info}>
-						<Clipboard />
+						<DropdownClipboard />
 						<Link to="/location" className={s.info_link}>
 							<Icon name="location" className={classNames('icon', 'icon-location')} />
 							<span className={s.info_location}>Великий Березний вул. Верховинська, 10</span>
 						</Link>
 					</div>
 					<div className={s.action}>
-						<Cart />
-						<Language />
+						<DropdownCart />
+						<DropdownLanguage />
 					</div>
 				</div>
 			</div>

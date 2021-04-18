@@ -1,4 +1,5 @@
 import {
+    HANDLE_CART,
     ORDER_CART_ITEMS_SUCCESS,
     ORDER_CART_ITEMS_ERROR,
     ORDER_CART_ITEMS_LOADING,
@@ -10,6 +11,7 @@ import {
 } from '../constants/cart'
 
 let initialState = {
+    is_active: false,
     items: [],
     subtotal: null,
     order_cart_items_status: '',
@@ -17,6 +19,11 @@ let initialState = {
 
 export default function cart(state = initialState, {type, payload}) {
     switch (type) {
+        case HANDLE_CART:
+            return {
+                ...state,
+                is_active: payload,
+            }
         case ORDER_CART_ITEMS_SUCCESS:
             return {
                 ...state,

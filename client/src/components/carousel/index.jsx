@@ -4,7 +4,7 @@ import {Tile} from "components"
 
 import s from "./style.module.scss"
 
-const Carousel = ({items, styleName}) => {
+const Carousel = ({ items, styleName }) => {
     const carouselRef = useRef(null)
 
     const carousel = {
@@ -39,9 +39,9 @@ const Carousel = ({items, styleName}) => {
             </div>
             <div className={s.list}>
                 <Splide options={carousel} ref={carouselRef}>
-                    {items && items.length > 0 && items.map(tile => (
-                        <SplideSlide>
-                            <Tile tile={tile} settings={{public: true}}/>
+                    {items && items.length > 0 && items.map((tile, index) => (
+                        <SplideSlide key={'tile_'+index}>
+                            <Tile tile={tile} settings={{ public: true }}/>
                         </SplideSlide>
                     ))}
                 </Splide>

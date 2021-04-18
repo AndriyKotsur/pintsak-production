@@ -26,6 +26,7 @@
   }
 
   &_icon {
+    margin-right: 7px;
     transform: rotateY(180deg);
   }
 }
@@ -131,6 +132,17 @@
     max-width: 223px;
     display: block;
     padding: 15px 40px;
+
+    &.disabled {
+      opacity: .7;
+      cursor: not-allowed;
+
+      &:hover {
+        transform: unset;
+        transition: none;
+        box-shadow: none;
+      }
+    }
   }
 
   &_icon {
