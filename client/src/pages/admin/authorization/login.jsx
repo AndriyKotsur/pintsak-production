@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as AuthActions from '../../../actions/login.action'
-import { Input } from 'components'
+import { Background, Input } from 'components'
 import classNames from 'classnames'
 import s from './style.module.scss'
 
@@ -24,6 +24,7 @@ const Login = () => {
 
 	return (
 		<section className={s.authorization}>
+			<Background settings={{ hiddenLeft: false, hiddenRight: false }}/>
 			<div className={classNames('container', s.container)}>
 				<div className={s.inner}>
 					<h1 className={s.title}>

@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react"
 import {Link, useHistory} from "react-router-dom"
 import {useDispatch, useSelector} from 'react-redux'
+import * as CartActions from 'actions/cart-action'
 import * as DeleteTileActions from 'actions/delete-tile.action'
 
-import { Counter } from "components"
+import { Icon, Counter } from "components"
 
 import s from "./style.module.scss"
 
@@ -11,6 +12,14 @@ const Tile = ({ tile, settings }) => {
     const history = useHistory()
     const dispatch = useDispatch()
     const state = useSelector(state => state.deleteTile)
+
+    const [quantity, setQuantity] = useState(1)
+    const [variant, setVariant] = useState('grey')
+
+    const handleCart = () => {
+        dispatch(CartActions.addCartItem(tile, quantity, variant))
+        dispatch(CartActions.handleCart(true))
+    }
 
     const deleteTile = async id => {
         dispatch(DeleteTileActions.deleteTile(id))
@@ -48,7 +57,12 @@ const Tile = ({ tile, settings }) => {
                         </button>
                     </div>
                     :
-                    <Counter id={tile.id} type="catalogue" />
+                    <div className={s.action}>
+                        <Counter id={tile.id} type="catalogue" quantity={quantity} handleQuantity={setQuantity} />
+                        <button type="button" onClick={handleCart} className={s.cart}>
+                            <Icon name='cart' className='icon icon-cart'/>
+                        </button>
+                    </div>
             }
         </div>
     )

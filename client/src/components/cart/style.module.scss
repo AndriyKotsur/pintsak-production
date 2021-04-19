@@ -237,12 +237,12 @@
   &_title {
     margin-right: 12px;
     font-weight: 600;
+    color: $color1;
   }
 
   &_btn {
     min-width: 33px;
     padding: 6px 12px;
-    margin-left: 15px;
     border-radius: 4px;
     background: $color2;
   }
@@ -276,6 +276,7 @@
 
 .btn {
   min-width: 143px;
+  display: block;
   padding: 8px 28px;
   border-radius: 4px;
   background: $color2;

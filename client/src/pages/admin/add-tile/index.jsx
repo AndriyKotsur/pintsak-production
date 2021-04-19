@@ -33,13 +33,16 @@ const AddTile = () => {
 			'1': <Step2 />,
 			'2': <Step3 />,
 		}
+
 		return steps[currentStep]
 	}, [currentStep])
 
 	return (
-		<Fragment>
-			{ step }
-		</Fragment>
+		<section>
+			<div className="container">
+				{ step }
+			</div>
+		</section>
 	)
 }
 

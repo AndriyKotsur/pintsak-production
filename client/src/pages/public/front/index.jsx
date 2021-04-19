@@ -1,12 +1,12 @@
-import React, {Fragment, useEffect} from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as GetPopularTilesActions from 'actions/get-popular-tiles.action'
 import * as GetTypesActions from 'actions/get-types.action'
 
-import Hero from "./components/hero"
-import Popular from "./components/popular"
-import Advantages from "./components/advantages"
-import Contact from "./components/contact/contact"
+import Hero from './components/hero'
+import Popular from './components/popular'
+import Advantages from './components/advantages'
+import Contact from './components/contact/contact'
 
 const FrontPage = () => {
 	const dispatch = useDispatch()
@@ -15,11 +15,13 @@ const FrontPage = () => {
 
 	useEffect(() => {
 		dispatch(GetTypesActions.getTypes())
+
 		return () => dispatch(GetTypesActions.clear())
 	}, [])
 
 	useEffect(() => {
 		dispatch(GetPopularTilesActions.getPopularTiles())
+
 		return () => dispatch(GetPopularTilesActions.clear())
 	}, [])
 
