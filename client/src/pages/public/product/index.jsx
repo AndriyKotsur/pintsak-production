@@ -16,7 +16,8 @@ const ProductPage = () => {
 	const dispatch = useDispatch()
 	const { url } = useParams()
 	const tile = useSelector(tile => tile.getTile)
-	const cart = useSelector(cart => cart.cart)
+	const cart = useSelector(state => state.cart)
+	const itemInCart = cart.items.find(item => item.url === url)
 
 	const [quantity, setQuantity] = useState(1)
 	const [variant, setVariant] = useState('grey')
@@ -29,7 +30,7 @@ const ProductPage = () => {
 	useEffect(() => {
 		dispatch(GetTileActions.getTile(url))
 	}, [])
-	
+
 	return (
 		<div className={s.section}>
 			{tile.get_tile_status === 'loading' && <Preloader/>}
@@ -48,12 +49,17 @@ const ProductPage = () => {
 								<div className={s.product_wrapper}>
 									<h1 className={s.product_title}>{tile.title}</h1>
 									<p className={s.product_price}>{tile.prices.grey},<sup> 00 грн</sup></p>
-									<Counter type="product" id={tile._id} quantity={quantity} handleQuantity={setQuantity} />
-									<button onClick={handleCart}
+									<Counter
+										type="product"
+										id={tile._id}
+										quantity={itemInCart ? itemInCart.quantity : quantity}
+										handleQuantity={!itemInCart && setQuantity} />
+									<button
+										onClick={handleCart}
 										className={classNames('btn-green', 'btn-cart', s.product_btn, { [s.disabled]: !tile.is_available })}
 										disabled={!tile.is_available}>
 										<Icon name='cart' className={classNames('icon', 'icon-cart', s.product_icon)}/>
-                                        В кошик
+										В кошик
 									</button>
 								</div>
 							</div>
@@ -63,7 +69,7 @@ const ProductPage = () => {
 					</div>
 				</div>
 			)}
-			{cart.is_active && <Cart/>}
+			{cart.is_active && <Cart />}
 		</div>
 	)
 }

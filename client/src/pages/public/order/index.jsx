@@ -1,20 +1,16 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
-import {useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import * as CartActions from 'actions/cart-action'
 
-import {Icon, Form, Input, Cart} from 'components'
+import { Icon, Form, Input, Cart } from 'components'
 
 import classNames from 'classnames'
 import s from './style.module.scss'
 
 const OrderPage = () => {
 	const dispatch = useDispatch()
-	const cart = useSelector(cart => cart.cart)
-
-	useEffect(() => {
-		dispatch(CartActions.getCartItems())
-	}, [])
+	const cart = useSelector(state => state.cart)
 
 	return (
 		<div className={s.section}>

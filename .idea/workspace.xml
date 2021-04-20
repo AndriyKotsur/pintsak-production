@@ -2,13 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e00fdbd3-e1d8-4052-b49e-4460a4d37492" name="Default Changelist" comment="add stepper &amp; redux for cart">
+      <change beforePath="$PROJECT_DIR$/client/src/actions/cart-action.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/cart-action.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/cart/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/cart/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/cart/style.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/cart/style.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/counter/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/counter/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/counter/style.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/counter/style.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/header/components/cart/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/header/components/cart/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/tile/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/tile/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/tile/style.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/tile/style.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/header/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/header/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/constants/cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/constants/cart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/public/catalogue/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/public/catalogue/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/public/order/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/public/order/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/public/product/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/public/product/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/reducers/cart.reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/reducers/cart.reducer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,6 +80,7 @@
       <workItem from="1618760744438" duration="6617000" />
       <workItem from="1618769475428" duration="295000" />
       <workItem from="1618772770555" duration="1190000" />
+      <workItem from="1618894628640" duration="3000" />
     </task>
     <task id="LOCAL-00001" summary="add stepper &amp; redux for cart">
       <created>1618432016630</created>
