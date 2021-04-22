@@ -48,14 +48,16 @@ const Tile = ({ tile, settings }) => {
 				settings && settings.edit ?
 					<div className={s.action}>
 						<button
+							type="button"
 							onClick={() => history.push(`/admin/tile/${tile.url}`)}
 							className={s.edit}>
-                            Редагувати
+								Редагувати
 						</button>
 						<button
+							type="button"
 							onClick={() => {deleteTile(tile._id)}}
 							className={s.delete}>
-                            Видалити
+								Видалити
 						</button>
 					</div>
 					:

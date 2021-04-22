@@ -1,8 +1,8 @@
-import React, { Fragment, useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as AddTileActions from 'actions/add-tile.action'
-import { Form, Input, Select, Checkbox, File } from 'components'
+
 import { Step1, Step2, Step3 } from './components'
 
 const AddTile = () => {
@@ -10,11 +10,6 @@ const AddTile = () => {
 	const dispatch = useDispatch()
 	const state = useSelector(state => state.addTile)
 	const currentStep = useSelector(state => state.addTile.step)
-
-	const addTile = async e => {
-		e.preventDefault()
-		dispatch(AddTileActions.addTile(state))
-	}
 
 	useEffect(() => {
 		if(state.add_tile_status === 'success')

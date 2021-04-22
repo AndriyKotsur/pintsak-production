@@ -48,12 +48,12 @@ const Dashboard = () => {
 							<Link
 								to="/admin/type"
 								className={classNames('btn-sent', 'btn-orange', s.appender)}>
-                            Додати категорію
+									Додати категорію
 							</Link>
 							<Link
 								to="/admin/tile"
 								className={classNames('btn-sent', 'btn-orange', s.appender)}>
-                            Додати товар
+									Додати товар
 							</Link>
 						</div>
 						<div className={s.switch}>

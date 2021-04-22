@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { ReactComponent as IconLogo } from '../../assets/svg/icon-logo.svg'
+import { ReactComponent as IconLogout } from '../../assets/svg/icon-logout.svg'
 import { ReactComponent as IconMobile } from '../../assets/svg/icon-logo-mobile.svg'
 import { ReactComponent as IconPhone } from '../../assets/svg/icon-phone.svg'
 import { ReactComponent as IconLocation } from '../../assets/svg/icon-location.svg'
@@ -20,13 +21,12 @@ import { ReactComponent as IconClose } from '../../assets/svg/icon-close.svg'
 import { ReactComponent as IconRequest } from '../../assets/svg/icon-request.svg'
 import { ReactComponent as IconCheckbox } from '../../assets/svg/icon-checkbox.svg'
 import { ReactComponent as IconDropdown } from '../../assets/svg/icon-dropdown.svg'
-import { ReactComponent as IconPlus } from '../../assets/svg/icon-plus.svg'
-import { ReactComponent as IconMinus } from '../../assets/svg/icon-minus.svg'
 import { ReactComponent as IconCart } from '../../assets/svg/icon-cart.svg'
 import { ReactComponent as IconArrow } from '../../assets/svg/icon-arrow.svg'
 
 const SVGs = {
 	logo: IconLogo,
+	logout: IconLogout,
 	mobile: IconMobile,
 	phone: IconPhone,
 	location: IconLocation,
@@ -46,14 +46,13 @@ const SVGs = {
 	request: IconRequest,
 	checkbox: IconCheckbox,
 	dropdown: IconDropdown,
-	plus: IconPlus,
-	minus: IconMinus,
 	cart: IconCart,
 	arrow: IconArrow,
 }
 
 const Icon = ({ name, ...props }) => {
 	const Component = SVGs[name]
+
 	return <Component {...props} />
 }
 

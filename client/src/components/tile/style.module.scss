@@ -3,9 +3,9 @@
 
 .item {
   width: 290px;
-  padding: 27px 0px 30px;
+  padding: 27px 0 30px;
   margin: 0 0 30px;
-  border: 1px solid #373f48;
+  border: 1px solid $color1;
 
   @include screen-tb {
     min-width: 290px;
@@ -26,17 +26,17 @@
 }
 
 .title {
-  margin: 0px 0px 15px;
+  margin-bottom: 15px;
   font-size: 18px;
   font-weight: 700;
-  color: #373f48;
+  color: $color1;
 }
 
 .wrapper {
   position: relative;
   width: 50%;
   height: 120px;
-  margin: 0px 0px 20px;
+  margin-bottom: 20px;
 }
 
 .image {
@@ -53,19 +53,19 @@
 }
 
 .size {
-  margin: 0px 0px 10px;
-  padding: 0px 65px 10px;
-  border-bottom: 1px solid #ff8e01;
+  margin-bottom: 10px;
+  padding: 0 65px 10px;
+  border-bottom: 1px solid $color2;
   font-size: 18px;
   font-weight: 400;
-  color: #373f48;
+  color: $color1;
 }
 
 .price {
-  margin: 0px 0px 30px;
+  margin-bottom: 30px;
   font-size: 18px;
   font-weight: 700;
-  color: #373f48;
+  color: $color1;
 }
 
 .action {
@@ -73,30 +73,42 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-top: 1px solid #ff8e01;
-  border-bottom: 1px solid #ff8e01;
+  border-top: 1px solid $color2;
+  border-bottom: 1px solid $color2;
 }
 
 .edit {
   height: 30px;
   margin-right: 25px;
+  @include transition;
   font-size: 14px;
   font-weight: 700;
-  color: #373f48;
+  color: $color1;
+
+  &:hover {
+    @include transition;
+    color: $color2;
+  }
 }
 
 .delete {
   height: 30px;
+  @include transition;
   font-size: 14px;
   font-weight: 700;
-  color: #373f48;
+  color: $color1;
+
+  &:hover {
+    @include transition;
+    color: $color2;
+  }
 }
 
 .cart {
   position: absolute;
   left: 70%;
   padding: 10px 15px;
-  background: #ff8e01;
+  background: $color2;
   border-radius: 4px;
-  box-shadow: 0px 2px 5px rgba(55, 63, 72, 0.2);
+  box-shadow: 0 2px 5px rgba(55, 63, 72, 0.2);
 }

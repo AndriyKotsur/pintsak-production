@@ -1,20 +1,57 @@
+@import './src/assets/styles/general/_mixins.scss';
+@import './src/assets/styles/general/_variables.scss';
+
 .field {
   position: relative;
-  margin: 0px 0px 35px;
+  margin-bottom: 35px;
 }
 
 .input {
   width: 100%;
   padding: 15px 25px;
-  border: 1px solid #373f48;
-  font-size: 18px;
-  color: #373f48;
+  border: 1px solid $color1;
+  @include transition;
+  font-size: 16px;
+  color: $color1;
+  cursor: text;
 
-  &:focus {
-    border: 1px solid #ffc174;
+  &:invalid {
+    outline: none;
   }
 
-  &.error {
-    border: 1px solid #ff6363;
+  &:focus,
+  &:valid {
+    border: 1px solid $color6;
+  }
+
+  &:focus~.label,
+  &:valid~.label {
+    @include transition;
+    top: 0;
+    font-size: 14px;
+    color: $color2;
+    
+    @include screen-l {
+      font-size: 16px;
+    }
+  }
+
+  @include screen-l {
+    font-size: 18px;
+  }
+}
+
+.label {
+  position: absolute;
+  top: 50%;
+  left: 25px;
+  transform: translateY(-50%);
+  padding: 5px;
+  background: #ffffff;
+  @include transition;
+  font-size: 16px;
+
+  @include screen-l {
+    font-size: 18px;
   }
 }

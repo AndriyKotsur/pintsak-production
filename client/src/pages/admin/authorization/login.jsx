@@ -36,20 +36,20 @@ const Login = () => {
 							type='email'
 							name='email'
 							value={login.email}
-							title='Введіть логін *'
+							title='Введіть логін'
 							onChange={e => dispatch(AuthActions.handleChange(e))}
 							isRequired />
 						<Input
 							type='password'
 							name='password'
 							value={login.password}
-							title='Введіть пароль *'
+							title='Введіть пароль'
 							onChange={e => dispatch(AuthActions.handleChange(e))}
 							isRequired />
 						<button
 							type="submit"
-							className={classNames('btn-sent', 'btn-orange', s.btn)}
-						>Увійти
+							className={classNames('btn-sent', 'btn-orange', s.btn)}>
+								Увійти
 						</button>
 					</form>
 					{

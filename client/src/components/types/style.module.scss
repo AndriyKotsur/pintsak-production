@@ -55,8 +55,11 @@
   margin-bottom: 20px;
   font-size: 16px;
   font-weight: 700;
-  color: #373f48;
+  color: $color1;
   text-align: center;
+  & > span {
+    color: $color2;
+  }
 }
 
 .list {
@@ -104,18 +107,47 @@
 }
 
 .action {
-  margin-left: 140px;
+  display: flex;
+  margin-left: 25px;
+
+  @include screen-tb {
+    margin-left: 75px;
+  }
+
+  @include screen-l {
+    margin-left: 140px;
+  }
 }
 
 .edit {
-  margin-right: 35px;
+  margin-right: 15px;
+  @include transition;
   font-size: 14px;
   font-weight: 700;
   color: $color1;
+
+  &:hover {
+    @include transition;
+    color: $color2;
+  }
+
+  @include screen-tb {
+    margin-right: 25px;
+  }
+
+  @include screen-l {
+    margin-right: 35px;
+  }
 }
 
 .delete {
+  @include transition;
   font-size: 14px;
   font-weight: 700;
   color: $color1;
+
+  &:hover {
+    @include transition;
+    color: $color2;
+  }
 }

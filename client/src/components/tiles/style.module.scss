@@ -25,6 +25,9 @@
   margin-bottom: 20px;
   font-size: 16px;
   font-weight: 700;
-  color: #373f48;
+  color: $color1;
   text-align: center;
+  & > span {
+    color: $color2;
+  }
 }

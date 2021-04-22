@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as AddTileActions from 'actions/add-tile.action'
 
@@ -17,6 +17,7 @@ const Step1 = () => {
 		<div className="container">
 			<Form
 				title="Основні характеристики"
+				controllers
 				handler={onSubmit}>
 				<File
 					name={'images'}
@@ -41,7 +42,6 @@ const Step1 = () => {
 					name='is_available'
 					label='Чи продукт в наявності?'
 					onChange={e => dispatch(AddTileActions.handleChange(e))} />
-				<button type="submit">Continue</button>
 			</Form>
 		</div>
 

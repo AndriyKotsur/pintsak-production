@@ -1,9 +1,14 @@
+@import './src/assets/styles/general/_mixins.scss';
+@import './src/assets/styles/general/_variables.scss';
+
 .wrapper {
   overflow: hidden;
   z-index: -1;
 }
 
 .left {
+  visibility: hidden;
+  display: none;
   position: absolute;
   top: 0;
   left: -4px;
@@ -11,6 +16,11 @@
   width: 100%;
   height: auto;
   display: block;
+
+  @include screen-l {
+    visibility: visible;
+    display: block;
+  }
 
   &.hidden {
     visibility: hidden;

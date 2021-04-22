@@ -2,6 +2,10 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import * as AuthActions from '../../../actions/login.action'
+
+import { Icon } from 'components'
+
+import classNames from 'classnames'
 import s from './style.module.scss'
 
 const Logout = () => {
@@ -10,11 +14,13 @@ const Logout = () => {
 
 	return (
 		<button
+			type="button"
 			className={s.close}
 			onClick={() => {
 				dispatch(AuthActions.logout())
 				history.push('/admin')
 			}}>
+			<Icon name="logout" className={classNames('icon', 'icon-logout', s.close_icon)} />
 			Вийти
 		</button>
 	)
