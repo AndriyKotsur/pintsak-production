@@ -1,15 +1,31 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as AddTileActions from 'actions/add-tile.action'
+import StepWizard from 'react-step-wizard'
 
-import { Step1, Step2, Step3 } from './components'
+import { Options, Characteristics, Prices } from './components'
+
+import s from './styles.module.scss'
+import classNames from 'classnames'
 
 const AddTile = () => {
+	const [stepWizard, setStepWizard] = useState()
+	const [currentStep, setCurrentStep] = useState(1)
+	
 	const history = useHistory()
 	const dispatch = useDispatch()
 	const state = useSelector(state => state.addTile)
-	const currentStep = useSelector(state => state.addTile.step)
+
+	const setSteps = (e) => setStepWizard(e)
+
+	const handlePrev = () => stepWizard.previousStep()
+	const handleNext = () => stepWizard.nextStep()
+
+	const handleSubmit = async e => {
+		e.preventDefault()
+		dispatch(AddTileActions.addTile(state))
+	}
 
 	useEffect(() => {
 		if(state.add_tile_status === 'success')
@@ -22,20 +38,41 @@ const AddTile = () => {
 		return () => dispatch(AddTileActions.clear())
 	}, [])
 
-	const step = useMemo(() => {
-		const steps = {
-			'0': <Step1 />,
-			'1': <Step2 />,
-			'2': <Step3 />,
-		}
-
-		return steps[currentStep]
-	}, [currentStep])
-
 	return (
-		<section>
+		<section className={s.section}>
 			<div className="container">
-				{ step }
+				<div className={s.wrapper}>
+					<div className={s.steps}>
+						<StepWizard initialStep={1} onStepChange={e => setCurrentStep(e.activeStep)} instance={setSteps}>
+							<Options />
+							<Characteristics />
+							<Prices />
+						</StepWizard>
+					</div>
+
+					<div className={classNames( s.controllers, {[s.extended]: currentStep == 1})}>
+					{ currentStep > 1 &&
+						<button
+							type="button"
+							className={classNames('btn-sent', 'btn-orange', s.btn)}
+							onClick={handlePrev}>
+								Назад
+							</button> }
+					{ currentStep >= 3
+						? <button
+								type="button"
+								className={classNames('btn-sent', 'btn-orange', s.btn)}
+								onClick={handleSubmit}>
+									Додати товар
+								</button>
+						: <button
+								type="button"
+								className={classNames('btn-sent', 'btn-orange', s.btn)}
+								onClick={handleNext}>
+									Продовжити
+							</button> }
+				</div>
+				</div>
 			</div>
 		</section>
 	)

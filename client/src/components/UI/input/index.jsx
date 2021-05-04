@@ -11,7 +11,7 @@ const Input = ({ type, name, value, title, isRequired, onChange }) => {
 				value={value}
 				className={s.input}
 				onChange={onChange}
-				required={isRequired}  />
+				required={isRequired} />
 			<label htmlFor={name} className={s.label}>{title}</label>
 		</div>
 	)

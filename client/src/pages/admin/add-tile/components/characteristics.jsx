@@ -1,23 +1,15 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { Fragment } from 'react'
+import { useDispatch } from 'react-redux'
 import * as AddTileActions from 'actions/add-tile.action'
 
-import { Form, Input } from 'components'
+import { Title, Input } from 'components'
 
-const Step2 = () => {
+const Characteristics = () => {
 	const dispatch = useDispatch()
-	const currentStep = useSelector(state => state.addTile.step)
-
-	const onSubmit = () => {
-		dispatch(AddTileActions.changeStep(currentStep + 1))
-		dispatch(AddTileActions.changeStep(currentStep - 1))
-	}
 
 	return (
-		<Form
-			title="Фізичні параметри"
-			controllers
-			handler={onSubmit}>
+		<Fragment>
+			<Title value="Характеристики продукту" />
 			<Input
 				type='number'
 				name='width'
@@ -48,8 +40,8 @@ const Step2 = () => {
 				title='Кількість на метр кв.'
 				onChange={e => dispatch(AddTileActions.handleChange(e, 'sizes'))}
 				isRequired />
-		</Form>
+		</Fragment>
 	)
 }
 
-export default Step2
+export default Characteristics

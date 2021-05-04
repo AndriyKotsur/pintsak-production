@@ -8,11 +8,7 @@ const Form = ({
 	text,
 	handler,
 	children,
-	required,
-	controllers,
-	handlerController,
-	handlerAction,
-	handlerSubmit,
+	required
 }) => {
 	return (
 		<div className={s.wrapper}>
@@ -21,18 +17,7 @@ const Form = ({
 			<form onSubmit={handler} className={s.form}>
 				{children}
 				{ required && <span className={s.required}>обов’язкові поля</span> }
-				{ controllers ?
-					<div className={s.controllers}>
-						<button
-							type="button"
-							className={classNames('btn-sent', 'btn-orange', s.back)}
-							onClick={handlerAction}>Назад</button>
-						<button
-							type="submit"
-							className={classNames('btn-sent', 'btn-orange', s.continue)}>Продовжити</button>
-					</div>
-					: <button type="submit" className={classNames('btn-sent', 'btn-orange', s.btn)}>Пітвердити</button>
-				}
+				<button type="submit" className={classNames('btn-sent', 'btn-orange', s.btn)}>Пітвердити</button>
 			</form>
 		</div>
 	)

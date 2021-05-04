@@ -60,12 +60,12 @@ const Dashboard = () => {
 							<button
 								onClick={() => setActiveSwitch('types')}
 								className={classNames(s.switcher, { [s.active]: activeSwitch === 'types' })}>
-                            Категорії
+                  Категорії
 							</button>
 							<button
 								onClick={() => setActiveSwitch('tiles')}
 								className={classNames(s.switcher, { [s.active]: activeSwitch === 'tiles' })}>
-                            Продукти
+									Продукти
 							</button>
 						</div>
 						<div className={s.items}>
