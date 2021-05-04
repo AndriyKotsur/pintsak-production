@@ -1,0 +1,54 @@
+@import './src/assets/styles/general/_mixins.scss';
+@import './src/assets/styles/general/_variables.scss';
+
+.section {
+  position: relative;
+  overflow: hidden;
+}
+
+.wrapper {
+  max-width: 700px;
+  width: 100%;
+  padding: 150px 0 0;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.steps {
+  @include screen-l {
+    min-height: 590px;
+  }
+}
+
+.controllers {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &.extended {
+    .btn {
+      width: 100%;
+    }
+  }
+}
+
+.btn {
+  min-height: 49px;
+  padding: 16px 62px;
+  border-radius: 4px;
+
+  @include screen-tb {
+    width: 200px;
+  }
+
+  @include screen-l {
+    width: 320px;
+  }
+
+  &:hover {
+    background: #ffffff;
+    color: $color1;
+  }
+}

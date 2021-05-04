@@ -1,16 +1,31 @@
-import React, { useEffect } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
+import StepWizard from 'react-step-wizard'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as EditTileActions from 'actions/edit-tile.action'
-import { Preloader, Form, Input, Select, Checkbox, File } from 'components'
+
+import { Preloader } from 'components'
+import { Options, Characteristics, Prices } from './components'
+
+import s from './style.module.scss'
+import classNames from 'classnames'
 
 const EditTile = () => {
+	const [stepWizard, setStepWizard] = useState()
+	const [currentStep, setCurrentStep] = useState(1)
+
 	const history = useHistory()
 	const { url } = useParams()
+
 	const dispatch = useDispatch()
 	const state = useSelector(state => state.editTile)
 
-	const updateTile = async e => {
+	const setSteps = (e) => setStepWizard(e)
+
+	const handlePrev = () => stepWizard.previousStep()
+	const handleNext = () => stepWizard.nextStep()
+
+	const handleSubmit = async e => {
 		e.preventDefault()
 		dispatch(EditTileActions.editTile(url, state))
 	}
@@ -28,114 +43,47 @@ const EditTile = () => {
 	}, [url])
 
 	return (
-		<>
+		<Fragment>
 			{ (state.get_tile_status === 'loading' || state.get_types_status === 'loading') && <Preloader /> }
 			{ state.get_tile_status === 'success' && state.get_types_status && (
-				<Form
-					title="Редагувати товар"
-					handler={updateTile}>
-					<File
-						name={'images'}
-						label={'Редагувати галерею товару'}
-						previous={state.imagesPreview}
-						onChange={image => dispatch(EditTileActions.handleChange(image))} />
-					<Input
-						type='text'
-						name='title'
-						value={state.title}
-						placeholder='Назва товару'
-						onChange={e => dispatch(EditTileActions.handleChange(e))}
-						isRequired/>
-					<Select
-						name='type'
-						value={state.type}
-						data={state.types}
-						onChange={e => dispatch(EditTileActions.handleChange(e))} />
-					<Checkbox
-						name='is_popular'
-						label='Чи продукт популярний?'
-						checked={state.is_popular}
-						onChange={e => dispatch(EditTileActions.handleChange(e))} />
-					<Checkbox
-						name='is_available'
-						label='Чи продукт в наявності?'
-						checked={state.is_available}
-						onChange={e => dispatch(EditTileActions.handleChange(e))} />
-					<Input
-						type='number'
-						name='width'
-						value={state.sizes.width}
-						placeholder='Ширина товару'
-						onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))}
-						isRequired/>
-					<Input
-						type='number'
-						name='height'
-						value={state.sizes.height}
-						placeholder='Висота товару'
-						onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))}
-						isRequired/>
-					<Input
-						type='number'
-						name='thickness'
-						value={state.sizes.thickness}
-						placeholder='Товщина товару'
-						onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))}
-						isRequired/>
-					<Input
-						type='number'
-						name='weight_per_meter'
-						value={state.sizes.weight_per_meter}
-						placeholder='Вага на метр кв.'
-						onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))}
-						isRequired/>
-					<Input
-						type='number'
-						name='pieces_per_meter'
-						value={state.sizes.pieces_per_meter}
-						placeholder='Кількість на метр кв.'
-						onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))}
-						isRequired/>
-					<Input
-						type='number'
-						name='grey'
-						value={state.prices.grey}
-						placeholder='Ціна сірої продукції'
-						onChange={e => dispatch(EditTileActions.handleChange(e, 'prices'))}
-						isRequired/>
-					<Input
-						type='number'
-						name='yellow'
-						value={state.prices.yellow}
-						placeholder='Ціна жовтої продукції'
-						onChange={e => dispatch(EditTileActions.handleChange(e, 'prices'))}/>
-					<Input
-						type='number'
-						name='orange'
-						value={state.prices.orange}
-						placeholder='Ціна помаранчевої продукції'
-						onChange={e => dispatch(EditTileActions.handleChange(e, 'prices'))}/>
-					<Input
-						type='number'
-						name='red'
-						value={state.prices.red}
-						placeholder='Ціна червоної продукції'
-						onChange={e => dispatch(EditTileActions.handleChange(e, 'prices'))}/>
-					<Input
-						type='number'
-						name='brown'
-						value={state.prices.brown}
-						placeholder='Ціна коричневої продукції'
-						onChange={e => dispatch(EditTileActions.handleChange(e, 'prices'))}/>
-					<Input
-						type='number'
-						name='black'
-						value={state.prices.black}
-						placeholder='Ціна чорної продукції'
-						onChange={e => dispatch(EditTileActions.handleChange(e, 'prices'))}/>
-				</Form>
+				<section className={s.section}>
+					<div className="container">
+						<div className={s.wrapper}>
+							<div className={s.steps}>
+								<StepWizard initialStep={1} onStepChange={e => setCurrentStep(e.activeStep)} instance={setSteps}>
+									<Options />
+									<Characteristics />
+									<Prices />
+								</StepWizard>
+							</div>
+		
+							<div className={classNames( s.controllers, {[s.extended]: currentStep == 1})}>
+							{ currentStep > 1 &&
+								<button
+									type="button"
+									className={classNames('btn-sent', 'btn-orange', s.btn)}
+									onClick={handlePrev}>
+										Назад
+									</button> }
+							{ currentStep >= 3
+								? <button
+										type="button"
+										className={classNames('btn-sent', 'btn-orange', s.btn)}
+										onClick={handleSubmit}>
+											Редагувати товар
+										</button>
+								: <button
+										type="button"
+										className={classNames('btn-sent', 'btn-orange', s.btn)}
+										onClick={handleNext}>
+											Продовжити
+									</button> }
+							</div>
+						</div>
+					</div>
+				</section>
 			)}
-		</>
+		</Fragment>
 	)
 }
 

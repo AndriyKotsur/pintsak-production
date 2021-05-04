@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect } from 'react'
+import StepWizard from 'react-step-wizard'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as AddTileActions from 'actions/add-tile.action'
-import StepWizard from 'react-step-wizard'
 
 import { Options, Characteristics, Prices } from './components'
 
-import s from './styles.module.scss'
+import s from './style.module.scss'
 import classNames from 'classnames'
 
 const AddTile = () => {
@@ -71,7 +71,7 @@ const AddTile = () => {
 								onClick={handleNext}>
 									Продовжити
 							</button> }
-				</div>
+					</div>
 				</div>
 			</div>
 		</section>
