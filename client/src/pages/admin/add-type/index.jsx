@@ -2,7 +2,10 @@ import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as AddTypeActions from 'actions/add-type.action'
-import { Form, Input } from 'components'
+
+import { Background, Title, Form, Input } from 'components'
+
+import s from './style.module.scss'
 
 const AddType = () => {
 	const history = useHistory()
@@ -24,19 +27,22 @@ const AddType = () => {
 	}, [])
 
 	return (
-		<section>
+		<section className={s.section}>
+			<Background settings={{ hiddenLeft: false, hiddenRight: false }} />
 			<div className="container">
+				<div className={s.wrapper}>
+				<Title value="Додати категорію" />
 				<Form
-					title="Додати категорію"
 					handler={addType}>
 					<Input
 						type='text'
 						name='title'
-						value={state.title}
 						title='Назва категорії'
+						value={state.title}
 						onChange={e => dispatch(AddTypeActions.handleChange(e))}
 						isRequired />
 				</Form>
+				</div>
 			</div>
 		</section>
 	)

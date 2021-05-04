@@ -1,50 +1,150 @@
-.field {
+@import './src/assets/styles/general/_mixins.scss';
+@import './src/assets/styles/general/_variables.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.upload {
+  &_container {
+    width: 100%;
+    margin-bottom: 35px;
+  }
+
+  &_area {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    background: rgba(119, 132, 165, 0.06);
+    border: 1px dashed $color4;
+    border-radius: 4px;
+    padding: 25px 15px;
+  
+    @include screen-l {
+      padding: 80px 60px;
+    }
+  }
+
+  &_title {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.5;
+    color: $color2;
+    margin-bottom: 15px;
+  
+    @include screen-l {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+  }
+
+  &_description {
+    margin-bottom: 12px;
+    font-size: 14px;
+    line-height: 1.18;
+    color: $color4;
+    font-weight: 400;
+  
+    @include screen-l {
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+  }
+
+  &_group {
+    position: relative;
+  }
+
+  &_input {
+    display: none;
+  }
+
+  &_button {
+    display: block;
+    padding: 11px 18px;
+    margin-bottom: 15px;
+    border: 2px solid $color2;
+    border-radius: 4px;
+    transition: all 0.3s ease-out;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.263;
+    background-color: transparent;
+    color: $color2;
+  
+    @include screen-l {
+      font-size: 14px;
+    }
+  
+    &:hover {
+      transition: all 0.3s ease-out;
+      background: $color2;
+      color: #FFFFFF;
+      cursor: pointer;
+    }  
+  }
+
+  &_remarks {
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 1.83;
+    color: $color4;
+  
+    @include screen-l {
+      font-size: 12px;
+    }  
+  }
+
+  &_error {
+    display: block;
+    color: $color7;
+    margin-top: 15px;
+    font-size: 16px;
+    font-weight: 700;
+  
+    @include screen-l {
+      font-size: 18px;
+    }  
+  }
+}
+
+.preview {
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
   margin-bottom: 35px;
-}
 
-.input {
-  width: 0.1px;
-  height: 0.1px;
-  opacity: 0;
-  overflow: hidden;
-  position: absolute;
-  z-index: -1;
-}
-
-.label {
-  width: 100%;
-  display: inline-block;
-  padding: 25px;
-  background: #ff8e01;
-  text-align: center;
-  overflow: hidden;
-  cursor: pointer;
-
-  &>span {
-    font-size: 18px;
-    font-weight: 700;
-    color: #fff;
+  &_item {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    
+    &:not(:last-child) {
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid $color4;
+    }
   }
-}
 
-.previous {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  margin: 0 -35px;
-
-  .image {
+  &_image {
     max-width: 120px;
     width: 100%;
     height: 100px;
-    margin: 0 30px 35px;
+    display: block;
+
+    @include screen-l {
+      max-width: 150px;
+      height: 120px;
+    }
 
     img {
       width: 100%;
@@ -52,26 +152,64 @@
       object-fit: cover;
     }
   }
-}
 
-.images {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  margin: 0 -35px;
+  &_info {
+    display: inline-flex;
+    flex-direction: column;  
+  }
 
-  .image {
-    max-width: 180px;
+  &_file {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 3px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 2;
+    color: $color1;
+    
+    @include screen-l {
+      font-size: 16px;
+    }  
+  }
+
+  &_name {
+    max-width: 130px;
     width: 100%;
-    height: 150px;
-    margin: 0 30px 35px;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+    @include screen-l {
+      max-width: unset;
     }
+  }
+
+  &_type {
+    position: relative;
+  }
+
+  &_size {
+    align-self: flex-end;
+    margin-top: 5px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1;
+    color: $color4;
+  
+    @include screen-l {
+      font-size: 14px;
+    }
+  }
+
+  &_delete {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  &_icon {
+    width: 25px;
+    height: 25px;
   }
 }

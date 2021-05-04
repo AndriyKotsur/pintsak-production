@@ -1,8 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as EditTypeActions from 'actions/edit-type.action'
-import { Input, Form } from 'components'
+
+import { Background, Preloader, Title, Input, Form } from 'components'
+
+import s from './style.module.scss'
 
 const EditType = () => {
 	const history = useHistory()
@@ -26,26 +29,29 @@ const EditType = () => {
 	}, [id])
 
 	return (
-		<>
-			{
-				state.get_type_status === 'loading' && 'Loading...'
-			}
-			{
-				state.get_type_status === 'success' && (
-					<Form
-						title="Редагувати категорію"
-						handler={updateType}>
-						<Input
-							type='text'
-							name='title'
-							value={state.title}
-							placeholder='Назва категорії'
-							onChange={e => dispatch(EditTypeActions.handleChange(e))}
-							isRequired />
-					</Form>
-				)
-			}
-		</>
+		<Fragment>
+			{ state.get_type_status === 'loading' && <Preloader /> }
+			{ state.get_type_status === 'success' && (
+				<section className={s.section}>
+					<Background settings={{ hiddenLeft: false, hiddenRight: false }} />
+					<div className="container">
+						<div className={s.wrapper}>
+						<Title value="Редагувати категорію" />
+						<Form
+							handler={updateType}>
+							<Input
+								type='text'
+								name='title'
+								title='Назва категорії'
+								value={state.title}
+								onChange={e => dispatch(EditTypeActions.handleChange(e))}
+								isRequired />
+						</Form>
+						</div>
+					</div>
+				</section>
+				) }
+		</Fragment>
 	)
 }
 

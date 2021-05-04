@@ -17,9 +17,23 @@
 }
 
 .form {
-  max-width: 485px;
   width: 100%;
   text-align: center;
+
+  @include screen-l {
+    max-width: 485px;
+  }
+
+  &_text {
+    margin-bottom: 25px;
+    font-size: 16px;
+    line-height: 28px;
+    color: $color1;
+  
+    @include screen-tb() {
+      font-size: 18px;
+    }
+  }
 }
 
 .order {

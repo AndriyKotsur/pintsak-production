@@ -11,10 +11,7 @@ const Options = () => {
 	return (
 		<Fragment>
 			<Title value="Параметри продукту" />
-			<File
-				name={'images'}
-				label={'Додати галерею товару'}
-				onChange={image => dispatch(AddTileActions.handleChange(image))} />
+			<File onChange={image => dispatch(AddTileActions.handleChange(image))} />
 			<Input
 				type='text'
 				name='title'
@@ -28,11 +25,11 @@ const Options = () => {
 				onChange={e => dispatch(AddTileActions.handleChange(e))} />
 			<Checkbox
 				name='is_popular'
-				label='Чи продукт популярний?'
+				label='Популярний?'
 				onChange={e => dispatch(AddTileActions.handleChange(e))} />
 			<Checkbox
 				name='is_available'
-				label='Чи продукт в наявності?'
+				label='В наявності?'
 				onChange={e => dispatch(AddTileActions.handleChange(e))} />
 		</Fragment>
 	)

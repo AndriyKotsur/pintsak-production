@@ -4,7 +4,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as EditTileActions from 'actions/edit-tile.action'
 
-import { Preloader } from 'components'
+import { Background, Preloader } from 'components'
 import { Options, Characteristics, Prices } from './components'
 
 import s from './style.module.scss'
@@ -47,15 +47,14 @@ const EditTile = () => {
 			{ (state.get_tile_status === 'loading' || state.get_types_status === 'loading') && <Preloader /> }
 			{ state.get_tile_status === 'success' && state.get_types_status && (
 				<section className={s.section}>
+					<Background settings={{ hiddenLeft: false, hiddenRight: false }} />
 					<div className="container">
 						<div className={s.wrapper}>
-							<div className={s.steps}>
-								<StepWizard initialStep={1} onStepChange={e => setCurrentStep(e.activeStep)} instance={setSteps}>
-									<Options />
-									<Characteristics />
-									<Prices />
-								</StepWizard>
-							</div>
+							<StepWizard initialStep={1} onStepChange={e => setCurrentStep(e.activeStep)} instance={setSteps}>
+								<Options />
+								<Characteristics />
+								<Prices />
+							</StepWizard>
 		
 							<div className={classNames( s.controllers, {[s.extended]: currentStep == 1})}>
 							{ currentStep > 1 &&

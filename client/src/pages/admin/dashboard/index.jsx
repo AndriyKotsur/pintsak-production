@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as GetTilesActions from 'actions/get-tiles.action'
 import * as GetTypesActions from 'actions/get-types.action'
 
-import { Tiles, Types } from 'components'
+import { Title, Tiles, Types } from 'components'
 import { Logout } from '..'
 
 import classNames from 'classnames'
@@ -42,7 +42,7 @@ const Dashboard = () => {
 			<div className='container'>
 				<div className={s.wrapper}>
 					<Logout />
-					<h1 className={s.title}>Панель керування</h1>
+					<Title value="Панель керування" />
 					<div className={s.inner}>
 						<div className={s.append}>
 							<Link

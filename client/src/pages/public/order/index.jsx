@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as CartActions from 'actions/cart-action'
 
-import { Icon, Form, Input, Cart } from 'components'
+import { Cart, Icon, Title, Form, Input } from 'components'
 
 import classNames from 'classnames'
 import s from './style.module.scss'
@@ -17,20 +17,19 @@ const OrderPage = () => {
 			<div className="container">
 				<div className={s.wrapper}>
 					<div className={s.form}>
-						<Form
-							title="Відправити замовлення"
-							text="Будь ласка, заповніть обов'язкові поля і ми зв'яжемося з вами повашому замовленню"
-							required>
+						<Title value="Відправити замовлення" />
+						<p className={s.form_text}>Будь ласка, заповніть обов'язкові поля і ми зв'яжемося з вами повашому замовленню</p>
+						<Form required>
 							<Input
 								type='text'
 								name='title'
-								title='Ваше Ім’я'
+								title='Ваше Ім’я*'
 								// onChange={e => dispatch(AddTileActions.handleChange(e))}
 								isRequired />
 							<Input
 								type='text'
 								name='phone'
-								title='Ваше номер телефону'
+								title='Ваше номер телефону*'
 								// onChange={e => dispatch(AddTileActions.handleChange(e))}
 								isRequired />
 							<Input

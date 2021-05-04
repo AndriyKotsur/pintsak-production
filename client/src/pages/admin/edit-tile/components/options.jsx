@@ -11,11 +11,7 @@ const Options = () => {
 	return (
 		<Fragment>
 			<Title value="Параметри продукту" />
-      <File
-        name={'images'}
-        label={'Редагувати галерею товару'}
-        previous={state.imagesPreview}
-        onChange={image => dispatch(EditTileActions.handleChange(image))} />
+      <File onChange={image => dispatch(EditTileActions.handleChange(image))} />
       <Input
         type='text'
         name='title'

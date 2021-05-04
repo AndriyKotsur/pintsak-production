@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Background, Form, Input } from 'components'
+import { Background, Title, Form, Input } from 'components'
 
 import s from './style.module.scss'
 
@@ -10,27 +10,27 @@ const Contact = () => {
 			<Background settings={{ hiddenLeft: false, hiddenRight: false }}/>
 			<div className="container">
 				<div className={s.contact_wrapper}>
+					<Title value="Звяжіться з нами" />
 					<Form
-						title="Звяжіться з нами"
 						required>
 						<Input
 							type='text'
 							name='title'
-							title='Ваше Ім’я'
+							title='Ваше Ім’я *'
 							// onChange={e => dispatch(AddTileActions.handleChange(e))}
-							isRequired/>
+							isRequired />
 						<Input
 							type='text'
 							name='phone'
-							title='Ваше номер телефону'
+							title='Ваше номер телефону *'
 							// onChange={e => dispatch(AddTileActions.handleChange(e))}
-							isRequired/>
+							isRequired />
 						<Input
 							type='text'
 							name='message'
 							title='Ваш комментар'
 							// onChange={e => dispatch(AddTileActions.handleChange(e))}
-							isRequired/>
+							isRequired />
 					</Form>
 				</div>
 			</div>

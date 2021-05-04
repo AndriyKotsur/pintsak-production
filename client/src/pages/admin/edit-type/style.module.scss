@@ -1,0 +1,23 @@
+@import './src/assets/styles/general/_mixins.scss';
+@import './src/assets/styles/general/_variables.scss';
+
+.section {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.wrapper {
+  max-width: 700px;
+  width: 100%;
+  padding: 50px 0 125px;
+  margin: 0 auto;
+
+  @include screen-tb {
+    padding: 100px 0 175px;
+  }
+
+  @include screen-l {
+    padding: 150px 0 225px;
+  }
+}

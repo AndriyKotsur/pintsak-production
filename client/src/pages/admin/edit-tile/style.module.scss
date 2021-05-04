@@ -3,22 +3,25 @@
 
 .section {
   position: relative;
+  min-height: 100vh;
   overflow: hidden;
 }
 
 .wrapper {
   max-width: 700px;
   width: 100%;
-  padding: 150px 0 0;
+  padding: 50px 0 125px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
 
-.steps {
+  @include screen-tb {
+    padding: 100px 0 175px;
+  }
+
   @include screen-l {
-    min-height: 590px;
+    padding: 150px 0 225px;
   }
 }
 
@@ -26,6 +29,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 35px;
 
   &.extended {
     .btn {
@@ -35,19 +39,28 @@
 }
 
 .btn {
+  width: 100%;
   min-height: 49px;
   padding: 16px 62px;
   border-radius: 4px;
+  box-shadow: 0px 4px 30px rgba(55, 63, 72, 0.22);
+  
+  @include transition;
 
-  @include screen-tb {
-    width: 200px;
+  &:not(:last-child) {
+    margin-bottom: 35px;
   }
 
-  @include screen-l {
-    width: 320px;
+  @include screen-tb {
+    width: 325px;
+
+    &:not(:last-child) {
+      margin-bottom: 0;
+    }
   }
 
   &:hover {
+    @include transition;
     background: #ffffff;
     color: $color1;
   }
