@@ -7,23 +7,26 @@ import * as DeleteTileActions from 'actions/delete-tile.action'
 import { Icon, Counter } from 'components'
 
 import s from './style.module.scss'
+import classNames from 'classnames'
+
+const defaultVariant = 'grey'
 
 const Tile = ({ tile, settings }) => {
+	const [quantity, setQuantity] = useState(1)
+
 	const history = useHistory()
 	const dispatch = useDispatch()
 	const state = useSelector(state => state.deleteTile)
 	const cart = useSelector(state => state.cart)
+
 	const itemInCart = cart.items.find(item => item.url === tile.url)
 
-	const [quantity, setQuantity] = useState(1)
-	const [variant, setVariant] = useState('grey')
-
 	const handleCart = () => {
-		dispatch(CartActions.addCartItem(tile, quantity, variant))
+		if(!itemInCart) dispatch(CartActions.addCartItem(tile, quantity, defaultVariant))
 		dispatch(CartActions.handleCart(true))
 	}
 
-	const deleteTile = async id => {
+	const handleDelete = async id => {
 		dispatch(DeleteTileActions.deleteTile(id))
 	}
 
@@ -44,37 +47,36 @@ const Tile = ({ tile, settings }) => {
 				<span className={s.size}>{tile.sizes.width} x {tile.sizes.height}</span>
 				<span className={s.price}>{tile.prices.grey}</span>
 			</Link>
-			{
-				settings && settings.edit ?
-					<div className={s.action}>
-						<button
-							type="button"
-							onClick={() => history.push(`/admin/tile/${tile.url}`)}
-							className={s.edit}>
-								Редагувати
-						</button>
-						<button
-							type="button"
-							onClick={() => {deleteTile(tile._id)}}
-							className={s.delete}>
-								Видалити
-						</button>
-					</div>
-					:
-					<div className={s.action}>
-						<Counter
-							id={tile.id}
-							type="catalogue"
-							quantity={itemInCart ? itemInCart.quantity : quantity}
-							handleQuantity={!itemInCart && setQuantity} />
-						<button
-							type="button"
-							onClick={handleCart}
-							className={s.cart}>
+			{ settings && settings.edit ?
+				<div className={s.action}>
+					<button
+						type="button"
+						onClick={() => history.push(`/admin/tile/${tile.url}`)}
+						className={s.edit}>
+							Редагувати
+					</button>
+					<button
+						type="button"
+						onClick={() => {handleDelete(tile._id)}}
+						className={s.delete}>
+							Видалити
+					</button>
+				</div>
+				:
+				<div className={s.action}>
+					<Counter
+						id={tile.id}
+						type="catalogue"
+						disabled={itemInCart}
+						quantity={itemInCart ? itemInCart.quantity : quantity}
+						handleQuantity={!itemInCart && setQuantity} />
+					<button
+						type="button"
+						onClick={handleCart}
+						className={classNames(s.cart, {[s.added]: itemInCart})}>
 							<Icon name='cart' className='icon icon-cart'/>
-						</button>
-					</div>
-			}
+					</button>
+				</div> }
 		</div>
 	)
 }

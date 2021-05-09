@@ -8,23 +8,6 @@
   justify-content: center;
 }
 
-.title {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 40px;
-  font-size: 24px;
-  font-weight: 900;
-  color: $color1;
-
-  @media (min-width: 768px) {
-    font-size: 30px;
-  }
-
-  @media (min-width: 1440px) {
-    font-size: 36px;
-  }
-}
-
 .form {
   width: 100%;
   margin: 0 auto;
@@ -59,7 +42,7 @@
     color: $color2;
   }
 
-  @media (min-width: 1440) {
+  @include screen-l {
     font-size: 18px;
   }
 }

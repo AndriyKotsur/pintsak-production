@@ -1,0 +1,79 @@
+@import './src/assets/styles/general/_mixins.scss';
+@import './src/assets/styles/general/_variables.scss';
+
+.colors {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 34px;
+
+  @include screen-l {
+    flex-direction: row;
+    margin-bottom: 23px;
+  }
+
+  &_title {
+    margin-bottom: 12px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: $color1;
+  
+    @include screen-l {
+      margin-right: 12px;
+      margin-bottom: 0;
+    }
+  }
+
+  &_wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin-right: -22px;
+  }
+}
+
+
+.color {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 2px;
+  background: transparent;
+
+  &.active {
+    background: #fff;
+    border: 1px solid $color1;
+  }
+
+  &:not(:last-child) {
+    margin-right: 22px;
+  }
+
+  @include screen-l {
+    width: 37px;
+    height: 37px;
+
+    &:not(:last-child) {
+      margin-right: 9px;
+    }
+  }
+
+  &_item {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: 30px;
+    height: 30px;
+    transform: translate(-50%, -50%);
+    border-radius: 2px;
+    cursor: pointer;
+
+    @include screen-l {
+      width: 25px;
+      height: 25px;
+    }
+  }
+}

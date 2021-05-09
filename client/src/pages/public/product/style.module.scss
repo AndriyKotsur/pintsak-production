@@ -6,7 +6,7 @@
 }
 
 .wrapper {
-  padding: 30px 0px 100px;
+  padding: 30px 0 100px;
 }
 
 .carousel {
@@ -60,92 +60,5 @@
 
   @include screen-tb() {
     flex-direction: row;
-  }
-
-  &_block {
-    position: relative;
-    width: 100%;
-    margin-top: 30px;
-    background: #ffecd4;
-
-    @include screen-tb() {
-      width: 50%;
-      height: 0;
-      align-self: start;
-      padding-top: 33.33%;
-      margin: 0;
-    }
-
-    @include screen-l() {
-      width: 40%;
-      padding-top: 30%;
-    }
-  }
-
-  &_wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 30px 15px;
-
-    @include screen-tb() {
-      align-items: flex-start;
-      position: absolute;
-      top: 50%;
-      left: 10%;
-      transform: translate(0%, -50%);
-    }
-  }
-
-  &_title {
-    margin-bottom: 20px;
-    font-size: 22px;
-    font-weight: 900;
-    color: $color1;
-
-    @include screen-l() {
-      font-size: 30px;
-    }
-  }
-
-  &_price {
-    margin-bottom: 20px;
-    font-size: 24px;
-    font-weight: 900;
-    color: $color1;
-
-    @include screen-l() {
-      font-size: 36px;
-    }
-
-    sup {
-      font-size: 16px;
-
-      @include screen-l() {
-        font-size: 24px;
-      }
-    }
-  }
-
-  &_btn {
-    max-width: 223px;
-    display: block;
-    padding: 15px 40px;
-
-    &.disabled {
-      opacity: .7;
-      cursor: not-allowed;
-
-      &:hover {
-        transform: unset;
-        transition: none;
-        box-shadow: none;
-      }
-    }
-  }
-
-  &_icon {
-    margin-right: 15px;
   }
 }

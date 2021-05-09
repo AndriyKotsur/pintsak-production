@@ -1,28 +1,68 @@
+@import './src/assets/styles/general/_mixins.scss';
+@import './src/assets/styles/general/_variables.scss';
+
 .icon {
   width: 1em;
   height: 1em;
 
-  &-logo {
-    width: 78px;
-    height: 32px;
+  &-arrow {
+    width: 10px;
+    height: 9px;
   }
 
-  &-mobile {
-    width: 25px;
-    height: 25px;
+  &-approach {
+    width: 66px;
+    height: 65px;
+  }
+  
+  &-carousel {
+    width: 16px;
+    height: 14px;
   }
 
-  &-phone {
+  &-cart {
+    width: 21px;
+    height: 23px;
+  }
+
+  &-catalogue {
+    width: 18px;
+    height: 20px;
+    margin-left: 20px;
+    @include transition;
+
+    &:hover {
+      fill: $color6;
+      @include transition;
+    }
+  }
+
+  &-checkbox {
+    width: 21px;
+    height: 21px;
+  }
+  
+  &-clock {
     margin-right: 12px;
-    width: 19px;
-    height: 19px;
+    width: 22px;
+    height: 21px;
+  }
+
+  &-delivery {
+    width: 76px;
+    height: 51px;
+  }
+
+  &-description {
+    width: 51px;
+    height: 14px;
   }
 
   &-lang {
     width: 23px;
     height: 23px;
 
-    @media (max-width: 768px) {
+    @include screen-tb {
       width: 18px;
       height: 18px;
     }
@@ -34,27 +74,40 @@
     height: 20px;
   }
 
-  &-clock {
-    margin-right: 12px;
-    width: 22px;
-    height: 21px;
+  &-logo {
+    width: 78px;
+    height: 32px;
   }
 
-  &-description {
-    width: 51px;
+  &-logout {
+    width: 30px;
+    height: 30px;
+  }
+
+  &-mobile {
+    width: 25px;
+    height: 25px;
+  }
+
+  &-pagination {
+    width: 16px;
     height: 14px;
   }
 
-  &-catalogue {
-    width: 18px;
-    height: 20px;
-    margin-left: 20px;
-    @include transition();
+  &-phone {
+    margin-right: 12px;
+    width: 19px;
+    height: 19px;
+  }
 
-    &:hover {
-      fill: $color6;
-      @include transition();
-    }
+  &-price {
+    width: 69px;
+    height: 68px;
+  }
+
+  &-refresh {
+    width: 23px;
+    height: 23px;
   }
 
   &-sort {
@@ -63,59 +116,9 @@
     height: 7px;
   }
 
-  &-refresh {
-    width: 23px;
-    height: 23px;
-  }
-
-  &-pagination {
-    width: 16px;
-    height: 14px;
-  }
-
-  &-delivery {
-    width: 76px;
-    height: 51px;
-  }
-
-  &-approach {
-    width: 66px;
-    height: 65px;
-  }
-
-  &-carousel {
-    width: 16px;
-    height: 14px;
-  }
-
-  &-price {
-    width: 69px;
-    height: 68px;
-  }
-
-  &-checkbox {
-    width: 21px;
-    height: 21px;
-  }
-
-  &-cart {
+  &-success {
     width: 21px;
     height: 23px;
-
-    @media (max-width: 768px) {
-      width: 17px;
-      height: 18px;
-    }
-  }
-
-  &-arrow {
-    width: 10px;
-    height: 9px;
-  }
-
-  &-logout {
-    width: 30px;
-    height: 30px;
   }
 
   &.icon-product {
@@ -127,7 +130,7 @@
     width: 21px;
     height: 21px;
 
-    @include screen-tb() {
+    @include screen-tb {
       width: 28px;
       height: 28px;
     }
@@ -137,7 +140,7 @@
     width: 15px;
     height: 15px;
 
-    @include screen-tb() {
+    @include screen-tb {
       width: 21px;
       height: 21px;
     }
@@ -152,7 +155,7 @@
     width: 13px;
     height: 13px;
 
-    @include screen-tb() {
+    @include screen-tb {
       width: 20px;
       height: 20px;
     }

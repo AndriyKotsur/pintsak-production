@@ -49,13 +49,11 @@ const CataloguePage = () => {
 								handleSortBy={setSortBy}
 								handleOrderBy={setOrderBy}/>
 						</div>
-						{
-							tiles.get_tiles_status === 'success' && tiles.get_tiles_status
+						{ tiles.get_tiles_status === 'success' && tiles.get_tiles_status
 								? <Tiles
 									tiles={tiles.tiles}
-									settings={{ public: true }}/>
-								: <Preloader/>
-						}
+									settings={{ public: true }} />
+								: <Preloader/> }
 						<Pagination
 							page={page}
 							pages={tiles.pages}

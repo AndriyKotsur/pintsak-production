@@ -108,7 +108,37 @@
   position: absolute;
   left: 70%;
   padding: 10px 15px;
+  @include transition;
   background: $color2;
   border-radius: 4px;
   box-shadow: 0 2px 5px rgba(55, 63, 72, 0.2);
+  
+  path,
+  rect {
+    @include transition;
+  }
+
+  &.added {
+    background: #fff;
+
+    path,
+    rect {
+      fill: $color2;
+    }
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    @include transition;
+    background: #fff;
+
+    path,
+    rect {
+      @include transition;
+      fill: $color2;
+    }
+  }
 }
