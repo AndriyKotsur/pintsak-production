@@ -14,7 +14,7 @@
     width: 66px;
     height: 65px;
   }
-  
+
   &-carousel {
     width: 16px;
     height: 14px;
@@ -41,7 +41,7 @@
     width: 21px;
     height: 21px;
   }
-  
+
   &-clock {
     margin-right: 12px;
     width: 22px;
@@ -61,11 +61,6 @@
   &-lang {
     width: 23px;
     height: 23px;
-
-    @include screen-tb {
-      width: 18px;
-      height: 18px;
-    }
   }
 
   &-location {

@@ -1,6 +1,8 @@
 import React from 'react'
-import { Icon } from 'components'
 import useCopyToClipboard from 'hooks/useCopyToClipboard'
+
+import { Icon } from 'components'
+
 import s from './style.module.scss'
 import classNames from 'classnames'
 

@@ -4,15 +4,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as GetTypesActions from 'actions/get-types.action'
 
 import { Icon, Types } from 'components'
-import Clipboard from './components/clipboard'
 import DropdownCart from './components/cart'
-import Language from './components/language'
+import DropdownClipboard from './components/clipboard'
+import DropdownLanguage from './components/language'
 
 import classNames from 'classnames'
 import s from './style.module.scss'
-import './slider.scss'
-import DropdownClipboard from './components/clipboard'
-import DropdownLanguage from './components/language'
 
 const Header = () => {
 	const dispatch = useDispatch()
@@ -35,8 +32,11 @@ const Header = () => {
 		<header className={s.header}>
 			<div className={classNames('container')}>
 				<div className={s.wrapper}>
-					<button className={classNames(s.hamburger, { [s.mobile]: isMobile })} onClick={() => setIsMobile(prev => !prev)}>
-						<span className={s.hamburger_btn}></span>
+					<button
+						type="button"
+						className={classNames(s.hamburger, {[s.mobile]: isMobile})}
+						onClick={() => setIsMobile(prev => !prev)}>
+							<span className={s.hamburger_btn}></span>
 					</button>
 					<div className={classNames(s.menu, { [s.mobile]: isMobile })}>
 						<div className={s.background}></div>
@@ -46,7 +46,7 @@ const Header = () => {
 						<Icon name="logo" className={classNames('icon', 'icon-logo', s.logo_desktop)} />
 						<Icon name="mobile" className={classNames('icon', 'icon-mobile', s.logo_mobile)} />
 					</Link>
-					<nav className={classNames( s.navigation, { [s.navigation]: isMobile })}>
+					<nav className={classNames( s.navigation, {[s.navigation]: isMobile})}>
 						<Link to="/about" className={s.navigation_link}>Про нас</Link>
 						<Link to="/catalogue" className={s.navigation_link}>Види продукції</Link>
 					</nav>

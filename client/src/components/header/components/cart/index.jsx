@@ -26,8 +26,7 @@ const DropdownCart = () => {
 			<Icon name="shopping" className={classNames('icon', 'icon-cart', s.icon)}/>
 			<span className={s.count}>({cart.items.length})</span>
 			<div className={classNames(s.cart, { [s.visible]: visible })}>
-				{
-					cart.items.length > 0 ?
+				{ cart.items.length > 0 ?
 						<div className={s.container}>
 							<h3 className={s.title}>В кошику {cart.items.length} товар на суму:</h3>
 							<p className={s.price}>{cart.subtotal},<sup>00</sup> грн</p>
@@ -41,9 +40,9 @@ const DropdownCart = () => {
 						</div>
 						:
 						<div className={s.container}>
-							<h3 className={s.title}>Немає продуктів в корзині</h3>
-						</div>
-				}
+							<Icon name="cart" className={s.empty} />
+							<h3 className={s.title}>Корзина порожня :(</h3>
+						</div> }
 			</div>
 			{ cart.is_active && <Cart /> }
 		</div>

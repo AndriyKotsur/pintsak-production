@@ -3,16 +3,16 @@
 
 .wrapper {
   position: relative;
-  @include hidden();
+  @include hidden;
   margin-right: 40px;
   margin-bottom: -25px;
   padding-bottom: 25px;
   font-weight: 700;
   color: #ffffff;
-  @include transition();
+  @include transition;
   cursor: pointer;
 
-  @include screen-tb() {
+  @include screen-tb {
     visibility: visible;
     display: block;
     margin-right: 120px;
@@ -20,7 +20,7 @@
 
   &:hover {
     color: $color6;
-    @include transition();
+    @include transition;
   }
 
   @include screen-l() {
@@ -34,11 +34,11 @@
   top: 40px;
   width: 355px;
   padding: 12px 13px;
-  box-shadow: 0px 3px 20px rgba(55, 63, 72, 0.1);
+  box-shadow: 0 3px 20px rgba(55, 63, 72, 0.1);
   border-radius: 4px;
   background: #ffffff;
   text-align: center;
-  transition: all 0.3s ease-out;
+  @include transition;
   opacity: 0;
   z-index: 5;
 
@@ -56,11 +56,11 @@
 }
 
 .title {
-  @include hidden();
+  @include hidden;
 
   &:hover+.clipboard {
     visibility: visible;
-    transition: all 0.3s ease-out;
+    @include transition;
     opacity: 1;
   }
 

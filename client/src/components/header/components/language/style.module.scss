@@ -3,30 +3,33 @@
 
 .wrapper {
   position: relative;
-  margin: 0px 0px -20px;
-  padding: 0px 0px 20px;
+  margin-bottom: -20px;
+  padding-bottom: 20px;
+  cursor: pointer;
+
+  &:hover {
+    .text {
+      @include transition;
+      color: $color6;
+    }
+  }
 }
 
 .icon {
   fill: $color2;
-  margin-right: 12px;
-  @include transition();
+  margin-right: 6px;
 
-  &:hover {
-    fill: $color6;
-    @include transition();
-  }
-
-  @media (max-width: 768px) {
-    margin-right: 6px;
+  @include screen-tb {
+    margin-right: 12px;
   }
 }
 
 .text {
+  @include transition;
   font-size: 16px;
   color: #ffffff;
 
-  @include screen-tb() {
+  @include screen-tb {
     font-size: 18px;
   }
 }

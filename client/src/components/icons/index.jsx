@@ -23,7 +23,6 @@ import { ReactComponent as IconPrice } from '../../assets/svg/icon-price.svg'
 import { ReactComponent as IconRefresh } from '../../assets/svg/icon-refresh.svg'
 import { ReactComponent as IconRequest } from '../../assets/svg/icon-request.svg'
 import { ReactComponent as IconShopping } from '../../assets/svg/icon-shopping.svg'
-import { ReactComponent as IconSuccess } from '../../assets/svg/icon-success.svg'
 
 const SVGs = {
 	arrow: IconArrow,
@@ -49,7 +48,6 @@ const SVGs = {
 	refresh: IconRefresh,
 	request: IconRequest,
 	shopping: IconShopping,
-	success: IconSuccess
 }
 
 const Icon = ({ name, ...props }) => {
