@@ -13,10 +13,15 @@ const DropdownCart = () => {
 	const [visible, setVisible] = useState(false)
 
 	const cart = useSelector(cart => cart.cart)
+	const { is_active, items, subtotal } = cart
 
 	useEffect(() => {
 		dispatch(CartActions.getCartItems())
 	}, [])
+
+	useEffect(() => {
+		if(is_active) setVisible(false)
+	}, [is_active])
 
 	return (
 		<div
@@ -24,12 +29,12 @@ const DropdownCart = () => {
 			onMouseLeave={() => setVisible(false)}
 			className={s.wrapper}>
 			<Icon name="shopping" className={classNames('icon', 'icon-cart', s.icon)}/>
-			<span className={s.count}>({cart.items.length})</span>
-			<div className={classNames(s.cart, { [s.visible]: visible })}>
-				{ cart.items.length > 0 ?
+			<span className={s.count}>({items.length})</span>
+			<div className={classNames(s.cart, {[s.visible]: visible})}>
+				{ items.length > 0 ?
 						<div className={s.container}>
-							<h3 className={s.title}>В кошику {cart.items.length} товар на суму:</h3>
-							<p className={s.price}>{cart.subtotal},<sup>00</sup> грн</p>
+							<h3 className={s.title}>В кошику {items.length} товар на суму:</h3>
+							<p className={s.price}>{subtotal},<sup>00</sup> грн</p>
 							<Link to="/order" className={s.btn}>Замовити</Link>
 							<button
 								type="button"

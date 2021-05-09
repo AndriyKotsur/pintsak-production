@@ -1,6 +1,10 @@
 @import './src/assets/styles/general/_mixins.scss';
 @import './src/assets/styles/general/_variables.scss';
 
+.hidden {
+  overflow: hidden;
+}
+
 .section {
   position: fixed;
   top: 0;

@@ -72,7 +72,8 @@ export const addCartItem = (item, quantity, variant) => {
 		}
 		const cartItems = JSON.parse(localStorage.getItem('cart_items')) || []
 		const cartSubtotal = localStorage.getItem('cart_subtotal') || 0
-		const subtotal = newItem.quantity * newItem.price
+
+		const subtotal = newItem.quantity * Number(newItem.price)
 
 		localStorage.setItem('cart_items', JSON.stringify([...cartItems, newItem]))
 		localStorage.setItem('cart_subtotal', Number(cartSubtotal) + subtotal)
@@ -94,7 +95,8 @@ export const deleteCartItem = id => {
 
 		const items = cartItems.filter(element => element._id !== id)
 		const deletedItem = cartItems.find(element => element._id === id)
-		const total = deletedItem.price * deletedItem.quantity
+
+		const total = deletedItem.quantity * Number(deletedItem.price)
 
 		localStorage.setItem('cart_items', JSON.stringify(items))
 		localStorage.setItem('cart_subtotal', Number(cartSubtotal) - total)

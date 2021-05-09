@@ -5,13 +5,13 @@
   position: relative;
   margin: 0 30px -25px 0;
   padding-bottom: 25px;
-  @include transition();
+  @include transition;
   color: #ffffff;
   cursor: pointer;
 
   &:hover {
     .count {
-      @include transition();
+      @include transition;
       color: $color6;
     }
   }
@@ -19,7 +19,7 @@
 
 .icon {
   margin-right: 6px;
-  
+
   @include screen-tb {
     margin-right: 12px;
   }
@@ -109,7 +109,8 @@
   height: 30px;
   margin-bottom: 15px;
 
-  path, rect {
+  path,
+  rect {
     fill: $color2;
   }
 }

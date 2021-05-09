@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react'
-import { Link } from 'react-router-dom'
+import React, { Fragment, useEffect } from 'react'
+import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as CartActions from 'actions/cart-action'
 
@@ -10,16 +10,31 @@ import s from './style.module.scss'
 
 const Cart = () => {
 	const dispatch = useDispatch()
+	const history = useHistory()
+
 	const cart = useSelector(state => state.cart)
+	const { is_active, items } = cart
+
+	const handleButton = () => {
+		dispatch(CartActions.handleCart(false))
+		history.push('/order')
+	}
+
+	useEffect(() => {
+		cart.is_active && document.body.classList.add(s.hidden)
+		!cart.is_active && document.body.classList.remove(s.hidden)
+	}, [cart.is_active])
 
 	return (
 		<Fragment>
-			{ cart.is_active &&
+			{ is_active &&
 				<div className={s.section}>
 					<div className={s.wrapper}>
 						<div className={s.head}>
 							<h2 className={s.head_title}>Товари в кошику</h2>
-							<button type="button" onClick={() => dispatch(CartActions.handleCart(false))}
+							<button
+								type="button"
+								onClick={() => dispatch(CartActions.handleCart(false))}
 								className={s.head_close}>
 								<Icon name="close" className="icon icon-close--big"/>
 							</button>
@@ -30,8 +45,7 @@ const Cart = () => {
 							<span className={s.description_item}>Сума, грн</span>
 						</div>
 						<div className={s.list}>
-							{
-								cart.items.length > 0 && cart.items.map((item, index) => (
+							{ items.length > 0 && items.map((item, index) => (
 									<div key={index} className={s.item}>
 										<div className={s.item_wrapper}>
 											<button type="button"
@@ -57,8 +71,7 @@ const Cart = () => {
 											</div>
 										</div>
 									</div>
-								))
-							}
+								)) }
 						</div>
 						<div className={s.order}>
 							<div className={s.back} onClick={() => dispatch(CartActions.handleCart(false))}>
@@ -72,7 +85,7 @@ const Cart = () => {
 									<span className={s.total}>Підсумок</span>
 									<span className={s.summary}>{cart.subtotal},<sup>00 грн</sup></span>
 								</div>
-								<Link to="/order" className={s.btn}>Замовити</Link>
+								<button className={s.btn} onClick={handleButton}>Замовити</button>
 							</div>
 						</div>
 					</div>
