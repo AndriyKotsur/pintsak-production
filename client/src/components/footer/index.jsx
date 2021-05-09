@@ -20,7 +20,7 @@ const Footer = () => {
 							<Icon name="phone" className="icon icon-phone" />
 							<span className={s.title}>Телефон</span>
 						</div>
-						<span className={s.text}>+380636666666</span>
+						<a href="tel:+380636666666" className={s.text}>+380636666666</a>
 					</div>
 					<div className={s.block}>
 						<div className={s.item}>
