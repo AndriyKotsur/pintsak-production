@@ -4,7 +4,7 @@ import { COOKIES } from './'
 const request = async function ({ options = true, headers = {} }) {
 	const authToken = COOKIES.getAuthToken() || ''
 	const client = axios.create({
-		baseURL: 'http://localhost:5000/v1',
+		baseURL: '/v1',
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
