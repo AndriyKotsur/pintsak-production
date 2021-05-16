@@ -11,7 +11,7 @@ const Options = () => {
 	return (
 		<Fragment>
 			<Title value="Параметри продукту" />
-      <File onChange={image => dispatch(EditTileActions.handleChange(image))} />
+      <File previewFiles={state.imagesPreview} id={state._id} onChange={image => dispatch(EditTileActions.handleChange(image))} onDelete={(image, id) => dispatch(EditTileActions.handleDelete(image, id))} />
       <Input
         type='text'
         name='title'

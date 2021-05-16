@@ -1,66 +1,76 @@
+require('dotenv').config()
+const { awsInfo } = require('../../config')
+const aws = require('aws-sdk')
 const multer = require('multer')
-const fs = require('fs')
+const multerS3 = require('multer-s3')
 const path = require('path')
 
-const storage = multer.diskStorage({
-	destination: (req, _, cb) => {
-		let folder
-		if (req.body.folderName && req.body.url)
-			folder = `./public/images/${req.body.folderName}/${req.body.url}`
-		else
-			folder = './public/docs'
+const s3Config = new aws.S3({
+	accessKeyId: awsInfo.accessKey,
+	secretAccessKey: awsInfo.secretKey,
+	region: awsInfo.region,
+})
 
-		fs.access(folder, fs.constants.F_OK, () => {
-			if (!fs.constants.F_OK)
-				return fs.mkdir(folder, {recursive: true}, error => cb(error, folder))
-
-			return cb(null, folder)
+const multerS3Config = multerS3({
+	s3: s3Config,
+	acl: 'public-read',
+	bucket: awsInfo.bucket,
+	metadata: function (_, file, cb) {
+		cb(null, {
+			fieldName: file.fieldname,
 		})
 	},
-	filename: function (req, file, cb) {
-		const title = req.body.url || 'tile-catalogue'
-		cb(null, title + '-' + Date.now() + path.extname(file.originalname))
+	key: function (_, file, cb) {
+		cb(null, 'product-' + Math.random().toString(36).slice(-8) + path.extname(file.originalname))
 	},
 })
 
-const uploadFile = multer ({
+const fileFilter = function (_, file, cb) {
+	if (!file.originalname.match(/\.(jpg|jpeg|png|svg)$/))
+		return cb(new Error('Please upload an image'))
+
+	cb(undefined, true)
+}
+
+const upload = multer({
 	limits: {
 		fileSize: 50000000,
 	},
-	fileFilter(_, file, cb) {
-		if (!file.originalname.match(/\.(doc|docx|pdf|xls|xlsx)$/))
-			return cb(new Error('Please upload a file'))
+	fileFilter: fileFilter,
+	storage: multerS3Config,
+})
 
-		cb(undefined, true)
-	},
-	storage: storage,
-}).single('file')
+const uploadFiles = upload.array('images', 10)
 
-const uploadImages = multer ({
-	limits: {
-		fileSize: 2000000,
-	},
-	fileFilter(_, file, cb) {
-		if (!file.originalname.match(/\.(jpg|jpeg|png)$/))
-			return cb(new Error('Please upload an image'))
+const uploadImages = (req, res, next) => {
+	uploadFiles(req, res, err => {
+		if (err instanceof multer.MulterError) {
+			if (err.code === 'LIMIT_UNEXPECTED_FILE')
+				console.log(err)
 
-		cb(undefined, true)
-	},
-	storage: storage,
-}).array('images', 100)
+		} else if (err) {
+			console.log(err)
+		}
 
-const removeFolder = folderPath => {
-	if (fs.existsSync(folderPath)) {
-		fs.readdirSync(folderPath).forEach(file => {
-			const currentPath = folderPath + '/' + file
-			if (fs.lstatSync(currentPath).isDirectory())
-				removeFolder(currentPath)
-			else
-				fs.unlinkSync(currentPath)
-
-		})
-		fs.rmdirSync(folderPath)
-	}
+		next()
+	})
 }
 
-module.exports = { uploadImages, uploadFile, removeFolder }
+const deleteImages = key => {
+	const filename = key.split('/')
+	const params = { Bucket: awsInfo.bucket, Key: filename[filename.length - 1] }
+	s3Config.deleteObject(params, (err, data) => {
+		if (err) {
+			console.error(err)
+
+			return err
+		}
+
+		return data
+	})
+}
+
+module.exports = {
+	uploadImages,
+	deleteImages,
+}

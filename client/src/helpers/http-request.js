@@ -94,6 +94,16 @@ const uploadImages = async ({ id, formData }) => {
 	})
 }
 
+const deleteImage = async (id, image) => {
+	return request ({
+		options: {
+			url: `/admin/tile/images/${id}`,
+			method: 'DELETE',
+			data: { key: image }
+		}
+	})
+}
+
 const addType = async ({ title, url }) => {
 	return request ({
 		options: {
@@ -171,6 +181,7 @@ const useHTTPRequest = {
 	updateTile,
 	deleteTile,
 	deleteType,
+	deleteImage,
 }
 
 export default useHTTPRequest

@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const { uploadImages, removeFolder } = require('../../../middlewares/upload')
+const { uploadImages, deleteImages } = require('../../../middlewares/upload')
 const auth = require('../../../middlewares/auth')
 const { Tile, Type } = require('../../../models')
 
@@ -46,27 +46,43 @@ router.put('/:url', auth, async (req, res) => {
 })
 
 // upload images
-router.put('/images/:id', auth, async (req, res) => {
+router.put('/images/:id', auth, uploadImages, async (req, res) => {
 	try {
 		const { id } = req.params
+		const arr = []
 
 		const tile = await Tile.findById(id).populate('type')
 		if (!tile) return res.status(404).json({ success: false, message: 'Tile not found' })
 
-		removeFolder(`./public/images/${tile.type.url}/${tile.url}`)
-		uploadImages( req, res, async err => {
-			if (err)
-				throw err
-
-			const images = []
-
-			for (let i = 0; i < req.files.length; i++)
-				images.push('http://localhost:5000' + (req.files[i].destination).slice(1) + '/' + req.files[i].filename)
-
-			await Tile.findByIdAndUpdate(id, { images })
-
-			res.status(201).json({ success: true, message: 'Successfully uploaded' })
+		req.files.map(file => {
+			arr.push(file.location)
 		})
+
+		await Tile.findByIdAndUpdate(id, {
+			images: [...tile.images, ...arr],
+		})
+
+		res.status(200).json({ success: true, data: { _id: id, url: tile.url }, message: 'Images has been successfully uploaded' })
+
+	} catch (err) {
+		res.status(400).json({ success: false, message: err.message })
+	}
+})
+
+// delete image
+
+router.delete('/images/:id', auth, async (req, res) => {
+	try {
+		const { id } = req.params
+		const { key } = req.body
+
+		deleteImages(key)
+		await Tile.findByIdAndUpdate(id, {
+			$pull: {
+				images: key,
+			},
+		})
+		res.status(200).json({ success: true, message: 'Image has been successfully deleted' })
 	} catch (err) {
 		res.status(400).json({ success: false, message: err.message })
 	}
@@ -80,9 +96,11 @@ router.delete('/:id', auth, async (req, res) => {
 		const tile = await Tile.findById(id).populate('type')
 		if (!tile) return res.status(404).json({ success: false, message: 'Tile not found' })
 
+		for(const image of tile.images)
+			deleteImages(image)
+
 		tile.delete()
 		await Type.findByIdAndUpdate(id, { $pull: { tiles: id } })
-		removeFolder(`./public/images/${tile.type.url}/${tile.url}`)
 
 		res.status(200).json({ success: true, message: 'Successfully removed' })
 	} catch (err) {

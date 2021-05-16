@@ -8,6 +8,7 @@ import {
 	GET_TILE_TYPES_SUCCESS,
 	GET_TILE_TYPES_LOADING,
 	GET_TILE_TYPES_ERROR,
+	DELETE_IMAGE,
 	CHANGE_STATE,
 	CLEAR_STATE,
 } from '../constants/edit-tile'
@@ -89,6 +90,11 @@ export default function editTile (state = initialState, {type, payload, form, fi
 		return {
 			...state,
 			edit_tile_status: 'loading',
+		}
+	case DELETE_IMAGE:
+		return {
+			...state,
+			imagesPreview: state.imagesPreview.filter(image => image !== payload)
 		}
 	case CHANGE_STATE:
 		if(field) {

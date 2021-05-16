@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import { useSelector } from 'react-redux'
 
 import { Icon } from 'components'
 
@@ -9,7 +10,8 @@ const KILO_BYTES_PER_BYTE = 1000000
 const DEFAULT_MAX_FILE_SIZE_IN_BYTES = 5000000
 const DEFAULT_MAX_FILES_QUANTITY = 10
 
-const File = ({ onChange }) => {
+const File = ({ onChange, onDelete }) => {
+	const state = useSelector(state => state.editTile)
 	const [selectedFiles, setSelectedFiles] = useState([])
   const [validFiles, setValidFiles] = useState([])
   const [error, setError] = useState(false)
@@ -91,7 +93,7 @@ const File = ({ onChange }) => {
     setSelectedFiles([...selectedFiles])
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     let filteredArray = selectedFiles.reduce((files, current) => {
       const element = files.find(item => item.name === current.name)
       if (!element) {
@@ -157,6 +159,26 @@ const File = ({ onChange }) => {
 					}
 				</div>
 		 	}
+      {
+         state.imagesPreview && state.imagesPreview.length > 0 &&
+         state.imagesPreview.map((file, index) => 
+          <div key={'file_'+ index} className={s.preview_item}>
+            <picture className={s.preview_image}>
+              <img src={file} alt={'image_'+ index} />
+            </picture>
+            <div className={s.preview_info}>
+              <div className={s.preview_file}>
+                <button
+                  type="button"
+                  onClick={() => onDelete(file, state._id)}
+                  className={s.preview_delete}>
+                    <Icon name="close" className={classNames('icon', s.preview_icon)} />
+                  </button>
+              </div>
+            </div>
+          </div>
+          )
+        }
 		 </div>
 	)
 }

@@ -8,6 +8,7 @@ import {
 	GET_TILE_TYPES_SUCCESS,
 	GET_TILE_TYPES_LOADING,
 	GET_TILE_TYPES_ERROR,
+	DELETE_IMAGE,
 	CHANGE_STATE,
 	CLEAR_STATE,
 } from '../constants/edit-tile'
@@ -140,6 +141,22 @@ export const handleChange = (event, field) => {
 			form: {
 				images: event,
 			},
+		}
+	}
+}
+
+export const handleDelete = (image, id) => {
+	return async dispatch => {
+		try {
+			const response = await HTTP.deleteImage(id, image)
+			if(response.success) {
+				dispatch({
+					type: DELETE_IMAGE,
+					payload: image,
+				})
+			}
+		} catch (err) {
+			console.error(err)
 		}
 	}
 }
