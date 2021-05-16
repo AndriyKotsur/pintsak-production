@@ -25,6 +25,7 @@ export const getType = id => {
 				payload: response.data,
 			})
 		} catch (err) {
+			console.error(err)
 			return dispatch({
 				type: GET_TYPE_ERROR,
 			})
@@ -43,6 +44,7 @@ export const editType = (id, { title }) => {
 				type: EDIT_TYPE_SUCCESS,
 			})
 		} catch (err) {
+			console.error(err)
 			return dispatch({
 				type: EDIT_TYPE_ERROR,
 			})

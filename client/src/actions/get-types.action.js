@@ -22,6 +22,7 @@ export const getTypes = () => {
 				})
 			else throw new Error()
 		} catch (err) {
+			console.error(err)
 			return dispatch({
 				type: GET_TYPES_ERROR,
 			})

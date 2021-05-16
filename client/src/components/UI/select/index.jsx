@@ -7,7 +7,7 @@ const Select = ({ name, value, data, className, onChange }) => {
 		<div className={s.field}>
 			<select
 				name={name}
-				defaultValue={value}
+				defaultValue={typeof value === 'string' ? value : value._id}
 				onChange={onChange}
 				disabled={!data.length}
 				className={classNames(s.input, {[s.disabled]: !data.length}, className)} required>

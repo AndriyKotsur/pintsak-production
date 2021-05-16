@@ -18,6 +18,7 @@ export const deleteType = id => {
 				type: DELETE_TYPE_SUCCESS,
 			})
 		} catch (err) {
+			console.error(err)
 			return dispatch({
 				type: DELETE_TYPE_ERROR,
 			})

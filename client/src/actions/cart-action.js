@@ -36,6 +36,7 @@ export const orderCartItems = () => {
 				type: ORDER_CART_ITEMS_SUCCESS,
 			})
 		} catch (err) {
+			console.error(err)
 			return dispatch({
 				type: ORDER_CART_ITEMS_ERROR,
 			})

@@ -20,6 +20,7 @@ export const getTiles = (page, typeBy, sortBy, orderBy) => {
 				payload: response.data,
 			})
 		} catch (err) {
+			console.error(err)
 			return dispatch({
 				type: GET_TILES_ERROR,
 			})

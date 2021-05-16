@@ -25,6 +25,7 @@ export const getTileTypes = () => {
 				payload: response.data,
 			})
 		} catch (err) {
+			console.error(err)
 			return dispatch({
 				type: GET_TILE_TYPES_ERROR,
 			})
@@ -81,6 +82,7 @@ export const addTile = ({
 				})
 			}
 		} catch (err) {
+			console.error(err)
 			return dispatch({
 				type: ADD_TILE_ERROR,
 			})
@@ -104,7 +106,7 @@ export const handleChange = (event, field) => {
 			return {
 				type: CHANGE_STATE,
 				form: {
-					[event.target.name]: event.target.checked ? event.target.checked : event.target.value,
+					[event.target.name]: event.target.hasOwnProperty('checked') ? event.target.checked : event.target.value,
 				},
 			}
 		}

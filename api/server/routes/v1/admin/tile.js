@@ -9,9 +9,9 @@ const { Tile, Type } = require('../../../models')
 router.post('/', auth, async (req, res) => {
 	try {
 		const tile = await Tile.create({ ...req.body, url: Math.random().toString(36).slice(-8) })
-		
+
 		await Type.findByIdAndUpdate(req.body.type, {
-			$push: { tiles: tile._id }
+			$push: { tiles: tile._id },
 		})
 
 		res.status(201).json({ success: true, data: tile })
@@ -27,19 +27,19 @@ router.put('/:url', auth, async (req, res) => {
 
 		const tile = await Tile.findOne({ url }).populate('type')
 		if (!tile) return res.status(404).json({ success: false, message: 'Tile not found' })
-		
+
 		if (tile.type !== req.body.type) {
 			await Type.findByIdAndUpdate(tile.type, {
-				$pull: { tiles: tile._id }
+				$pull: { tiles: tile._id },
 			})
 			await Type.findByIdAndUpdate(req.body.type, {
-				$push: { tiles: tile._id }
+				$push: { tiles: tile._id },
 			})
 		}
 
-		await tile.update({ ...req.body, url: Math.random().toString(36).slice(-8) })
+		await Tile.updateOne({ url: tile.url }, req.body)
 
-		res.status(200).json({ success: true, message: 'Successfully updated' })
+		res.status(200).json({ success: true, message: 'Successfully updated', data: { _id: tile._id, url: tile.url } })
 	} catch (err) {
 		res.status(400).json({ success: false, message: err.message })
 	}

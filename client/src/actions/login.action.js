@@ -15,6 +15,7 @@ export const login = ({email, password}) => {
 			COOKIES.setAuthToken(response.token)
 			return dispatch({ type: LOGIN_SUCCESS })
 		} catch (err) {
+			console.error(err)
 			return dispatch({ type: LOGIN_ERROR })
 		}
 	}

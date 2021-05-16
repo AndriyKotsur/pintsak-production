@@ -18,6 +18,7 @@ export const deleteTile = id => {
 				type: DELETE_TILE_SUCCESS,
 			})
 		} catch (err) {
+			console.error(err)
 			return dispatch({
 				type: DELETE_TILE_ERROR,
 			})

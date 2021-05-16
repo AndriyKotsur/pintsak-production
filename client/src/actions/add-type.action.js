@@ -20,6 +20,7 @@ export const addType = ({
 				type: ADD_TYPE_SUCCESS,
 			})
 		} catch (err) {
+			console.error(err)
 			return dispatch({
 				type: ADD_TYPE_ERROR,
 			})

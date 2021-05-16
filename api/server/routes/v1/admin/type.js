@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const { removeFolder} = require('../../../middlewares/upload')
+const { removeFolder } = require('../../../middlewares/upload')
 const auth = require('../../../middlewares/auth')
 const { Type } = require('../../../models')
 
@@ -21,7 +21,7 @@ router.get('/:id', auth, async (req, res) => {
 // add tile type
 router.post('/', auth, async (req, res) => {
 	try {
-		await Type.create(req.body)
+		await Type.create({ ...req.body, url: Math.random().toString(36).slice(-8) })
 
 		res.status(201).json({ success: true, message: 'Successfully created' })
 	} catch (err) {

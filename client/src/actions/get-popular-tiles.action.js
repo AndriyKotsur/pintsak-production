@@ -21,6 +21,7 @@ export const getPopularTiles = () => {
                 payload: response.data,
             })
         } catch (err) {
+			console.error(err)
             return dispatch({
                 type: GET_POPULAR_TILES_ERROR,
             })

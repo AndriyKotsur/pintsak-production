@@ -27,6 +27,7 @@ export const getTile = id => {
 				payload: response.data,
 			})
 		} catch (err) {
+			console.error(err)
 			return dispatch({
 				type: GET_TILE_ERROR,
 			})
@@ -46,6 +47,7 @@ export const getTileTypes = () => {
 				payload: response.data,
 			})
 		} catch (err) {
+			console.error(err)
 			return dispatch({
 				type: GET_TILE_TYPES_ERROR,
 			})
@@ -83,7 +85,8 @@ export const editTile = (url, {
 			if (response.success) {
 				const formData = new FormData()
 
-				const folderType = types.find(el => el._id === type)
+				const typeId = typeof type === 'string' ? type : type._id
+				const folderType = types.find(el => el._id === typeId)
 
 				formData.append('folderName', folderType.url)
 
@@ -103,6 +106,7 @@ export const editTile = (url, {
 				})
 			}
 		} catch (err) {
+			console.error(err)
 			return dispatch({
 				type: EDIT_TILE_ERROR,
 			})
@@ -126,7 +130,7 @@ export const handleChange = (event, field) => {
 			return {
 				type: CHANGE_STATE,
 				form: {
-					[event.target.name]: event.target.checked ? event.target.checked : event.target.value,
+					[event.target.name]: event.target.hasOwnProperty('checked') ? event.target.checked : event.target.value,
 				},
 			}
 		}

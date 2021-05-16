@@ -20,6 +20,7 @@ export const getTile = url => {
 				payload: response.data,
 			})
 		} catch (err) {
+			console.error(err)
 			return dispatch({
 				type: GET_TILE_ERROR,
 			})
