@@ -105,6 +105,16 @@
     height: 23px;
   }
 
+  &-request {
+    width: 21px;
+    height: 21px;
+
+    @include screen-tb {
+      width: 28px;
+      height: 28px;
+    }
+  }
+
   &-sort {
     margin-left: 10px;
     width: 11px;
@@ -119,16 +129,6 @@
   &.icon-product {
     width: 385px;
     height: 385px;
-  }
-
-  &.icon-request {
-    width: 21px;
-    height: 21px;
-
-    @include screen-tb {
-      width: 28px;
-      height: 28px;
-    }
   }
 
   &.icon-close--big {
