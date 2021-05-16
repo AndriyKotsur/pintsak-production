@@ -14,7 +14,7 @@ app.use(cors())
 app.use(helmet.contentSecurityPolicy({
 	useDefaults: true,
 	directives: {
-		'script-src': ["'self'", 'pintsak-production.herokuapp.com/'],
+		'script-src': ["'self'", 'https://pintsak-production.herokuapp.com'],
 	},
 }))
 app.use(helmet.dnsPrefetchControl())
