@@ -20,16 +20,12 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "sh -ac '. ./.env.${process.env.REACT_APP_ENV}; react-scripts start'",
-    "start:production": "set REACT_APP_ENV=production && npm run start",
-    "start:development": "set REACT_APP_ENV=development && npm run start",
-    "start:production_m": "export REACT_APP_ENV=production && npm run start",
-    "start:development_m": "export REACT_APP_ENV=development && npm run start",
-    "build": "sh -ac '. ./.env.${REACT_APP_ENV}; react-scripts build'",
-    "build:production": "set REACT_APP_ENV=production && npm run build",
-    "build:development": "set REACT_APP_ENV=development && npm run build",
-    "build:production_m": "export REACT_APP_ENV=production && npm run build",
-    "build:development_m": "export REACT_APP_ENV=development && npm run build",
+    "start": "react-scripts start",
+    "start:production": "set REACT_APP_API=  && npm run start",
+    "start:development": "set REACT_APP_API=http://localhost:5000 && npm run start",
+    "start:production_m": "export REACT_APP_API=  && npm run start",
+    "start:development_m": "export REACT_APP_API=http://localhost:5000 && npm run start",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "lint": "eslint --fix",
     "eject": "react-scripts eject"
