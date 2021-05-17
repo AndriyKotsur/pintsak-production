@@ -15,7 +15,7 @@ app.use(helmet.contentSecurityPolicy({
 	useDefaults: true,
 	directives: {
 		'script-src': ["'self'", 'https://pintsak-production.herokuapp.com'],
-		'img-src': ["'self'", 'https://pintsak-production.s3.eu-central-1.amazonaws.com', 'https://pintsak-production.herokuapp.com'],
+		// 'img-src': ["'self'", 'https://pintsak-production.s3.eu-central-1.amazonaws.com', 'https://pintsak-production.herokuapp.com'],
 	},
 }))
 app.use(helmet.dnsPrefetchControl())
@@ -30,7 +30,6 @@ app.use(helmet.referrerPolicy())
 app.use(helmet.xssFilter())
 app.use(logger('dev'))
 app.use(express.json())
-app.use('/public', express.static(__dirname + '/public'))
 
 // routes
 app.use('/v1', require('./routes/v1'))
