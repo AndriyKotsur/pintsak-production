@@ -14,8 +14,8 @@ app.use(cors())
 app.use(helmet.contentSecurityPolicy({
 	useDefaults: true,
 	directives: {
-		'script-src': ["'self'", 'https://pintsak-production.herokuapp.com'],
-		// 'img-src': ["'self'", 'https://pintsak-production.s3.eu-central-1.amazonaws.com', 'https://pintsak-production.herokuapp.com'],
+		'script-src': ["'self'", "https://pintsak-production.herokuapp.com 'unsafe-inline"],
+		'img-src': ["'self'", 'https://pintsak-production.s3.eu-central-1.amazonaws.com', 'https://pintsak-production.herokuapp.com'],
 	},
 }))
 app.use(helmet.dnsPrefetchControl())
