@@ -5,7 +5,7 @@ const helmet = require('helmet')
 const path = require('path')
 
 const { port } = require('./config')
-require('./server/services/mongoose')
+require('./services/mongoose')
 
 const app = express()
 
@@ -15,6 +15,7 @@ app.use(helmet.contentSecurityPolicy({
 	useDefaults: true,
 	directives: {
 		'script-src': ["'self'", 'https://pintsak-production.herokuapp.com'],
+		'img-src': ["'self", 'https://pintsak-production.s3.eu-central-1.amazonaws.com'],
 	},
 }))
 app.use(helmet.dnsPrefetchControl())
@@ -32,12 +33,12 @@ app.use(express.json())
 app.use('/public', express.static(__dirname + '/public'))
 
 // routes
-app.use('/v1', require('./server/routes/v1'))
+app.use('/v1', require('./routes/v1'))
 
 if (process.env.NODE_ENV === 'production') {
 	app.use(express.static('client/build'))
 
-	app.get('*', (__, res) => {
+	app.get('/', (__, res) => {
 		res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
 	})
 }

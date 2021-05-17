@@ -1,5 +1,5 @@
 const sendgridMail = require('@sendgrid/mail')
-const { mailInfo } = require('../../../config')
+const { mailInfo } = require('../../config')
 
 sendgridMail.setApiKey(mailInfo.secretKey)
 

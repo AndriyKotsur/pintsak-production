@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const { jwtInfo } = require('../../../config')
+const { jwtInfo } = require('../../config')
 
 function parseBearer(token, headers) {
 	return jwt.verify(token, prepareSecret(headers))

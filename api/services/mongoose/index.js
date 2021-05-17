@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const { mongoUri } = require('../../../config')
+const { mongoUri } = require('../../config')
 
 mongoose.set('useUnifiedTopology', true)
 mongoose.set('useCreateIndex', true)
