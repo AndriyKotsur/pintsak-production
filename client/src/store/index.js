@@ -7,10 +7,16 @@ const logger = createLogger({
 	level: 'info',
 })
 
-const createStoreWithMiddleware = applyMiddleware(thunkMiddleware, logger)(createStore)
+let createStoreWithMiddleware = applyMiddleware(thunkMiddleware, logger)(createStore)
+
+if (process.env.NODE_ENV === 'production')
+	createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore)
+else
+	createStoreWithMiddleware = applyMiddleware(thunkMiddleware, logger)(createStore)
 
 function configureStore(initialState) {
 	return createStoreWithMiddleware(rootReducer, initialState)
 }
+
 
 export const store = configureStore()

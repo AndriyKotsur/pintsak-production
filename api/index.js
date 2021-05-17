@@ -37,11 +37,7 @@ app.use('/v1', require('./routes/v1'))
 if (process.env.NODE_ENV === 'production') {
 	app.use(express.static('client/build'))
 
-	app.get('*', (_, res) => {
-		res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
-	})
-
-	app.get('/*', (_, res) => {
+	app.get((_, res) => {
 		res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
 	})
 }
