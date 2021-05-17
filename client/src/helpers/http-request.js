@@ -4,7 +4,7 @@ import { COOKIES } from './'
 const request = async function ({ options = true, headers = {} }) {
 	const authToken = COOKIES.getAuthToken() || ''
 	const client = axios.create({
-		baseURL: '/v1',
+		baseURL: process.env.REACT_APP_API + '/v1',
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
@@ -25,8 +25,8 @@ const request = async function ({ options = true, headers = {} }) {
 	return client(options).then(onSuccess).catch(onError)
 }
 
-const login = async admin => {
-	return request ({
+const login = admin => {
+	return request({
 		options: {
 			url: '/admin',
 			method: 'POST',
@@ -35,8 +35,8 @@ const login = async admin => {
 	})
 }
 
-const getType = async id => {
-	return request ({
+const getType = id => {
+	return request({
 		options: {
 			url: `/admin/type/${id}`,
 			method: 'GET',
@@ -44,8 +44,8 @@ const getType = async id => {
 	})
 }
 
-const getTile = async url => {
-	return request ({
+const getTile = url => {
+	return request({
 		options: {
 			url: `/tile/${url}`,
 			method: 'GET',
@@ -53,8 +53,8 @@ const getTile = async url => {
 	})
 }
 
-const getTypes = async () => {
-	return request ({
+const getTypes = () => {
+	return request({
 		options: {
 			url: '/types',
 			method: 'GET',
@@ -62,8 +62,8 @@ const getTypes = async () => {
 	})
 }
 
-const getTiles = async ({page = 1, typeBy= '', sortBy = '', orderBy = 1}) => {
-	return request ({
+const getTiles = ({ page = 1, typeBy = '', sortBy = '', orderBy = 1 }) => {
+	return request({
 		options: {
 			url: `/tiles?&page=${page}&type=${typeBy}&sort=${sortBy}&order=${orderBy}`,
 			method: 'GET',
@@ -71,7 +71,7 @@ const getTiles = async ({page = 1, typeBy= '', sortBy = '', orderBy = 1}) => {
 	})
 }
 
-const getPopularTiles = async () => {
+const getPopularTiles = () => {
 	return request({
 		options: {
 			url: '/popular',
@@ -80,8 +80,8 @@ const getPopularTiles = async () => {
 	})
 }
 
-const uploadImages = async ({ id, formData }) => {
-	return request ({
+const uploadImages = ({ id, formData }) => {
+	return request({
 		headers: {
 			Accept: 'multipart/form-data',
 			'Content-Type': 'multipart/form-data',
@@ -94,8 +94,8 @@ const uploadImages = async ({ id, formData }) => {
 	})
 }
 
-const deleteImage = async (id, image) => {
-	return request ({
+const deleteImage = (id, image) => {
+	return request({
 		options: {
 			url: `/admin/tile/images/${id}`,
 			method: 'DELETE',
@@ -104,8 +104,8 @@ const deleteImage = async (id, image) => {
 	})
 }
 
-const addType = async ({ title, url }) => {
-	return request ({
+const addType = ({ title, url }) => {
+	return request({
 		options: {
 			url: '/admin/type',
 			method: 'POST',
@@ -117,8 +117,8 @@ const addType = async ({ title, url }) => {
 	})
 }
 
-const addTile = async data => {
-	return request ({
+const addTile = data => {
+	return request({
 		options: {
 			url: '/admin/tile',
 			method: 'POST',
@@ -127,8 +127,8 @@ const addTile = async data => {
 	})
 }
 
-const updateType = async ({ id, title }) => {
-	return request ({
+const updateType = ({ id, title }) => {
+	return request({
 		options: {
 			url: `/admin/type/${id}`,
 			method: 'PUT',
@@ -139,8 +139,8 @@ const updateType = async ({ id, title }) => {
 	})
 }
 
-const updateTile = async ( url, data ) => {
-	return request ({
+const updateTile = (url, data) => {
+	return request({
 		options: {
 			url: `/admin/tile/${url}`,
 			method: 'PUT',
@@ -149,8 +149,8 @@ const updateTile = async ( url, data ) => {
 	})
 }
 
-const deleteTile = async id => {
-	return request ({
+const deleteTile = id => {
+	return request({
 		options: {
 			url: `/admin/tile/${id}`,
 			method: 'DELETE',
@@ -158,8 +158,8 @@ const deleteTile = async id => {
 	})
 }
 
-const deleteType = async id => {
-	return request ({
+const deleteType = id => {
+	return request({
 		options: {
 			url: `/admin/type/${id}`,
 			method: 'DELETE',
@@ -167,7 +167,7 @@ const deleteType = async id => {
 	})
 }
 
-const useHTTPRequest = {
+const HTTP = {
 	login,
 	getType,
 	getTile,
@@ -184,4 +184,4 @@ const useHTTPRequest = {
 	deleteImage,
 }
 
-export default useHTTPRequest
+export default HTTP

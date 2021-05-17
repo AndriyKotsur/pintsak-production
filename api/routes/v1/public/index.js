@@ -88,7 +88,7 @@ router.get('/tiles', async (req, res) => {
 })
 
 // get populars tiles
-router.get('/popular',async (_, res) => {
+router.get('/popular', async (_, res) => {
 	try {
 		const tiles = await Tile.find({ is_popular: true }).populate('type')
 
@@ -113,6 +113,31 @@ router.get('/download-catalogue', (_, res) => {
 	}
 })
 
+// customer request
+router.post('/customer-request', async (req, res) => {
+	try {
+		const { name, phone, comment } = req.body
+
+		const content =
+			`<table>
+				<tbody>
+					<tr>Customer: ${name}</tr>
+					</br>
+					<tr>Phone: ${phone}</tr>
+					</br>
+					<tr>Comment: ${comment}</tr>
+				</tbody>
+			</table>`
+
+		const response = await sendMail({ fromEmail: 'pintsak-tiles.com.ua', subject: 'New customer request!', content })
+		if (response[0].statusCode !== 202) return res.status(400).json({ success: false, message: 'Email error' })
+
+		res.status(201).json({ success: true, message: 'Successfully sended' })
+	} catch (err) {
+		res.status(400).json({ success: false, message: err.message })
+	}
+})
+
 // order request
 router.post('/order-request', async (req, res) => {
 	try {
@@ -122,7 +147,7 @@ router.post('/order-request', async (req, res) => {
 
 		if (newOrder) {
 			const content =
-                `<table>
+				`<table>
 					<tbody>
 						<tr>Customer: ${name}</tr>
 						</br>

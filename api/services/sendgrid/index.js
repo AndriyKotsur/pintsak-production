@@ -10,6 +10,7 @@ const sendMail = ({ toEmail = mailInfo.defaultEmail, fromEmail, subject, content
 		subject,
 		html: content,
 	}
+
 	return sendgridMail.send(message)
 }
 

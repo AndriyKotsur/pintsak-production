@@ -14,7 +14,7 @@ app.use(cors())
 app.use(helmet.contentSecurityPolicy({
 	useDefaults: true,
 	directives: {
-		'script-src': ["'self'", "'unsafe-inline'"],
+		'script-src': ["'self'", 'https://pintsak-production.herokuapp.com'/* "'unsafe-inline'" */],
 		'img-src': ["'self'", 'https://pintsak-production.s3.eu-central-1.amazonaws.com', 'https://pintsak-production.herokuapp.com'],
 	},
 }))
@@ -38,8 +38,6 @@ if (process.env.NODE_ENV === 'production') {
 	app.use(express.static(path.join(__dirname, '../', '/client', '/build')))
 
 	app.get('/*', (_, res) => {
-		console.log(__dirname)
-		console.log(__dirname + '/client/build/index.html')
 		res.sendFile(path.join(__dirname, '../', '/client', '/build', '/index.html'))
 	})
 }

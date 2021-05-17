@@ -2,7 +2,7 @@ const express = require('express')
 const bcrypt = require('bcryptjs')
 const router = express.Router()
 
-const { uploadFile, removeFolder} = require('../../../middlewares/upload')
+const { uploadFile, removeFolder } = require('../../../middlewares/upload')
 const auth = require('../../../middlewares/auth')
 const { prepareToken } = require('../../../services/jwt')
 const { Admin } = require('../../../models')
@@ -12,20 +12,6 @@ const typeRouter = require('./type')
 
 router.use('/tile', tileRouter)
 router.use('/type', typeRouter)
-
-// check token
-router.get('/check-token', auth, (req, res) => {
-	try {
-		res.status(200).json(
-			{ id: req.admin.id },
-		)
-	} catch (err) {
-		console.error(err.message)
-		res.status(401).json(
-			{ message: 'Token expired' },
-		)
-	}
-})
 
 // register admin
 router.post('/register', async (req, res) => {
@@ -40,7 +26,7 @@ router.post('/register', async (req, res) => {
 			password: hash,
 		})
 
-		const token = prepareToken({ id: newAdmin._id }, req.headers )
+		const token = prepareToken({ id: newAdmin._id }, req.headers)
 
 		res.status(201).json({ success: true, token })
 	} catch (err) {
@@ -59,7 +45,7 @@ router.post('/', async (req, res) => {
 		const isMatch = await bcrypt.compare(password, admin.password)
 		if (!isMatch) return res.status(401).json({ success: false, message: 'Invalid credentials' })
 
-		const token = prepareToken({ id: admin._id }, req.headers )
+		const token = prepareToken({ id: admin._id }, req.headers)
 
 		res.status(200).json({ success: true, token })
 	} catch (err) {
@@ -71,7 +57,7 @@ router.post('/', async (req, res) => {
 router.patch('/catalogue', auth, async (req, res) => {
 	try {
 		removeFolder('./public/docs')
-		uploadFile( req, res, async err => {
+		uploadFile(req, res, async err => {
 			if (err)
 				throw err
 
