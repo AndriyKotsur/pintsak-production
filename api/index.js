@@ -29,7 +29,7 @@ app.use(helmet.permittedCrossDomainPolicies())
 app.use(helmet.referrerPolicy())
 app.use(helmet.xssFilter())
 app.use(logger('dev'))
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
 // routes
@@ -39,7 +39,7 @@ if (process.env.NODE_ENV !== 'development') {
 	app.use(express.static(path.join(__dirname, '/client/build')))
 
 	app.get('*', (_, res) => {
-		res.sendFile(path.resolve('client/build', 'index.html'))
+		res.sendFile(path.join('/client', '/build', '/index.html'))
 	})
 }
 
