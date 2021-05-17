@@ -10,6 +10,7 @@ import {
 	GET_TILE_TYPES_ERROR,
 	DELETE_IMAGE,
 	CHANGE_STATE,
+	CHANGE_COLOR,
 	CLEAR_STATE,
 } from '../constants/edit-tile'
 import {
@@ -158,6 +159,13 @@ export const handleDelete = (image, id) => {
 		} catch (err) {
 			console.error(err)
 		}
+	}
+}
+
+export const handleChangeColor = color => {
+	return {
+		type: CHANGE_COLOR,
+		payload: color
 	}
 }
 
