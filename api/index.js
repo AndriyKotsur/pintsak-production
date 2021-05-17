@@ -36,7 +36,7 @@ app.use(express.json())
 app.use('/v1', require('./routes/v1'))
 
 if (process.env.NODE_ENV !== 'development') {
-	app.use('/build', express.static(path.join(__dirname, '/client/build')))
+	app.use(express.static(path.join(__dirname, '/client/build')))
 
 	app.get('*', (_, res) => {
 		res.sendFile(path.resolve('client/build', 'index.html'))
