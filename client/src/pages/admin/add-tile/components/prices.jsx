@@ -1,16 +1,24 @@
-import React, { Fragment } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { Fragment, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import * as AddTileActions from 'actions/add-tile.action'
 
-import { Title, Input } from 'components'
+import { Title, Input, ColorsAndPrices } from 'components'
+import { ColorsBuilder } from 'helpers'
 
 const Prices = () => {
 	const dispatch = useDispatch()
+	const state = useSelector(state => state.addTile)
+
+	const onChange = (type, name, event) => {
+		const prices = ColorsBuilder(state.prices, type, name, event)
+		dispatch(AddTileActions.handleChangeColor(prices))
+	}
 
 	return (
 		<Fragment>
 			<Title value="Ціна продукту" />
-			<Input
+			<ColorsAndPrices colors={state.prices} onChange={onChange} />
+			{/* <Input
 				type='number'
 				name='grey'
 				title='Ціна сірого продукту'
@@ -45,7 +53,7 @@ const Prices = () => {
 				name='black'
 				title='Ціна чорного продукту'
 				onChange={e => dispatch(AddTileActions.handleChange(e, 'prices'))}
-				isRequired />
+				isRequired /> */}
 		</Fragment>
 	)
 }
