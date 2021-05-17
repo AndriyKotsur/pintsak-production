@@ -20,7 +20,7 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "sh -ac '. ./.env.${REACT_APP_ENV}; react-scripts start'",
+    "start": "sh -ac '. ./.env.${process.env.REACT_APP_ENV}; react-scripts start'",
     "start:production": "set REACT_APP_ENV=production && npm run start",
     "start:development": "set REACT_APP_ENV=development && npm run start",
     "start:production_m": "export REACT_APP_ENV=production && npm run start",
