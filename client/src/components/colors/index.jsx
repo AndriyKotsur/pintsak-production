@@ -1,35 +1,51 @@
 import React, { useState } from 'react'
 
-import classNames from 'classnames'
-import s from "./style.module.scss"
+import { Input } from 'components'
 
-const Colors = ({ colors, handleVariant }) => {
-  const [active, setActive] = useState(colors[0])
+const ColorsAndPrices = ({ colors, onChange }) => {
+	const [color, setColor] = useState('grey')
+	const [price, setPrice] = useState(10)
 
-  const handleClick = (e) => {
-    let value = e.currentTarget.dataset.color
-  
-    setActive(value)
-    handleVariant(value)
-  }
+	const onAddColor = () => {
+		if (color.length > 0 && price) {
+			onChange('add', color, price)
+			setColor('grey')
+			setPrice(10)
+		}
+	}
 
-  return (
-    <div className={s.colors}>
-      <span className={s.colors_title}>Кольори</span>
-      <div className={s.colors_wrapper}>
-        { colors && colors.map((color, index) =>
-        <div
-          key={'color_'+ index}
-          data-color={color}
-          className={classNames(s.color, {[s.active]: color === active})}
-          onClick={e => handleClick(e)}>
-            <span
-              style={{background: color}}
-              className={s.color_item}></span>
-        </div>) }
-      </div>
-    </div>
-  )
+	return (
+		<>
+			{
+				Object.keys(colors) && Object.keys(colors).length > 0 && Object.entries(colors).map(([key, value], idx) => (
+					<div key={idx}>
+						<input className='input' value={key} disabled />
+						<input className='input' value={value} disabled />
+						<button
+							type="button"
+							onClick={() => onChange('remove', key)}>
+							Видалити
+						</button>
+					</div>
+				))
+			}
+			<Input
+				type='text'
+				name='color'
+				title='Колір товару'
+				onChange={e => setColor(e.target.value)}
+				isRequired />
+			<Input
+				type='number'
+				name='price'
+				title='Ціна товару'
+				onChange={e => setPrice(Number(e.target.value))}
+				isRequired />
+			<button type="button" onClick={onAddColor}>
+				Додати
+			</button>
+		</>
+	)
 }
 
-export default Colors
+export default ColorsAndPrices
