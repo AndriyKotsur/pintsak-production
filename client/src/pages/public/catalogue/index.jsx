@@ -22,13 +22,13 @@ const CataloguePage = () => {
 
 	useEffect(() => {
 		dispatch(GetTilesActions.getTiles(page, typeBy, sortBy, orderBy))
-	}, [page, typeBy, sortBy, orderBy])
+	}, [page, typeBy, sortBy, orderBy, dispatch])
 
 	useEffect(() => {
 		dispatch(GetTypesActions.getTypes())
 
 		return () => dispatch(GetTypesActions.clear())
-	}, [])
+	}, [dispatch])
 
 	return (
 		<div className={s.section}>
@@ -38,7 +38,7 @@ const CataloguePage = () => {
 						<Types
 							types={types.types}
 							settings={{ public: true }}
-							styleName={s.hero_navigation}/>
+							styleName={s.hero_navigation} />
 					</div>
 					<div className={s.catalogue}>
 						<div className={s.sort}>
@@ -47,17 +47,17 @@ const CataloguePage = () => {
 								sortBy={sortBy}
 								orderBy={orderBy}
 								handleSortBy={setSortBy}
-								handleOrderBy={setOrderBy}/>
+								handleOrderBy={setOrderBy} />
 						</div>
-						{ tiles.get_tiles_status === 'success' && tiles.get_tiles_status
-								? <Tiles
-									tiles={tiles.tiles}
-									settings={{ public: true }} />
-								: <Preloader/> }
+						{tiles.get_tiles_status === 'success' && tiles.get_tiles_status
+							? <Tiles
+								tiles={tiles.tiles}
+								settings={{ public: true }} />
+							: <Preloader />}
 						<Pagination
 							page={page}
 							pages={tiles.pages}
-							handlePageBy={setPage}/>
+							handlePageBy={setPage} />
 					</div>
 				</div>
 			</div>

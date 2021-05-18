@@ -19,38 +19,38 @@ const EditType = () => {
 	}
 
 	useEffect(() => {
-		if(state.edit_type_status === 'success')
+		if (state.edit_type_status === 'success')
 			history.push('/admin/dashboard')
-	}, [state.edit_type_status])
+	}, [state.edit_type_status, history])
 
 	useEffect(() => {
 		dispatch(EditTypeActions.getType(id))
-		return () =>  dispatch(EditTypeActions.clear())
-	}, [id])
+		return () => dispatch(EditTypeActions.clear())
+	}, [id, dispatch])
 
 	return (
 		<Fragment>
-			{ state.get_type_status === 'loading' && <Preloader /> }
+			{ state.get_type_status === 'loading' && <Preloader />}
 			{ state.get_type_status === 'success' && (
 				<section className={s.section}>
 					<Background settings={{ hiddenLeft: false, hiddenRight: false }} />
 					<div className="container">
 						<div className={s.wrapper}>
-						<Title value="Редагувати категорію" />
-						<Form
-							handler={updateType}>
-							<Input
-								type='text'
-								name='title'
-								title='Назва категорії'
-								value={state.title}
-								onChange={e => dispatch(EditTypeActions.handleChange(e))}
-								isRequired />
-						</Form>
+							<Title value="Редагувати категорію" />
+							<Form
+								handler={updateType}>
+								<Input
+									type='text'
+									name='title'
+									title='Назва категорії'
+									value={state.title}
+									onChange={e => dispatch(EditTypeActions.handleChange(e))}
+									isRequired />
+							</Form>
 						</div>
 					</div>
 				</section>
-				) }
+			)}
 		</Fragment>
 	)
 }

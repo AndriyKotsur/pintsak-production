@@ -7,7 +7,7 @@ import { Title, Input, Select, Checkbox, File } from 'components'
 const Options = () => {
 	const dispatch = useDispatch()
 	const state = useSelector(state => state.addTile)
-	
+
 	return (
 		<Fragment>
 			<Title value="Параметри продукту" />

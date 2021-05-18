@@ -11,12 +11,12 @@ const DEFAULT_MAX_FILE_SIZE_IN_BYTES = 5000000
 const DEFAULT_MAX_FILES_QUANTITY = 10
 
 const File = ({ onChange, onDelete }) => {
-	const state = useSelector(state => state.editTile)
-	const [selectedFiles, setSelectedFiles] = useState([])
+  const state = useSelector(state => state.editTile)
+  const [selectedFiles, setSelectedFiles] = useState([])
   const [validFiles, setValidFiles] = useState([])
   const [error, setError] = useState(false)
 
-	const fileInputField = useRef(null)
+  const fileInputField = useRef(null)
 
   const dragOver = (e) => {
     e.preventDefault()
@@ -42,7 +42,7 @@ const File = ({ onChange, onDelete }) => {
     return (size / KILO_BYTES_PER_BYTE).toFixed(2)
   }
 
-	const validateFile = (file) => {
+  const validateFile = (file) => {
     const validateTypes = ["image/svg", "image/png", "image/jpeg", "image/jpg"]
     if (validateTypes.indexOf(file.type) === -1 || file.size > DEFAULT_MAX_FILE_SIZE_IN_BYTES) {
       return false
@@ -104,67 +104,67 @@ const File = ({ onChange, onDelete }) => {
     }, [])
 
     setValidFiles([...filteredArray])
-		onChange([...filteredArray])
+    onChange([...filteredArray])
   }, [selectedFiles])
 
-	return(
-		<div className={s.container}>
-			<div className={s.upload_container}>
-				<div className={s.upload_area}
-					onDragOver={dragOver}
-					onDragEnter={dragEnter}
-					onDragLeave={dragLeave}
-					onDrop={handleDropUpload}>
-					<h2 className={s.upload_title}>Завантаження файлів</h2>
-					<p className={s.upload_description}>Підтримувані формати: JPEG, PNG або SVG</p>
-					<div className={s.upload_group}>
-						<input
-							ref={fileInputField}
-							type="file"
-							value=""
-							onChange={handleClickUpload}
-							accept="image/svg, image/x-png, image/jpeg"
-							className={s.upload_input}
-							multiple />
-						<button type="button" onClick={handleClick} className={s.upload_button}>Додати файли</button>
-					</div>
-					<span className={s.upload_remarks}>Максимальний розмір файла: 5МБ</span>
-					{ error && <span className={s.upload_error}>Файл не відповідає заданим параметрам!</span> }
-				</div>
-			</div>
-			{
-			 validFiles.length > 0 &&
-				<div className={s.preview}>
-					{
-						validFiles.map((file, index) => 
-						<div key={'file_'+ index} className={s.preview_item}>
-							<picture className={s.preview_image}>
-								<img src={URL.createObjectURL(file)} alt={'image_'+ index} />
-							</picture>
-							<div className={s.preview_info}>
-								<div className={s.preview_file}>
-									<button
-										type="button"
-										onClick={() => handleDelete(file.name)}
-										className={s.preview_delete}>
-											<Icon name="close" className={classNames('icon', s.preview_icon)} />
-										</button>
-									<span className={s.preview_name}>{fileName(file.name)}</span>
-									<span className={s.preview_type}>{fileType(file.name)}</span>
-								</div>
-								<span className={s.preview_size}>{fileSize(file.size)}MБ</span>
-							</div>
-						</div>
-						)
-					}
-				</div>
-		 	}
+  return (
+    <div className={s.container}>
+      <div className={s.upload_container}>
+        <div className={s.upload_area}
+          onDragOver={dragOver}
+          onDragEnter={dragEnter}
+          onDragLeave={dragLeave}
+          onDrop={handleDropUpload}>
+          <h2 className={s.upload_title}>Завантаження файлів</h2>
+          <p className={s.upload_description}>Підтримувані формати: JPEG, PNG або SVG</p>
+          <div className={s.upload_group}>
+            <input
+              ref={fileInputField}
+              type="file"
+              value=""
+              onChange={handleClickUpload}
+              accept="image/svg, image/x-png, image/jpeg"
+              className={s.upload_input}
+              multiple />
+            <button type="button" onClick={handleClick} className={s.upload_button}>Додати файли</button>
+          </div>
+          <span className={s.upload_remarks}>Максимальний розмір файла: 5МБ</span>
+          {error && <span className={s.upload_error}>Файл не відповідає заданим параметрам!</span>}
+        </div>
+      </div>
       {
-         state.imagesPreview && state.imagesPreview.length > 0 &&
-         state.imagesPreview.map((file, index) => 
-          <div key={'file_'+ index} className={s.preview_item}>
+        validFiles.length > 0 &&
+        <div className={s.preview}>
+          {
+            validFiles.map((file, index) =>
+              <div key={'file_' + index} className={s.preview_item}>
+                <picture className={s.preview_image}>
+                  <img src={URL.createObjectURL(file)} alt={'image_' + index} />
+                </picture>
+                <div className={s.preview_info}>
+                  <div className={s.preview_file}>
+                    <button
+                      type="button"
+                      onClick={() => handleDelete(file.name)}
+                      className={s.preview_delete}>
+                      <Icon name="close" className={classNames('icon', s.preview_icon)} />
+                    </button>
+                    <span className={s.preview_name}>{fileName(file.name)}</span>
+                    <span className={s.preview_type}>{fileType(file.name)}</span>
+                  </div>
+                  <span className={s.preview_size}>{fileSize(file.size)}MБ</span>
+                </div>
+              </div>
+            )
+          }
+        </div>
+      }
+      {
+        state.imagesPreview && state.imagesPreview.length > 0 &&
+        state.imagesPreview.map((file, index) =>
+          <div key={'file_' + index} className={s.preview_item}>
             <picture className={s.preview_image}>
-              <img src={file} alt={'image_'+ index} />
+              <img src={file} alt={'image_' + index} />
             </picture>
             <div className={s.preview_info}>
               <div className={s.preview_file}>
@@ -172,15 +172,15 @@ const File = ({ onChange, onDelete }) => {
                   type="button"
                   onClick={() => onDelete(file, state._id)}
                   className={s.preview_delete}>
-                    <Icon name="close" className={classNames('icon', s.preview_icon)} />
-                  </button>
+                  <Icon name="close" className={classNames('icon', s.preview_icon)} />
+                </button>
               </div>
             </div>
           </div>
-          )
-        }
-		 </div>
-	)
+        )
+      }
+    </div>
+  )
 }
 
 export default File

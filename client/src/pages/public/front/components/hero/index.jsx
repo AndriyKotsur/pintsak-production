@@ -1,8 +1,8 @@
-import React, {useLayoutEffect, useRef} from "react"
-import {Link} from "react-router-dom"
-import {Splide, SplideSlide} from "@splidejs/react-splide"
+import React, { useLayoutEffect, useRef } from "react"
+import { Link } from "react-router-dom"
+import { Splide, SplideSlide } from "@splidejs/react-splide"
 
-import {Icon, Types} from "components"
+import { Icon, Types } from "components"
 
 import classNames from "classnames"
 import s from "./style.module.scss"
@@ -52,14 +52,14 @@ const Hero = ({ types }) => {
         <div className={s.hero}>
             <div className="container">
                 <div className={s.hero_wrapper}>
-                    <Types types={types.types} settings={{public: true, light: true}}
-                           styleName={s.hero_navigation}/>
+                    <Types types={types.types} settings={{ public: true, light: true }}
+                        styleName={s.hero_navigation} />
                     <div className={s.hero_carousel}>
                         <div className={s.hero_header}>
                             <h1 className={s.hero_title}>Тротуарна плитка</h1>
                             <Link to="/about" className={s.hero_description}>Дізнатися більше
                                 <Icon name="description"
-                                      className={classNames('icon', 'icon-description', s.hero_icon)}/>
+                                    className={classNames('icon', 'icon-description', s.hero_icon)} />
                             </Link>
                         </div>
                         <div className={s.hero_block}>
@@ -68,17 +68,17 @@ const Hero = ({ types }) => {
                                 options={hero}>
                                 <SplideSlide>
                                     <picture className={s.hero_item}>
-                                        <img src={slideOne} alt="Carousel image"/>
+                                        <img src={slideOne} alt="Carousel" />
                                     </picture>
                                 </SplideSlide>
                                 <SplideSlide>
                                     <picture className={s.hero_item}>
-                                        <img src={slideTwo} alt="Carousel image"/>
+                                        <img src={slideTwo} alt="Carousel" />
                                     </picture>
                                 </SplideSlide>
                                 <SplideSlide>
                                     <picture className={s.hero_item}>
-                                        <img src={slideThree} alt="Carousel image"/>
+                                        <img src={slideThree} alt="Carousel" />
                                     </picture>
                                 </SplideSlide>
                             </Splide>

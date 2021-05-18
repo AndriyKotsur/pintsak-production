@@ -31,20 +31,20 @@ const EditTile = () => {
 	}
 
 	useEffect(() => {
-		if(state.edit_tile_status === 'success')
+		if (state.edit_tile_status === 'success')
 			history.push('/admin/dashboard')
-	}, [state.edit_tile_status])
+	}, [state.edit_tile_status, history])
 
 	useEffect(() => {
 		dispatch(EditTileActions.getTile(url))
 		dispatch(EditTileActions.getTileTypes())
 
 		return () => dispatch(EditTileActions.clear())
-	}, [url])
+	}, [url, dispatch])
 
 	return (
 		<Fragment>
-			{ (state.get_tile_status === 'loading' || state.get_types_status === 'loading') && <Preloader /> }
+			{ (state.get_tile_status === 'loading' || state.get_types_status === 'loading') && <Preloader />}
 			{ state.get_tile_status === 'success' && state.get_types_status && (
 				<section className={s.section}>
 					<Background settings={{ hiddenLeft: false, hiddenRight: false }} />
@@ -55,28 +55,28 @@ const EditTile = () => {
 								<Characteristics />
 								<Prices />
 							</StepWizard>
-		
-							<div className={classNames( s.controllers, {[s.extended]: currentStep == 1})}>
-							{ currentStep > 1 &&
-								<button
-									type="button"
-									className={classNames('btn-sent', 'btn-orange', s.btn)}
-									onClick={handlePrev}>
+
+							<div className={classNames(s.controllers, { [s.extended]: currentStep === 1 })}>
+								{currentStep > 1 &&
+									<button
+										type="button"
+										className={classNames('btn-sent', 'btn-orange', s.btn)}
+										onClick={handlePrev}>
 										Назад
-									</button> }
-							{ currentStep >= 3
-								? <button
+									</button>}
+								{currentStep >= 3
+									? <button
 										type="button"
 										className={classNames('btn-sent', 'btn-orange', s.btn)}
 										onClick={handleSubmit}>
-											Редагувати товар
+										Редагувати товар
 										</button>
-								: <button
+									: <button
 										type="button"
 										className={classNames('btn-sent', 'btn-orange', s.btn)}
 										onClick={handleNext}>
-											Продовжити
-									</button> }
+										Продовжити
+									</button>}
 							</div>
 						</div>
 					</div>
