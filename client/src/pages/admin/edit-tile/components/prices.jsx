@@ -2,16 +2,23 @@ import React, { Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as EditTileActions from 'actions/edit-tile.action'
 
-import { Title, Input } from 'components'
+import { Title, Input, ColorsAndPrices } from 'components'
+import { ColorsBuilder } from 'helpers'
 
 const Prices = () => {
 	const dispatch = useDispatch()
   const state = useSelector(state => state.editTile)
+  
+	const onChange = (type, name, event) => {
+		const prices = ColorsBuilder(state.prices, type, name, event)
+		dispatch(EditTileActions.handleChangeColor(prices))
+	}
 
 	return (
 		<Fragment>
 			<Title value="Ціна продукту" />
-      <Input
+			<ColorsAndPrices colors={state.prices} onChange={onChange} />
+      {/* <Input
         type='number'
         name='grey'
         title='Ціна сірої продукції'
@@ -47,7 +54,7 @@ const Prices = () => {
         name='black'
         title='Ціна чорної продукції'
         value={state.prices.black}
-        onChange={e => dispatch(EditTileActions.handleChange(e, 'prices'))}/>
+        onChange={e => dispatch(EditTileActions.handleChange(e, 'prices'))}/> */}
 		</Fragment>
 	)
 }
