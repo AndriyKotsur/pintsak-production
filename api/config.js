@@ -21,4 +21,6 @@ const awsInfo = {
 	secretKey: process.env.AWS_SECRET_KEY,
 }
 
-module.exports = { port, jwtInfo, mongoUri, mailInfo, awsInfo }
+const appUrl = process.env.APP_URL || 'http://localhost:3000/'
+
+module.exports = { port, jwtInfo, mongoUri, mailInfo, awsInfo, appUrl }

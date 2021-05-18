@@ -7,7 +7,7 @@ import classNames from 'classnames'
 import BackgroundTop from 'assets/images/background-top.png'
 
 const AboutPage = () => {
-	return(
+	return (
 		<>
 			<section className={s.section}>
 				<Background settings={{ hiddenLeft: true }} />
@@ -21,7 +21,7 @@ const AboutPage = () => {
 						<p className={s.text}>
 							<span><b>&quot;</b>ПП - Пінцак<b>&quot;</b></span> здійснює свою діяльність з 2007 року. Ми займаємось виробництвом широкого асортименту бетонних виробів.
 						</p>
-						<a href="#" className={s.catalogue}>Каталог
+						<a href={`${process.env.REACT_APP_API}/v1/catalogue`} target='blank' className={s.catalogue}>Каталог
 							<Icon name="catalogue" className="icon icon-catalogue" />
 						</a>
 						<p className={s.text}>Наше підприємство розташоване в с. Мирча, Великоберезнянський район, але попитом наша продукція не тільки по всій Закарпатській області, а також частими покупцями нашої продукції є громадяни Словаччини та Угорщини.</p>
@@ -39,7 +39,7 @@ const AboutPage = () => {
 							<li className={s.item}>Виконання розпалубочних робіт</li>
 							<li className={s.item}>Складування готової продукції</li>
 						</ol>
-						<Link to="/catalogue" className={classNames('btn-catalogue', 'btn-orange', s.link)}>Перейти В Магазин</Link>
+						<Link to='/catalogue' className={classNames('btn-catalogue', 'btn-orange', s.link)}>Перейти В Магазин</Link>
 					</div>
 				</div>
 			</section>
