@@ -42,7 +42,7 @@ const CataloguePage = () => {
 					</div>
 					<div className={s.catalogue}>
 						<div className={s.sort}>
-							<h1 className={s.title}>Усі товари</h1>
+							<h1 className={s.title}>{types.types && types.types.map(type => type.url === typeBy && type.title)}{!typeBy && 'Усі товари'}</h1>
 							<Sort
 								sortBy={sortBy}
 								orderBy={orderBy}

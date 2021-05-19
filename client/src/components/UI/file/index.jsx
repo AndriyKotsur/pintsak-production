@@ -105,6 +105,7 @@ const File = ({ onChange, onDelete }) => {
 
     setValidFiles([...filteredArray])
     onChange([...filteredArray])
+    // eslint-disable-next-line
   }, [selectedFiles])
 
   return (

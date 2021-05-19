@@ -9,7 +9,6 @@ require('./services/mongoose')
 
 const app = express()
 
-// middlewares
 app.use(cors())
 app.use(helmet.contentSecurityPolicy({
 	useDefaults: true,
@@ -31,7 +30,6 @@ app.use(helmet.xssFilter())
 app.use(logger('dev'))
 app.use(express.json())
 
-// routes
 app.use('/v1', require('./routes/v1'))
 
 if (process.env.NODE_ENV === 'production') {

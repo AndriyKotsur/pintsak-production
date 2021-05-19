@@ -72,14 +72,16 @@
     font-size: 24px;
     font-weight: 700;
     color: #ffffff;
-
+    
     @include screen-tb() {
       width: 65%;
       font-size: 30px;
+      min-height: 60px;
     }
-
+    
     @include screen-xl() {
       font-size: 48px;
+      min-height: 96px;
     }
   }
 
