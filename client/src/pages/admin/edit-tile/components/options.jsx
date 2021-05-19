@@ -18,7 +18,7 @@ const Options = () => {
         title='Назва товару'
         value={state.title}
         onChange={e => dispatch(EditTileActions.handleChange(e))}
-        isRequired />
+        required />
       <Select
         name='type'
         value={state.type}

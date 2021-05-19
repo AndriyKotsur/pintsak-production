@@ -4,6 +4,11 @@
 .field {
   position: relative;
   margin-bottom: 35px;
+
+  &.disabled {
+    pointer-events: none;
+    opacity: .7;
+  }
 }
 
 .input {
@@ -39,10 +44,16 @@
     top: 0;
     font-size: 14px;
     color: $color2;
-    
+
     @include screen-l {
       font-size: 16px;
     }
+  }
+
+  &[type=number]::-webkit-inner-spin-button,
+  &[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 }
 

@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as AddTypeActions from 'actions/add-type.action'
 
-import { Background, Title, Form, Input } from 'components'
+import { Background, Form, Input, Title } from 'components'
 
 import s from './style.module.scss'
 
@@ -40,7 +40,7 @@ const AddType = () => {
 							title='Назва категорії'
 							value={state.title}
 							onChange={e => dispatch(AddTypeActions.handleChange(e))}
-							isRequired />
+							required />
 					</Form>
 				</div>
 			</div>

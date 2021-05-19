@@ -38,14 +38,14 @@ const Login = () => {
 							title='Введіть логін'
 							value={login.email}
 							onChange={e => dispatch(AuthActions.handleChange(e))}
-							isRequired />
+							required />
 						<Input
 							type='password'
 							name='password'
 							title='Введіть пароль'
 							value={login.password}
 							onChange={e => dispatch(AuthActions.handleChange(e))}
-							isRequired />
+							required />
 					</Form>
 					{login.loginStatus === 'error' && (<span className={s.error}>Не правильний логін або пароль!</span>)}
 				</div>

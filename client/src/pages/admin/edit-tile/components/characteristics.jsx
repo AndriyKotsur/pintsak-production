@@ -17,35 +17,35 @@ const Characteristics = () => {
         title='Ширина товару'
         value={state.sizes.width}
         onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))}
-        isRequired />
+        required />
       <Input
         type='number'
         name='height'
         title='Висота товару'
         value={state.sizes.height}
         onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))}
-        isRequired />
+        required />
       <Input
         type='number'
         name='thickness'
         title='Товщина товару'
         value={state.sizes.thickness}
         onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))}
-        isRequired />
+        required />
       <Input
         type='number'
         name='weight_per_meter'
         title='Вага на метр кв.'
         value={state.sizes.weight_per_meter}
         onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))}
-        isRequired />
+        required />
       <Input
         type='number'
         name='pieces_per_meter'
         title='Кількість на метр кв.'
         value={state.sizes.pieces_per_meter}
         onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))}
-        isRequired />
+        required />
 		</Fragment>
 	)
 }

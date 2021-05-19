@@ -33,11 +33,21 @@
     }
   }
 
+  &_button {
+    margin-left: auto;
+  }
+
   &_remove {
     display: block;
     width: 15px;
     height: 2.5px;
     background: $color1;
+    @include transition;
+
+    &:hover {
+      @include transition;
+      background: $color2;
+    }
 
     @include screen-tb {
       width: 30px;
@@ -51,6 +61,17 @@
     width: 15px;
     height: 2.5px;
     background: $color1;
+    @include transition;
+
+    &:hover {
+      @include transition;
+      background: $color2;
+
+      &:after {
+        @include transition;
+        background: $color2;
+      }
+    }
 
     &:after {
       content: "";

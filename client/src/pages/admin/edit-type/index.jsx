@@ -45,7 +45,7 @@ const EditType = () => {
 									title='Назва категорії'
 									value={state.title}
 									onChange={e => dispatch(EditTypeActions.handleChange(e))}
-									isRequired />
+									required />
 							</Form>
 						</div>
 					</div>
