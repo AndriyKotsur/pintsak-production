@@ -101,7 +101,7 @@
   width: 27px;
   height: 18px;
   margin-right: 10px;
-  z-index: 25;
+  z-index: 10;
   cursor: pointer;
 
   @include screen-l() {
@@ -136,6 +136,10 @@
 
   &::before {
     top: 0;
+  }
+
+  &.mobile {
+    z-index: 25;
   }
 
   &.mobile &_btn {
@@ -202,10 +206,11 @@
   padding: 15px;
   background: $color1;
   transition: left 0.25s linear;
-  z-index: 20;
+  z-index: 10;
 
   &.mobile {
     left: 0;
+    z-index: 20;
 
     &>.background::after {
       left: 220px;

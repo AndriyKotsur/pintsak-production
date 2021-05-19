@@ -6,13 +6,17 @@
 
   &_wrapper {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+
+    @include screen-l {
+      justify-content: space-between;
+    }
   }
 
   &_navigation {
-    @include hidden();
+    @include hidden;
 
-    @include screen-xl() {
+    @include screen-xl {
       display: block;
       visibility: visible;
     }
@@ -20,7 +24,9 @@
 }
 
 .carousel {
-  @include screen-l() {
+   width: 100%;
+
+  @include screen-xl {
     width: 80%;
   }
 }

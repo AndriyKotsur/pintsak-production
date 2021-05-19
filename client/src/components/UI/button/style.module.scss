@@ -1,0 +1,19 @@
+@import './src/assets/styles/general/_mixins.scss';
+@import './src/assets/styles/general/_variables.scss';
+
+.button {
+  background: $color2;
+  border-radius: 4px;
+  font-size: 18px;
+  font-weight: 900;
+  color: #ffffff;
+
+  @include screen-l() {
+    font-size: 20px;
+  }
+
+  &.transparent {
+    background: transparent;
+    color: $color1;
+  }
+}

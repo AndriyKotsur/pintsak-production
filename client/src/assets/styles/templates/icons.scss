@@ -126,12 +126,7 @@
     height: 23px;
   }
 
-  &.icon-product {
-    width: 385px;
-    height: 385px;
-  }
-
-  &.icon-close--big {
+  &-close--big {
     width: 15px;
     height: 15px;
 
@@ -141,12 +136,12 @@
     }
   }
 
-  &.icon-close--small {
+  &-close--small {
     width: 15px;
     height: 15px;
   }
 
-  &.icon-close--popup {
+  &-close--popup {
     width: 13px;
     height: 13px;
 

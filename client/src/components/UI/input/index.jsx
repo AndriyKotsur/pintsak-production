@@ -1,9 +1,19 @@
 import React from 'react'
+
+import classNames from 'classnames'
 import s from './style.module.scss'
 
-const Input = ({ type, name, value, title, isRequired, onChange }) => {
+const Input = ({
+	type,
+	name,
+	value,
+	title,
+	isRequired,
+	styleName,
+	onChange
+}) => {
 	return (
-		<div className={s.field}>
+		<div className={classNames(s.field, styleName)}>
 			<input
 				id={name}
 				type={type}

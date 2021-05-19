@@ -5,11 +5,11 @@
   padding: 40px 0 60px;
   background: $color1;
 
-  @include screen-tb() {
+  @include screen-tb {
     padding: 40px 0 67px;
   }
 
-  @include screen-l() {
+  @include screen-l {
     padding: 120px 0 185px;
   }
 
@@ -20,16 +20,16 @@
   }
 
   &_navigation {
-    @include hidden();
+    @include hidden;
 
-    @include screen-tb() {
+    @include screen-tb {
       display: block;
       visibility: visible;
       width: 40%;
       margin-right: 15px;
     }
 
-    @include screen-l() {
+    @include screen-l {
       width: 25%;
     }
   }
@@ -41,12 +41,12 @@
     flex-flow: column nowrap;
     align-items: center;
 
-    @include screen-tb() {
+    @include screen-tb {
       align-items: flex-start;
       width: 60%;
     }
 
-    @include screen-l() {
+    @include screen-l {
       width: 75%;
     }
   }
@@ -56,11 +56,11 @@
     margin-bottom: 55px;
     text-align: center;
 
-    @include screen-tb() {
+    @include screen-tb {
       text-align: left;
     }
 
-    @include screen-l() {
+    @include screen-l {
       width: 55%;
       margin-bottom: 115px;
     }
@@ -72,14 +72,14 @@
     font-size: 24px;
     font-weight: 700;
     color: #ffffff;
-    
-    @include screen-tb() {
+
+    @include screen-tb {
       width: 65%;
       font-size: 30px;
       min-height: 60px;
     }
-    
-    @include screen-xl() {
+
+    @include screen-xl {
       font-size: 48px;
       min-height: 96px;
     }
@@ -90,35 +90,39 @@
     font-size: 16px;
     font-weight: 700;
     color: $color2;
-    @include transition();
+    @include transition;
 
-    &:hover {
-      @include transition();
-      color: $color6;
-    }
-
-    @include screen-tb() {
+    @include screen-tb {
       font-size: 20px;
     }
 
-    @include screen-l() {
+    @include screen-l {
       font-size: 24px;
+    }
+
+    &:hover {
+      @include transition;
+      color: $color6;
+
+      .hero_icon {
+        path {
+          @include transition;
+          fill: $color6;
+        }
+      }
     }
   }
 
   &_icon {
     margin-left: 17px;
-    @include transition();
-    fill: $color2;
 
-    &:hover {
-      @include transition();
-      fill: $color6;
+    path {
+      @include transition;
     }
   }
 
   &_block {
-    @include screen-l() {
+    @include screen-l {
       position: absolute;
       top: 50%;
       right: 0;
@@ -137,12 +141,12 @@
       object-fit: contain;
     }
 
-    @include screen-tb() {
+    @include screen-tb {
       width: 325px;
       height: 255px;
     }
 
-    @include screen-xl() {
+    @include screen-xl {
       width: 450px;
       height: 360px;
     }
@@ -154,7 +158,7 @@
     align-self: center;
     margin-top: 55px;
 
-    @include screen-tb() {
+    @include screen-tb {
       right: 0;
       align-self: flex-start;
       margin-top: 90px;
@@ -172,29 +176,21 @@
 
   &_dot {
     margin-right: 28px;
+    @include transition;
     font-size: 20px;
     font-weight: 700;
     color: #ffffff;
-    opacity: 0.25;
-    @include transition();
+    opacity: .25;
+    cursor: pointer;
 
     &:hover {
       opacity: 1;
       color: $color6;
-      @include transition();
+      @include transition;
     }
 
-    &.isActive {
-      opacity: 1;
-
-      &:hover {
-        color: #ffffff;
-      }
-    }
-
-    @include screen-l() {
+    @include screen-l {
       font-size: 24px;
     }
-
   }
 }

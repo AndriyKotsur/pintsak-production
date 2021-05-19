@@ -4,7 +4,7 @@ import { COOKIES } from './'
 const request = async function ({ options = true, headers = {} }) {
 	const authToken = COOKIES.getAuthToken() || ''
 	const client = axios.create({
-		baseURL: process.env.REACT_APP_API + '/v1',
+		baseURL: /* process.env.REACT_APP_API +  */'http://localhost:5000/v1',
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
@@ -80,6 +80,29 @@ const getPopularTiles = () => {
 	})
 }
 
+const addType = ({ title, url }) => {
+	return request({
+		options: {
+			url: '/admin/type',
+			method: 'POST',
+			data: {
+				title,
+				url,
+			},
+		},
+	})
+}
+
+const addTile = data => {
+	return request({
+		options: {
+			url: '/admin/tile',
+			method: 'POST',
+			data,
+		},
+	})
+}
+
 const uploadImages = ({ id, formData }) => {
 	return request({
 		headers: {
@@ -101,29 +124,6 @@ const deleteImage = (id, image) => {
 			method: 'DELETE',
 			data: { key: image }
 		}
-	})
-}
-
-const addType = ({ title, url }) => {
-	return request({
-		options: {
-			url: '/admin/type',
-			method: 'POST',
-			data: {
-				title,
-				url,
-			},
-		},
-	})
-}
-
-const addTile = data => {
-	return request({
-		options: {
-			url: '/admin/tile',
-			method: 'POST',
-			data,
-		},
 	})
 }
 

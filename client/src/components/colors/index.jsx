@@ -1,35 +1,68 @@
 import React, { useState } from 'react'
 
-import classNames from 'classnames'
-import s from "./style.module.scss"
+import { Button, Input } from 'components'
 
-const Colors = ({ colors, handleVariant }) => {
-  const [active, setActive] = useState(colors[0])
+import s from './style.module.scss'
 
-  const handleClick = (e) => {
-    let value = e.currentTarget.dataset.color
-  
-    setActive(value)
-    handleVariant(value)
-  }
+const Colors = ({ colors, onChange }) => {
+    const [color, setColor] = useState('grey')
+    const [price, setPrice] = useState(10)
 
-  return (
-    <div className={s.colors}>
-      <span className={s.colors_title}>Кольори</span>
-      <div className={s.colors_wrapper}>
-        { colors && colors.map((color, index) =>
-        <div
-          key={'color_'+ index}
-          data-color={color}
-          className={classNames(s.color, {[s.active]: color === active})}
-          onClick={e => handleClick(e)}>
-            <span
-              style={{background: color}}
-              className={s.color_item}></span>
-        </div>) }
-      </div>
-    </div>
-  )
+    const keys = Object.keys(colors)
+    const entries = Object.entries(colors)
+
+    const onAddColor = () => {
+        if (color.length > 0 && price) {
+            onChange('add', color, price)
+        }
+    }
+
+    return (
+        <div className={s.colors}>
+            {keys && keys.length > 0 && entries.map(([key, value], index) => (
+                <div key={index} className={s.colors_fields}>
+                    <Input
+                        type='text'
+                        name='color'
+                        title='Колір товару'
+                        value={key}
+                        styleName={s.colors_field}
+                        onChange={e => setColor(e.target.value)}
+                        isRequired />
+                    <Input
+                        type='text'
+                        name='color'
+                        title='Колір товару'
+                        value={value}
+                        styleName={s.colors_field}
+                        onChange={e => setColor(e.target.value)}
+                        isRequired />
+                    <Button type="button" transparent handleClick={() => onChange('remove', key)}>
+                        <span className={s.colors_remove}></span>
+                    </Button>
+                </div>
+            ))}
+            <div className={s.colors_fields}>
+                <Input
+                    type='text'
+                    name='color'
+                    title='Колір товару'
+                    styleName={s.colors_field}
+                    onChange={e => setColor(e.target.value)}
+                    isRequired />
+                <Input
+                    type='number'
+                    name='price'
+                    title='Ціна товару'
+                    styleName={s.colors_field}
+                    onChange={e => setPrice(Number(e.target.value))}
+                    isRequired />
+                <Button type="button" transparent handleClick={onAddColor}>
+                    <span className={s.colors_add}></span>
+                </Button>
+            </div>
+        </div>
+    )
 }
 
 export default Colors

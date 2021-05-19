@@ -50,27 +50,7 @@ const TileSchema = new Schema({
 			required: true,
 		},
 	},
-	prices: {
-		grey: {
-			type: Schema.Types.Number,
-			required: true,
-		},
-		yellow: {
-			type: Schema.Types.Number,
-		},
-		orange: {
-			type: Schema.Types.Number,
-		},
-		red: {
-			type: Schema.Types.Number,
-		},
-		brown: {
-			type: Schema.Types.Number,
-		},
-		black: {
-			type: Schema.Types.Number,
-		},
-	},
+	prices: {},
 }, { timestamps: true })
 
 const Tile = model('Tile', TileSchema, 'tiles')

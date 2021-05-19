@@ -7,7 +7,7 @@
   justify-content: space-between;
   margin-bottom: 100px;
 
-  @include screen-tb() {
+  @include screen-tb {
     flex-direction: row;
     margin-bottom: 50px;
   }
@@ -18,7 +18,7 @@
   font-weight: 900;
   text-align: center;
 
-  @include screen-tb() {
+  @include screen-tb {
     text-align: left;
   }
 }
@@ -29,7 +29,7 @@
   left: 50%;
   transform: translateX(-50%);
 
-  @include screen-tb() {
+  @include screen-tb {
     right: -65px;
     left: unset;
     margin: 0;
@@ -41,14 +41,13 @@
   width: 50px;
   height: 40px;
   margin-right: 30px;
-  //padding: 10px 15px;
   border-radius: 4px;
   background: $color2;
-  @include transition();
+  @include transition;
 
   svg {
-    width: 25px;
-    height: 35px;
+    width: 15px;
+    height: 15px;
 
     path {
       fill: #ffffff;
@@ -56,13 +55,13 @@
   }
 
   &:first-child {
-    path {
-      //transform: rotateY(180deg);
+    svg {
+      transform: rotateY(180deg);
     }
 
     &:hover {
       transform: translate(-5px, -5px);
-      @include transition();
+      @include transition;
     }
   }
 
@@ -71,7 +70,7 @@
 
     &:hover {
       transform: translate(5px, -5px);
-      @include transition();
+      @include transition;
     }
   }
 }
