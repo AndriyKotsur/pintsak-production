@@ -1,10 +1,15 @@
-import React, {Fragment, useState} from 'react'
+import React, { useState } from 'react'
 
-import {Button, Input} from 'components'
+import { Button, Input } from 'components'
 
-const Colors = ({colors, onChange}) => {
+import s from './style.module.scss'
+
+const Colors = ({ colors, onChange }) => {
     const [color, setColor] = useState('grey')
     const [price, setPrice] = useState(10)
+
+    const keys = Object.keys(colors)
+    const entries = Object.entries(colors)
 
     const onAddColor = () => {
         if (color.length > 0 && price) {
@@ -15,32 +20,46 @@ const Colors = ({colors, onChange}) => {
     }
 
     return (
-        <Fragment>
-            {Object.keys(colors) && Object.keys(colors).length > 0 && Object.entries(colors).map(([key, value], idx) => (
-                <div key={idx}>
-                    <input className='input' value={key} disabled/>
-                    <input className='input' value={value} disabled/>
-                    <button
-                        type="button"
-                        onClick={() => onChange('remove', key)}>
-                        Видалити
-                    </button>
+        <div className={s.colors}>
+            {keys && keys.length > 0 && entries.map(([key, value], index) => (
+                <div key={index} className={s.colors_item}>
+                    <Input
+                        type='text'
+                        name='color'
+                        title='Колір товару'
+                        value={key}
+                        onChange={e => setColor(e.target.value)}
+                        disabled
+                        isRequired />
+                    <Input
+                        type='text'
+                        name='color'
+                        title='Колір товару'
+                        value={value}
+                        onChange={e => setColor(e.target.value)}
+                        disabled
+                        isRequired />
+                    <Button type="button" transparent handleClick={() => onChange('remove', key)}>Видалити</Button>
                 </div>
             ))}
-            <Input
-                type='text'
-                name='color'
-                title='Колір товару'
-                onChange={e => setColor(e.target.value)}
-                isRequired/>
-            <Input
-                type='number'
-                name='price'
-                title='Ціна товару'
-                onChange={e => setPrice(Number(e.target.value))}
-                isRequired/>
-            <Button type="button" transparent handleClick={onAddColor}>Додати</Button>
-        </Fragment>
+            <div className={s.fields}>
+                <Input
+                    type='text'
+                    name='color'
+                    title='Колір товару'
+                    styleName={s.field}
+                    onChange={e => setColor(e.target.value)}
+                    isRequired />
+                <Input
+                    type='number'
+                    name='price'
+                    title='Ціна товару'
+                    styleName={s.field}
+                    onChange={e => setPrice(Number(e.target.value))}
+                    isRequired />
+                <Button type="button" transparent handleClick={onAddColor}>Додати</Button>
+            </div>
+        </div>
     )
 }
 

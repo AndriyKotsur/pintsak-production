@@ -14,10 +14,8 @@ const Carousel = ({items, styleName}) => {
         rewind: false,
         perPage: 3,
         breakpoints: {
-            1024: {
-                // width: '100%',
+            1023: {
                 perPage: 2,
-                gap: 40,
             },
             767: {
                 width: 290,
@@ -37,19 +35,17 @@ const Carousel = ({items, styleName}) => {
     }
 
     return (
-        <div style={{"max-width": "100%"}} className={styleName}>
+        <div className={styleName}>
             <div className={s.header}>
                 <h2 className={s.title}>Популярні товари</h2>
             </div>
-            <div style={{"max-width": "100%"}}  className={s.list}>
-                <Splide options={carousel} ref={carouselRef}>
-                    {items && items.length > 0 && items.map((tile, index) => (
-                        <SplideSlide key={'tile_' + index}>
-                            <Tile tile={tile} settings={{public: true}}/>
-                        </SplideSlide>
-                    ))}
-                </Splide>
-            </div>
+            <Splide options={carousel} ref={carouselRef}>
+                {items && items.length > 0 && items.map((tile, index) => (
+                    <SplideSlide key={'tile_' + index}>
+                        <Tile tile={tile} settings={{public: true}}/>
+                    </SplideSlide>
+                ))}
+            </Splide>
         </div>
     )
 }

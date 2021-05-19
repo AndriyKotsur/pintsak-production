@@ -1,2 +1,15 @@
 @import './src/assets/styles/general/_mixins.scss';
 @import './src/assets/styles/general/_variables.scss';
+
+.fields {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.field {
+  width: calc(50% - 80px);
+  display: inline-block;
+  margin-bottom: 0;
+}

@@ -80,6 +80,29 @@ const getPopularTiles = () => {
 	})
 }
 
+const addType = ({ title, url }) => {
+	return request({
+		options: {
+			url: '/admin/type',
+			method: 'POST',
+			data: {
+				title,
+				url,
+			},
+		},
+	})
+}
+
+const addTile = data => {
+	return request({
+		options: {
+			url: '/admin/tile',
+			method: 'POST',
+			data,
+		},
+	})
+}
+
 const uploadImages = ({ id, formData }) => {
 	return request({
 		headers: {
@@ -101,29 +124,6 @@ const deleteImage = (id, image) => {
 			method: 'DELETE',
 			data: { key: image }
 		}
-	})
-}
-
-const addType = ({ title, url }) => {
-	return request({
-		options: {
-			url: '/admin/type',
-			method: 'POST',
-			data: {
-				title,
-				url,
-			},
-		},
-	})
-}
-
-const addTile = data => {
-	return request({
-		options: {
-			url: '/admin/tile',
-			method: 'POST',
-			data,
-		},
 	})
 }
 

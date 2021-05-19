@@ -8,7 +8,7 @@
     display: flex;
     justify-content: center;
 
-    @include screen-tb {
+    @include screen-l {
       justify-content: space-between;
     }
   }
@@ -24,7 +24,9 @@
 }
 
 .carousel {
-  @include screen-l {
+   width: 100%;
+
+  @include screen-xl {
     width: 80%;
   }
 }

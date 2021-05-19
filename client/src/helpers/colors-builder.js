@@ -3,9 +3,11 @@ const ColorsBuilder = (colors, type, color, price) => {
 
 	switch (type) {
 		case 'add':
-			values[color] = price; break
+			values[color] = price
+		break
 		case 'remove':
-			delete values[color]; break
+			delete values[color]
+		break
 		default: break
 	}
 
