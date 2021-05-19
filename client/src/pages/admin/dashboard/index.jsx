@@ -18,24 +18,24 @@ const Dashboard = () => {
 
 	const switcher = useMemo(() => {
 		const switchers = {
-			'types': <Types types={types.types} settings={{ edit: true }}/>,
-			'tiles': <Tiles tiles={tiles.tiles} settings={{ edit: true }}/>,
+			'types': <Types types={types.types} settings={{ edit: true }} />,
+			'tiles': <Tiles tiles={tiles.tiles} settings={{ edit: true }} />,
 		}
 
 		return switchers[activeSwitch]
-	}, [types, activeSwitch])
+	}, [types, activeSwitch, tiles])
 
 	useEffect(() => {
 		dispatch(GetTilesActions.getTiles())
 
 		return () => dispatch(GetTilesActions.clear())
-	}, [])
+	}, [dispatch])
 
 	useEffect(() => {
 		dispatch(GetTypesActions.getTypes())
 
 		return () => dispatch(GetTypesActions.clear())
-	}, [])
+	}, [dispatch])
 
 	return (
 		<section className={s.dashboard}>
@@ -48,24 +48,24 @@ const Dashboard = () => {
 							<Link
 								to="/admin/type"
 								className={classNames('btn-sent', 'btn-orange', s.appender)}>
-									Додати категорію
+								Додати категорію
 							</Link>
 							<Link
 								to="/admin/tile"
 								className={classNames('btn-sent', 'btn-orange', s.appender)}>
-									Додати товар
+								Додати товар
 							</Link>
 						</div>
 						<div className={s.switch}>
 							<button
 								onClick={() => setActiveSwitch('types')}
 								className={classNames(s.switcher, { [s.active]: activeSwitch === 'types' })}>
-                  Категорії
+								Категорії
 							</button>
 							<button
 								onClick={() => setActiveSwitch('tiles')}
 								className={classNames(s.switcher, { [s.active]: activeSwitch === 'tiles' })}>
-									Продукти
+								Продукти
 							</button>
 						</div>
 						<div className={s.items}>

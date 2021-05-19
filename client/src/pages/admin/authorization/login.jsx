@@ -17,7 +17,7 @@ const Login = () => {
 	useEffect(() => {
 		if (login.loginStatus === 'success')
 			history.push('/admin/dashboard')
-	}, [login.loginStatus])
+	}, [login.loginStatus, history])
 
 	const handleSubmit = e => {
 		e.preventDefault()
@@ -47,7 +47,7 @@ const Login = () => {
 							onChange={e => dispatch(AuthActions.handleChange(e))}
 							isRequired />
 					</Form>
-					{ login.loginStatus === 'error' && ( <span className={s.error}>Не правильний логін або пароль!</span> ) }
+					{login.loginStatus === 'error' && (<span className={s.error}>Не правильний логін або пароль!</span>)}
 				</div>
 			</div>
 		</section>

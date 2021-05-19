@@ -1,10 +1,10 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {Button, Input} from 'components'
+import { Button, Input } from 'components'
 
 import s from './style.module.scss'
 
-const Colors = ({colors, onChange}) => {
+const Colors = ({ colors, onChange }) => {
     const [color, setColor] = useState('grey')
     const [price, setPrice] = useState(10)
 
@@ -28,7 +28,7 @@ const Colors = ({colors, onChange}) => {
                         value={key}
                         styleName={s.colors_field}
                         onChange={e => setColor(e.target.value)}
-                        isRequired/>
+                        isRequired />
                     <Input
                         type='text'
                         name='color'
@@ -49,14 +49,14 @@ const Colors = ({colors, onChange}) => {
                     title='Колір товару'
                     styleName={s.colors_field}
                     onChange={e => setColor(e.target.value)}
-                    isRequired/>
+                    isRequired />
                 <Input
                     type='number'
                     name='price'
                     title='Ціна товару'
                     styleName={s.colors_field}
                     onChange={e => setPrice(Number(e.target.value))}
-                    isRequired/>
+                    isRequired />
                 <Button type="button" transparent handleClick={onAddColor}>
                     <span className={s.colors_add}></span>
                 </Button>

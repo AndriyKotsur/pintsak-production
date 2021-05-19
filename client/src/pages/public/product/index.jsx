@@ -20,28 +20,28 @@ const ProductPage = () => {
 
 	useEffect(() => {
 		dispatch(GetTileActions.getTile(url))
-	}, [])
+	}, [dispatch, url])
 
 	return (
 		<div className={s.section}>
-			{tile.get_tile_status === 'loading' && <Preloader/>}
+			{tile.get_tile_status === 'loading' && <Preloader />}
 			{tile.get_tile_status === 'success' && tile.get_tile_status && (
 				<div className="container">
 					<div className={s.wrapper}>
 						<button type="button" onClick={() => window && window.history.back()} className={s.back}>
-							<Icon name='arrow' className={classNames('icon', 'icon-back', s.back_icon)}/>
+							<Icon name='arrow' className={classNames('icon', 'icon-back', s.back_icon)} />
 							{tile.title}
 						</button>
-						<Breadcrumbs type={tile.type} tile={tile.title}/>
+						<Breadcrumbs type={tile.type} tile={tile.title} />
 						<div className={s.product}>
 							<span className={classNames(s.status, { [s.available]: tile.is_available })}>
 								{tile.is_available ? 'В наявності' : 'Нема у наявності'}
 							</span>
-							<Gallery images={tile.images}/>
+							<Gallery images={tile.images} />
 							<Card tile={tile} cart={cart} />
 						</div>
-						<Table options={tile.sizes}/>
-						<Carousel items={tile.tiles} styleName={s.carousel}/>
+						<Table options={tile.sizes} />
+						<Carousel items={tile.tiles} styleName={s.carousel} />
 					</div>
 				</div>
 			)}

@@ -29,7 +29,7 @@ router.post('/', auth, async (req, res) => {
 	}
 })
 
-// update  type
+// update type
 router.put('/:id', auth, async (req, res) => {
 	try {
 		const { id } = req.params

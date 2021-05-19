@@ -95,6 +95,11 @@
   }
 }
 
+.link_active {
+  transition: all 0.3s ease-out;
+  color: $color2;
+}
+
 .download {
   display: inline-block;
   margin-top: 55px;

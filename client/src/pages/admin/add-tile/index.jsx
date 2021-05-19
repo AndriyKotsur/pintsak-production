@@ -13,7 +13,7 @@ import classNames from 'classnames'
 const AddTile = () => {
 	const [stepWizard, setStepWizard] = useState()
 	const [currentStep, setCurrentStep] = useState(1)
-	
+
 	const history = useHistory()
 	const dispatch = useDispatch()
 	const state = useSelector(state => state.addTile)
@@ -29,55 +29,55 @@ const AddTile = () => {
 	}
 
 	useEffect(() => {
-		if(state.add_tile_status === 'success')
+		if (state.add_tile_status === 'success')
 			history.push('/admin/dashboard')
-	}, [state.add_tile_status])
+	}, [state.add_tile_status, history])
 
 	useEffect(() => {
 		dispatch(AddTileActions.getTileTypes())
 
 		return () => dispatch(AddTileActions.clear())
-	}, [])
+	}, [dispatch])
 
 	return (
 		<Fragment>
-			{ (state.get_types_status === 'loading') && <Preloader /> }
+			{ (state.get_types_status === 'loading') && <Preloader />}
 			{ state.get_types_status === 'success' && (
 				<section className={s.section}>
-				<Background settings={{ hiddenLeft: false, hiddenRight: false }} />
-				<div className="container">
-					<div className={s.wrapper}>
-						<StepWizard initialStep={1} onStepChange={e => setCurrentStep(e.activeStep)} instance={setSteps}>
-							<Options />
-							<Characteristics />
-							<Prices />
-						</StepWizard>
+					<Background settings={{ hiddenLeft: false, hiddenRight: false }} />
+					<div className="container">
+						<div className={s.wrapper}>
+							<StepWizard initialStep={1} onStepChange={e => setCurrentStep(e.activeStep)} instance={setSteps}>
+								<Options />
+								<Characteristics />
+								<Prices />
+							</StepWizard>
 
-						<div className={classNames( s.controllers, {[s.extended]: currentStep == 1})}>
-						{ currentStep > 1 &&
-							<button
-								type="button"
-								className={classNames('btn-sent', 'btn-orange', s.btn)}
-								onClick={handlePrev}>
-									Назад
-								</button> }
-						{ currentStep >= 3
-							? <button
-									type="button"
-									className={classNames('btn-sent', 'btn-orange', s.btn)}
-									onClick={handleSubmit}>
+							<div className={classNames(s.controllers, { [s.extended]: currentStep === 1 })}>
+								{currentStep > 1 &&
+									<button
+										type="button"
+										className={classNames('btn-sent', 'btn-orange', s.btn)}
+										onClick={handlePrev}>
+										Назад
+								</button>}
+								{currentStep >= 3
+									? <button
+										type="button"
+										className={classNames('btn-sent', 'btn-orange', s.btn)}
+										onClick={handleSubmit}>
 										Пітвердити
 									</button>
-							: <button
-									type="button"
-									className={classNames('btn-sent', 'btn-orange', s.btn)}
-									onClick={handleNext}>
+									: <button
+										type="button"
+										className={classNames('btn-sent', 'btn-orange', s.btn)}
+										onClick={handleNext}>
 										Продовжити
-								</button> }
+								</button>}
+							</div>
 						</div>
 					</div>
-				</div>
-			</section> )}
+				</section>)}
 		</Fragment>
 	)
 }

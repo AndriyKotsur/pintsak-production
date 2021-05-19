@@ -17,13 +17,13 @@ const FrontPage = () => {
 		dispatch(GetTypesActions.getTypes())
 
 		return () => dispatch(GetTypesActions.clear())
-	}, [])
+	}, [dispatch])
 
 	useEffect(() => {
 		dispatch(GetPopularTilesActions.getPopularTiles())
 
 		return () => dispatch(GetPopularTilesActions.clear())
-	}, [])
+	}, [dispatch])
 
 	return (
 		<Fragment>
