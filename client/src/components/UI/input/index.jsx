@@ -10,7 +10,6 @@ const Input = ({
 	title,
 	isRequired,
 	styleName,
-	disabled,
 	onChange
 }) => {
 	return (
@@ -20,9 +19,8 @@ const Input = ({
 				type={type}
 				name={name}
 				value={value}
-				className={classNames(s.input, styleName)}
+				className={s.input}
 				onChange={onChange}
-				disabled={disabled}
 				required={isRequired} />
 			<label htmlFor={name} className={s.label}>{title}</label>
 		</div>
