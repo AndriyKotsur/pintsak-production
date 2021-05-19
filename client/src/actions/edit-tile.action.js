@@ -116,6 +116,13 @@ export const editTile = (url, {
 	}
 }
 
+export const handleChangeColor = color => {
+	return {
+		type: CHANGE_COLOR,
+		payload: color
+	}
+}
+
 export const handleChange = (event, field) => {
 	if (event.target) {
 		if (field) {
@@ -159,13 +166,6 @@ export const handleDelete = (image, id) => {
 		} catch (err) {
 			console.error(err)
 		}
-	}
-}
-
-export const handleChangeColor = color => {
-	return {
-		type: CHANGE_COLOR,
-		payload: color
 	}
 }
 

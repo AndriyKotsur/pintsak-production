@@ -30,19 +30,19 @@ const Chat = () => {
 							name='title'
 							title='Ваше Ім’я *'
 							// onChange={e => dispatch(AddTileActions.handleChange(e))}
-							isRequired />
+							required />
 						<Input
 							type='text'
 							name='phone'
 							title='Ваше номер телефону *'
 							// onChange={e => dispatch(AddTileActions.handleChange(e))}
-							isRequired />
+							required />
 						<Input
 							type='text'
 							name='message'
 							title='Ваш комментар'
 							// onChange={e => dispatch(AddTileActions.handleChange(e))}
-							isRequired />
+							 />
 					</Form>
 				</div>
       </div>

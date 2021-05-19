@@ -8,12 +8,13 @@ const Input = ({
 	name,
 	value,
 	title,
-	isRequired,
 	styleName,
+	disabled,
+	required,
 	onChange
 }) => {
 	return (
-		<div className={classNames(s.field, styleName)}>
+		<div className={classNames(s.field, styleName, {[s.disabled]: disabled})}>
 			<input
 				id={name}
 				type={type}
@@ -21,7 +22,7 @@ const Input = ({
 				value={value}
 				className={s.input}
 				onChange={onChange}
-				required={isRequired} />
+				required={required} />
 			<label htmlFor={name} className={s.label}>{title}</label>
 		</div>
 	)

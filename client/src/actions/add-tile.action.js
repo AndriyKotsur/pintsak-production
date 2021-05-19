@@ -91,6 +91,13 @@ export const addTile = ({
 	}
 }
 
+export const handleChangeColor = color => {
+	return {
+		type: CHANGE_COLOR,
+		payload: color
+	}
+}
+
 export const handleChange = (event, field) => {
 	if (event.target) {
 		if (field) {
@@ -118,13 +125,6 @@ export const handleChange = (event, field) => {
 				images: event,
 			},
 		}
-	}
-}
-
-export const handleChangeColor = color => {
-	return {
-		type: CHANGE_COLOR,
-		payload: color
 	}
 }
 
