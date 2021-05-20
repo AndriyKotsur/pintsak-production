@@ -48,7 +48,6 @@ const uploadImages = (req, res, next) => {
 		if (err instanceof multer.MulterError) {
 			if (err.code === 'LIMIT_UNEXPECTED_FILE')
 				console.log(err)
-
 		} else if (err) {
 			console.log(err)
 		}

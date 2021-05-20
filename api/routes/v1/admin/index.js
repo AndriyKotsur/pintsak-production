@@ -2,8 +2,6 @@ const express = require('express')
 const bcrypt = require('bcryptjs')
 const router = express.Router()
 
-const { uploadFile, removeFolder } = require('../../../middlewares/upload')
-const auth = require('../../../middlewares/auth')
 const { prepareToken } = require('../../../services/jwt')
 const { Admin } = require('../../../models')
 
@@ -50,21 +48,6 @@ router.post('/', async (req, res) => {
 		res.status(200).json({ success: true, token })
 	} catch (err) {
 		res.status(401).json({ success: false, message: err.message })
-	}
-})
-
-// change catalogue
-router.patch('/catalogue', auth, async (req, res) => {
-	try {
-		removeFolder('./public/docs')
-		uploadFile(req, res, async err => {
-			if (err)
-				throw err
-
-			res.status(200).json({ success: true, message: 'Successfully changed' })
-		})
-	} catch (err) {
-		res.status(400).json({ success: false, message: err.message })
 	}
 })
 

@@ -1,9 +1,8 @@
 const express = require('express')
 const router = express.Router()
 
-const { removeFolder } = require('../../../middlewares/upload')
 const auth = require('../../../middlewares/auth')
-const { Type } = require('../../../models')
+const { Type, Tile } = require('../../../models')
 
 // get one type
 router.get('/:id', auth, async (req, res) => {
@@ -46,11 +45,19 @@ router.put('/:id', auth, async (req, res) => {
 router.delete('/:id', auth, async (req, res) => {
 	try {
 		const { id } = req.params
+		const tiles = await Tile.find({ type: id })
 
-		const type = await Type.findByIdAndDelete(id)
-		removeFolder(`./public/images/${type.url}`)
-
-		res.status(200).json({ success: true, message: 'Successfully removed' })
+		if (tiles.length > 0) {
+			const titles = tiles.map(tile => tile.title).join()
+			res.status(500).json({
+				success: false,
+				message: `There are several tiles belonging to this type. Either edit the tile type, or remove the tiles before deleting the type. 
+					Tiles related to this type: ${titles}`,
+			})
+		} else {
+			await Type.findByIdAndDelete(id)
+			res.status(200).json({ success: true, message: 'Successfully removed' })
+		}
 	} catch (err) {
 		res.status(400).json({ success: false, message: err.message })
 	}
