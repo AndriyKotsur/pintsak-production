@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import * as GetPopularTilesActions from 'actions/get-popular-tiles.action'
+import * as GetTilesActions from 'actions/get-tiles.action'
 import * as GetTypesActions from 'actions/get-types.action'
 
 import Hero from './components/hero'
@@ -11,7 +11,7 @@ import Contact from './components/contact/contact'
 const FrontPage = () => {
 	const dispatch = useDispatch()
 	const types = useSelector(types => types.getTypes)
-	const tiles = useSelector(tiles => tiles.getPopularTiles)
+	const tiles = useSelector(tiles => tiles.getTiles)
 
 	useEffect(() => {
 		dispatch(GetTypesActions.getTypes())
@@ -20,9 +20,9 @@ const FrontPage = () => {
 	}, [dispatch])
 
 	useEffect(() => {
-		dispatch(GetPopularTilesActions.getPopularTiles())
+		dispatch(GetTilesActions.getPopularTiles())
 
-		return () => dispatch(GetPopularTilesActions.clear())
+		return () => dispatch(GetTilesActions.clear())
 	}, [dispatch])
 
 	return (
