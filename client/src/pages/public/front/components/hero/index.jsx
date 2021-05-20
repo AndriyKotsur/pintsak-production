@@ -60,7 +60,7 @@ const Hero = ({ types }) => {
 	const styles = `
 	.is-active > span {
 		opacity: 1;
-		color: #ffc174;
+		color: #ff8e01;
 		transition: all 0.25s;
 	}
 	`
