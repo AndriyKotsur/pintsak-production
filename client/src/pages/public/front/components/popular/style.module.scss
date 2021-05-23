@@ -24,7 +24,9 @@
 }
 
 .carousel {
-   width: 100%;
+  @include screen-tb {
+    width: 100%;
+  }
 
   @include screen-xl {
     width: 80%;

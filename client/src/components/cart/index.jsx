@@ -1,6 +1,7 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import { useLockBodyScroll } from 'hooks'
 import * as CartActions from 'actions/cart-action'
 
 import { Icon, Counter } from 'components'
@@ -12,6 +13,8 @@ const Cart = () => {
 	const dispatch = useDispatch()
 	const history = useHistory()
 
+	useLockBodyScroll()
+
 	const cart = useSelector(state => state.cart)
 	const { is_active, items } = cart
 
@@ -19,11 +22,6 @@ const Cart = () => {
 		dispatch(CartActions.handleCart(false))
 		history.push('/order')
 	}
-
-	useEffect(() => {
-		cart.is_active && document.body.classList.add(s.hidden)
-		!cart.is_active && document.body.classList.remove(s.hidden)
-	}, [cart.is_active])
 
 	return (
 		<Fragment>

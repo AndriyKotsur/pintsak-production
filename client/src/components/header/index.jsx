@@ -12,10 +12,10 @@ import classNames from 'classnames'
 import s from './style.module.scss'
 
 const Header = () => {
+	const [isMobile, setIsMobile] = useState(false)
+
 	const dispatch = useDispatch()
 	const types = useSelector(types => types.getTypes)
-
-	const [isMobile, setIsMobile] = useState(false)
 
 	useEffect(() => {
 		dispatch(GetTypesActions.getTypes())

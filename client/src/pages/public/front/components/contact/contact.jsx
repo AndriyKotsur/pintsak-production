@@ -30,7 +30,7 @@ const Contact = () => {
 							name='message'
 							title='Ваш комментар'
 							// onChange={e => dispatch(AddTileActions.handleChange(e))}
-							 />
+							required />
 					</Form>
 				</div>
 			</div>
