@@ -1,76 +1,94 @@
 @import './src/assets/styles/general/_mixins.scss';
 @import './src/assets/styles/general/_variables.scss';
 
-.header {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-bottom: 100px;
+.carousel {
+  &_prev {
+    .carousel_step {
+      &:first-child {
+        cursor: not-allowed;
 
-  @include screen-tb {
-    flex-direction: row;
-    margin-bottom: 50px;
-  }
-}
+        &:hover {
+          transform: translate(0px);
+        }
 
-.title {
-  font-size: 24px;
-  font-weight: 900;
-  text-align: center;
-
-  @include screen-tb {
-    text-align: left;
-  }
-}
-
-.controls {
-  position: absolute;
-  top: -70px;
-  left: 50%;
-  transform: translateX(-50%);
-
-  @include screen-tb {
-    right: -65px;
-    left: unset;
-    margin: 0;
-  }
-}
-
-.step {
-  position: relative;
-  width: 50px;
-  height: 40px;
-  margin-right: 30px;
-  border-radius: 4px;
-  background: $color2;
-  @include transition;
-
-  svg {
-    width: 15px;
-    height: 15px;
-
-    path {
-      fill: #ffffff;
+        svg path {
+          fill: $color6;
+        }
+      }
     }
   }
 
-  &:first-child {
+  &_header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 100px;
+
+    @include screen-tb {
+      flex-direction: row;
+      margin-bottom: 50px;
+    }
+  }
+
+  &_title {
+    font-size: 24px;
+    font-weight: 900;
+    text-align: center;
+
+    @include screen-tb {
+      text-align: left;
+    }
+  }
+
+  &_controls {
+    position: absolute;
+    top: -70px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    @include screen-tb {
+      right: -65px;
+      left: unset;
+      margin: 0;
+    }
+  }
+
+  &_step {
+    position: relative;
+    width: 50px;
+    height: 40px;
+    margin-right: 30px;
+    border-radius: 4px;
+    background: $color2;
+    @include transition;
+
     svg {
-      transform: rotateY(180deg);
+      width: 15px;
+      height: 15px;
+
+      path {
+        fill: #ffffff;
+      }
     }
 
-    &:hover {
-      transform: translate(-5px, -5px);
-      @include transition;
+    &:first-child {
+      svg {
+        transform: rotateY(180deg);
+      }
+
+      &:hover {
+        transform: translate(-5px, -5px);
+        @include transition;
+      }
     }
-  }
 
-  &:last-child {
-    margin-right: 0;
+    &:last-child {
+      margin-right: 0;
 
-    &:hover {
-      transform: translate(5px, -5px);
-      @include transition;
+      &:hover {
+        transform: translate(5px, -5px);
+        @include transition;
+      }
     }
   }
 }

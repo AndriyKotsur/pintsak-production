@@ -1,24 +1,21 @@
-import React, { useLayoutEffect, useRef, useState } from "react"
+import React, { Fragment, useLayoutEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
 import { Splide, SplideSlide } from "@splidejs/react-splide"
 
 import { Icon, Types } from "components"
 
 import classNames from "classnames"
+import './slider.scss'
 import s from "./style.module.scss"
 
 import slideOne from "assets/images/slide-1.png"
 import slideTwo from "assets/images/slide-2.png"
 import slideThree from "assets/images/slide-3.png"
 
-const slideTitles = {
-	0: 'Тротуарна плитка',
-	1: 'Шапки',
-	2: 'Бордюри'
-}
-
 const Hero = ({ types }) => {
 	const [slideIndex, setSlideIndex] = useState(0)
+	const heroRef = useRef()
+	const heroControlsRef = useRef()
 
 	const hero = {
 		type: 'loop',
@@ -28,6 +25,7 @@ const Hero = ({ types }) => {
 		arrows: false,
 		pagination: false,
 		autoplay: true,
+		drag: false,
 		pauseOnFocus: false,
 		breakpoints: {
 			1024: {
@@ -50,34 +48,29 @@ const Hero = ({ types }) => {
 		updateOnMove: true,
 	}
 
-	const heroRef = useRef()
-	const heroControlsRef = useRef()
+	const heroTitles = {
+		0: 'Тротуарна плитка',
+		1: 'Шапки',
+		2: 'Бордюри'
+	}
+
+	const handleSlide = ({ index }) => setSlideIndex(index)
 
 	useLayoutEffect(() => {
 		heroRef.current.sync(heroControlsRef.current.splide)
 	}, [])
 
-	const styles = `
-	.is-active > span {
-		opacity: 1;
-		color: #ff8e01;
-		transition: all 0.25s;
-	}
-	`
-
-	const onSlideMove = ({ _i }) => setSlideIndex(_i)
-
 	return (
-		<>
+		<Fragment>
 			<div className={s.hero}>
 				<div className="container">
 					<div className={s.hero_wrapper}>
-						<Types types={types.types} settings={{ public: true, light: true }}
-							styleName={s.hero_navigation} />
+						<Types types={types.types} settings={{ public: true, light: true }} styleName={s.hero_navigation} />
 						<div className={s.hero_carousel}>
 							<div className={s.hero_header}>
-								<h1 className={s.hero_title}>{slideTitles[slideIndex]}</h1>
-								<Link to="/about" className={s.hero_description}>Дізнатися більше
+								<h1 className={s.hero_title}>{heroTitles[slideIndex]}</h1>
+								<Link to="/about" className={s.hero_description}>
+									Дізнатися більше
 								<Icon name="description"
 										className={classNames('icon', 'icon-description', s.hero_icon)} />
 								</Link>
@@ -86,21 +79,20 @@ const Hero = ({ types }) => {
 								<Splide
 									ref={heroRef}
 									options={hero}
-									onMove={onSlideMove}
-								>
+									onMove={handleSlide}>
 									<SplideSlide>
 										<picture className={s.hero_item}>
-											<img src={slideOne} alt="Carousel" />
+											<img src={slideOne} alt="carousel item" />
 										</picture>
 									</SplideSlide>
 									<SplideSlide>
 										<picture className={s.hero_item}>
-											<img src={slideTwo} alt="Carousel" />
+											<img src={slideTwo} alt="carousel item" />
 										</picture>
 									</SplideSlide>
 									<SplideSlide>
 										<picture className={s.hero_item}>
-											<img src={slideThree} alt="Carousel" />
+											<img src={slideThree} alt="carousel item" />
 										</picture>
 									</SplideSlide>
 								</Splide>
@@ -122,8 +114,7 @@ const Hero = ({ types }) => {
 					</div>
 				</div>
 			</div>
-			<style>{styles}</style>
-		</>
+		</Fragment>
 	)
 }
 
