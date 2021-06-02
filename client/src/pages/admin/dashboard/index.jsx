@@ -11,10 +11,11 @@ import classNames from 'classnames'
 import s from './style.module.scss'
 
 const Dashboard = () => {
+	const [activeSwitch, setActiveSwitch] = useState('types')
+
 	const dispatch = useDispatch()
 	const types = useSelector(types => types.getTypes)
 	const tiles = useSelector(tiles => tiles.getTiles)
-	const [activeSwitch, setActiveSwitch] = useState('types')
 
 	const switcher = useMemo(() => {
 		const switchers = {
@@ -40,35 +41,35 @@ const Dashboard = () => {
 	return (
 		<section className={s.dashboard}>
 			<div className='container'>
-				<div className={s.wrapper}>
+				<div className={s.dashboard_wrapper}>
 					<Logout />
 					<Title value="Панель керування" />
-					<div className={s.inner}>
-						<div className={s.append}>
+					<div className={s.dashboard_inner}>
+						<div className={s.dashboard_append}>
 							<Link
 								to="/admin/type"
-								className={classNames('btn-sent', 'btn-orange', s.appender)}>
+								className={classNames('btn-sent', 'btn-orange', s.dashboard_appender)}>
 								Додати категорію
 							</Link>
 							<Link
 								to="/admin/tile"
-								className={classNames('btn-sent', 'btn-orange', s.appender)}>
+								className={classNames('btn-sent', 'btn-orange', s.dashboard_appender)}>
 								Додати товар
 							</Link>
 						</div>
-						<div className={s.switch}>
+						<div className={s.dashboard_switch}>
 							<button
 								onClick={() => setActiveSwitch('types')}
-								className={classNames(s.switcher, { [s.active]: activeSwitch === 'types' })}>
+								className={classNames(s.dashboard_switcher, { [s.active]: activeSwitch === 'types' })}>
 								Категорії
 							</button>
 							<button
 								onClick={() => setActiveSwitch('tiles')}
-								className={classNames(s.switcher, { [s.active]: activeSwitch === 'tiles' })}>
+								className={classNames(s.dashboard_switcher, { [s.active]: activeSwitch === 'tiles' })}>
 								Продукти
 							</button>
 						</div>
-						<div className={s.items}>
+						<div className={s.dashboard_items}>
 							{switcher}
 						</div>
 					</div>

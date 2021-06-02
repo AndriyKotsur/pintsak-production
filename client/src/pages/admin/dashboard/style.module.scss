@@ -1,39 +1,41 @@
 @import './src/assets/styles/general/_mixins.scss';
 @import './src/assets/styles/general/_variables.scss';
 
-.wrapper {
-  padding: 50px 0;
-  
-  @include screen-tb {
-    padding: 100px 0;
+.dashboard {
+  &_wrapper {
+    padding: 50px 0;
+
+    @include screen-tb {
+      padding: 100px 0;
+    }
+
+    @include screen-l {
+      padding: 150px 0;
+    }
   }
 
-  @include screen-l {
-    padding: 150px 0;
-  }
-}
-
-.inner {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.append {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 40px 0;
-  
-  @include screen-l {
-    padding: 80px 0;
-    flex-direction: row;
+  &_inner {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
   }
 
-  .appender {
+  &_append {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 0;
+
+    @include screen-l {
+      padding: 80px 0;
+      flex-direction: row;
+    }
+  }
+
+  &_appender {
     min-width: 250px;
     padding: 15px 40px;
     margin: 0 auto 25px;
@@ -43,15 +45,15 @@
       flex-direction: row;
     }
   }
-}
 
-.switch {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  &_switch {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-  .switcher {
+  &_switcher {
     position: relative;
     @include transition;
     font-size: 18px;
@@ -82,13 +84,14 @@
       margin-right: 50px;
     }
   }
-}
 
-.items {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding-top: 80px;
+  &_items {
+    width: 100%;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 80px;
+  }
 }
