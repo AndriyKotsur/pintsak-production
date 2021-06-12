@@ -11,6 +11,7 @@ import {
 	DELETE_IMAGE,
 	CHANGE_STATE,
 	CLEAR_STATE,
+	CHANGE_COLOR
 } from '../constants/edit-tile'
 
 let initialState = {
@@ -24,14 +25,7 @@ let initialState = {
 		weight_per_meter: '',
 		pieces_per_meter: '',
 	},
-	prices: {
-		grey: null,
-		yellow: '-',
-		orange: '-',
-		red: '-',
-		brown: '-',
-		black: '-',
-	},
+	prices: {},
 	images: [],
 	imagesPreview: [],
 	is_popular: false,
@@ -95,6 +89,14 @@ export default function editTile (state = initialState, {type, payload, form, fi
 		return {
 			...state,
 			imagesPreview: state.imagesPreview.filter(image => image !== payload)
+		}
+	case CHANGE_COLOR:
+		return {
+			...state,
+			prices: {
+				...state.prices,
+				...payload
+			}
 		}
 	case CHANGE_STATE:
 		if(field) {

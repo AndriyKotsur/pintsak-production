@@ -7,6 +7,7 @@ import {
 	GET_TILE_TYPES_ERROR,
 	CHANGE_STATE,
 	CLEAR_STATE,
+	CHANGE_COLOR,
 	CHANGE_STEP,
 } from 'constants/add-tile'
 import {
@@ -87,6 +88,13 @@ export const addTile = ({
 				type: ADD_TILE_ERROR,
 			})
 		}
+	}
+}
+
+export const handleChangeColor = color => {
+	return {
+		type: CHANGE_COLOR,
+		payload: color
 	}
 }
 

@@ -9,6 +9,7 @@
   "scripts": {
     "start": "node api/index.js",
     "develop": "nodemon api/index.js",
+    "client": "cd client && npm start",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "author": "myroslavtokar AndriyKotsur",

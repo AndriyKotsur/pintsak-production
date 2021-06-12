@@ -2,15 +2,9 @@ const express = require('express')
 const router = express.Router()
 const pdf = require('html-pdf')
 
-const {
-	Type,
-	Tile,
-	Customer
-} = require('../../../models')
-const {
-	sendMail
-} = require('../../../services/sendgrid')
-const catalogue = require('../../../services/pdf/index')
+const { Type, Tile, Customer } = require('../../../models')
+const { sendMail } = require('../../../services/sendgrid')
+const template = require('./template')
 
 // get tile
 router.get('/tile/:url', async (req, res) => {
@@ -165,14 +159,11 @@ router.get('/catalogue', async (_, res) => {
 	try {
 		const types = await Type.find().populate('tiles')
 
-		pdf.create(catalogue({
-			types
-		})).toFile('public/catalogue.pdf', err => {
+		pdf.create(template({ types }), {
+			'border': '5mm',
+		}).toFile('public/catalogue.pdf', err => {
 			if (err)
-				res.status(500).json({
-					success: false,
-					message: err
-				})
+				res.status(500).json({ success: false, message: err })
 
 			res.status(200).download('public/catalogue.pdf')
 		})

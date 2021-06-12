@@ -17,10 +17,10 @@ const DropdownCart = () => {
 
 	useEffect(() => {
 		dispatch(CartActions.getCartItems())
-	}, [])
+	}, [dispatch])
 
 	useEffect(() => {
-		if(is_active) setVisible(false)
+		if (is_active) setVisible(false)
 	}, [is_active])
 
 	return (
@@ -28,28 +28,28 @@ const DropdownCart = () => {
 			onMouseEnter={() => setVisible(true)}
 			onMouseLeave={() => setVisible(false)}
 			className={s.wrapper}>
-			<Icon name="shopping" className={classNames('icon', 'icon-cart', s.icon)}/>
+			<Icon name="shopping" className={classNames('icon', 'icon-cart', s.icon)} />
 			<span className={s.count}>({items.length})</span>
-			<div className={classNames(s.cart, {[s.visible]: visible})}>
-				{ items.length > 0 ?
-						<div className={s.container}>
-							<h3 className={s.title}>В кошику {items.length} товар на суму:</h3>
-							<p className={s.price}>{subtotal},<sup>00</sup> грн</p>
-							<Link to="/order" className={s.btn}>Замовити</Link>
-							<button
-								type="button"
-								onClick={() => dispatch(CartActions.handleCart(true))}
-								className={s.link}>Перейти в кошик
-								<Icon name="arrow" className={classNames('icon', 'icon-arrow', s.arrow)}/>
-							</button>
-						</div>
-						:
-						<div className={s.container}>
-							<Icon name="cart" className={s.empty} />
-							<h3 className={s.title}>Корзина порожня :(</h3>
-						</div> }
+			<div className={classNames(s.cart, { [s.visible]: visible })}>
+				{items.length > 0 ?
+					<div className={s.container}>
+						<h3 className={s.title}>В кошику {items.length} товар на суму:</h3>
+						<p className={s.price}>{subtotal},<sup>00</sup> грн</p>
+						<Link to="/order" className={s.btn}>Замовити</Link>
+						<button
+							type="button"
+							onClick={() => dispatch(CartActions.handleCart(true))}
+							className={s.link}>Перейти в кошик
+								<Icon name="arrow" className={classNames('icon', 'icon-arrow', s.arrow)} />
+						</button>
+					</div>
+					:
+					<div className={s.container}>
+						<Icon name="cart" className={s.empty} />
+						<h3 className={s.title}>Корзина порожня :(</h3>
+					</div>}
 			</div>
-			{ cart.is_active && <Cart /> }
+			{ cart.is_active && <Cart />}
 		</div>
 	)
 }

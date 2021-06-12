@@ -1,9 +1,20 @@
 import React from 'react'
+
+import classNames from 'classnames'
 import s from './style.module.scss'
 
-const Input = ({ type, name, value, title, isRequired, onChange }) => {
+const Input = ({
+	type,
+	name,
+	value,
+	title,
+	styleName,
+	disabled,
+	required,
+	onChange
+}) => {
 	return (
-		<div className={s.field}>
+		<div className={classNames(s.field, styleName, {[s.disabled]: disabled})}>
 			<input
 				id={name}
 				type={type}
@@ -11,7 +22,7 @@ const Input = ({ type, name, value, title, isRequired, onChange }) => {
 				value={value}
 				className={s.input}
 				onChange={onChange}
-				required={isRequired} />
+				required={required} />
 			<label htmlFor={name} className={s.label}>{title}</label>
 		</div>
 	)

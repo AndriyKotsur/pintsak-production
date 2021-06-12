@@ -12,31 +12,31 @@ import classNames from 'classnames'
 import s from './style.module.scss'
 
 const Header = () => {
+	const [isMobile, setIsMobile] = useState(false)
+
 	const dispatch = useDispatch()
 	const types = useSelector(types => types.getTypes)
-
-	const [isMobile, setIsMobile] = useState(false)
 
 	useEffect(() => {
 		dispatch(GetTypesActions.getTypes())
 
 		return () => dispatch(GetTypesActions.clear())
-	}, [])
+	}, [dispatch])
 
 	useEffect(() => {
 		isMobile && document.body.classList.add(s.hidden)
 		!isMobile && document.body.classList.remove(s.hidden)
 	}, [isMobile])
 
-	return(
+	return (
 		<header className={s.header}>
 			<div className={classNames('container')}>
 				<div className={s.wrapper}>
 					<button
 						type="button"
-						className={classNames(s.hamburger, {[s.mobile]: isMobile})}
+						className={classNames(s.hamburger, { [s.mobile]: isMobile })}
 						onClick={() => setIsMobile(prev => !prev)}>
-							<span className={s.hamburger_btn}></span>
+						<span className={s.hamburger_btn}></span>
 					</button>
 					<div className={classNames(s.menu, { [s.mobile]: isMobile })}>
 						<div className={s.background}></div>
@@ -46,7 +46,7 @@ const Header = () => {
 						<Icon name="logo" className={classNames('icon', 'icon-logo', s.logo_desktop)} />
 						<Icon name="mobile" className={classNames('icon', 'icon-mobile', s.logo_mobile)} />
 					</Link>
-					<nav className={classNames( s.navigation, {[s.navigation]: isMobile})}>
+					<nav className={classNames(s.navigation, { [s.navigation]: isMobile })}>
 						<Link to="/about" className={s.navigation_link}>Про нас</Link>
 						<Link to="/catalogue" className={s.navigation_link}>Види продукції</Link>
 					</nav>

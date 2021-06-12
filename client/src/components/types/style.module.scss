@@ -91,8 +91,13 @@
 
   &:hover {
     transition: all 0.3s ease-out;
-    color: $color2;
+    color: $color6;
   }
+}
+
+.link_active {
+  transition: all 0.3s ease-out;
+  color: $color2;
 }
 
 .download {

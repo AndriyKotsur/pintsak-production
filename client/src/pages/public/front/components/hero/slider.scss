@@ -1,0 +1,12 @@
+@import './src/assets/styles/general/_mixins.scss';
+@import './src/assets/styles/general/_variables.scss';
+
+.is-active > span {
+  @include transition;
+  opacity: 1;
+  color: #fff;
+
+  &:hover {
+    color: #fff;
+  }
+}

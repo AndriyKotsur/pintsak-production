@@ -7,7 +7,7 @@ import { Title, Input, Select, Checkbox, File } from 'components'
 const Options = () => {
 	const dispatch = useDispatch()
 	const state = useSelector(state => state.addTile)
-	
+
 	return (
 		<Fragment>
 			<Title value="Параметри продукту" />
@@ -17,7 +17,7 @@ const Options = () => {
 				name='title'
 				title='Назва товару'
 				onChange={e => dispatch(AddTileActions.handleChange(e))}
-				isRequired />
+				required />
 			<Select
 				name='type'
 				value={state.type}

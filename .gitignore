@@ -1,4 +1,6 @@
 .env
 /node_modules
-/public
+/public/docs
 /.idea
+/.vscode
+/public

@@ -1,51 +1,23 @@
 import React, { Fragment } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import * as AddTileActions from 'actions/add-tile.action'
+import { ColorsParser } from 'helpers'
 
-import { Title, Input } from 'components'
+import { Colors, Title  } from 'components'
 
 const Prices = () => {
 	const dispatch = useDispatch()
+	const state = useSelector(state => state.addTile)
+
+	const onChange = (type, color, price) => {
+		const prices = ColorsParser(state.prices, type, color, price)
+		dispatch(AddTileActions.handleChangeColor(prices))
+	}
 
 	return (
 		<Fragment>
 			<Title value="Ціна продукту" />
-			<Input
-				type='number'
-				name='grey'
-				title='Ціна сірого продукту'
-				onChange={e => dispatch(AddTileActions.handleChange(e, 'prices'))}
-				isRequired />
-			<Input
-				type='number'
-				name='yellow'
-				title='Ціна жовтого продукту'
-				onChange={e => dispatch(AddTileActions.handleChange(e, 'prices'))}
-				isRequired />
-			<Input
-				type='number'
-				name='orange'
-				title='Ціна помаранчевого продукту'
-				onChange={e => dispatch(AddTileActions.handleChange(e, 'prices'))}
-				isRequired />
-			<Input
-				type='number'
-				name='red'
-				title='Ціна червоного продукту'
-				onChange={e => dispatch(AddTileActions.handleChange(e, 'prices'))}
-				isRequired />
-			<Input
-				type='number'
-				name='brown'
-				title='Ціна коричневого продукту'
-				onChange={e => dispatch(AddTileActions.handleChange(e, 'prices'))}
-				isRequired />
-			<Input
-				type='number'
-				name='black'
-				title='Ціна чорного продукту'
-				onChange={e => dispatch(AddTileActions.handleChange(e, 'prices'))}
-				isRequired />
+			<Colors colors={state.prices} onChange={onChange} />
 		</Fragment>
 	)
 }

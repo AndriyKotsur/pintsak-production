@@ -10,6 +10,7 @@ import {
 	GET_TILE_TYPES_ERROR,
 	DELETE_IMAGE,
 	CHANGE_STATE,
+	CHANGE_COLOR,
 	CLEAR_STATE,
 } from '../constants/edit-tile'
 import {
@@ -112,6 +113,13 @@ export const editTile = (url, {
 				type: EDIT_TILE_ERROR,
 			})
 		}
+	}
+}
+
+export const handleChangeColor = color => {
+	return {
+		type: CHANGE_COLOR,
+		payload: color
 	}
 }
 

@@ -13,7 +13,7 @@ const AboutPage = () => {
 				<Background settings={{ hiddenLeft: true }} />
 				<picture className={s.background}>
 					<div className={s.overlay}></div>
-					<img src={BackgroundTop} alt="Background image" />
+					<img src={BackgroundTop} alt="Background" />
 				</picture>
 				<div className={s.wrapper}>
 					<div className={s.block}>

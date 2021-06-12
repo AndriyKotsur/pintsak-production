@@ -1,3 +1,4 @@
+// General components
 export { default as Background } from './background'
 export { default as Cart } from './cart'
 export { default as Carousel } from './carousel'
@@ -14,6 +15,7 @@ export { default as Tiles } from './tiles'
 export { default as Title } from './title'
 export { default as Types } from './types'
 // UI components
+export { default as Button } from './UI/button'
 export { default as Checkbox } from './UI/checkbox'
 export { default as File } from './UI/file'
 export { default as Form } from './UI/form'

@@ -10,14 +10,14 @@ const Gallery = ({ images }) => {
 				{
 					images.length > 0 && images.map((item, index) => (
 						<picture key={'gallery_' + index} className={s.image_small} onClick={() => setGalleryImage(item)}>
-							<img src={item} alt="Gallery image"/>
+							<img src={item} alt="Gallery" />
 						</picture>
 					))
 				}
 			</div>
 			<div className={s.gallery_large}>
 				<picture className={s.image_large}>
-					<img src={galleryImage} alt="Gallery image"/>
+					<img src={galleryImage} alt="Gallery" />
 				</picture>
 			</div>
 		</div>

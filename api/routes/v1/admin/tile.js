@@ -70,7 +70,6 @@ router.put('/images/:id', auth, uploadImages, async (req, res) => {
 })
 
 // delete image
-
 router.delete('/images/:id', auth, async (req, res) => {
 	try {
 		const { id } = req.params
@@ -96,7 +95,7 @@ router.delete('/:id', auth, async (req, res) => {
 		const tile = await Tile.findById(id).populate('type')
 		if (!tile) return res.status(404).json({ success: false, message: 'Tile not found' })
 
-		for(const image of tile.images)
+		for (const image of tile.images)
 			deleteImages(image)
 
 		tile.delete()
