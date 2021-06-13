@@ -60,7 +60,6 @@ module.exports = ({ types }) => {
 				}
 				
 				.page_header tr td.header_date {
-					vertical-align: bottom;
 					font-size: 14px;
 					font-weight: normal;
 					text-align: right;
@@ -139,13 +138,30 @@ module.exports = ({ types }) => {
 					text-decoration: underline;
 				}
 
-				.page_footer {
-					margin-top: auto;
+				.page_footer table {
+					padding: 0px 25px;
+					background: #373f48;
 				}
 
-				.page_footer table {
-					width: 100%;
-					background: #373f48;
+				.page_footer tr td {
+					vertical-align: top;
+					padding: 20px 0px;
+				}
+
+				.page_footer tr:first-child td {
+					font-size: 14px;
+					font-weight: normal;
+					line-height: 24px;
+					text-align: center;
+					color: #ffffff;
+				}
+
+				.page_footer tr:last-child td {
+					font-size: 14px;
+					font-weight: normal;
+					line-height: 24px;
+					text-align: center;
+					color: #ff8e01;
 				}
 			
 				</style>
@@ -233,12 +249,29 @@ module.exports = ({ types }) => {
 							</div>`
 							)).join('')}
 						</div>
-						<div>
+						<div class="page_footer">
 							<table>
 								<tr>
-									<td></td>
-									<td></td>
-									
+									<td width="33.33%">
+										Адреса
+									</td>
+									<td width="33.33%">
+										Телефон
+									</td>
+									<td width="33.33%">
+										Час роботи
+									</td>
+								</tr>
+								<tr>
+									<td width="33.33%">
+										Великий Березний вул. Верховинська, 10
+									</td width="33.33%">
+									<td>
+										+380636666666
+									</td>
+									<td width="33.33%">
+										Пн-Сб / 9:00 - 20:00
+									</td>
 								</tr>
 							</table>
 						</div>

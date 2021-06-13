@@ -4,36 +4,36 @@ const pdf = require('html-pdf')
 
 const { Type, Tile, Customer } = require('../../../models')
 const { sendMail } = require('../../../services/sendgrid')
-const catalogue = require('../../../services/pdf/index')
+const templateCatalogue = require('../../../services/pdf/index')
 
 // get tile
 router.get('/tile/:url', async (req, res) => {
 	try {
 		const {
-			url
+			url,
 		} = req.params
 		const tile = await Tile.findOne({
-			url
+			url,
 		}).populate('type')
 
 		const tiles = await Tile.find({
 			url: {
-				$ne: tile.url
+				$ne: tile.url,
 			},
-			type: tile.type
+			type: tile.type,
 		}).limit(9).populate('type')
 
 		res.status(200).json({
 			success: true,
 			data: {
 				tile,
-				tiles
-			}
+				tiles,
+			},
 		})
 	} catch (err) {
 		res.status(404).json({
 			success: false,
-			message: err.message
+			message: err.message,
 		})
 	}
 })
@@ -45,12 +45,12 @@ router.get('/types', async (_, res) => {
 
 		res.status(200).json({
 			success: true,
-			data: types
+			data: types,
 		})
 	} catch (err) {
 		res.status(404).json({
 			success: false,
-			message: err.message
+			message: err.message,
 		})
 	}
 })
@@ -59,63 +59,63 @@ router.get('/types', async (_, res) => {
 router.get('/tiles', async (req, res) => {
 	try {
 		const {
+			order,
 			page,
 			type,
 			sort,
-			order
 		} = req.query
 		const _page = page ? page - 1 : 0
 		const limit = 9
 
 		const findBy = type ? {
-			'type.url': type
+			'type.url': type,
 		} : {}
 		const sortBy = sort ? {
-			[sort]: Number(order)
+			[sort]: Number(order),
 		} : {
-			createdAt: -1
+			createdAt: -1,
 		}
 
 		const tiles = await Tile
 			.aggregate([{
-					$lookup: {
-						from: 'types',
-						localField: 'type',
-						foreignField: '_id',
-						as: 'type',
+				$lookup: {
+					from: 'types',
+					localField: 'type',
+					foreignField: '_id',
+					as: 'type',
+				},
+			},
+			{
+				$project: {
+					_id: 1,
+					title: 1,
+					type: {
+						'$arrayElemAt': ['$type', 0],
 					},
+					url: 1,
+					is_popular: 1,
+					is_available: 1,
+					images: 1,
+					prices: 1,
+					sizes: 1,
 				},
-				{
-					$project: {
-						_id: 1,
-						title: 1,
-						type: {
-							'$arrayElemAt': ['$type', 0]
-						},
-						url: 1,
-						is_popular: 1,
-						is_available: 1,
-						images: 1,
-						prices: 1,
-						sizes: 1,
-					},
-				},
-				{
-					$match: findBy,
-				},
-				{
-					$sort: sortBy,
-				},
-				{
-					$skip: _page * limit,
-				},
-				{
-					$limit: limit,
-				},
+			},
+			{
+				$match: findBy,
+			},
+			{
+				$sort: sortBy,
+			},
+			{
+				$skip: _page * limit,
+			},
+			{
+				$limit: limit,
+			},
 			])
 
 		const filterBy = type && tiles.length > 0 ? {
-			type: tiles[0].type._id
+			type: tiles[0].type._id,
 		} : {}
 		const count = await Tile.countDocuments(filterBy)
 		const pages = count ? Math.ceil(count / limit) : 0
@@ -124,8 +124,8 @@ router.get('/tiles', async (req, res) => {
 			success: true,
 			data: {
 				tiles,
-				pages
-			}
+				pages,
+			},
 		})
 	} catch (err) {
 		res.status(404).json({
@@ -159,8 +159,12 @@ router.get('/catalogue', async (_, res) => {
 	try {
 		const types = await Type.find().populate('tiles')
 
-		pdf.create(catalogue({ types }), {
-			'border': '15px',
+		pdf.create(templateCatalogue({ types }), {
+			'format': 'A4',
+			'orientation': 'portrait',
+			'border': '5mm',
+			'zoomFactor': '1',
+			'type': 'pdf',
 		}).toFile('public/catalogue.pdf', err => {
 			if (err)
 				res.status(500).json({ success: false, message: err })
@@ -200,14 +204,17 @@ router.post('/customer-request', async (req, res) => {
 			subject: 'New customer request!',
 			content,
 		})
-		if (response[0].statusCode !== 202) return res.status(400).json({
-			success: false,
-			message: 'Email error'
-		})
+
+		if (response[0].statusCode !== 202) {
+			return res.status(400).json({
+				success: false,
+				message: 'Email error',
+			})
+		}
 
 		res.status(201).json({
 			success: true,
-			message: 'Successfully sended'
+			message: 'Messade has been successfully sended',
 		})
 	} catch (err) {
 		res.status(400).json({
@@ -248,10 +255,13 @@ router.post('/order-request', async (req, res) => {
 				subject: 'New order request!',
 				content,
 			})
-			if (response[0].statusCode !== 202) return res.status(400).json({
-				success: false,
-				message: 'Email error',
-			})
+
+			if (response[0].statusCode !== 202) {
+				return res.status(400).json({
+					success: false,
+					message: 'Email error',
+				})
+			}
 
 			res.status(201).json({
 				success: true,
