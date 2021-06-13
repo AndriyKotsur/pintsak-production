@@ -21,51 +21,14 @@ module.exports = ({ types }) => {
 				}
 
 				.page {
+					position: relative;
+					display: block;
 					width: 100%;
 					font-size: 16px;
 					line-height: 24px;
 					color: #373f48;
-				}
-				
-				.page_header {
-					position: relative;
-					width: 100%;
-					padding: 20px 0;
-					margin-bottom: 20px;
-				}
-				
-				.page_header h1 {
-					font-size: 24px;
-					font-wight: bold;
-					line-height: 24px;
-					text-align: center;
-					color: #373f48;
-				}
-				
-				.page_header p {
-					font-size: 14px;
-					font-weight: normal;
-					text-align: center;
-					color: #373f48;
-				}
-				
-				.page_category {
-					padding: 10px 20px;
-					background: #f2f0f0;
-					border-bottom: 2px solid #ff8e01;
-				}
-
-				.page_category td {
-					padding: 15px 10px 20px;
-					font-size: 18px;
-					font-weight: bold;
-					line-height: 24px;
-					color: #ffffff;
-				}
-				
-				.page_category td:nth-child(2) {
-					font-size: 14px;
-					font-weight: normal;
+					page-break-after: auto;
+					overflow: hidden;
 				}
 				
 				.page table {
@@ -73,28 +36,116 @@ module.exports = ({ types }) => {
 					text-aligh: left;
 				}
 				
-				.page table tr td:nth-child(2) {
-					font-weight: normal;
-					text-aligh: right;
+				.page_header table {
+					background: #373f48;
+					padding: 0px 20px;
+				}
+				
+				.page_header tr td {
+					vertical-align: top;
+					padding: 25px 0px;
+				}
+				
+				.page_header tr td.header_image {
+					width: 78px;
+					height: 32px;
 				}
 
-				.page_item td {
-					vertical-align: top;
-					padding: 10px 15px;
-					border-bottom: 1px solid #999999;
-					font-size: 16px;
+				.page_header tr td.header_title {
+					font-size: 28px;
 					font-weight: bold;
+					line-height: 24px;
+					text-align: left;
+					color: #ffffff;
+				}
+				
+				.page_header tr td.header_date {
+					vertical-align: bottom;
+					font-size: 14px;
+					font-weight: normal;
+					text-align: right;
+					color: #ffffff;
+				}
+
+				.page_header tr td.header_date span {
+					color: #ff8e01;
+				}
+				
+				.page_category table {
+					padding: 0px 25px;
+					background: #f2f0f0;
+					border-bottom: 2px solid #ff8e01;
+				}
+
+				.page_category tr td {
+					vertical-align: top;
+					padding: 15px 0px;
+				}
+				
+				.page_category tr td.category_title {
+					font-size: 20px;
+					font-weight: bold;
+					line-height: 24px;
+					color: #373f48;
+				}
+
+				.page_category tr td.category_link {
+					font-size: 16px;
+					font-weight: normal;
+					line-height: 24px;
+					color: #373f48;
+				}
+
+				.page_category tr td.category_link a {
+					color: #373f48;
+					text-decoration: underline;
+				}
+
+				.page_item tr td {
+					vertical-align: top;
+					padding: 10px 25px;
+					border-bottom: 1px solid #999999;
+				}
+
+				.page_item tr:last-child td {
+					border-bottom: none;
+				}
+				
+				.page_item tr td:first-child {
+					font-size: 16px;
+					font-weight: normal;
 					line-height: 24px;
 				}
 
-				.item_value {
-					font-weight: normal;
-					text-aligh: right;
+				.page_item tr td:last-child { 
+					text-align: right;
 				}
-				
-				.image {
+
+				.page_item tr td:last-child {
+					font-weight: bold;
+				}
+
+				.page_item tr td.item_image img {
 					width: 100px;
 					height: 80px;
+				}
+
+				.page_item tr td.item_price {
+					color: #ff8e01;
+				}
+				
+				.page_item tr td.item_link a {
+					color: #373f48;
+					text-decoration: underline;
+				}
+
+				.page_footer {
+					margin-top: auto;
+				}
+
+				.page_footer table {
+					width: 100%;
+					background: #373f48;
 				}
 			
 				</style>
@@ -102,37 +153,95 @@ module.exports = ({ types }) => {
 		 <body>
 				<div class="page">
 					<div class="page_header">
-						<h1>Каталог продукції</h1>
-						<p>Актуальна дата каталогу: ${`${today.getDate()}. ${today.getMonth() + 1}. ${today.getFullYear()}.`}</p>
+						<table>
+							<tr>
+								<td width="50%" class="header_image">
+									<img src="${appUrl}/logotype.svg" alt="Logotype icon" />
+								</td>
+							</tr>
+							<tr>
+								<td width="50%" class="header_title">
+									Каталог продукції
+								</td>
+								<td width="50%" class="header_date">
+									Актуальна дата каталогу:
+									<span>
+										${`${today.getDate()}. ${today.getMonth() + 1}. ${today.getFullYear()}.`}
+									</span>
+								</td>
+							</tr>
+						</table>
 					</div>
 					<div class="page_items">
 						${types && types.length > 0 && types.map(({ url, title, tiles }) => (
 							`<div class="page_category">
-								<h2>Категорія: ${title}</h2>
-								<p>Посилання на категорію: ${appUrl}catalogue/${url}</p>
+								<table>
+									<tr>
+										<td width="50%" class="category_title">
+											${title}
+										</td>
+									</tr>
+									<tr>
+										<td width="50%" class="category_link">
+											Посилання
+											<a href="${appUrl}/catalogue/${url}" target="_blank">
+												${appUrl}/catalogue/${url}
+											</a>
+										</td>
+									</tr>
+								</table>
 							</div>
+							<div class="page_item">
+								<table>
+								${tiles && tiles.length > 0 && tiles.map(({ url: tileUrl, title: tileTitle, images, prices }) => (
+									`<tr>
+										<td width="50%">
+											Назва продукту
+										</td>
+										<td width="50%" class="item_title">
+											${tileTitle}
+										</td>
+									</tr>
+									<tr>
+										<td width="50%">
+											Зображення продукту
+										</td>
+										<td width="50%" class="item_image">
+											<img class='image' src=${images[0]} alt='image' />
+										</td>
+									</tr>
+									<tr>
+										<td width="50%">
+											Посилання
+										</td>
+										<td width="50%" class="item_link">
+											<a href="${appUrl}/catalogue/${url}/${tileUrl}" target="_blank">
+												${appUrl}/catalogue/${url}/${tileUrl}
+											</a>
+										</td>
+									</tr>
+									<tr>
+										<td width="50%">
+											Базова ціна продукту
+										</td>
+										<td width="50%" class="item_price">
+											${prices.grey} грн.
+										</td>
+									</tr>`
+									)).join('')}
+								</table>
+							</div>`
+							)).join('')}
+						</div>
+						<div>
 							<table>
-							${tiles && tiles.length > 0 && tiles.map(({ url: tileUrl, title: tileTitle, images, prices }) => (
-								`<tr class="page_item">	
-									<td>Назва продукту</td>
-									<td style="text-align: right">${tileTitle}</td>
+								<tr>
+									<td></td>
+									<td></td>
+									
 								</tr>
-								<tr class="page_item">
-									<td>Посилання</td>
-									<td>${appUrl}catalogue/${url}/${tileUrl}</td>
-								</tr>
-								<tr class="page_item">
-									<td>Зображення продукту</td>
-									<td><img class='image' src=${images[0]} alt='image' /></td>
-								</tr>
-								<tr class="page_item">
-									<td>Базова ціна продукту</td>
-									<td>${prices.grey}$</td>
-								</tr>`
-								))}
-							</table>`
-					))}
-					</div>
+							</table>
+						</div>
 				</div>
 		 </body>
 	</html>`

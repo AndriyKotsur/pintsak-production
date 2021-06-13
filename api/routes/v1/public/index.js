@@ -4,7 +4,7 @@ const pdf = require('html-pdf')
 
 const { Type, Tile, Customer } = require('../../../models')
 const { sendMail } = require('../../../services/sendgrid')
-const template = require('./template')
+const catalogue = require('../../../services/pdf/index')
 
 // get tile
 router.get('/tile/:url', async (req, res) => {
@@ -130,7 +130,7 @@ router.get('/tiles', async (req, res) => {
 	} catch (err) {
 		res.status(404).json({
 			success: false,
-			message: err.message
+			message: err.message,
 		})
 	}
 })
@@ -139,17 +139,17 @@ router.get('/tiles', async (req, res) => {
 router.get('/popular', async (_, res) => {
 	try {
 		const tiles = await Tile.find({
-			is_popular: true
+			is_popular: true,
 		}).populate('type')
 
 		res.status(200).json({
 			success: true,
-			data: tiles
+			data: tiles,
 		})
 	} catch (err) {
 		res.status(404).json({
 			success: false,
-			message: err.message
+			message: err.message,
 		})
 	}
 })
@@ -159,8 +159,8 @@ router.get('/catalogue', async (_, res) => {
 	try {
 		const types = await Type.find().populate('tiles')
 
-		pdf.create(template({ types }), {
-			'border': '5mm',
+		pdf.create(catalogue({ types }), {
+			'border': '15px',
 		}).toFile('public/catalogue.pdf', err => {
 			if (err)
 				res.status(500).json({ success: false, message: err })
@@ -170,7 +170,7 @@ router.get('/catalogue', async (_, res) => {
 	} catch (err) {
 		res.status(404).json({
 			success: false,
-			message: err.message
+			message: err.message,
 		})
 	}
 })
@@ -181,7 +181,7 @@ router.post('/customer-request', async (req, res) => {
 		const {
 			name,
 			phone,
-			comment
+			comment,
 		} = req.body
 
 		const content =
@@ -198,7 +198,7 @@ router.post('/customer-request', async (req, res) => {
 		const response = await sendMail({
 			fromEmail: 'pintsak-tiles.com.ua',
 			subject: 'New customer request!',
-			content
+			content,
 		})
 		if (response[0].statusCode !== 202) return res.status(400).json({
 			success: false,
@@ -212,7 +212,7 @@ router.post('/customer-request', async (req, res) => {
 	} catch (err) {
 		res.status(400).json({
 			success: false,
-			message: err.message
+			message: err.message,
 		})
 	}
 })
@@ -222,9 +222,9 @@ router.post('/order-request', async (req, res) => {
 	try {
 		const {
 			name,
-			phone,
 			comment,
-			order
+			order,
+			phone,
 		} = req.body
 
 		const newOrder = await Customer.create(req.body)
@@ -246,27 +246,27 @@ router.post('/order-request', async (req, res) => {
 			const response = await sendMail({
 				fromEmail: 'pintsak-tiles.com.ua',
 				subject: 'New order request!',
-				content
+				content,
 			})
 			if (response[0].statusCode !== 202) return res.status(400).json({
 				success: false,
-				message: 'Email error'
+				message: 'Email error',
 			})
 
 			res.status(201).json({
 				success: true,
-				message: 'Successfully sended'
+				message: 'Successfully sended',
 			})
 		}
 
 		res.status(400).json({
 			success: false,
-			message: 'Something went wrong'
+			message: 'Something went wrong',
 		})
 	} catch (err) {
 		res.status(400).json({
 			success: false,
-			message: err.message
+			message: err.message,
 		})
 	}
 })
