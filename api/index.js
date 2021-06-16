@@ -14,7 +14,7 @@ app.use(helmet.contentSecurityPolicy({
 	useDefaults: true,
 	directives: {
 		'script-src': ["'self'", "'unsafe-inline'"],
-		'img-src': ["'self'", 'https://pintsak-production.s3.eu-central-1.amazonaws.com', 'https://pintsak-production.herokuapp.com'],
+		'img-src': ["'self'", 'https://pintsak-production.s3.eu-central-1.amazonaws.com', 'https://pintsak-production.herokuapp.com', 'data:', 'blob:'],
 	},
 }))
 app.use(helmet.dnsPrefetchControl())
