@@ -24,8 +24,12 @@ const AddTile = () => {
 	const handleNext = () => stepWizard.nextStep()
 
 	const handleSubmit = async e => {
+		const { prices, title, width, height, thickness, weight_per_meter, pieces_per_meter } = state
 		e.preventDefault()
-		dispatch(AddTileActions.addTile(state))
+		if (Object.keys(prices).length >= 1 && title && width && height && thickness && weight_per_meter && pieces_per_meter)
+			dispatch(AddTileActions.addTile(state))
+		else
+			alert('Fill all fields')
 	}
 
 	useEffect(() => {
