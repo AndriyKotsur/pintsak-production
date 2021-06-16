@@ -51,7 +51,7 @@ const Types = ({ types, settings, styleName }) => {
 			</ul>
 			{
 				settings && settings.public &&
-				<a href="/download-catalogue" className={s.download}>Каталог
+				<a href={`${process.env.REACT_APP_API}/v1/catalogue`} className={s.download}>Каталог
                 	<Icon name="popular" className={classNames('icon', 'icon-download', s.icon)} />
 				</a>
 			}
