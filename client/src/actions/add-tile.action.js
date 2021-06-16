@@ -50,7 +50,6 @@ export const addTile = ({
 		})
 
 		try {
-
 			const data = {
 				title,
 				type,

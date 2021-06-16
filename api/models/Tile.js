@@ -45,8 +45,12 @@ const TileSchema = new Schema({
 			type: Schema.Types.Number,
 			required: true,
 		},
-		pieces_per_meter: {
+		count: {
 			type: Schema.Types.Number,
+			required: true,
+		},
+		unit: {
+			type: Schema.Types.String,
 			required: true,
 		},
 	},
