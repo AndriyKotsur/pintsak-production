@@ -99,7 +99,7 @@ router.delete('/:id', auth, async (req, res) => {
 			deleteImages(image)
 
 		tile.delete()
-		await Type.findByIdAndUpdate(id, { $pull: { tiles: id } })
+		await Type.findByIdAndUpdate(tile.type._id, { $pull: { tiles: id } })
 
 		res.status(200).json({ success: true, message: 'Successfully removed' })
 	} catch (err) {
