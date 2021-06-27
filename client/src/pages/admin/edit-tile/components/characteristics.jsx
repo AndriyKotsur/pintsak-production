@@ -11,6 +11,13 @@ const Characteristics = () => {
 	return (
 		<Fragment>
 			<Title value="Характеристики продукту" />
+      <Input 
+				type="text"
+				name="measurement"
+				title="Одиниці виміру"
+        value={state.sizes.measurement}
+				onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))}
+				required />
       <Input
         type='number'
         name='width'
