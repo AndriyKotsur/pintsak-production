@@ -2,22 +2,36 @@ import React, { Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as EditTileActions from 'actions/edit-tile.action'
 
-import { Title, Input } from 'components'
+import { Title, Input, Select } from 'components'
 
 const Characteristics = () => {
 	const dispatch = useDispatch()
   const state = useSelector(state => state.editTile)
 
+  const measurement = [ { title: "Квадратний метр" }, { title: "Штука" } ]
+
 	return (
 		<Fragment>
 			<Title value="Характеристики продукту" />
-      <Input 
-				type="text"
+			<Select
 				name="measurement"
-				title="Одиниці виміру"
+				data={measurement}
         value={state.sizes.measurement}
-				onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))}
-				required />
+				onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))} />
+      <Input
+        type='number'
+        name='weight'
+        title='Вага на метр кв.'
+        value={state.sizes.weight}
+        onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))}
+        required />
+      <Input
+        type='number'
+        name='quantity'
+        title='Кількість на метр кв.'
+        value={state.sizes.quantity}
+        onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))}
+        required />
       <Input
         type='number'
         name='width'
@@ -37,20 +51,6 @@ const Characteristics = () => {
         name='thickness'
         title='Товщина товару'
         value={state.sizes.thickness}
-        onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))}
-        required />
-      <Input
-        type='number'
-        name='weight_per_meter'
-        title='Вага на метр кв.'
-        value={state.sizes.weight_per_meter}
-        onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))}
-        required />
-      <Input
-        type='number'
-        name='pieces_per_meter'
-        title='Кількість на метр кв.'
-        value={state.sizes.pieces_per_meter}
         onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))}
         required />
 		</Fragment>

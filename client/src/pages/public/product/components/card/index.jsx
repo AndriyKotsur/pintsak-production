@@ -34,8 +34,9 @@ const Card = ({tile, cart}) => {
         <p className={s.card_price}>{tile.prices[variant]},<sup> 00 грн</sup></p>
         { !itemInCart &&
             <Counter
-            type="card"
+            type="product"
             id={tile._id}
+            measurement={tile.sizes.measurement}
             quantity={itemInCart ? itemInCart.quantity : quantity}
             handleQuantity={!itemInCart && setQuantity} /> }
         { !itemInCart &&

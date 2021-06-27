@@ -45,7 +45,7 @@ const TileSchema = new Schema({
 			type: Schema.Types.Number,
 			required: true,
 		},
-		pieces: {
+		quantity: {
 			type: Schema.Types.Number,
 			required: true,
 		},

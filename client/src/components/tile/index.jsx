@@ -68,6 +68,7 @@ const Tile = ({ tile, settings }) => {
 						id={tile.id}
 						type="catalogue"
 						disabled={itemInCart}
+						measurement={tile.sizes.measurement}
 						quantity={itemInCart ? itemInCart.quantity : quantity}
 						handleQuantity={!itemInCart && setQuantity} />
 					<button

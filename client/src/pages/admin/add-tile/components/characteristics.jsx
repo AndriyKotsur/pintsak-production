@@ -13,10 +13,22 @@ const Characteristics = () => {
 		<Fragment>
 			<Title value="Характеристики продукту" />
 			<Select
-			name="measurement"
-			value="Одиниці виміру"
-			data={measurement}
-			onChange={e => dispatch(AddTileActions.handleChange(e))} />
+				name="measurement"
+				value="Одиниці виміру"
+				data={measurement}
+				onChange={e => dispatch(AddTileActions.handleChange(e, 'sizes'))} />
+			<Input
+				type='number'
+				name='weight'
+				title='Вага на одиницю виміру'
+				onChange={e => dispatch(AddTileActions.handleChange(e, 'sizes'))}
+				required />
+			<Input
+				type='number'
+				name='quantity'
+				title='Кількість на одиницю виміру'
+				onChange={e => dispatch(AddTileActions.handleChange(e, 'sizes'))}
+				required />
 			<Input
 				type='number'
 				name='width'
@@ -33,18 +45,6 @@ const Characteristics = () => {
 				type='number'
 				name='thickness'
 				title='Товщина товару'
-				onChange={e => dispatch(AddTileActions.handleChange(e, 'sizes'))}
-				required />
-			<Input
-				type='number'
-				name='weight_per_meter'
-				title='Вага на метр кв.'
-				onChange={e => dispatch(AddTileActions.handleChange(e, 'sizes'))}
-				required />
-			<Input
-				type='number'
-				name='pieces_per_meter'
-				title='Кількість на метр кв.'
 				onChange={e => dispatch(AddTileActions.handleChange(e, 'sizes'))}
 				required />
 		</Fragment>

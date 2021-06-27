@@ -16,7 +16,7 @@ let initialState = {
     height: '',
     thickness: '',
     weight: '',
-    pieces: '',
+    quantity: '',
     measurement: '',
   },
   prices: {},

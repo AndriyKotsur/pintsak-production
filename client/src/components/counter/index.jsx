@@ -1,13 +1,22 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as CartActions from 'actions/cart-action'
 
 import classNames from 'classnames'
 import s from './style.module.scss'
 
-const Counter = ({ id, type, disabled, quantity, handleQuantity }) => {
+const Counter = ({ id, type, disabled, measurement, quantity, handleQuantity }) => {
 	const dispatch = useDispatch()
 	const cart = useSelector(state => state.cart)
+
+	const measurements = useMemo(() => {
+		const units = {
+			'Штука': <span className={classNames({[s.size]:type === 'product'})}>шт.</span>,
+			'Квадратний метр': <span className={classNames({[s.size]:type === 'product'})}>м<sup>2</sup></span>
+		}
+
+		return units[measurement]
+	}, [measurement, type])
 
 	return (
 		<div className={classNames(s.wrapper,
@@ -19,13 +28,16 @@ const Counter = ({ id, type, disabled, quantity, handleQuantity }) => {
 				disabled={quantity <= 1}>
 				<span className={s.minus}></span>
 			</button>
-			<div className={s.count}>{quantity}{ type === 'catalogue' && <span>м<sup>2</sup></span>}</div>
+			<div className={s.count}>
+				{quantity}
+				{['catalogue', 'cart'].includes(type) && measurements}
+			</div>
 			<button
 				className={classNames(s.add, {[s.disabled]: disabled})}
 				onClick={() => cart.is_active ? dispatch(CartActions.editCartItem(id, 'plus')) : handleQuantity(quantity + 1)}>
 				<span className={s.plus}></span>
 			</button>
-			{ type === 'product' && <span className={s.size}>м<sup>2</sup></span> }
+			{type === 'product' && measurements}
 		</div>
 	)
 }

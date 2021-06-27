@@ -69,6 +69,7 @@ export const addCartItem = (item, quantity, variant) => {
 			type: item.type,
 			url: item.url,
 			image: item.images[0],
+			measurement: item.sizes.measurement,
 			price: item.prices[variant],
 		}
 		const cartItems = JSON.parse(localStorage.getItem('cart_items')) || []

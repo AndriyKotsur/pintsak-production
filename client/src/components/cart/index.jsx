@@ -38,7 +38,7 @@ const Cart = () => {
 							</button>
 						</div>
 						<div className={s.description}>
-							<span className={s.description_item}>Кількість, м<sup>2</sup></span>
+							<span className={s.description_item}>Кількість</span>
 							<span className={s.description_item}>Ціна, грн</span>
 							<span className={s.description_item}>Сума, грн</span>
 						</div>
@@ -62,7 +62,7 @@ const Cart = () => {
 											</div>
 										</div>
 										<div className={s.item_total}>
-											<Counter id={item._id} type="cart" quantity={item.quantity} />
+											<Counter id={item._id} type="cart" measurement={item.measurement} quantity={item.quantity} />
 											<div className={s.item_coast}>
 												<span className={s.item_price}>{item.price},<sup>00</sup></span>
 												<span className={s.item_summary}>{item.price * item.quantity},<sup>00</sup></span>
