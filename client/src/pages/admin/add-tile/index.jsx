@@ -25,7 +25,11 @@ const AddTile = () => {
 
 	const handleSubmit = async e => {
 		e.preventDefault()
-		dispatch(AddTileActions.addTile(state))
+		const { prices, title, sizes: { width, height, thickness, weight, quantity } } = state
+		if (Object.keys(prices).length >= 1 && title && width && height && thickness && weight && quantity)
+			dispatch(AddTileActions.addTile(state))
+		else
+			alert('Fill all fields')
 	}
 
 	useEffect(() => {

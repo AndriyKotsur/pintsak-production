@@ -69,11 +69,14 @@ export default function cart(state = initialState, { type, payload }) {
 			items: payload.items,
 		}
 	case CHANGE_STATE:
-		return {
-			...state,
-			order: {
-				...state.order,
-				[payload.target.name]: payload.target.value
+		if (payload) {
+
+			return {
+				...state,
+				order: {
+					...state.order,
+					[payload.target.name]: payload.target.value
+				}
 			}
 		}
 	default:
