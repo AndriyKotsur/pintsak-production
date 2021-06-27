@@ -41,7 +41,7 @@ const ProductPage = () => {
 							<Card tile={tile} cart={cart} />
 						</div>
 						<Table options={tile.sizes} />
-						<Carousel items={tile.tiles} styleName={s.carousel} />
+						{tile.tiles.length > 0 && <Carousel items={tile.tiles} styleName={s.carousel} />}
 					</div>
 				</div>
 			)}

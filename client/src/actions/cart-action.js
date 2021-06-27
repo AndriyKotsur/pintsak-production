@@ -7,6 +7,7 @@ import {
 	EDIT_CART_ITEM,
 	DELETE_CART_ITEM,
 	HANDLE_CART,
+	CHANGE_STATE
 } from '../constants/cart'
 
 import {
@@ -22,7 +23,7 @@ export const handleCart = handler => {
 	}
 }
 
-export const orderCartItems = () => {
+export const orderCartItems = ({ order }) => {
 	return async dispatch => {
 		dispatch({
 			type: ORDER_CART_ITEMS_LOADING,
@@ -30,7 +31,10 @@ export const orderCartItems = () => {
 
 		try {
 			const cartItems = JSON.parse(localStorage.getItem('cart_items'))
-			if (cartItems) await HTTP.sendOrder(cartItems)
+			if (cartItems) await HTTP.sendOrder({
+				order: cartItems,
+				...order,
+			})
 
 			return dispatch({
 				type: ORDER_CART_ITEMS_SUCCESS,
@@ -139,3 +143,10 @@ export const editCartItem = (id, operator) => {
 		}
 	}
 }
+
+export const handleChange = (event) => (
+	{
+		type: CHANGE_STATE,
+		payload: event
+	}
+) 

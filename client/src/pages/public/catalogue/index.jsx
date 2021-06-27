@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as GetTilesActions from 'actions/get-tiles.action'
@@ -20,6 +20,16 @@ const CataloguePage = () => {
 	const [orderBy, setOrderBy] = useState(-1)
 	
 	const { typeBy } = useParams()
+
+	const content = useMemo(() => {
+		const items = {
+			'success': <Tiles tiles={tiles.tiles} settings={{ public: true }} />,
+			'error': 'Помилка запиту даних',
+			'loading': <Preloader />,
+		}
+		
+		return items[tiles.get_tiles_status]
+	}, [tiles])
 	
 	useEffect(() => {
 		dispatch(GetTilesActions.getTiles(page, typeBy, sortBy, orderBy))
@@ -53,11 +63,8 @@ const CataloguePage = () => {
 								handleSortBy={setSortBy}
 								handleOrderBy={setOrderBy} />
 						</div>
-						{tiles.get_tiles_status === 'success' && tiles.get_tiles_status
-							? <Tiles
-								tiles={tiles.tiles}
-								settings={{ public: true }} />
-							: <Preloader />}
+						{tiles.get_tiles_status === 'success' && tiles.tiles.length === 0 && 'Немає доданих товарів'}
+						{content}
 						<Pagination
 							page={page}
 							pages={tiles.pages}

@@ -29,10 +29,10 @@ const AboutPage = () => {
 							<div className={s.catalogue}>
 								<div className={s.catalogue_images}>
 									<picture className={s.catalogue_image}>
-										<img src={catalogueLeft} alt="Catalogue image" />
+										<img src={catalogueLeft} alt="Catalogue icon" />
 									</picture>
 									<picture className={s.catalogue_image}>
-										<img src={catalogueRight} alt="Catalogue image" />
+										<img src={catalogueRight} alt="Catalogue icon" />
 									</picture>
 								</div>
 								<a href={`${process.env.REACT_APP_API}/v1/catalogue`} className={s.catalogue_link}>

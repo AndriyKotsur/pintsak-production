@@ -10,6 +10,7 @@ import {
 	CHANGE_COLOR,
 	CHANGE_STEP,
 } from 'constants/add-tile'
+
 import {
 	HTTP,
 } from 'helpers'
@@ -127,11 +128,12 @@ export const handleChange = (event, field) => {
 	}
 }
 
-export const changeStep = currentStep => {
-	return dispatch => {
-		return dispatch({ type: CHANGE_STEP, payload: currentStep })
-	}
-}
+export const changeStep = currentStep => (
+	{
+		type: CHANGE_STEP,
+		payload: currentStep
+	})
+
 
 export const clear = () => ({
 	type: CLEAR_STATE,

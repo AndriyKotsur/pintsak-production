@@ -13,34 +13,29 @@ const CustomerSchema = new Schema({
 		required: true,
 		maxlength: 15,
 	},
-	comment: {
+	message: {
 		type: Schema.Types.String,
 		trim: true,
-		required: true,
 		maxlength: 500,
 	},
-	order: {
+	order: [{
 		title: {
 			type: Schema.Types.String,
-			required: true,
 			trim: true,
 		},
-		count: {
+		quantity: {
 			type: Schema.Types.String,
-			required: true,
 			trim: true,
 		},
-		color: {
+		variant: {
 			type: Schema.Types.String,
-			required: true,
 			trim: true,
 		},
-		totalPrice: {
+		price: {
 			type: Schema.Types.String,
-			required: true,
 			trim: true,
 		},
-	},
+	}],
 }, { timestamps: true })
 
 const Customer = model('Customer', CustomerSchema, 'customers')

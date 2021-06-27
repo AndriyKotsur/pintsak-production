@@ -7,11 +7,17 @@ import {
 	ADD_CART_ITEM,
 	EDIT_CART_ITEM,
 	DELETE_CART_ITEM,
+	CHANGE_STATE,
 } from '../constants/cart'
 
 let initialState = {
 	is_active: false,
 	items: [],
+	order: {
+		name: '',
+		phone: '',
+		message: ''
+	},
 	subtotal: null,
 	order_cart_items_status: '',
 }
@@ -61,6 +67,14 @@ export default function cart(state = initialState, { type, payload }) {
 			...state,
 			subtotal: payload.subtotal,
 			items: payload.items,
+		}
+	case CHANGE_STATE:
+		return {
+			...state,
+			order: {
+				...state.order,
+				[payload.target.name]: payload.target.value
+			}
 		}
 	default:
 		return state

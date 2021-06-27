@@ -12,6 +12,12 @@ const OrderPage = () => {
 	const dispatch = useDispatch()
 	const cart = useSelector(state => state.cart)
 
+	const handleSubmit = (e) => {
+		e.preventDefault()
+
+		dispatch(CartActions.orderCartItems(cart))
+	}
+
 	return (
 		<div className={s.section}>
 			<div className="container">
@@ -19,24 +25,24 @@ const OrderPage = () => {
 					<div className={s.form}>
 						<Title value="Відправити замовлення" />
 						<p className={s.form_text}>Будь ласка, заповніть обов'язкові поля і ми зв'яжемося з вами повашому замовленню</p>
-						<Form required>
+						<Form handler={handleSubmit} required>
 							<Input
 								type='text'
-								name='title'
+								name='name'
 								title='Ваше Ім’я*'
-								// onChange={e => dispatch(AddTileActions.handleChange(e))}
+								onChange={e => dispatch(CartActions.handleChange(e))}
 								required />
 							<Input
 								type='text'
 								name='phone'
 								title='Ваше номер телефону*'
-								// onChange={e => dispatch(AddTileActions.handleChange(e))}
+								onChange={e => dispatch(CartActions.handleChange(e))}
 								required />
 							<Input
 								type='text'
 								name='message'
 								title='Ваш комментар'
-								// onChange={e => dispatch(AddTileActions.handleChange(e))}
+								onChange={e => dispatch(CartActions.handleChange(e))}
 								required />
 						</Form>
 					</div>

@@ -167,6 +167,16 @@ const deleteType = id => {
 	})
 }
 
+const sendOrder = (data) => {
+	return request({
+		options: {
+			url: '/order-request',
+			method: 'POST',
+			data
+		}
+	})
+}
+
 const HTTP = {
 	login,
 	getType,
@@ -182,6 +192,7 @@ const HTTP = {
 	deleteTile,
 	deleteType,
 	deleteImage,
+	sendOrder
 }
 
 export default HTTP

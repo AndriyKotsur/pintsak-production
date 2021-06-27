@@ -185,7 +185,7 @@ router.post('/customer-request', async (req, res) => {
 		const {
 			name,
 			phone,
-			comment,
+			message,
 		} = req.body
 
 		const content =
@@ -195,7 +195,7 @@ router.post('/customer-request', async (req, res) => {
 					</br>
 					<tr>Phone: ${phone}</tr>
 					</br>
-					<tr>Comment: ${comment}</tr>
+					<tr>Comment: ${message}</tr>
 				</tbody>
 			</table>`
 
@@ -229,10 +229,12 @@ router.post('/order-request', async (req, res) => {
 	try {
 		const {
 			name,
-			comment,
+			message,
 			order,
 			phone,
 		} = req.body
+
+		console.log(req.body)
 
 		const newOrder = await Customer.create(req.body)
 
@@ -244,9 +246,9 @@ router.post('/order-request', async (req, res) => {
 						</br>
 						<tr>Phone: ${phone}</tr>
 						</br>
-						<tr>Comment: ${comment}</tr>
+						<tr>Comment: ${message}</tr>
 						</br>
-						<tr>Order: ${order.title}, ${order.count}, ${order.color}, ${order.totalPrice}</tr>
+						<tr>Order: ${order.title}, ${order.quantity}, ${order.variant}, ${order.price}</tr>
 					</tbody>
 				</table>`
 

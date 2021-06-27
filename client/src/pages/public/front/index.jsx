@@ -28,7 +28,7 @@ const FrontPage = () => {
 	return (
 		<Fragment>
 			<Hero types={types} />
-			<Popular types={types} tiles={tiles} />
+			{tiles.tiles.length > 0 && <Popular types={types} tiles={tiles} />}
 			<Advantages />
 			<Contact />
 		</Fragment>
