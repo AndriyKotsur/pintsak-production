@@ -11,15 +11,16 @@ import Pagination from './components/pagination'
 import s from './style.module.scss'
 
 const CataloguePage = () => {
-	const { typeBy } = useParams()
 	const dispatch = useDispatch()
 	const types = useSelector(types => types.getTypes)
 	const tiles = useSelector(tiles => tiles.getTiles)
-
+	
 	const [page, setPage] = useState(1)
 	const [sortBy, setSortBy] = useState('')
 	const [orderBy, setOrderBy] = useState(-1)
-
+	
+	const { typeBy } = useParams()
+	
 	useEffect(() => {
 		dispatch(GetTilesActions.getTiles(page, typeBy, sortBy, orderBy))
 	}, [page, typeBy, sortBy, orderBy, dispatch])
@@ -42,7 +43,10 @@ const CataloguePage = () => {
 					</div>
 					<div className={s.catalogue}>
 						<div className={s.sort}>
-							<h1 className={s.title}>{types.types && types.types.map(type => type.url === typeBy && type.title)}{!typeBy && 'Усі товари'}</h1>
+							<h1 className={s.title}>
+								{types.types && types.types.map(type => type.url === typeBy && type.title)}
+								{!typeBy && 'Усі товари'}
+							</h1>
 							<Sort
 								sortBy={sortBy}
 								orderBy={orderBy}
