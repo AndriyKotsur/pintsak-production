@@ -200,7 +200,6 @@ router.post('/customer-request', async (req, res) => {
 			</table>`
 
 		const response = await sendMail({
-			fromEmail: 'pintsak-tiles.com.ua',
 			subject: 'New customer request!',
 			content,
 		})
@@ -234,48 +233,41 @@ router.post('/order-request', async (req, res) => {
 			phone,
 		} = req.body
 
-		console.log(req.body)
+		const content =
+			`<table>
+			<tbody>
+			<tr>Customer: ${name}</tr>
+			</br>
+			<tr>Phone: ${phone}</tr>
+			</br>
+			<tr>Comment: ${message}</tr>
+			</br>
+			<tr>Order: ${order.map(el => (
+		`<span>${el.title}, ${el.quantity}, ${el.variant}, ${el.price}</span>
+		<br/>`
+	))}</tr>
+			</tbody>
+			</table>`
 
-		const newOrder = await Customer.create(req.body)
+		const response = await sendMail({
+			subject: 'New order request!',
+			content,
+		})
 
-		if (newOrder) {
-			const content =
-				`<table>
-					<tbody>
-						<tr>Customer: ${name}</tr>
-						</br>
-						<tr>Phone: ${phone}</tr>
-						</br>
-						<tr>Comment: ${message}</tr>
-						</br>
-						<tr>Order: ${order.title}, ${order.quantity}, ${order.variant}, ${order.price}</tr>
-					</tbody>
-				</table>`
-
-			const response = await sendMail({
-				fromEmail: 'pintsak-tiles.com.ua',
-				subject: 'New order request!',
-				content,
-			})
-
-			if (response[0].statusCode !== 202) {
-				return res.status(400).json({
-					success: false,
-					message: 'Email error',
-				})
-			}
-
-			res.status(201).json({
-				success: true,
-				message: 'Successfully sended',
+		if (response[0].statusCode !== 202) {
+			return res.status(400).json({
+				success: false,
+				message: 'Email error - ' + response.body.errors,
 			})
 		}
+		await Customer.create(req.body)
 
-		res.status(400).json({
-			success: false,
-			message: 'Something went wrong',
+		res.status(201).json({
+			success: true,
+			message: 'Successfully sended',
 		})
 	} catch (err) {
+		console.log(err.response.body.errors)
 		res.status(400).json({
 			success: false,
 			message: err.message,

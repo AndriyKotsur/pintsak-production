@@ -10,7 +10,7 @@ import s from './style.module.scss'
 
 const Card = ({tile, cart}) => {
   const [quantity, setQuantity] = useState(1)
-	const [variant, setVariant] = useState('grey')
+	const [variant, setVariant] = useState(tile ? Object.keys(tile.prices)[0] : 'grey')
   
   const dispatch = useDispatch()
 	const { url } = useParams()

@@ -51,7 +51,8 @@ export const orderCartItems = ({ order }) => {
 export const getCartItems = () => {
 	return dispatch => {
 		const items = JSON.parse(localStorage.getItem('cart_items')) || []
-		const subtotal = localStorage.getItem('cart_subtotal') || 0
+		const sub = localStorage.getItem('cart_subtotal')
+		const subtotal = isNaN(sub) ? 0 : sub
 
 		dispatch({
 			type: GET_CART_ITEMS,

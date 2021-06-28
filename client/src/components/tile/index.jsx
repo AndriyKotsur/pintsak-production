@@ -9,8 +9,6 @@ import { Icon, Counter } from 'components'
 import s from './style.module.scss'
 import classNames from 'classnames'
 
-const defaultVariant = 'grey'
-
 const Tile = ({ tile, settings }) => {
 	const [quantity, setQuantity] = useState(1)
 
@@ -22,7 +20,7 @@ const Tile = ({ tile, settings }) => {
 	const itemInCart = cart.items.find(item => item.url === tile.url)
 
 	const handleCart = () => {
-		if(!itemInCart) dispatch(CartActions.addCartItem(tile, quantity, defaultVariant))
+		if(!itemInCart) dispatch(CartActions.addCartItem(tile, quantity, Object.keys(tile.prices)[0]))
 		dispatch(CartActions.handleCart(true))
 	}
 
@@ -45,7 +43,7 @@ const Tile = ({ tile, settings }) => {
 					</picture>
 				</div>
 				<span className={s.size}>{tile.sizes.width} x {tile.sizes.height}</span>
-				<span className={s.price}>{tile.prices.grey}</span>
+				<span className={s.price}>{Object.values(tile.prices)[0]}</span>
 			</Link>
 			{ settings && settings.edit ?
 				<div className={s.action}>

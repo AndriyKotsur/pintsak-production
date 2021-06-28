@@ -70,7 +70,6 @@ export default function cart(state = initialState, { type, payload }) {
 		}
 	case CHANGE_STATE:
 		if (payload) {
-
 			return {
 				...state,
 				order: {
@@ -78,6 +77,8 @@ export default function cart(state = initialState, { type, payload }) {
 					[payload.target.name]: payload.target.value
 				}
 			}
+		} else {
+			return state
 		}
 	default:
 		return state
