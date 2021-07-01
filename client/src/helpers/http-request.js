@@ -103,30 +103,6 @@ const addTile = data => {
 	})
 }
 
-const uploadImages = ({ id, formData }) => {
-	return request({
-		headers: {
-			Accept: 'multipart/form-data',
-			'Content-Type': 'multipart/form-data',
-		},
-		options: {
-			url: `/admin/tile/images/${id}`,
-			method: 'PUT',
-			data: formData,
-		},
-	})
-}
-
-const deleteImage = (id, image) => {
-	return request({
-		options: {
-			url: `/admin/tile/images/${id}`,
-			method: 'DELETE',
-			data: { key: image }
-		}
-	})
-}
-
 const updateType = ({ id, title }) => {
 	return request({
 		options: {
@@ -167,10 +143,44 @@ const deleteType = id => {
 	})
 }
 
+const uploadImages = ({ id, formData }) => {
+	return request({
+		headers: {
+			Accept: 'multipart/form-data',
+			'Content-Type': 'multipart/form-data',
+		},
+		options: {
+			url: `/admin/tile/images/${id}`,
+			method: 'PUT',
+			data: formData,
+		},
+	})
+}
+
+const deleteImage = (id, image) => {
+	return request({
+		options: {
+			url: `/admin/tile/images/${id}`,
+			method: 'DELETE',
+			data: { key: image }
+		}
+	})
+}
+
 const sendOrder = (data) => {
 	return request({
 		options: {
 			url: '/order-request',
+			method: 'POST',
+			data
+		}
+	})
+}
+
+const sendRequest = (data) => {
+	return request({
+		options: {
+			url: '/customer-request',
 			method: 'POST',
 			data
 		}
@@ -184,15 +194,16 @@ const HTTP = {
 	getTypes,
 	getTiles,
 	getPopularTiles,
-	uploadImages,
 	addType,
 	addTile,
 	updateType,
 	updateTile,
 	deleteTile,
 	deleteType,
+	uploadImages,
 	deleteImage,
-	sendOrder
+	sendOrder,
+	sendRequest,
 }
 
 export default HTTP

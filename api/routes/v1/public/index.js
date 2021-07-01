@@ -213,7 +213,7 @@ router.post('/customer-request', async (req, res) => {
 
 		res.status(201).json({
 			success: true,
-			message: 'Messade has been successfully sended',
+			message: 'Message has been successfully sended',
 		})
 	} catch (err) {
 		res.status(400).json({
@@ -264,7 +264,7 @@ router.post('/order-request', async (req, res) => {
 
 		res.status(201).json({
 			success: true,
-			message: 'Successfully sended',
+			message: 'Message has been successfully sended',
 		})
 	} catch (err) {
 		console.log(err.response.body.errors)

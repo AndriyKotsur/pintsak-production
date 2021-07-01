@@ -14,56 +14,6 @@ import {
 	HTTP,
 } from 'helpers'
 
-export const handleCart = handler => {
-	return dispatch => {
-		dispatch({
-			type: HANDLE_CART,
-			payload: handler,
-		})
-	}
-}
-
-export const orderCartItems = ({ order }) => {
-	return async dispatch => {
-		dispatch({
-			type: ORDER_CART_ITEMS_LOADING,
-		})
-
-		try {
-			const cartItems = JSON.parse(localStorage.getItem('cart_items'))
-			if (cartItems) await HTTP.sendOrder({
-				order: cartItems,
-				...order,
-			})
-
-			return dispatch({
-				type: ORDER_CART_ITEMS_SUCCESS,
-			})
-		} catch (err) {
-			console.error(err)
-			return dispatch({
-				type: ORDER_CART_ITEMS_ERROR,
-			})
-		}
-	}
-}
-
-export const getCartItems = () => {
-	return dispatch => {
-		const items = JSON.parse(localStorage.getItem('cart_items')) || []
-		const sub = localStorage.getItem('cart_subtotal')
-		const subtotal = isNaN(sub) ? 0 : sub
-
-		dispatch({
-			type: GET_CART_ITEMS,
-			payload: {
-				items,
-				subtotal,
-			},
-		})
-	}
-}
-
 export const addCartItem = (item, quantity, variant) => {
 	return dispatch => {
 		const newItem = {
@@ -145,9 +95,61 @@ export const editCartItem = (id, operator) => {
 	}
 }
 
-export const handleChange = (event) => (
-	{
-		type: CHANGE_STATE,
-		payload: event
+export const getCartItems = () => {
+	return dispatch => {
+		const items = JSON.parse(localStorage.getItem('cart_items')) || []
+		const sub = localStorage.getItem('cart_subtotal')
+		const subtotal = isNaN(sub) ? 0 : sub
+
+		dispatch({
+			type: GET_CART_ITEMS,
+			payload: {
+				items,
+				subtotal,
+			},
+		})
 	}
-) 
+}
+
+export const orderCartItems = ({ order }) => {
+	return async dispatch => {
+		dispatch({
+			type: ORDER_CART_ITEMS_LOADING,
+		})
+
+		try {
+			const cartItems = JSON.parse(localStorage.getItem('cart_items'))
+			if (cartItems) await HTTP.sendOrder({
+				order: cartItems,
+				...order,
+			})
+
+			return dispatch({
+				type: ORDER_CART_ITEMS_SUCCESS,
+			})
+		} catch (err) {
+			console.error(err)
+			return dispatch({
+				type: ORDER_CART_ITEMS_ERROR,
+			})
+		}
+	}
+}
+
+export const handleCart = handler => {
+	return dispatch => {
+		dispatch({
+			type: HANDLE_CART,
+			payload: handler,
+		})
+	}
+}
+
+export const handleChange = (event) => {
+  return dispatch => {
+    dispatch({
+      type: CHANGE_STATE,
+      payload: event
+    })
+  }
+}

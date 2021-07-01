@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import * as SendRequestAction from 'actions/send-request.action'
 
 import { Form, Icon, Input, Title } from 'components'
 
@@ -8,9 +10,17 @@ import classNames from 'classnames'
 const Chat = () => {
   const [visible, setVisible] = useState(false)
 
+	const dispatch = useDispatch()
+	const request = useSelector(state => state.sendRequest)
+
   const handleButton = () => {
     setVisible(prev => !prev)
   }
+
+	const handleSubmit = (e) => {
+		e.preventDefault()
+		dispatch(SendRequestAction.sendRequest(request))
+	}
 
 	useEffect(() => {
 		visible && document.body.classList.add(s.hidden)
@@ -23,25 +33,24 @@ const Chat = () => {
         <span className={s.chat_background}></span>
         <div className={s.chat_menu}>
 					<Title value="Зв'яжіться з нами" />
-					<Form
-						required>
+					<Form handler={handleSubmit} required>
 						<Input
 							type='text'
-							name='title'
+							name='name'
 							title='Ваше Ім’я *'
-							// onChange={e => dispatch(AddTileActions.handleChange(e))}
+							onChange={e => dispatch(SendRequestAction.handleChange(e))}
 							required />
 						<Input
-							type='text'
+							type='number'
 							name='phone'
 							title='Ваше номер телефону *'
-							// onChange={e => dispatch(AddTileActions.handleChange(e))}
+							onChange={e => dispatch(SendRequestAction.handleChange(e))}
 							required />
 						<Input
 							type='text'
 							name='message'
 							title='Ваш комментар'
-							// onChange={e => dispatch(AddTileActions.handleChange(e))}
+							onChange={e => dispatch(SendRequestAction.handleChange(e))}
 							required />
 					</Form>
 				</div>

@@ -10,6 +10,7 @@ import editType from './edit-type.reducer'
 import deleteTile from './delete-tile.reducer'
 import deleteType from './delete-type.reducer'
 import login from './login.reducer'
+import sendRequest from './send-request.reducer'
 
 export default combineReducers({
 	cart,
@@ -23,4 +24,5 @@ export default combineReducers({
 	deleteTile,
 	deleteType,
 	login,
+	sendRequest,
 })

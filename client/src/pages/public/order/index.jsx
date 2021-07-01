@@ -14,7 +14,6 @@ const OrderPage = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-
 		dispatch(CartActions.orderCartItems(cart))
 	}
 
