@@ -3,6 +3,7 @@ import {
   SEND_REQUEST_ERROR,
   SEND_REQUEST_LOADING,
   CHANGE_STATE,
+  CLEAR_FORM,
   CLEAR_STATE
 } from '../constants/send-request'
 
@@ -44,10 +45,19 @@ export default function sendRequest(state = initialState, { type, payload }) {
       } else {
         return state
       }
+    case CLEAR_FORM:
+      return {
+        ...state,
+        request: {
+          name: '',
+          phone: '',
+          message: ''
+        },
+      }
     case CLEAR_STATE:
       return {
         ...initialState
-      } 
+      }
     default:
       return state
   }

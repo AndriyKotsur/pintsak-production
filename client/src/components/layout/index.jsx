@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { Chat, Header, Footer, } from 'components'
+import { Chat, Header, Footer } from 'components'
 
 const Layout = ({ children }) => {
 	return(

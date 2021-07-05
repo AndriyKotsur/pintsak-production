@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as CartActions from 'actions/cart-action'
 
-import { Cart, Icon, Title, Form, Input } from 'components'
+import { Cart, Form, Icon, Input, Popup, Title } from 'components'
 
 import classNames from 'classnames'
 import s from './style.module.scss'
@@ -12,9 +12,18 @@ const OrderPage = () => {
 	const dispatch = useDispatch()
 	const cart = useSelector(state => state.cart)
 
+	const message = {
+		'error': 'Помилка. Ваш запит не був відправлений, заповніть обов\'язкові поля, щоб відправити замовлення!',
+		'success': 'Дякуємо. Ваше запит був успішно відправлений, ми зв\'яжемося з вами найближчим часом!'
+	}
+
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		dispatch(CartActions.orderCartItems(cart))
+		// Clean state after receiving response from the email server
+		setTimeout(() => {
+			dispatch(CartActions.clear())
+		}, 500)
 	}
 
 	return (
@@ -23,7 +32,9 @@ const OrderPage = () => {
 				<div className={s.wrapper}>
 					<div className={s.form}>
 						<Title value="Відправити замовлення" />
-						<p className={s.form_text}>Будь ласка, заповніть обов'язкові поля і ми зв'яжемося з вами повашому замовленню</p>
+						<p className={s.form_text}>
+							Будь ласка, заповніть обов'язкові поля і ми зв'яжемося з вами повашому замовленню
+						</p>
 						<Form handler={handleSubmit} required>
 							<Input
 								type='text'
@@ -77,6 +88,10 @@ const OrderPage = () => {
 				</div>
 			</div>
 			{ cart.is_active && <Cart /> }
+			{ cart.order_cart_items_status.includes('success', 'error') && 
+				<Popup
+					message={message[cart.order_cart_items_status]}
+					status={cart.order_cart_items_status} /> }
 		</div>
 	)
 }

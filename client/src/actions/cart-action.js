@@ -7,7 +7,8 @@ import {
 	EDIT_CART_ITEM,
 	DELETE_CART_ITEM,
 	HANDLE_CART,
-	CHANGE_STATE
+	CHANGE_STATE,
+	CLEAR_STATE,
 } from '../constants/cart'
 
 import {
@@ -153,3 +154,7 @@ export const handleChange = (event) => {
     })
   }
 }
+
+export const clear = () => ({
+	type: CLEAR_STATE,
+})

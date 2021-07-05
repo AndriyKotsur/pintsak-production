@@ -1,15 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+
 import { Icon } from 'components'
 
+import classNames from 'classnames'
 import s from './style.module.scss'
 
-const Popup = () => {
+const Popup = ({ message, status, onChange }) => {
+	const [currentStatus, setCurrentStatus] = useState('default')
+	
+	useEffect(() => {
+		if(status) {
+			setTimeout(() => {
+				setCurrentStatus('')
+				// Reset state from props function
+				onChange()
+			}, 5000)
+		}
+	}, [status])
+
 	return (
-		<div className={s.section}>
+		<div className={classNames(s.section, {
+			[s.error]: status === 'error' && currentStatus,
+			[s.success]: status === 'success' && currentStatus})}>
 			<div className={s.wrapper}>
-				<span className={s.title}>Дякуємо. Ваше замовлення було успішно відправлено, ми зв'яжемося з вами найближчим часом!</span>
+				<span className={s.title}>
+					{message}
+				</span>
 			</div>
-			<button className={s.close}>
+			<button type="button" className={s.close} onClick={() => setCurrentStatus('')}>
 				<Icon name="close" className="icon icon-close--popup" />
 			</button>
 		</div>

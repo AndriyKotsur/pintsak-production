@@ -8,6 +8,7 @@ import {
 	EDIT_CART_ITEM,
 	DELETE_CART_ITEM,
 	CHANGE_STATE,
+	CLEAR_STATE,
 } from '../constants/cart'
 
 let initialState = {
@@ -79,6 +80,10 @@ export default function cart(state = initialState, { type, payload }) {
 			}
 		} else {
 			return state
+		}
+	case CLEAR_STATE:
+		return {
+			...initialState,
 		}
 	default:
 		return state

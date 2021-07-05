@@ -3,6 +3,7 @@ import {
   SEND_REQUEST_ERROR,
   SEND_REQUEST_LOADING,
   CHANGE_STATE,
+  CLEAR_FORM,
   CLEAR_STATE
 } from '../constants/send-request'
 
@@ -41,3 +42,11 @@ export const handleChange = (event) => {
     })
   }
 }
+
+export const clearForm = () => ({
+	type: CLEAR_FORM,
+})
+
+export const clear = () => ({
+	type: CLEAR_STATE,
+})

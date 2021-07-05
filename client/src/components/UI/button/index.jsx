@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import s from './style.module.scss'
 
 const Button = ({type, children, transparent, disabled, styleName, handleClick}) => {
-  return(
+  return (
     <button
       type={type}
       className={classNames(s.button, styleName, {[s.transparent]: transparent})}
