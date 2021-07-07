@@ -2,7 +2,7 @@ import {
   GET_TILE_SUCCESS,
   GET_TILE_ERROR,
   GET_TILE_LOADING,
-  CLEAR_STATE,
+  CLEAR_GET_TILE_STATE,
 } from '../constants/get-tile'
 
 let initialState = {
@@ -31,8 +31,8 @@ export default function getTile(state = initialState, action) {
       return {
         ...state,
         ...action.payload.tile,
-          tiles: action.payload.tiles,
-          get_tile_status: 'success',
+        tiles: action.payload.tiles,
+        get_tile_status: 'success',
       }
     case GET_TILE_ERROR:
       return {
@@ -44,11 +44,11 @@ export default function getTile(state = initialState, action) {
         ...state,
         get_tile_status: 'loading',
       }
-    case CLEAR_STATE:
+    case CLEAR_GET_TILE_STATE:
       return {
         ...initialState,
       }
-      default:
-        return state
+    default:
+      return state
   }
 }

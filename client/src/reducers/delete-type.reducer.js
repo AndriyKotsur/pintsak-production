@@ -8,24 +8,24 @@ let initialState = {
 	delete_type_status: '',
 }
 
-export default function deleteType (state=initialState, action) {
-	switch(action.type) {
-	case DELETE_TYPE_SUCCESS:
-		return {
-			...state,
-			delete_type_status: 'success',
-		}
-	case DELETE_TYPE_ERROR:
-		return {
-			...state,
-			delete_type_status: 'error',
-		}
-	case DELETE_TYPE_LOADING:
-		return {
-			...state,
-			delete_type_status: 'loading',
-		}
-	default:
-		return state
+export default function deleteType(state = initialState, action) {
+	switch (action.type) {
+		case DELETE_TYPE_SUCCESS:
+			return {
+				...state,
+				delete_type_status: 'success',
+			}
+		case DELETE_TYPE_ERROR:
+			return {
+				...state,
+				delete_type_status: 'error',
+			}
+		case DELETE_TYPE_LOADING:
+			return {
+				...state,
+				delete_type_status: 'loading',
+			}
+		default:
+			return state
 	}
 }

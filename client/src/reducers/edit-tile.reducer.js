@@ -8,10 +8,10 @@ import {
 	GET_TILE_TYPES_SUCCESS,
 	GET_TILE_TYPES_LOADING,
 	GET_TILE_TYPES_ERROR,
-	DELETE_IMAGE,
-	CHANGE_STATE,
-	CLEAR_STATE,
-	CHANGE_COLOR
+	DELETE_EDIT_TILE_IMAGE,
+	CHANGE_EDIT_TILE_STATE,
+	CLEAR_EDIT_TILE_STATE,
+	CHANGE_EDIT_TILE_COLOR
 } from '../constants/edit-tile'
 
 let initialState = {
@@ -36,89 +36,89 @@ let initialState = {
 	edit_tile_status: '',
 }
 
-export default function editTile (state = initialState, {type, payload, form, field}) {
-	switch(type) {
-	case GET_TILE_SUCCESS:
-		return {
-			...state,
-			...payload.tile,
-			imagesPreview: payload.tile.images,
-			get_tile_status: 'success',
-		}
-	case GET_TILE_ERROR:
-		return {
-			...state,
-			get_tile_status: 'error',
-		}
-	case GET_TILE_LOADING:
-		return {
-			...state,
-			get_tile_status: 'loading',
-		}
-	case GET_TILE_TYPES_SUCCESS:
-		return {
-			...state,
-			types: payload,
-			get_types_status: 'success',
-		}
-	case GET_TILE_TYPES_ERROR:
-		return {
-			...state,
-			get_types_status: 'error',
-		}
-	case GET_TILE_TYPES_LOADING:
-		return {
-			...state,
-			get_types_status: 'loading',
-		}
-	case EDIT_TILE_SUCCESS:
-		return {
-			...state,
-			edit_tile_status: 'success',
-		}
-	case EDIT_TILE_ERROR:
-		return {
-			...state,
-			edit_tile_status: 'error',
-		}
-	case EDIT_TILE_LOADING:
-		return {
-			...state,
-			edit_tile_status: 'loading',
-		}
-	case DELETE_IMAGE:
-		return {
-			...state,
-			imagesPreview: state.imagesPreview.filter(image => image !== payload)
-		}
-	case CHANGE_COLOR:
-		return {
-			...state,
-			prices: {
-				...state.prices,
-				...payload
-			}
-		}
-	case CHANGE_STATE:
-		if(field) {
+export default function editTile(state = initialState, { type, payload, form, field }) {
+	switch (type) {
+		case GET_TILE_SUCCESS:
 			return {
 				...state,
-				[field]: {
-					...state[field],
-					...form[field],
-				},
+				...payload.tile,
+				imagesPreview: payload.tile.images,
+				get_tile_status: 'success',
 			}
-		} else {
+		case GET_TILE_ERROR:
 			return {
 				...state,
-				...form,
+				get_tile_status: 'error',
 			}
-		}
-	case CLEAR_STATE:
-		return {
-			...initialState,
-		}
-	default:
-		return state
+		case GET_TILE_LOADING:
+			return {
+				...state,
+				get_tile_status: 'loading',
+			}
+		case GET_TILE_TYPES_SUCCESS:
+			return {
+				...state,
+				types: payload,
+				get_types_status: 'success',
+			}
+		case GET_TILE_TYPES_ERROR:
+			return {
+				...state,
+				get_types_status: 'error',
+			}
+		case GET_TILE_TYPES_LOADING:
+			return {
+				...state,
+				get_types_status: 'loading',
+			}
+		case EDIT_TILE_SUCCESS:
+			return {
+				...state,
+				edit_tile_status: 'success',
+			}
+		case EDIT_TILE_ERROR:
+			return {
+				...state,
+				edit_tile_status: 'error',
+			}
+		case EDIT_TILE_LOADING:
+			return {
+				...state,
+				edit_tile_status: 'loading',
+			}
+		case DELETE_EDIT_TILE_IMAGE:
+			return {
+				...state,
+				imagesPreview: state.imagesPreview.filter(image => image !== payload)
+			}
+		case CHANGE_EDIT_TILE_COLOR:
+			return {
+				...state,
+				prices: {
+					...state.prices,
+					...payload
+				}
+			}
+		case CHANGE_EDIT_TILE_STATE:
+			if (field) {
+				return {
+					...state,
+					[field]: {
+						...state[field],
+						...form[field],
+					},
+				}
+			} else {
+				return {
+					...state,
+					...form,
+				}
+			}
+		case CLEAR_EDIT_TILE_STATE:
+			return {
+				...initialState,
+			}
+		default:
+			return state
 	}
 }

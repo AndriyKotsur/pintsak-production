@@ -2,9 +2,9 @@ import {
   SEND_REQUEST_SUCCESS,
   SEND_REQUEST_ERROR,
   SEND_REQUEST_LOADING,
-  CHANGE_STATE,
-  CLEAR_REQUEST,
-  CLEAR_STATE
+  CHANGE_SEND_REQUEST_STATE,
+  CLEAR_SEND_REQUEST_FORM,
+  CLEAR_SEND_REQUEST_STATE
 } from '../constants/send-request'
 
 let initialState = {
@@ -17,7 +17,7 @@ let initialState = {
 }
 
 export default function sendRequest(state = initialState, { type, payload }) {
-  switch(type) {
+  switch (type) {
     case SEND_REQUEST_SUCCESS:
       return {
         ...state,
@@ -33,8 +33,8 @@ export default function sendRequest(state = initialState, { type, payload }) {
         ...state,
         send_request_status: 'loading'
       }
-    case CHANGE_STATE:
-      if(payload) {
+    case CHANGE_SEND_REQUEST_STATE:
+      if (payload) {
         return {
           ...state,
           request: {
@@ -45,7 +45,7 @@ export default function sendRequest(state = initialState, { type, payload }) {
       } else {
         return state
       }
-    case CLEAR_REQUEST:
+    case CLEAR_SEND_REQUEST_FORM:
       return {
         ...state,
         request: {
@@ -54,7 +54,7 @@ export default function sendRequest(state = initialState, { type, payload }) {
           message: ''
         },
       }
-    case CLEAR_STATE:
+    case CLEAR_SEND_REQUEST_STATE:
       return {
         ...initialState
       }

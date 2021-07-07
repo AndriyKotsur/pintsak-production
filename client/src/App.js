@@ -1,16 +1,16 @@
 import React from 'react'
-import {Provider} from 'react-redux'
-import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom'
-import {Front, Catalogue, Product, Order, About, Location, Error} from 'pages/public'
-import {Login, Dashboard, AddTile, AddType, EditTile, EditType} from 'pages/admin'
-import {Layout} from 'components'
-import {COOKIES} from 'helpers'
-import {store} from './store'
+import { Provider } from 'react-redux'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
+import { Front, Catalogue, Product, Order, About, Location, Error } from 'pages/public'
+import { Login, Dashboard, AddTile, AddType, EditTile, EditType } from 'pages/admin'
+import { Layout } from 'components'
+import { COOKIES } from 'helpers'
+import { store } from './store'
 import './App.scss'
 
-const AuthRoute = ({children, ...otherProps}) => {
+const AuthRoute = ({ children, ...otherProps }) => {
     const authToken = COOKIES.getAuthToken()
-    if (!authToken) return <Redirect to="/admin"/>
+    if (!authToken) return <Redirect to="/admin" />
 
     return <Route {...otherProps}>{children}</Route>
 }
@@ -23,58 +23,58 @@ const App = () => {
                     <Switch>
 
                         <Route exact path="/admin">
-                            <Login/>
+                            <Login />
                         </Route>
 
                         <AuthRoute exact path="/admin/dashboard">
-                            <Dashboard/>
+                            <Dashboard />
                         </AuthRoute>
 
                         <AuthRoute exact path="/admin/type/:id">
-                            <EditType/>
+                            <EditType />
                         </AuthRoute>
 
                         <AuthRoute exact path="/admin/tile/:url">
-                            <EditTile/>
+                            <EditTile />
                         </AuthRoute>
 
                         <AuthRoute exact path="/admin/type">
-                            <AddType/>
+                            <AddType />
                         </AuthRoute>
 
                         <AuthRoute exact path="/admin/tile">
-                            <AddTile/>
+                            <AddTile />
                         </AuthRoute>
 
                         <Layout>
                             <Switch>
 
                                 <Route exact path='/'>
-                                    <Front/>
+                                    <Front />
                                 </Route>
 
                                 <Route exact path={['/catalogue', '/catalogue/:typeBy']}>
-                                    <Catalogue/>
+                                    <Catalogue />
                                 </Route>
 
                                 <Route exact path='/catalogue/:typeBy/:url'>
-                                    <Product/>
+                                    <Product />
                                 </Route>
 
                                 <Route exact path='/order'>
-                                    <Order/>
+                                    <Order />
                                 </Route>
 
                                 <Route exact path='/about'>
-                                    <About/>
+                                    <About />
                                 </Route>
 
                                 <Route exact path='/location'>
-                                    <Location/>
+                                    <Location />
                                 </Route>
 
                                 <Route path="/">
-                                    <Error/>
+                                    <Error />
                                 </Route>
 
                             </Switch>

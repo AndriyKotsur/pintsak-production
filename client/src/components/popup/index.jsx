@@ -13,12 +13,13 @@ const Popup = ({ message, status, handleReset }) => {
 	})
 	
 	useEffect(() => {
-		if(status) {
+		if (status) {
 			setTimeout(() => {
 				// Reset state to initial values 
 				handleReset()
 			}, 5000)
 		}
+		// eslint-disable-next-line
 	}, [status])
 
 	return (

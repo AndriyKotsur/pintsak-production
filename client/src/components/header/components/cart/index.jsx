@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import * as CartActions from 'actions/cart-action'
+import * as CartActions from 'actions/cart.action'
 
 import { Icon, Cart } from 'components'
 
@@ -40,7 +40,7 @@ const DropdownCart = () => {
 							type="button"
 							onClick={() => dispatch(CartActions.handleCart(true))}
 							className={s.link}>Перейти в кошик
-								<Icon name="arrow" className={classNames('icon', 'icon-arrow', s.arrow)} />
+							<Icon name="arrow" className={classNames('icon', 'icon-arrow', s.arrow)} />
 						</button>
 					</div>
 					:
@@ -49,7 +49,7 @@ const DropdownCart = () => {
 						<h3 className={s.title}>Корзина порожня :(</h3>
 					</div>}
 			</div>
-			{ cart.is_active && <Cart />}
+			{cart.is_active && <Cart />}
 		</div>
 	)
 }

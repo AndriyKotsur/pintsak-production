@@ -5,7 +5,7 @@ import {
 	GET_POPULAR_TILES_SUCCESS,
 	GET_POPULAR_TILES_ERROR,
 	GET_POPULAR_TILES_LOADING,
-	CLEAR_STATE,
+	CLEAR_GET_TILES_STATE,
 } from '../constants/get-tiles'
 
 let initialState = {
@@ -51,7 +51,7 @@ export default function getTiles(state = initialState, action) {
 				...state,
 				get_popular_tile_status: 'loading',
 			}
-		case CLEAR_STATE:
+		case CLEAR_GET_TILES_STATE:
 			return {
 				...initialState,
 			}
