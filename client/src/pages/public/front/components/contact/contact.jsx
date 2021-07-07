@@ -15,12 +15,16 @@ const Contact = () => {
 		'success': 'Дякуємо. Ваше запит був успішно відправлений, ми зв\'яжемося з вами найближчим часом!'
 	}
 
+	const handleReset = () => {
+		dispatch(SendRequestAction.clear())
+	}
+
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		dispatch(SendRequestAction.sendRequest(state))
 		// Clean state after receiving response from the email server
 		setTimeout(() => {
-			dispatch(SendRequestAction.clearForm())
+			dispatch(SendRequestAction.clearRequest())
 		}, 500)
 	}
 
@@ -55,11 +59,10 @@ const Contact = () => {
 					</Form>
 				</div>
 			</div>
-			{ state.send_request_status.includes('error', 'success') && 
-				<Popup
-					message={message[state.send_request_status]}
-					status={state.send_request_status}
-					onChange={() => dispatch(SendRequestAction.clear())} /> }
+			<Popup
+				message={message[state.send_request_status]}
+				status={state.send_request_status} 
+				handleReset={handleReset} />
 		</div>
 	)
 }

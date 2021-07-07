@@ -17,12 +17,18 @@ const OrderPage = () => {
 		'success': 'Дякуємо. Ваше запит був успішно відправлений, ми зв\'яжемося з вами найближчим часом!'
 	}
 
+	const handleReset = () => {
+		dispatch(CartActions.clear())
+		// Navigate to the shop page after successfull order
+		if(cart.order_cart_items_status === 'success') window.location = '/catalogue'
+	}
+
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		dispatch(CartActions.orderCartItems(cart))
 		// Clean state after receiving response from the email server
 		setTimeout(() => {
-			dispatch(CartActions.clear())
+			dispatch(CartActions.clearOrder())
 		}, 500)
 	}
 
@@ -40,18 +46,21 @@ const OrderPage = () => {
 								type='text'
 								name='name'
 								title='Ваше Ім’я*'
+								value={cart.order.name}
 								onChange={e => dispatch(CartActions.handleChange(e))}
 								required />
 							<Input
 								type='text'
 								name='phone'
 								title='Ваше номер телефону*'
+								value={cart.order.phone}
 								onChange={e => dispatch(CartActions.handleChange(e))}
 								required />
 							<Input
 								type='text'
 								name='message'
 								title='Ваш комментар'
+								value={cart.order.message}
 								onChange={e => dispatch(CartActions.handleChange(e))}
 								required />
 						</Form>
@@ -91,7 +100,8 @@ const OrderPage = () => {
 			{ cart.order_cart_items_status.includes('success', 'error') && 
 				<Popup
 					message={message[cart.order_cart_items_status]}
-					status={cart.order_cart_items_status} /> }
+					status={cart.order_cart_items_status} 
+					handleReset={handleReset} /> }
 		</div>
 	)
 }

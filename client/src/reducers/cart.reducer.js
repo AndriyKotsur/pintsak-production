@@ -8,6 +8,7 @@ import {
 	EDIT_CART_ITEM,
 	DELETE_CART_ITEM,
 	CHANGE_STATE,
+	CLEAR_ORDER,
 	CLEAR_STATE,
 } from '../constants/cart'
 
@@ -80,6 +81,15 @@ export default function cart(state = initialState, { type, payload }) {
 			}
 		} else {
 			return state
+		}
+	case CLEAR_ORDER:
+		return {
+			...state,
+			order: {
+				name: '',
+				phone: '',
+				message: ''
+			},
 		}
 	case CLEAR_STATE:
 		return {

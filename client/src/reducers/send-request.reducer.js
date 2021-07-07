@@ -3,7 +3,7 @@ import {
   SEND_REQUEST_ERROR,
   SEND_REQUEST_LOADING,
   CHANGE_STATE,
-  CLEAR_FORM,
+  CLEAR_REQUEST,
   CLEAR_STATE
 } from '../constants/send-request'
 
@@ -45,7 +45,7 @@ export default function sendRequest(state = initialState, { type, payload }) {
       } else {
         return state
       }
-    case CLEAR_FORM:
+    case CLEAR_REQUEST:
       return {
         ...state,
         request: {

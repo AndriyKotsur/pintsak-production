@@ -22,15 +22,19 @@ const Chat = () => {
     setVisible(prev => !prev)
   }
 
+	const handleReset = () => {
+		dispatch(SendRequestAction.clear())
+	}
+
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		dispatch(SendRequestAction.sendRequest(state))
 		// Clean state after receiving response from the email server
 		setTimeout(() => {
-			dispatch(SendRequestAction.clear())
+			dispatch(SendRequestAction.clearRequest())
+			// Close chat window in case of receiving response from the email server
+			handlePopup()
 		}, 500)
-		// Close chat window in case of receiving response from the email server
-		handlePopup()
 	}
 
 	useEffect(() => {
@@ -76,7 +80,8 @@ const Chat = () => {
       </div>
 			<Popup
 				message={message[state.send_request_status]}
-				status={state.send_request_status} />
+				status={state.send_request_status} 
+				handleReset={handleReset} />
     </div>
   )
 }

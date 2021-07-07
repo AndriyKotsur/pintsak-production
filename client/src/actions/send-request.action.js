@@ -3,8 +3,8 @@ import {
   SEND_REQUEST_ERROR,
   SEND_REQUEST_LOADING,
   CHANGE_STATE,
-  CLEAR_FORM,
-  CLEAR_STATE
+  CLEAR_REQUEST,
+  CLEAR_STATE,
 } from '../constants/send-request'
 
 import {
@@ -43,10 +43,19 @@ export const handleChange = (event) => {
   }
 }
 
-export const clearForm = () => ({
-	type: CLEAR_FORM,
-})
+export const clearRequest = () => {
+  return dispatch => {
+    dispatch({
+      type: CLEAR_REQUEST,
+    })
+  }
+}
 
-export const clear = () => ({
-	type: CLEAR_STATE,
-})
+
+export const clear = () => {
+  return dispatch => {
+    dispatch({
+      type: CLEAR_STATE,
+    })
+  }
+}

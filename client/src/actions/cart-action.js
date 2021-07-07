@@ -9,6 +9,7 @@ import {
 	HANDLE_CART,
 	CHANGE_STATE,
 	CLEAR_STATE,
+	CLEAR_ORDER,
 } from '../constants/cart'
 
 import {
@@ -155,6 +156,20 @@ export const handleChange = (event) => {
   }
 }
 
-export const clear = () => ({
-	type: CLEAR_STATE,
-})
+export const clearOrder = () => {	
+	return dispatch => {
+    dispatch({
+      type: CLEAR_ORDER,
+    })
+  }
+}
+
+export const clear = () => {
+	localStorage.clear()
+
+  return dispatch => {
+    dispatch({
+      type: CLEAR_STATE,
+    })
+  }
+}
