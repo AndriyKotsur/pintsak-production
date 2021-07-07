@@ -101,6 +101,11 @@ router.get('/tiles', async (req, res) => {
 				},
 			},
 			{
+				$addFields: {
+					default_color: { $arrayElemAt: [{ $objectToArray: '$prices' }, 0] },
+				},
+			},
+			{
 				$match: findBy,
 			},
 			{
@@ -242,10 +247,7 @@ router.post('/order-request', async (req, res) => {
 			</br>
 			<tr>Comment: ${message}</tr>
 			</br>
-			<tr>Order: ${order.map(el => (
-		`<span>${el.title}, ${el.quantity}, ${el.variant}, ${el.price}</span>
-		<br/>`
-	))}</tr>
+			<tr>Order: ${order.map(el => `<span>${el.title}, ${el.quantity}, ${el.variant}, ${el.price}</span><br/>`)}</tr>
 			</tbody>
 			</table>`
 
