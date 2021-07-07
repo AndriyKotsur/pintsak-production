@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as CartActions from 'actions/cart.action'
 
-import { Cart, Form, Icon, Input, Popup, Title } from 'components'
+import { Cart, Form, Icon, Input, Preloader, Popup, Title } from 'components'
 
 import classNames from 'classnames'
 import s from './style.module.scss'
@@ -18,9 +18,11 @@ const OrderPage = () => {
 	}
 
 	const handleReset = () => {
-		dispatch(CartActions.clearOrder())
 		// Navigate to the shop page after successfull order
-		if(cart.order_cart_items_status === 'success') window.location = '/catalogue'
+		if(cart.order_cart_items_status === 'success') {
+			dispatch(CartActions.clear())
+			window.location = '/catalogue'
+		}
 	}
 
 	const handleSubmit = (e) => {
@@ -28,7 +30,7 @@ const OrderPage = () => {
 		dispatch(CartActions.orderCartItems(cart))
 		// Clean state after receiving response from the email server
 		setTimeout(() => {
-			dispatch(CartActions.clear())
+			dispatch(CartActions.clearOrder())
 		}, 5000)
 	}
 
@@ -97,11 +99,12 @@ const OrderPage = () => {
 				</div>
 			</div>
 			{cart.is_active && <Cart />}
-			{cart.order_cart_items_status.includes('success', 'error') &&
+			{cart.order_cart_items_status === 'loading' && <Preloader background />}
+			{(cart.order_cart_items_status === 'error' || cart.order_cart_items_status === 'success') &&
 				<Popup
-					message={message[cart.order_cart_items_status]}
-					status={cart.order_cart_items_status} 
-					handleReset={handleReset} /> }
+				message={message[cart.order_cart_items_status]}
+				status={cart.order_cart_items_status} 
+				handleReset={handleReset} />}
 		</div>
 	)
 }

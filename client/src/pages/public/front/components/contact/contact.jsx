@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as SendRequestAction from 'actions/send-request.action'
 
-import { Background, Form, Input, Popup, Title } from 'components'
+import { Background, Form, Input, Preloader, Popup, Title } from 'components'
 
 import s from './style.module.scss'
 
@@ -59,10 +59,12 @@ const Contact = () => {
 					</Form>
 				</div>
 			</div>
-			<Popup
+			{state.send_request_status === 'loading' && <Preloader background />}
+			{(state.send_request_status === 'error' || state.send_request_status === 'success') &&
+				<Popup
 				message={message[state.send_request_status]}
 				status={state.send_request_status} 
-				handleReset={handleReset} />
+				handleReset={handleReset} />}
 		</div>
 	)
 }
