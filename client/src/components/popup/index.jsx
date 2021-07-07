@@ -7,21 +7,23 @@ import s from './style.module.scss'
 
 const Popup = ({ message, status, onChange }) => {
 	const [currentStatus, setCurrentStatus] = useState('default')
-	
+
 	useEffect(() => {
-		if(status) {
+		if (status) {
 			setTimeout(() => {
 				setCurrentStatus('')
 				// Reset state from props function
 				onChange()
 			}, 5000)
 		}
+		// eslint-disable-next-line
 	}, [status])
 
 	return (
 		<div className={classNames(s.section, {
 			[s.error]: status === 'error' && currentStatus,
-			[s.success]: status === 'success' && currentStatus})}>
+			[s.success]: status === 'success' && currentStatus
+		})}>
 			<div className={s.wrapper}>
 				<span className={s.title}>
 					{message}

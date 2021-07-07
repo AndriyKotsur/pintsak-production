@@ -7,8 +7,8 @@ import {
 	EDIT_CART_ITEM,
 	DELETE_CART_ITEM,
 	HANDLE_CART,
-	CHANGE_STATE,
-	CLEAR_STATE,
+	CHANGE_CART_STATE,
+	CLEAR_CART_STATE,
 } from '../constants/cart'
 
 import {
@@ -76,9 +76,9 @@ export const editCartItem = (id, operator) => {
 
 		const editedCartItem = cartItems.find(element => element._id === id)
 
-		if(editedCartItem) {
+		if (editedCartItem) {
 			const total = operator === 'plus' ? Number(cartSubtotal) + editedCartItem.price : Number(cartSubtotal) - editedCartItem.price
-			editedCartItem.quantity = operator === 'plus' ? Number(editedCartItem.quantity) + 1  : Number(editedCartItem.quantity) - 1
+			editedCartItem.quantity = operator === 'plus' ? Number(editedCartItem.quantity) + 1 : Number(editedCartItem.quantity) - 1
 
 			const editedItems = [...cartItems.filter(item => item._id !== id), editedCartItem]
 
@@ -147,14 +147,14 @@ export const handleCart = handler => {
 }
 
 export const handleChange = (event) => {
-  return dispatch => {
-    dispatch({
-      type: CHANGE_STATE,
-      payload: event
-    })
-  }
+	return dispatch => {
+		dispatch({
+			type: CHANGE_CART_STATE,
+			payload: event
+		})
+	}
 }
 
 export const clear = () => ({
-	type: CLEAR_STATE,
+	type: CLEAR_CART_STATE,
 })

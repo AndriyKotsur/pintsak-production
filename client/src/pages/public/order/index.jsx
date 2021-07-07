@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import * as CartActions from 'actions/cart-action'
+import * as CartActions from 'actions/cart.action'
+import * as SendRequestAction from 'actions/send-request.action'
 
 import { Cart, Form, Icon, Input, Popup, Title } from 'components'
 
@@ -23,7 +24,7 @@ const OrderPage = () => {
 		// Clean state after receiving response from the email server
 		setTimeout(() => {
 			dispatch(CartActions.clear())
-		}, 500)
+		}, 5000)
 	}
 
 	return (
@@ -60,7 +61,7 @@ const OrderPage = () => {
 						<div className={s.edit} onClick={() => dispatch(CartActions.handleCart(true))}>
 							<span className={s.edit_title}>Редагувати замовлення</span>
 							<button type="button" className={s.edit_btn}>
-								<Icon name="arrow" className={classNames('icon', 'icon-arrow', s.edit_icon)}/>
+								<Icon name="arrow" className={classNames('icon', 'icon-arrow', s.edit_icon)} />
 							</button>
 						</div>
 						<div className={s.summary}>
@@ -73,7 +74,7 @@ const OrderPage = () => {
 						<div className={s.list}>
 							{
 								cart.items.length > 0 && cart.items.map((item, index) => (
-									<div key={'item_'+ index} className={s.list_item}>
+									<div key={'item_' + index} className={s.list_item}>
 										<picture className={s.list_image}>
 											<img src={item.image} alt={item.title} />
 										</picture>
@@ -87,11 +88,12 @@ const OrderPage = () => {
 					</div>
 				</div>
 			</div>
-			{ cart.is_active && <Cart /> }
-			{ cart.order_cart_items_status.includes('success', 'error') && 
+			{cart.is_active && <Cart />}
+			{cart.order_cart_items_status.includes('success', 'error') &&
 				<Popup
 					message={message[cart.order_cart_items_status]}
-					status={cart.order_cart_items_status} /> }
+					status={cart.order_cart_items_status}
+					onChange={() => dispatch(SendRequestAction.clear())} />}
 		</div>
 	)
 }

@@ -2,9 +2,9 @@ import {
   SEND_REQUEST_SUCCESS,
   SEND_REQUEST_ERROR,
   SEND_REQUEST_LOADING,
-  CHANGE_STATE,
-  CLEAR_FORM,
-  CLEAR_STATE
+  CHANGE_SEND_REQUEST_STATE,
+  CLEAR_SEND_REQUEST_FORM,
+  CLEAR_SEND_REQUEST_STATE
 } from '../constants/send-request'
 
 import {
@@ -18,7 +18,7 @@ export const sendRequest = ({ request }) => {
     })
 
     try {
-      if(request) await HTTP.sendRequest({
+      if (request) await HTTP.sendRequest({
         ...request
       })
 
@@ -37,16 +37,16 @@ export const sendRequest = ({ request }) => {
 export const handleChange = (event) => {
   return dispatch => {
     dispatch({
-      type: CHANGE_STATE,
+      type: CHANGE_SEND_REQUEST_STATE,
       payload: event
     })
   }
 }
 
 export const clearForm = () => ({
-	type: CLEAR_FORM,
+  type: CLEAR_SEND_REQUEST_FORM,
 })
 
 export const clear = () => ({
-	type: CLEAR_STATE,
+  type: CLEAR_SEND_REQUEST_STATE,
 })

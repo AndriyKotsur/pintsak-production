@@ -5,8 +5,8 @@ import {
 	GET_TYPE_SUCCESS,
 	GET_TYPE_ERROR,
 	GET_TYPE_LOADING,
-	CHANGE_STATE,
-	CLEAR_STATE,
+	CHANGE_EDIT_TYPE_STATE,
+	CLEAR_EDIT_TYPE_STATE,
 } from '../constants/edit-type'
 
 import {
@@ -53,9 +53,9 @@ export const editType = (id, { title }) => {
 }
 
 export const handleChange = event => {
-	if(event.target) {
+	if (event.target) {
 		return {
-			type: CHANGE_STATE,
+			type: CHANGE_EDIT_TYPE_STATE,
 			form: {
 				[event.target.name]: event.target.value,
 			},
@@ -64,5 +64,5 @@ export const handleChange = event => {
 }
 
 export const clear = () => ({
-	type: CLEAR_STATE,
+	type: CLEAR_EDIT_TYPE_STATE,
 })

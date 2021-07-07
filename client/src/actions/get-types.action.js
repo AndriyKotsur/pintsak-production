@@ -2,7 +2,7 @@ import {
 	GET_TYPES_SUCCESS,
 	GET_TYPES_ERROR,
 	GET_TYPES_LOADING,
-	CLEAR_STATE,
+	CLEAR_GET_TYPES_STATE,
 } from '../constants/get-types'
 import {
 	HTTP,
@@ -31,5 +31,5 @@ export const getTypes = () => {
 }
 
 export const clear = () => ({
-	type: CLEAR_STATE,
+	type: CLEAR_GET_TYPES_STATE,
 })
