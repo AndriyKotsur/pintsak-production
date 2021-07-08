@@ -18,6 +18,7 @@ module.exports = ({ types }) => {
 					font-size: 16px;
 					line-height: 1;
 					box-sizing: border-box;
+					zoom: 0.75;
 				}
 
 				.page {
@@ -34,6 +35,11 @@ module.exports = ({ types }) => {
 				.page table {
 					width: 100%;
 					text-aligh: left;
+				}
+
+				table {
+					page-break-inside: avoid;
+        	display: block;
 				}
 				
 				.page_header table {
@@ -70,8 +76,8 @@ module.exports = ({ types }) => {
 					color: #ff8e01;
 				}
 
-				table {
-					page-break-inside: avoid;
+				.page_category {
+					page-break-before: always;
         	display: block;
 				}
 				
@@ -215,7 +221,7 @@ module.exports = ({ types }) => {
 							<div class="page_item">
 								<table>
 								${tiles && tiles.length > 0 && tiles.map(({ url: tileUrl, title: tileTitle, images, prices }) => (
-			`<tr>
+			`<tr class='page-break'>
 										<td width="50%">
 											Назва продукту
 										</td>
