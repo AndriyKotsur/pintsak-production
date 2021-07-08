@@ -4,7 +4,7 @@ const pdf = require('html-pdf')
 
 const { Type, Tile, Customer } = require('../../../models')
 const { sendMail } = require('../../../services/sendgrid')
-const templateCatalogue = require('../../../services/pdf/index')
+const templateCatalogue = require('../../../services/pdf')
 
 // get tile
 router.get('/tile/:url', async (req, res) => {
@@ -187,26 +187,9 @@ router.get('/catalogue', async (_, res) => {
 // customer request
 router.post('/customer-request', async (req, res) => {
 	try {
-		const {
-			name,
-			phone,
-			message,
-		} = req.body
-
-		const content =
-			`<table>
-				<tbody>
-					<tr>Customer: ${name}</tr>
-					</br>
-					<tr>Phone: ${phone}</tr>
-					</br>
-					<tr>Comment: ${message}</tr>
-				</tbody>
-			</table>`
-
 		const response = await sendMail({
-			subject: 'New customer request!',
-			content,
+			subject: 'Нове повідомлення !!!',
+			data: req.body,
 		})
 
 		if (response[0].statusCode !== 202) {
@@ -231,29 +214,9 @@ router.post('/customer-request', async (req, res) => {
 // order request
 router.post('/order-request', async (req, res) => {
 	try {
-		const {
-			name,
-			message,
-			order,
-			phone,
-		} = req.body
-
-		const content =
-			`<table>
-			<tbody>
-			<tr>Customer: ${name}</tr>
-			</br>
-			<tr>Phone: ${phone}</tr>
-			</br>
-			<tr>Comment: ${message}</tr>
-			</br>
-			<tr>Order: ${order.map(el => `<span>${el.title}, ${el.quantity}, ${el.variant}, ${el.price}</span><br/>`)}</tr>
-			</tbody>
-			</table>`
-
 		const response = await sendMail({
-			subject: 'New order request!',
-			content,
+			subject: 'Нове замовлення !!!',
+			data: req.body,
 		})
 
 		if (response[0].statusCode !== 202) {

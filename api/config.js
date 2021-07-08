@@ -12,6 +12,7 @@ const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/pintsak_til
 const mailInfo = {
 	secretKey: process.env.SENDGRID_KEY,
 	defaultEmail: process.env.SENDGRID_EMAIL,
+	templateId: process.env.SENDGRID_TEMPLATE_ID,
 }
 
 const awsInfo = {

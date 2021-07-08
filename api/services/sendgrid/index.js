@@ -3,15 +3,16 @@ const { mailInfo } = require('../../config')
 
 sendgridMail.setApiKey(mailInfo.secretKey)
 
-const sendMail = ({ toEmail = 'kotsurandriy@gmail.com', fromEmail = mailInfo.defaultEmail, subject, content }) => {
-	const message = {
+const sendMail = ({ toEmail = mailInfo.defaultEmail, fromEmail = mailInfo.defaultEmail, subject, data }) => {
+	const content = {
 		to: toEmail,
 		from: fromEmail,
 		subject,
-		html: content,
+		dynamicTemplateData: data,
+		templateId: mailInfo.templateId,
 	}
 
-	return sendgridMail.send(message)
+	return sendgridMail.send(content)
 }
 
 module.exports = { sendMail }
