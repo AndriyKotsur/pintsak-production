@@ -69,6 +69,11 @@ module.exports = ({ types }) => {
 				.page_header tr td.header_date span {
 					color: #ff8e01;
 				}
+
+				table {
+					page-break-inside: avoid;
+        	display: block;
+				}
 				
 				.page_category table {
 					padding: 0px 25px;
@@ -190,7 +195,7 @@ module.exports = ({ types }) => {
 					</div>
 					<div class="page_items">
 						${types && types.length > 0 && types.map(({ url, title, tiles }) => (
-							`<div class="page_category">
+		`<div class="page_category">
 								<table>
 									<tr>
 										<td width="50%" class="category_title">
@@ -210,7 +215,7 @@ module.exports = ({ types }) => {
 							<div class="page_item">
 								<table>
 								${tiles && tiles.length > 0 && tiles.map(({ url: tileUrl, title: tileTitle, images, prices }) => (
-									`<tr>
+			`<tr>
 										<td width="50%">
 											Назва продукту
 										</td>
@@ -241,13 +246,13 @@ module.exports = ({ types }) => {
 											Базова ціна продукту
 										</td>
 										<td width="50%" class="item_price">
-											${prices.grey} грн.
+											${Object.values(prices)[0]} грн.
 										</td>
 									</tr>`
-									)).join('')}
+		)).join('')}
 								</table>
 							</div>`
-							)).join('')}
+	)).join('')}
 						</div>
 						<div class="page_footer">
 							<table>

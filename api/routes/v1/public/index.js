@@ -168,7 +168,7 @@ router.get('/catalogue', async (_, res) => {
 			'format': 'A4',
 			'orientation': 'portrait',
 			'border': '5mm',
-			'zoomFactor': '1',
+			'zoomFactor': '0.5',
 			'type': 'pdf',
 		}).toFile('public/catalogue.pdf', err => {
 			if (err)
