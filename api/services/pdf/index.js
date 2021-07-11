@@ -8,7 +8,7 @@ module.exports = ({ types }) => {
 	<html>
 		 <head>
 				<meta charset="utf-8">
-				<title>Пінцак продакшн: Каталог продукції</title>
+				<title>Каталог продукції</title>
 				<style>
 				html, body {
 					margin: 0;
@@ -28,18 +28,12 @@ module.exports = ({ types }) => {
 					font-size: 16px;
 					line-height: 24px;
 					color: #373f48;
-					page-break-after: auto;
 					overflow: hidden;
 				}
 				
 				.page table {
 					width: 100%;
 					text-aligh: left;
-				}
-
-				table {
-					page-break-inside: avoid;
-        	display: block;
 				}
 				
 				.page_header table {
@@ -77,7 +71,6 @@ module.exports = ({ types }) => {
 				}
 
 				.page_category {
-					page-break-before: always;
         	display: block;
 				}
 				
@@ -174,7 +167,6 @@ module.exports = ({ types }) => {
 					text-align: center;
 					color: #ff8e01;
 				}
-			
 				</style>
 		 </head>
 		 <body>
@@ -183,7 +175,7 @@ module.exports = ({ types }) => {
 						<table>
 							<tr>
 								<td width="50%" class="header_image">
-									<img src="${appUrl}/logotype.svg" alt="Logotype icon" />
+									<img src="${appUrl}/logotype.svg" alt="Company logotype" />
 								</td>
 							</tr>
 							<tr>
