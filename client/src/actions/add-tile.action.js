@@ -5,10 +5,10 @@ import {
 	GET_TILE_TYPES_SUCCESS,
 	GET_TILE_TYPES_LOADING,
 	GET_TILE_TYPES_ERROR,
-	CHANGE_STATE,
-	CLEAR_STATE,
-	CHANGE_COLOR,
-	CHANGE_STEP,
+	CHANGE_ADD_TILE_STATE,
+	CLEAR_ADD_TILE_STATE,
+	CHANGE_ADD_TILE_COLOR,
+	CHANGE_ADD_TILE_STEP,
 } from 'constants/add-tile'
 
 import {
@@ -93,7 +93,7 @@ export const addTile = ({
 
 export const handleChangeColor = color => {
 	return {
-		type: CHANGE_COLOR,
+		type: CHANGE_ADD_TILE_COLOR,
 		payload: color
 	}
 }
@@ -102,7 +102,7 @@ export const handleChange = (event, field) => {
 	if (event.target) {
 		if (field) {
 			return {
-				type: CHANGE_STATE,
+				type: CHANGE_ADD_TILE_STATE,
 				field: field,
 				form: {
 					[field]: {
@@ -112,7 +112,7 @@ export const handleChange = (event, field) => {
 			}
 		} else {
 			return {
-				type: CHANGE_STATE,
+				type: CHANGE_ADD_TILE_STATE,
 				form: {
 					[event.target.name]: event.target.hasOwnProperty('checked') ? event.target.checked : event.target.value,
 				},
@@ -120,7 +120,7 @@ export const handleChange = (event, field) => {
 		}
 	} else {
 		return {
-			type: CHANGE_STATE,
+			type: CHANGE_ADD_TILE_STATE,
 			form: {
 				images: event,
 			},
@@ -130,11 +130,11 @@ export const handleChange = (event, field) => {
 
 export const changeStep = currentStep => (
 	{
-		type: CHANGE_STEP,
+		type: CHANGE_ADD_TILE_STEP,
 		payload: currentStep
 	})
 
 
 export const clear = () => ({
-	type: CLEAR_STATE,
+	type: CLEAR_ADD_TILE_STATE,
 })

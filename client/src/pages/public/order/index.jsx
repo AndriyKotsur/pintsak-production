@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import * as CartActions from 'actions/cart-action'
+import * as CartActions from 'actions/cart.action'
 
-import { Cart, Form, Icon, Input, Popup, Title } from 'components'
+import { Cart, Form, Icon, Input, Preloader, Popup, Title } from 'components'
 
 import classNames from 'classnames'
 import s from './style.module.scss'
@@ -17,13 +17,21 @@ const OrderPage = () => {
 		'success': 'Дякуємо. Ваше запит був успішно відправлений, ми зв\'яжемося з вами найближчим часом!'
 	}
 
+	const handleReset = () => {
+		// Navigate to the shop page after successfull order
+		if(cart.order_cart_items_status === 'success') {
+			dispatch(CartActions.clear())
+			window.location = '/catalogue'
+		}
+	}
+
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		dispatch(CartActions.orderCartItems(cart))
 		// Clean state after receiving response from the email server
 		setTimeout(() => {
-			dispatch(CartActions.clear())
-		}, 500)
+			dispatch(CartActions.clearOrder())
+		}, 5000)
 	}
 
 	return (
@@ -40,18 +48,21 @@ const OrderPage = () => {
 								type='text'
 								name='name'
 								title='Ваше Ім’я*'
+								value={cart.order.name}
 								onChange={e => dispatch(CartActions.handleChange(e))}
 								required />
 							<Input
 								type='text'
 								name='phone'
 								title='Ваше номер телефону*'
+								value={cart.order.phone}
 								onChange={e => dispatch(CartActions.handleChange(e))}
 								required />
 							<Input
 								type='text'
 								name='message'
 								title='Ваш комментар'
+								value={cart.order.message}
 								onChange={e => dispatch(CartActions.handleChange(e))}
 								required />
 						</Form>
@@ -60,7 +71,7 @@ const OrderPage = () => {
 						<div className={s.edit} onClick={() => dispatch(CartActions.handleCart(true))}>
 							<span className={s.edit_title}>Редагувати замовлення</span>
 							<button type="button" className={s.edit_btn}>
-								<Icon name="arrow" className={classNames('icon', 'icon-arrow', s.edit_icon)}/>
+								<Icon name="arrow" className={classNames('icon', 'icon-arrow', s.edit_icon)} />
 							</button>
 						</div>
 						<div className={s.summary}>
@@ -73,7 +84,7 @@ const OrderPage = () => {
 						<div className={s.list}>
 							{
 								cart.items.length > 0 && cart.items.map((item, index) => (
-									<div key={'item_'+ index} className={s.list_item}>
+									<div key={'item_' + index} className={s.list_item}>
 										<picture className={s.list_image}>
 											<img src={item.image} alt={item.title} />
 										</picture>
@@ -87,11 +98,13 @@ const OrderPage = () => {
 					</div>
 				</div>
 			</div>
-			{ cart.is_active && <Cart /> }
-			{ cart.order_cart_items_status.includes('success', 'error') && 
+			{cart.is_active && <Cart />}
+			{cart.order_cart_items_status === 'loading' && <Preloader background />}
+			{(cart.order_cart_items_status === 'error' || cart.order_cart_items_status === 'success') &&
 				<Popup
-					message={message[cart.order_cart_items_status]}
-					status={cart.order_cart_items_status} /> }
+				message={message[cart.order_cart_items_status]}
+				status={cart.order_cart_items_status} 
+				handleReset={handleReset} />}
 		</div>
 	)
 }

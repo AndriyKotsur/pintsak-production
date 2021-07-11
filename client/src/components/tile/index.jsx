@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import * as CartActions from 'actions/cart-action'
+import * as CartActions from 'actions/cart.action'
 import * as DeleteTileActions from 'actions/delete-tile.action'
 
 import { Icon, Counter } from 'components'
@@ -20,7 +20,7 @@ const Tile = ({ tile, settings }) => {
 	const itemInCart = cart.items.find(item => item.url === tile.url)
 
 	const handleCart = () => {
-		if(!itemInCart) dispatch(CartActions.addCartItem(tile, quantity, Object.keys(tile.prices)[0]))
+		if (!itemInCart) dispatch(CartActions.addCartItem(tile, quantity, Object.keys(tile.prices)[0]))
 		dispatch(CartActions.handleCart(true))
 	}
 
@@ -39,25 +39,25 @@ const Tile = ({ tile, settings }) => {
 				<h3 className={s.title}>{tile.title}</h3>
 				<div className={s.wrapper}>
 					<picture className={s.image}>
-						<img src={tile.images[0]} alt={tile.title}/>
+						<img src={tile.images[0]} alt={tile.title} />
 					</picture>
 				</div>
 				<span className={s.size}>{tile.sizes.width} x {tile.sizes.height}</span>
 				<span className={s.price}>{Object.values(tile.prices)[0]}</span>
 			</Link>
-			{ settings && settings.edit ?
+			{settings && settings.edit ?
 				<div className={s.action}>
 					<button
 						type="button"
 						onClick={() => history.push(`/admin/tile/${tile.url}`)}
 						className={s.edit}>
-							Редагувати
+						Редагувати
 					</button>
 					<button
 						type="button"
-						onClick={() => {handleDelete(tile._id)}}
+						onClick={() => { handleDelete(tile._id) }}
 						className={s.delete}>
-							Видалити
+						Видалити
 					</button>
 				</div>
 				:
@@ -72,10 +72,10 @@ const Tile = ({ tile, settings }) => {
 					<button
 						type="button"
 						onClick={handleCart}
-						className={classNames(s.cart, {[s.added]: itemInCart})}>
-							<Icon name='cart' className='icon icon-cart'/>
+						className={classNames(s.cart, { [s.added]: itemInCart })}>
+						<Icon name='cart' className='icon icon-cart' />
 					</button>
-				</div> }
+				</div>}
 		</div>
 	)
 }

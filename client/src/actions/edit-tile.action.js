@@ -8,10 +8,10 @@ import {
 	GET_TILE_TYPES_SUCCESS,
 	GET_TILE_TYPES_LOADING,
 	GET_TILE_TYPES_ERROR,
-	DELETE_IMAGE,
-	CHANGE_STATE,
-	CHANGE_COLOR,
-	CLEAR_STATE,
+	DELETE_EDIT_TILE_IMAGE,
+	CHANGE_EDIT_TILE_STATE,
+	CHANGE_EDIT_TILE_COLOR,
+	CLEAR_EDIT_TILE_STATE,
 } from '../constants/edit-tile'
 import {
 	HTTP,
@@ -118,7 +118,7 @@ export const editTile = (url, {
 
 export const handleChangeColor = color => {
 	return {
-		type: CHANGE_COLOR,
+		type: CHANGE_EDIT_TILE_COLOR,
 		payload: color
 	}
 }
@@ -127,7 +127,7 @@ export const handleChange = (event, field) => {
 	if (event.target) {
 		if (field) {
 			return {
-				type: CHANGE_STATE,
+				type: CHANGE_EDIT_TILE_STATE,
 				field: field,
 				form: {
 					[field]: {
@@ -137,7 +137,7 @@ export const handleChange = (event, field) => {
 			}
 		} else {
 			return {
-				type: CHANGE_STATE,
+				type: CHANGE_EDIT_TILE_STATE,
 				form: {
 					[event.target.name]: event.target.hasOwnProperty('checked') ? event.target.checked : event.target.value,
 				},
@@ -145,7 +145,7 @@ export const handleChange = (event, field) => {
 		}
 	} else {
 		return {
-			type: CHANGE_STATE,
+			type: CHANGE_EDIT_TILE_STATE,
 			form: {
 				images: event,
 			},
@@ -157,9 +157,9 @@ export const handleDelete = (image, id) => {
 	return async dispatch => {
 		try {
 			const response = await HTTP.deleteImage(id, image)
-			if(response.success) {
+			if (response.success) {
 				dispatch({
-					type: DELETE_IMAGE,
+					type: DELETE_EDIT_TILE_IMAGE,
 					payload: image,
 				})
 			}
@@ -170,5 +170,5 @@ export const handleDelete = (image, id) => {
 }
 
 export const clear = () => ({
-	type: CLEAR_STATE,
+	type: CLEAR_EDIT_TILE_STATE,
 })

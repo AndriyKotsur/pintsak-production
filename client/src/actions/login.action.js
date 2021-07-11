@@ -3,15 +3,15 @@ import {
 	LOGIN_ERROR,
 	LOGIN_LOADING,
 	LOGOUT,
-	CHANGE_FORM,
+	CHANGE_LOGIN_FORM,
 } from '../constants/login'
 import { COOKIES, HTTP } from '../helpers'
 
-export const login = ({email, password}) => {
+export const login = ({ email, password }) => {
 	return async dispatch => {
 		dispatch({ type: LOGIN_LOADING })
 		try {
-			const response = await HTTP.login({email, password})
+			const response = await HTTP.login({ email, password })
 			COOKIES.setAuthToken(response.token)
 			return dispatch({ type: LOGIN_SUCCESS })
 		} catch (err) {
@@ -28,7 +28,7 @@ export const logout = () => {
 
 export const handleChange = event => {
 	return {
-		type: CHANGE_FORM,
-		form: {[event.target.name]:event.target.value},
+		type: CHANGE_LOGIN_FORM,
+		form: { [event.target.name]: event.target.value },
 	}
 }

@@ -5,7 +5,7 @@ import {
 	GET_POPULAR_TILES_SUCCESS,
 	GET_POPULAR_TILES_ERROR,
 	GET_POPULAR_TILES_LOADING,
-	CLEAR_STATE,
+	CLEAR_GET_TILES_STATE,
 } from '../constants/get-tiles'
 
 import { HTTP } from 'helpers'
@@ -29,7 +29,7 @@ export const getTiles = (page, typeBy, sortBy, orderBy) => {
 			})
 		} catch (err) {
 			console.error(err)
-			
+
 			return dispatch({
 				type: GET_TILES_ERROR,
 			})
@@ -60,5 +60,5 @@ export const getPopularTiles = () => {
 }
 
 export const clear = () => ({
-	type: CLEAR_STATE,
+	type: CLEAR_GET_TILES_STATE,
 })
