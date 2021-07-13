@@ -5,9 +5,9 @@ import {
 	GET_TILE_TYPES_SUCCESS,
 	GET_TILE_TYPES_LOADING,
 	GET_TILE_TYPES_ERROR,
-	CHANGE_STATE,
-	CHANGE_COLOR,
-	CLEAR_STATE,
+	CHANGE_ADD_TILE_STATE,
+	CHANGE_ADD_TILE_COLOR,
+	CLEAR_ADD_TILE_STATE,
 } from '../constants/add-tile'
 
 let initialState = {
@@ -64,7 +64,7 @@ export default function addTile(state = initialState, { type, payload, form, fie
 				...state,
 				add_tile_status: 'loading',
 			}
-		case CHANGE_COLOR:
+		case CHANGE_ADD_TILE_COLOR:
 			return {
 				...state,
 				prices: {
@@ -72,7 +72,7 @@ export default function addTile(state = initialState, { type, payload, form, fie
 					...payload
 				}
 			}
-		case CHANGE_STATE:
+		case CHANGE_ADD_TILE_STATE:
 			if (field) {
 				return {
 					...state,
@@ -87,7 +87,7 @@ export default function addTile(state = initialState, { type, payload, form, fie
 					...form,
 				}
 			}
-		case CLEAR_STATE:
+		case CLEAR_ADD_TILE_STATE:
 			return {
 				...initialState,
 			}

@@ -2,7 +2,7 @@ import {
 	GET_TILE_SUCCESS,
 	GET_TILE_ERROR,
 	GET_TILE_LOADING,
-	CLEAR_STATE,
+	CLEAR_GET_TILE_STATE,
 } from '../constants/get-tile'
 import {
 	HTTP,
@@ -29,5 +29,5 @@ export const getTile = url => {
 }
 
 export const clear = () => ({
-	type: CLEAR_STATE,
+	type: CLEAR_GET_TILE_STATE,
 })

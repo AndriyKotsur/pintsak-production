@@ -51,8 +51,6 @@
       .chat_menu {
         visibility: visible;
         opacity: 1;
-        transform: scale(1);
-        transition: opacity .25s ease-out, transform .25s ease-out;
       }
     }
   }
@@ -80,8 +78,6 @@
     right: 14px;
     width: 291px;
     padding: 25px 24px 42px;
-    transition: opacity .25s ease-out, transform .25s ease-out;
-    transform: scale(.8);
     border-radius: 4px 4px 20px 4px;
     box-shadow: 0 4px 30px rgba(55, 63, 72, 0.2);
     background: #ffffff;

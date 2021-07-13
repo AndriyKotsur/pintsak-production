@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as SendRequestAction from 'actions/send-request.action'
 
-import { Form, Icon, Input, Popup, Title } from 'components'
+import { Form, Icon, Input, Preloader, Popup, Title } from 'components'
 
 import s from './style.module.scss'
 import classNames from 'classnames'
@@ -22,15 +22,19 @@ const Chat = () => {
     setVisible(prev => !prev)
   }
 
+	const handleReset = () => {
+		dispatch(SendRequestAction.clear())
+	}
+
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		dispatch(SendRequestAction.sendRequest(state))
 		// Clean state after receiving response from the email server
 		setTimeout(() => {
-			dispatch(SendRequestAction.clear())
+			dispatch(SendRequestAction.clearRequest())
+			// Close chat window in case of receiving response from the email server
+			handlePopup()
 		}, 500)
-		// Close chat window in case of receiving response from the email server
-		handlePopup()
 	}
 
 	useEffect(() => {
@@ -74,9 +78,12 @@ const Chat = () => {
           <Icon name="request" className="icon icon-request" />
         </button>
       </div>
-			<Popup
+			{state.send_request_status === 'loading' && <Preloader background />}
+			{(state.send_request_status === 'error' || state.send_request_status === 'success') &&
+				<Popup
 				message={message[state.send_request_status]}
-				status={state.send_request_status} />
+				status={state.send_request_status} 
+				handleReset={handleReset} />}
     </div>
   )
 }

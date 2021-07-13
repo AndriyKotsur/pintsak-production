@@ -4,9 +4,10 @@ const pdf = require('html-pdf')
 
 const { Type, Tile, Customer } = require('../../../models')
 const { sendMail } = require('../../../services/sendgrid')
-const templateCatalogue = require('../../../services/pdf')
+const templateCatalogue = require('../../../services/pdf/index')
+const emailTemplate = require('../../../services/email/index')
 
-// get tile
+// Get single product
 router.get('/tile/:url', async (req, res) => {
 	try {
 		const {
@@ -38,24 +39,7 @@ router.get('/tile/:url', async (req, res) => {
 	}
 })
 
-// get types
-router.get('/types', async (_, res) => {
-	try {
-		const types = await Type.find()
-
-		res.status(200).json({
-			success: true,
-			data: types,
-		})
-	} catch (err) {
-		res.status(404).json({
-			success: false,
-			message: err.message,
-		})
-	}
-})
-
-// get tiles by sorting
+// Get product list with parameters
 router.get('/tiles', async (req, res) => {
 	try {
 		const {
@@ -140,7 +124,7 @@ router.get('/tiles', async (req, res) => {
 	}
 })
 
-// get populars tiles
+// Get list of popular products
 router.get('/popular', async (_, res) => {
 	try {
 		const tiles = await Tile.find({
@@ -159,22 +143,14 @@ router.get('/popular', async (_, res) => {
 	}
 })
 
-// download catalogue
-router.get('/catalogue', async (_, res) => {
+// Get categories list
+router.get('/types', async (_, res) => {
 	try {
-		const types = await Type.find().populate('tiles')
+		const types = await Type.find()
 
-		pdf.create(templateCatalogue({ types }), {
-			'format': 'A4',
-			'orientation': 'portrait',
-			'border': '5mm',
-			'zoomFactor': '1',
-			'type': 'pdf',
-		}).toFile('public/catalogue.pdf', err => {
-			if (err)
-				res.status(500).json({ success: false, message: err })
-
-			res.status(200).download('public/catalogue.pdf')
+		res.status(200).json({
+			success: true,
+			data: types,
 		})
 	} catch (err) {
 		res.status(404).json({
@@ -184,45 +160,27 @@ router.get('/catalogue', async (_, res) => {
 	}
 })
 
-// customer request
-router.post('/customer-request', async (req, res) => {
-	try {
-		const response = await sendMail({
-			subject: 'Нове повідомлення !!!',
-			data: req.body,
-		})
-
-		if (response[0].statusCode !== 202) {
-			return res.status(400).json({
-				success: false,
-				message: 'Email error',
-			})
-		}
-
-		res.status(201).json({
-			success: true,
-			message: 'Message has been successfully sended',
-		})
-	} catch (err) {
-		res.status(400).json({
-			success: false,
-			message: err.message,
-		})
-	}
-})
-
-// order request
+// Send order request
 router.post('/order-request', async (req, res) => {
 	try {
+		const {
+			name,
+			message,
+			order,
+			phone,
+		} = req.body
+
+		const data = emailTemplate(name, phone, message, order)
+
 		const response = await sendMail({
-			subject: 'Нове замовлення !!!',
-			data: req.body,
+			subject: 'Нове замовлення від користувача 🔥🔥🔥',
+			data,
 		})
 
 		if (response[0].statusCode !== 202) {
 			return res.status(400).json({
 				success: false,
-				message: 'Email error - ' + response.body.errors,
+				message: 'Error has occurred email - ' + response.body.errors,
 			})
 		}
 		await Customer.create(req.body)
@@ -234,6 +192,68 @@ router.post('/order-request', async (req, res) => {
 	} catch (err) {
 		console.log(err.response.body.errors)
 		res.status(400).json({
+			success: false,
+			message: err.message,
+		})
+	}
+})
+
+// Send customer request
+router.post('/customer-request', async (req, res) => {
+	try {
+		const {
+			name,
+			phone,
+			message,
+		} = req.body
+
+		const data = emailTemplate(name, phone, message)
+
+		const response = await sendMail({
+			subject: 'Новий запит від користувача ⚡️⚡️⚡️',
+			data,
+		})
+
+		if (response[0].statusCode !== 202) {
+			return res.status(400).json({
+				success: false,
+				message: 'Error has occurred email' + response.body.errors,
+			})
+		}
+
+		res.status(201).json({
+			success: true,
+			message: 'Message has been successfully sended',
+		})
+	} catch (err) {
+		res.status(400).json({
+			success: false,
+			message: err.message,
+		})
+	}
+})
+
+// Download catalogue of product list
+router.get('/catalogue', async (_, res) => {
+	try {
+		const types = await Type.find().populate('tiles')
+		const date = new Date()
+		const fileName = `Каталог продукції - ${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}.pdf`
+
+		pdf.create(templateCatalogue({ types }), {
+			'border': '5mm',
+			'format': 'A4',
+			'orientation': 'portrait',
+			'type': 'pdf',
+			'zoomFactor': '1',
+		}).toFile(`public/${fileName}`, err => {
+			if (err)
+				res.status(500).json({ success: false, message: err })
+
+			res.status(200).download(`public/${fileName}`)
+		})
+	} catch (err) {
+		res.status(404).json({
 			success: false,
 			message: err.message,
 		})

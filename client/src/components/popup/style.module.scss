@@ -3,14 +3,17 @@
 
 .section {
   position: fixed;
-  top: -100%;
   left: 0;
   right: 0;
   min-height: 100px;
   display: flex;
-  background: transparent;
-  @include transition;
   z-index: 25;
+
+  &.default {
+    top: -100%;
+    background: transparent;
+    @include transition;
+  }
 
   &.error {
     top: 0;
