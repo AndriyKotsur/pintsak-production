@@ -4,8 +4,8 @@ const pdf = require('html-pdf')
 
 const { Type, Tile, Customer } = require('../../../models')
 const { sendMail } = require('../../../services/sendgrid')
-const templateCatalogue = require('../../../services/pdf/index')
-const emailTemplate = require('../../../services/email/index')
+const catalogueTemplate = require('../../../templates/catalogue')
+const emailTemplate = require('../../../templates/email')
 
 // Get single product
 router.get('/tile/:url', async (req, res) => {
@@ -240,7 +240,7 @@ router.get('/catalogue', async (_, res) => {
 		const date = new Date()
 		const fileName = `Каталог продукції - ${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}.pdf`
 
-		pdf.create(templateCatalogue({ types }), {
+		pdf.create(catalogueTemplate({ types }), {
 			'border': '5mm',
 			'format': 'A4',
 			'orientation': 'portrait',
