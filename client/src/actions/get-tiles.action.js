@@ -23,6 +23,7 @@ export const getTiles = (page, typeBy, sortBy, orderBy) => {
 				sortBy,
 				orderBy
 			})
+
 			return dispatch({
 				type: GET_TILES_SUCCESS,
 				payload: response.data,
@@ -59,6 +60,10 @@ export const getPopularTiles = () => {
 	}
 }
 
-export const clear = () => ({
-	type: CLEAR_GET_TILES_STATE,
-})
+export const clear = () => {
+	return dispatch => {
+		dispatch({
+			type: CLEAR_GET_TILES_STATE,
+		})	
+	}
+}

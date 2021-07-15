@@ -29,19 +29,20 @@ export const addCartItem = (item, quantity, variant) => {
 			measurement: item.sizes.measurement,
 			price: item.prices[variant],
 		}
+
 		const cartItems = JSON.parse(localStorage.getItem('cart_items')) || []
 		const cartSubtotal = localStorage.getItem('cart_subtotal') || 0
 
-		const subtotal = newItem.quantity * Number(newItem.price)
+		const newSubtotal = Number(newItem.quantity) * Number(newItem.price)
 
 		localStorage.setItem('cart_items', JSON.stringify([...cartItems, newItem]))
-		localStorage.setItem('cart_subtotal', Number(cartSubtotal) + subtotal)
+		localStorage.setItem('cart_subtotal', Number(cartSubtotal) + Number(newSubtotal))
 
 		dispatch({
 			type: ADD_CART_ITEM,
 			payload: {
 				item: newItem,
-				subtotal: subtotal,
+				subtotal: newSubtotal,
 			},
 		})
 	}
@@ -52,19 +53,19 @@ export const deleteCartItem = id => {
 		const cartItems = JSON.parse(localStorage.getItem('cart_items'))
 		const cartSubtotal = localStorage.getItem('cart_subtotal') || 0
 
-		const items = cartItems.filter(element => element._id !== id)
+		const deletedItems = cartItems.filter(element => element._id !== id)
 		const deletedItem = cartItems.find(element => element._id === id)
 
-		const total = deletedItem.quantity * Number(deletedItem.price)
+		const newSubtotal = Number(deletedItem.quantity) * Number(deletedItem.price)
 
-		localStorage.setItem('cart_items', JSON.stringify(items))
-		localStorage.setItem('cart_subtotal', Number(cartSubtotal) - total)
+		localStorage.setItem('cart_items', JSON.stringify(deletedItems))
+		localStorage.setItem('cart_subtotal', Number(cartSubtotal) - Number(newSubtotal))
 
 		dispatch({
 			type: DELETE_CART_ITEM,
 			payload: {
-				items,
-				subtotal: total,
+				deletedItems,
+				subtotal: newSubtotal,
 			},
 		})
 	}
@@ -78,18 +79,18 @@ export const editCartItem = (id, operator) => {
 		const editedCartItem = cartItems.find(element => element._id === id)
 
 		if (editedCartItem) {
-			const total = operator === 'plus' ? Number(cartSubtotal) + editedCartItem.price : Number(cartSubtotal) - editedCartItem.price
+			const newSubtotal = operator === 'plus' ? Number(cartSubtotal) + Number(editedCartItem.price) : Number(cartSubtotal) - Number(editedCartItem.price)
 			editedCartItem.quantity = operator === 'plus' ? Number(editedCartItem.quantity) + 1 : Number(editedCartItem.quantity) - 1
 
 			const editedItems = [...cartItems.filter(item => item._id !== id), editedCartItem]
 
 			localStorage.setItem('cart_items', JSON.stringify(editedItems))
-			localStorage.setItem('cart_subtotal', Number(total))
+			localStorage.setItem('cart_subtotal', Number(newSubtotal))
 
 			dispatch({
 				type: EDIT_CART_ITEM,
 				payload: {
-					subtotal: total,
+					subtotal: newSubtotal,
 					items: editedItems,
 				},
 			})
@@ -99,15 +100,15 @@ export const editCartItem = (id, operator) => {
 
 export const getCartItems = () => {
 	return dispatch => {
-		const items = JSON.parse(localStorage.getItem('cart_items')) || []
-		const sub = localStorage.getItem('cart_subtotal')
-		const subtotal = isNaN(sub) ? 0 : sub
+		const cartItems = JSON.parse(localStorage.getItem('cart_items')) || []
+		const cartSubtotal = localStorage.getItem('cart_subtotal') || 0
+		const newSubtotal = isNaN(cartSubtotal) ? 0 : cartSubtotal
 
 		dispatch({
 			type: GET_CART_ITEMS,
 			payload: {
-				items,
-				subtotal,
+				cartItems,
+				newSubtotal,
 			},
 		})
 	}

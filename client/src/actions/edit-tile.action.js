@@ -6,56 +6,17 @@ import {
 	GET_TILE_ERROR,
 	GET_TILE_LOADING,
 	GET_TILE_TYPES_SUCCESS,
-	GET_TILE_TYPES_LOADING,
 	GET_TILE_TYPES_ERROR,
+	GET_TILE_TYPES_LOADING,
+	CHANGE_EDIT_TILE_COLOR,
 	DELETE_EDIT_TILE_IMAGE,
 	CHANGE_EDIT_TILE_STATE,
-	CHANGE_EDIT_TILE_COLOR,
 	CLEAR_EDIT_TILE_STATE,
 } from '../constants/edit-tile'
+
 import {
 	HTTP,
 } from 'helpers'
-
-export const getTile = id => {
-	return async dispatch => {
-		dispatch({
-			type: GET_TILE_LOADING,
-		})
-		try {
-			const response = await HTTP.getTile(id)
-			return dispatch({
-				type: GET_TILE_SUCCESS,
-				payload: response.data,
-			})
-		} catch (err) {
-			console.error(err)
-			return dispatch({
-				type: GET_TILE_ERROR,
-			})
-		}
-	}
-}
-
-export const getTileTypes = () => {
-	return async dispatch => {
-		dispatch({
-			type: GET_TILE_TYPES_LOADING,
-		})
-		try {
-			const response = await HTTP.getTypes()
-			return dispatch({
-				type: GET_TILE_TYPES_SUCCESS,
-				payload: response.data,
-			})
-		} catch (err) {
-			console.error(err)
-			return dispatch({
-				type: GET_TILE_TYPES_ERROR,
-			})
-		}
-	}
-}
 
 export const editTile = (url, {
 	types,
@@ -73,7 +34,6 @@ export const editTile = (url, {
 		})
 
 		try {
-
 			const data = {
 				title,
 				type,
@@ -109,6 +69,7 @@ export const editTile = (url, {
 			}
 		} catch (err) {
 			console.error(err)
+
 			return dispatch({
 				type: EDIT_TILE_ERROR,
 			})
@@ -116,10 +77,75 @@ export const editTile = (url, {
 	}
 }
 
+export const getTile = id => {
+	return async dispatch => {
+		dispatch({
+			type: GET_TILE_LOADING,
+		})
+
+		try {
+			const response = await HTTP.getTile(id)
+
+			return dispatch({
+				type: GET_TILE_SUCCESS,
+				payload: response.data,
+			})
+		} catch (err) {
+			console.error(err)
+
+			return dispatch({
+				type: GET_TILE_ERROR,
+			})
+		}
+	}
+}
+
+export const getTileTypes = () => {
+	return async dispatch => {
+		dispatch({
+			type: GET_TILE_TYPES_LOADING,
+		})
+
+		try {
+			const response = await HTTP.getTypes()
+
+			return dispatch({
+				type: GET_TILE_TYPES_SUCCESS,
+				payload: response.data,
+			})
+		} catch (err) {
+			console.error(err)
+
+			return dispatch({
+				type: GET_TILE_TYPES_ERROR,
+			})
+		}
+	}
+}
+
+export const handleDelete = (image, id) => {
+	return async dispatch => {
+		try {
+			const response = await HTTP.deleteImage(id, image)
+
+			if (response.success) {
+				dispatch({
+					type: DELETE_EDIT_TILE_IMAGE,
+					payload: image,
+				})
+			}
+		} catch (err) {
+			console.error(err)
+		}
+	}
+}
+
 export const handleChangeColor = color => {
-	return {
-		type: CHANGE_EDIT_TILE_COLOR,
-		payload: color
+	return dispatch => {
+		dispatch({
+			type: CHANGE_EDIT_TILE_COLOR,
+			payload: color
+		})
 	}
 }
 
@@ -153,22 +179,10 @@ export const handleChange = (event, field) => {
 	}
 }
 
-export const handleDelete = (image, id) => {
-	return async dispatch => {
-		try {
-			const response = await HTTP.deleteImage(id, image)
-			if (response.success) {
-				dispatch({
-					type: DELETE_EDIT_TILE_IMAGE,
-					payload: image,
-				})
-			}
-		} catch (err) {
-			console.error(err)
-		}
+export const clear = () => {
+	return dispatch => {
+		dispatch({
+			type: CLEAR_EDIT_TILE_STATE,
+		})	
 	}
 }
-
-export const clear = () => ({
-	type: CLEAR_EDIT_TILE_STATE,
-})

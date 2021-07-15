@@ -13,40 +13,46 @@ import {
 	HTTP,
 } from 'helpers'
 
+export const editType = (id, { title }) => {
+	return async dispatch => {
+		dispatch({
+			type: EDIT_TYPE_LOADING,
+		})
+
+		try {
+			await HTTP.updateType({ id, title })
+
+			return dispatch({
+				type: EDIT_TYPE_SUCCESS,
+			})
+		} catch (err) {
+			console.error(err)
+
+			return dispatch({
+				type: EDIT_TYPE_ERROR,
+			})
+		}
+	}
+}
+
 export const getType = id => {
 	return async dispatch => {
 		dispatch({
 			type: GET_TYPE_LOADING,
 		})
+
 		try {
 			const response = await HTTP.getType(id)
+
 			return dispatch({
 				type: GET_TYPE_SUCCESS,
 				payload: response.data,
 			})
 		} catch (err) {
 			console.error(err)
+
 			return dispatch({
 				type: GET_TYPE_ERROR,
-			})
-		}
-	}
-}
-
-export const editType = (id, { title }) => {
-	return async dispatch => {
-		dispatch({
-			type: EDIT_TYPE_LOADING,
-		})
-		try {
-			await HTTP.updateType({ id, title })
-			return dispatch({
-				type: EDIT_TYPE_SUCCESS,
-			})
-		} catch (err) {
-			console.error(err)
-			return dispatch({
-				type: EDIT_TYPE_ERROR,
 			})
 		}
 	}
@@ -63,6 +69,10 @@ export const handleChange = event => {
 	}
 }
 
-export const clear = () => ({
-	type: CLEAR_EDIT_TYPE_STATE,
-})
+export const clear = () => {
+	return dispatch => {
+		dispatch({
+			type: CLEAR_EDIT_TYPE_STATE,
+		})	
+	}
+}
