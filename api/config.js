@@ -7,8 +7,6 @@ const jwtInfo = {
 	secret: process.env.TOKEN_KEY,
 }
 
-const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/pintsak_tiles'
-
 const mailInfo = {
 	secretKey: process.env.SENDGRID_KEY,
 	defaultEmail: process.env.SENDGRID_EMAIL,
@@ -21,6 +19,8 @@ const awsInfo = {
 	accessKey: process.env.AWS_ACCESS_KEY,
 	secretKey: process.env.AWS_SECRET_KEY,
 }
+
+const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/pintsak_tiles'
 
 const appUrl = process.env.NODE_ENV === 'production' ? process.env.APP_URL : 'http://localhost:3000'
 

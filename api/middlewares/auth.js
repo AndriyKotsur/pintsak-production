@@ -10,7 +10,7 @@ module.exports = router.use(async (req, _, next) => {
 		const payload = parseBearer(token, req.headers)
 
 		const admin = await Admin.findById(payload.id)
-		if (!admin) throw new Error('Admin does not exist')
+		if (!admin) throw new Error('Admin has not been found!')
 
 		next()
 	} catch (err) {

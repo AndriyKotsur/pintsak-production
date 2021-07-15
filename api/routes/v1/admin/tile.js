@@ -1,11 +1,11 @@
 const express = require('express')
 const router = express.Router()
 
-const { uploadImages, deleteImages } = require('../../../middlewares/upload')
 const auth = require('../../../middlewares/auth')
+const { uploadImages, deleteImages } = require('../../../middlewares/upload')
 const { Tile, Type } = require('../../../models')
 
-// add tile
+// Add single product
 router.post('/', auth, async (req, res) => {
 	try {
 		const tile = await Tile.create({ ...req.body, url: Math.random().toString(36).slice(-8) })
@@ -20,13 +20,13 @@ router.post('/', auth, async (req, res) => {
 	}
 })
 
-// update tile
+// Update single tile
 router.put('/:url', auth, async (req, res) => {
 	try {
 		const { url } = req.params
 
 		const tile = await Tile.findOne({ url }).populate('type')
-		if (!tile) return res.status(404).json({ success: false, message: 'Tile not found' })
+		if (!tile) return res.status(404).json({ success: false, message: 'Tile has not been found' })
 
 		if (tile.type !== req.body.type) {
 			await Type.findByIdAndUpdate(tile.type, {
@@ -39,20 +39,40 @@ router.put('/:url', auth, async (req, res) => {
 
 		await Tile.updateOne({ url: tile.url }, req.body)
 
-		res.status(200).json({ success: true, message: 'Successfully updated', data: { _id: tile._id, url: tile.url } })
+		res.status(200).json({ success: true, message: 'Tile has been successfully updated', data: { _id: tile._id, url: tile.url } })
 	} catch (err) {
 		res.status(400).json({ success: false, message: err.message })
 	}
 })
 
-// upload images
+// Delete single product
+router.delete('/:id', auth, async (req, res) => {
+	try {
+		const { id } = req.params
+
+		const tile = await Tile.findById(id).populate('type')
+		if (!tile) return res.status(404).json({ success: false, message: 'Tile has not been found' })
+
+		for (const image of tile.images)
+			deleteImages(image)
+
+		tile.delete()
+		await Type.findByIdAndUpdate(tile.type._id, { $pull: { tiles: id } })
+
+		res.status(200).json({ success: true, message: 'Tile has been successfully deleted' })
+	} catch (err) {
+		res.status(400).json({ success: false, message: err.message })
+	}
+})
+
+// Upload images fon single product
 router.put('/images/:id', auth, uploadImages, async (req, res) => {
 	try {
 		const { id } = req.params
 		const arr = []
 
 		const tile = await Tile.findById(id).populate('type')
-		if (!tile) return res.status(404).json({ success: false, message: 'Tile not found' })
+		if (!tile) return res.status(404).json({ success: false, message: 'Tile has not been found' })
 
 		req.files.map(file => {
 			arr.push(file.location)
@@ -69,7 +89,7 @@ router.put('/images/:id', auth, uploadImages, async (req, res) => {
 	}
 })
 
-// delete image
+// Delete images for single product
 router.delete('/images/:id', auth, async (req, res) => {
 	try {
 		const { id } = req.params
@@ -82,26 +102,6 @@ router.delete('/images/:id', auth, async (req, res) => {
 			},
 		})
 		res.status(200).json({ success: true, message: 'Image has been successfully deleted' })
-	} catch (err) {
-		res.status(400).json({ success: false, message: err.message })
-	}
-})
-
-// delete tile
-router.delete('/:id', auth, async (req, res) => {
-	try {
-		const { id } = req.params
-
-		const tile = await Tile.findById(id).populate('type')
-		if (!tile) return res.status(404).json({ success: false, message: 'Tile not found' })
-
-		for (const image of tile.images)
-			deleteImages(image)
-
-		tile.delete()
-		await Type.findByIdAndUpdate(tile.type._id, { $pull: { tiles: id } })
-
-		res.status(200).json({ success: true, message: 'Successfully removed' })
 	} catch (err) {
 		res.status(400).json({ success: false, message: err.message })
 	}
