@@ -34,6 +34,7 @@ module.exports = ({ types }) => {
 				.page table {
 					width: 100%;
 					text-aligh: left;
+					page-break-inside: avoid;
 				}
 				
 				.page_header table {
@@ -78,6 +79,7 @@ module.exports = ({ types }) => {
 					padding: 0px 25px;
 					background: #f2f0f0;
 					border-bottom: 2px solid #ff8e01;
+					page-break: always;
 				}
 
 				.page_category tr td {
@@ -175,7 +177,7 @@ module.exports = ({ types }) => {
 						<table>
 							<tr>
 								<td width="50%" class="header_image">
-									<img src="${appUrl}/logotype.svg" alt="Company logotype" />
+									<img src="${appUrl}/logotype.png" alt="Company logotype" />
 								</td>
 							</tr>
 							<tr>
