@@ -34,7 +34,7 @@ module.exports = (name, phone, message, order) => {
       <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
           <td align="center" bgcolor="#373f48" style="padding: 40px 0 30px 0;">
-            <img src="${appUrl}/favicon-32x32.png" width="150" height="75" style="display: block;" alt="Company logotype" />
+            <img src="${appUrl}/logotype.png" width="150" height="75" style="display: block;" alt="Company logotype" />
           </td>
         </tr>
       </table>
@@ -70,7 +70,7 @@ module.exports = (name, phone, message, order) => {
         `<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-bottom: 1px solid #f2f0f0;">
           <tr>
             <td width="50%" style="padding: 5px 10px;">Назва</td>
-            <td width="50%" style="padding: 5px 10px;">${item.title}</td>
+            <td width="50%" style="padding: 5px 10px; font-weight: 700;">${item.title}</td>
           </tr>
           <tr>
             <td width="50%" style="padding: 5px 10px;">Кількість</td>
@@ -82,7 +82,7 @@ module.exports = (name, phone, message, order) => {
           </tr>
           <tr>
             <td width="50%" style="padding: 5px 10px;">Ціна</td>
-            <td width="50%" style="padding: 5px 10px;">${item.price}</td>
+            <td width="50%" style="padding: 5px 10px; font-weight: 700; color: #ff8e01;">${item.price}</td>
           </tr>
         </table>`
       )).join('') : ''}
