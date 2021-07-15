@@ -1,4 +1,4 @@
-const { appUrl } = require('../../config')
+const { appUrl } = require('../config')
 
 module.exports = ({ types }) => {
 	const today = new Date()

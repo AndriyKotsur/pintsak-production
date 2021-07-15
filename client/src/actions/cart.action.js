@@ -157,6 +157,9 @@ export const handleChange = (event) => {
 }
 
 export const clearOrder = () => {
+	localStorage.setItem('cart_items', JSON.stringify([]))
+	localStorage.setItem('cart_subtotal', 0)
+
 	return dispatch => {
 		dispatch({
 			type: CLEAR_CART_ORDER,
@@ -165,6 +168,9 @@ export const clearOrder = () => {
 }
 
 export const clear = () => {
+	localStorage.setItem('cart_items', JSON.stringify([]))
+	localStorage.setItem('cart_subtotal', 0)
+
 	return dispatch => {
 		dispatch({
 			type: CLEAR_CART_STATE,

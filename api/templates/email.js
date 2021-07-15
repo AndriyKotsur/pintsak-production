@@ -1,4 +1,4 @@
-const { appUrl } = require('../../config')
+const { appUrl } = require('../config')
 
 module.exports = (name, phone, message, order) => {
   return (
@@ -34,7 +34,7 @@ module.exports = (name, phone, message, order) => {
       <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
           <td align="center" bgcolor="#373f48" style="padding: 40px 0 30px 0;">
-            <img src="${appUrl}/logotype.svg" width="150" height="75" style="display: block;" alt="Company logotype" />
+            <img src="${appUrl}/favicon-32x32.png" width="150" height="75" style="display: block;" alt="Company logotype" />
           </td>
         </tr>
       </table>
@@ -58,15 +58,15 @@ module.exports = (name, phone, message, order) => {
           <td width="50%" style="padding: 5px 10px;">${message}</td>
         </tr>
       </table>
-      ${order && order.length &&
+      ${order && order.length ?
       `<table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
           <td bgcolor="#f2f0f0" style="padding: 20px 10px; border-bottom: 2px solid #ff8e01; font-size: 18px; font-weight: 700;">
             Інформація про замовлення
           </td>
         </tr>
-      </table>`}
-      ${order && order.length && order.map(item => (
+      </table>` : ''}
+      ${order && order.length ? order.map(item => (
         `<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-bottom: 1px solid #f2f0f0;">
           <tr>
             <td width="50%" style="padding: 5px 10px;">Назва</td>
@@ -85,7 +85,7 @@ module.exports = (name, phone, message, order) => {
             <td width="50%" style="padding: 5px 10px;">${item.price}</td>
           </tr>
         </table>`
-      )).join('')}
+      )).join('') : ''}
       <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
           <td align="center" bgcolor="#373f48" style="padding: 40px 0 30px 0;">
