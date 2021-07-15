@@ -11,7 +11,7 @@ const typeRouter = require('./type')
 router.use('/tile', tileRouter)
 router.use('/type', typeRouter)
 
-// register admin
+// Signup admin
 router.post('/register', async (req, res) => {
 	try {
 		const { email, password } = req.body
@@ -32,16 +32,16 @@ router.post('/register', async (req, res) => {
 	}
 })
 
-// login admin
+// Login admin
 router.post('/', async (req, res) => {
 	try {
 		const { email, password } = req.body
 
 		const admin = await Admin.findOne({ email })
-		if (!admin) return res.status(400).json({ success: false, message: 'Admin does not exist' })
+		if (!admin) return res.status(400).json({ success: false, message: 'Admin has not been found' })
 
 		const isMatch = await bcrypt.compare(password, admin.password)
-		if (!isMatch) return res.status(401).json({ success: false, message: 'Invalid credentials' })
+		if (!isMatch) return res.status(401).json({ success: false, message: 'Provided invalid credentials' })
 
 		const token = prepareToken({ id: admin._id }, req.headers)
 
