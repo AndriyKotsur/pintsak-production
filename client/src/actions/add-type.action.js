@@ -5,22 +5,24 @@ import {
 	CHANGE_ADD_TYPE_STATE,
 	CLEAR_ADD_TYPE_STATE,
 } from 'constants/add-type'
+
 import { HTTP } from 'helpers'
 
-export const addType = ({
-	title,
-}) => {
+export const addType = ({ title }) => {
 	return async dispatch => {
 		dispatch({
 			type: ADD_TYPE_LOADING,
 		})
+
 		try {
 			await HTTP.addType({ title })
+
 			return dispatch({
 				type: ADD_TYPE_SUCCESS,
 			})
 		} catch (err) {
 			console.error(err)
+
 			return dispatch({
 				type: ADD_TYPE_ERROR,
 			})
@@ -39,6 +41,10 @@ export const handleChange = event => {
 	}
 }
 
-export const clear = () => ({
-	type: CLEAR_ADD_TYPE_STATE,
-})
+export const clear = () => {
+	return dispatch => {
+		dispatch({
+			type: CLEAR_ADD_TYPE_STATE,
+		})
+	}
+}

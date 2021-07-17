@@ -1,5 +1,4 @@
 import {
-	HANDLE_CART,
 	ORDER_CART_ITEMS_SUCCESS,
 	ORDER_CART_ITEMS_ERROR,
 	ORDER_CART_ITEMS_LOADING,
@@ -7,6 +6,7 @@ import {
 	ADD_CART_ITEM,
 	EDIT_CART_ITEM,
 	DELETE_CART_ITEM,
+	HANDLE_CART,
 	CHANGE_CART_STATE,
 	CLEAR_CART_ORDER,
 	CLEAR_CART_STATE,
@@ -26,11 +26,6 @@ let initialState = {
 
 export default function cart(state = initialState, { type, payload }) {
 	switch (type) {
-		case HANDLE_CART:
-			return {
-				...state,
-				is_active: payload,
-			}
 		case ORDER_CART_ITEMS_SUCCESS:
 			return {
 				...state,
@@ -45,12 +40,6 @@ export default function cart(state = initialState, { type, payload }) {
 			return {
 				...state,
 				order_cart_items_status: 'loading',
-			}
-		case GET_CART_ITEMS:
-			return {
-				...state,
-				subtotal: payload.subtotal,
-				items: payload.items,
 			}
 		case ADD_CART_ITEM:
 			return {
@@ -69,6 +58,17 @@ export default function cart(state = initialState, { type, payload }) {
 				...state,
 				subtotal: payload.subtotal,
 				items: payload.items,
+			}
+		case GET_CART_ITEMS:
+			return {
+				...state,
+				subtotal: payload.newSubtotal,
+				items: payload.cartItems,
+			}
+		case HANDLE_CART:
+			return {
+				...state,
+				is_active: payload,
 			}
 		case CHANGE_CART_STATE:
 			if (payload) {

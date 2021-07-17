@@ -27,6 +27,7 @@ export const sendRequest = ({ request }) => {
       })
     } catch (err) {
       console.error(err)
+      
       return dispatch({
         type: SEND_REQUEST_ERROR
       })

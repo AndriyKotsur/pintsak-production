@@ -5,35 +5,14 @@ import {
 	GET_TILE_TYPES_SUCCESS,
 	GET_TILE_TYPES_LOADING,
 	GET_TILE_TYPES_ERROR,
+	CHANGE_ADD_TILE_COLOR,
 	CHANGE_ADD_TILE_STATE,
 	CLEAR_ADD_TILE_STATE,
-	CHANGE_ADD_TILE_COLOR,
-	CHANGE_ADD_TILE_STEP,
 } from 'constants/add-tile'
 
 import {
 	HTTP,
 } from 'helpers'
-
-export const getTileTypes = () => {
-	return async dispatch => {
-		dispatch({
-			type: GET_TILE_TYPES_LOADING,
-		})
-		try {
-			const response = await HTTP.getTypes()
-			return dispatch({
-				type: GET_TILE_TYPES_SUCCESS,
-				payload: response.data,
-			})
-		} catch (err) {
-			console.error(err)
-			return dispatch({
-				type: GET_TILE_TYPES_ERROR,
-			})
-		}
-	}
-}
 
 export const addTile = ({
 	types,
@@ -61,6 +40,7 @@ export const addTile = ({
 			}
 
 			const tile = await HTTP.addTile(data)
+			
 			if (tile.success) {
 				const formData = new FormData()
 
@@ -84,6 +64,7 @@ export const addTile = ({
 			}
 		} catch (err) {
 			console.error(err)
+
 			return dispatch({
 				type: ADD_TILE_ERROR,
 			})
@@ -91,10 +72,34 @@ export const addTile = ({
 	}
 }
 
+export const getTileTypes = () => {
+	return async dispatch => {
+		dispatch({
+			type: GET_TILE_TYPES_LOADING,
+		})
+
+		try {
+			const response = await HTTP.getTypes()
+			return dispatch({
+				type: GET_TILE_TYPES_SUCCESS,
+				payload: response.data,
+			})
+		} catch (err) {
+			console.error(err)
+
+			return dispatch({
+				type: GET_TILE_TYPES_ERROR,
+			})
+		}
+	}
+}
+
 export const handleChangeColor = color => {
-	return {
-		type: CHANGE_ADD_TILE_COLOR,
-		payload: color
+	return dispatch => {
+		return dispatch({
+			type: CHANGE_ADD_TILE_COLOR,
+			payload: color
+		})
 	}
 }
 
@@ -128,13 +133,10 @@ export const handleChange = (event, field) => {
 	}
 }
 
-export const changeStep = currentStep => (
-	{
-		type: CHANGE_ADD_TILE_STEP,
-		payload: currentStep
-	})
-
-
-export const clear = () => ({
-	type: CLEAR_ADD_TILE_STATE,
-})
+export const clear = () => {
+	return dispatch => {
+		dispatch({
+			type: CLEAR_ADD_TILE_STATE,
+		})
+	}
+}

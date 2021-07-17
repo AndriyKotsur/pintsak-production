@@ -10,81 +10,81 @@ import './App.scss'
 
 const AuthRoute = ({ children, ...otherProps }) => {
     const authToken = COOKIES.getAuthToken()
-    if (!authToken) return <Redirect to="/admin" />
+    if (!authToken) return <Redirect to='/admin' />
 
     return <Route {...otherProps}>{children}</Route>
 }
 
 const App = () => {
-    return (
-        <div className="App">
-            <Provider store={store}>
-                <Router>
-                    <Switch>
+	return (
+		<div className='App'>
+			<Provider store={store}>
+				<Router>
+					<Switch>
 
-                        <Route exact path="/admin">
-                            <Login />
-                        </Route>
+						<Route exact path='/admin'>
+							<Login />
+						</Route>
 
-                        <AuthRoute exact path="/admin/dashboard">
-                            <Dashboard />
-                        </AuthRoute>
+						<AuthRoute exact path='/admin/dashboard'>
+							<Dashboard />
+						</AuthRoute>
 
-                        <AuthRoute exact path="/admin/type/:id">
-                            <EditType />
-                        </AuthRoute>
+						<AuthRoute exact path='/admin/type/:id'>
+							<EditType />
+						</AuthRoute>
 
-                        <AuthRoute exact path="/admin/tile/:url">
-                            <EditTile />
-                        </AuthRoute>
+						<AuthRoute exact path='/admin/tile/:url'>
+							<EditTile />
+						</AuthRoute>
 
-                        <AuthRoute exact path="/admin/type">
-                            <AddType />
-                        </AuthRoute>
+						<AuthRoute exact path='/admin/type'>
+							<AddType />
+						</AuthRoute>
 
-                        <AuthRoute exact path="/admin/tile">
-                            <AddTile />
-                        </AuthRoute>
+						<AuthRoute exact path='/admin/tile'>
+							<AddTile />
+						</AuthRoute>
 
-                        <Layout>
-                            <Switch>
+						<Layout>
+							<Switch>
 
-                                <Route exact path='/'>
-                                    <Front />
-                                </Route>
+								<Route exact path='/'>
+									<Front />
+								</Route>
 
-                                <Route exact path={['/catalogue', '/catalogue/:typeBy']}>
-                                    <Catalogue />
-                                </Route>
+								<Route exact path={['/catalogue', '/catalogue/:typeBy']}>
+									<Catalogue />
+								</Route>
 
-                                <Route exact path='/catalogue/:typeBy/:url'>
-                                    <Product />
-                                </Route>
+								<Route exact path='/catalogue/:typeBy/:url'>
+									<Product />
+								</Route>
 
-                                <Route exact path='/order'>
-                                    <Order />
-                                </Route>
+								<Route exact path='/order'>
+									<Order />
+								</Route>
 
-                                <Route exact path='/about'>
-                                    <About />
-                                </Route>
+								<Route exact path='/about'>
+									<About />
+								</Route>
 
-                                <Route exact path='/location'>
-                                    <Location />
-                                </Route>
+								<Route exact path='/location'>
+									<Location />
+								</Route>
 
-                                <Route path="/">
-                                    <Error />
-                                </Route>
+								<Route path='/'>
+									<Error />
+								</Route>
 
-                            </Switch>
-                        </Layout>
+							</Switch>
+						</Layout>
 
-                    </Switch>
-                </Router>
-            </Provider>
-        </div>
-    )
+					</Switch>
+				</Router>
+			</Provider>
+		</div>
+	)
 }
 
 export default App

@@ -2,22 +2,6 @@
 @import './src/assets/styles/general/_variables.scss';
 
 .carousel {
-  &_prev {
-    .carousel_step {
-      &:first-child {
-        cursor: not-allowed;
-
-        &:hover {
-          transform: translate(0px);
-        }
-
-        svg path {
-          fill: $color6;
-        }
-      }
-    }
-  }
-
   &_header {
     display: flex;
     flex-direction: column;

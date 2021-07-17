@@ -11,6 +11,7 @@ import { ReactComponent as IconClock } from '../../assets/svg/icon-clock.svg'
 import { ReactComponent as IconDelivery } from '../../assets/svg/icon-delivery.svg'
 import { ReactComponent as IconDescription } from '../../assets/svg/icon-description.svg'
 import { ReactComponent as IconDropdown } from '../../assets/svg/icon-dropdown.svg'
+import { ReactComponent as IconEmpty} from '../../assets/svg/icon-empty.svg'
 import { ReactComponent as IconLanguage } from '../../assets/svg/icon-language.svg'
 import { ReactComponent as IconLocation } from '../../assets/svg/icon-location.svg'
 import { ReactComponent as IconLogo } from '../../assets/svg/icon-logo.svg'
@@ -36,6 +37,7 @@ const SVGs = {
 	delivery: IconDelivery,
 	description: IconDescription,
 	dropdown: IconDropdown,
+	empty: IconEmpty,
 	language: IconLanguage,
 	location: IconLocation,
 	logo: IconLogo,

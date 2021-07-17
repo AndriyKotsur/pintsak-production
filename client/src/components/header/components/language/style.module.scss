@@ -1,35 +1,46 @@
 @import './src/assets/styles/general/_mixins.scss';
 @import './src/assets/styles/general/_variables.scss';
 
-.wrapper {
-  position: relative;
-  margin-bottom: -20px;
-  padding-bottom: 20px;
-  cursor: pointer;
-
-  &:hover {
-    .text {
+.language {
+  &_wrapper {
+    position: relative;
+    margin-bottom: -20px;
+    padding-bottom: 20px;
+    cursor: pointer;
+    
+    svg path {
       @include transition;
-      color: $color6;
+    }
+
+    &:hover {
+      .language_text {
+        @include transition;
+        color: $color6;
+      }
+
+      svg path {
+        @include transition;
+        fill: $color6;
+      }
     }
   }
-}
 
-.icon {
-  fill: $color2;
-  margin-right: 6px;
-
-  @include screen-tb {
-    margin-right: 12px;
+  &_icon {
+    margin-right: 6px;
+    fill: $color2;
+  
+    @include screen-tb {
+      margin-right: 12px;
+    }
   }
-}
-
-.text {
-  @include transition;
-  font-size: 16px;
-  color: #ffffff;
-
-  @include screen-tb {
-    font-size: 18px;
+  
+  &_text {
+    @include transition;
+    font-size: 16px;
+    color: #ffffff;
+  
+    @include screen-tb {
+      font-size: 18px;
+    }
   }
 }

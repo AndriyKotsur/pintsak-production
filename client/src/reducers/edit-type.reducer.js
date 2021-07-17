@@ -17,6 +17,21 @@ let initialState = {
 
 export default function editType(state = initialState, action) {
 	switch (action.type) {
+		case EDIT_TYPE_SUCCESS:
+			return {
+				...state,
+				edit_type_status: 'success',
+			}
+		case EDIT_TYPE_ERROR:
+			return {
+				...state,
+				edit_type_status: 'error',
+			}
+		case EDIT_TYPE_LOADING:
+			return {
+				...state,
+				edit_type_status: 'loading',
+			}
 		case GET_TYPE_SUCCESS:
 			return {
 				...state,
@@ -32,21 +47,6 @@ export default function editType(state = initialState, action) {
 			return {
 				...state,
 				get_type_status: 'loading',
-			}
-		case EDIT_TYPE_SUCCESS:
-			return {
-				...state,
-				edit_type_status: 'success',
-			}
-		case EDIT_TYPE_ERROR:
-			return {
-				...state,
-				edit_type_status: 'error',
-			}
-		case EDIT_TYPE_LOADING:
-			return {
-				...state,
-				edit_type_status: 'loading',
 			}
 		case CHANGE_EDIT_TYPE_STATE:
 			return {
