@@ -6,7 +6,7 @@ import s from './style.module.scss'
 
 const Advantages = () => {
 	return (
-		<div className={s.cons}>
+		<section className={s.cons}>
 			<div className='container'>
 				<div className={s.cons_wrapper}>
 					<div className={s.cons_item}>
@@ -35,7 +35,7 @@ const Advantages = () => {
 					</div>
 				</div>
 			</div>
-		</div>
+		</section>
 	)
 }
 

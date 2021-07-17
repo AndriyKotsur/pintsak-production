@@ -1,128 +1,128 @@
 @import './src/assets/styles/general/_mixins.scss';
 @import './src/assets/styles/general/_variables.scss';
 
-.section {
+.location {
   position: relative;
-}
 
-.wrapper {
-  background: $color1;
-}
-
-.info {
-  max-width: 1290px;
-  width: 100%;
-  margin: 0px auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 35px 0px;
-  margin: 0px auto 40px;
-
-  @include screen-tb() {
+  &_wrapper {
+    background: $color1;
+  }
+  
+  &_info {
+    max-width: 1290px;
+    width: 100%;
+    margin: 0px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 35px 0px;
+    margin: 0px auto 40px;
+  
+    @include screen-tb() {
+      flex-direction: row;
+      align-items: flex-start;
+      padding: 80px 20px;
+    }
+  
+    @include screen-l() {
+      padding: 80px 20px 220px;
+    }
+  }
+  
+  &_block {
+    max-width: 220px;
+    width: 100%;
+    display: flex;
     flex-direction: row;
     align-items: flex-start;
-    padding: 80px 20px;
-  }
-
-  @include screen-l() {
-    padding: 80px 20px 220px;
-  }
-}
-
-.block {
-  max-width: 220px;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  margin: 0px 0px 40px;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-
-  @include screen-tb() {
-    flex-direction: column;
-    margin: 0px;
-  }
-
-  @include screen-l() {
-    &:first-child {
-      max-width: 360px;
-      width: 100%;
+    margin: 0px 0px 40px;
+  
+    &:last-child {
+      margin-bottom: 0;
     }
-  }
-}
-
-.item {
-  flex-direction: column;
-  margin: 0px 20px 0px 0px;
-  font-size: 16px;
-  line-height: 21px;
-  color: $color2;
-
-  @include screen-tb() {
-    margin: 0px 0px 10px 0px;
-  }
-
-  @include screen-l() {
-    font-size: 18px;
-  }
-}
-
-.title {
-  @include hidden();
-
-  @include screen-tb() {
-    display: inline-block;
-    visibility: visible;
-  }
-}
-
-.text {
-  font-size: 16px;
-  line-height: 21px;
-  color: #ffffff;
-
-  @include screen-l() {
-    font-size: 18px;
-  }
-}
-
-.map {
-  max-width: 1290px;
-  width: 100%;
-  position: relative;
-  padding: 0px 20px;
-  margin: 0px auto;
-
-  @include screen-tb() {
-    margin-bottom: 265px;
-  }
-
-  @include screen-l() {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, 0%);
-  }
-
-  &_title {
-    margin: 0px 0px 30px 0px;
-    font-size: 20px;
-    color: $color2;
-
+  
+    @include screen-tb() {
+      flex-direction: column;
+      margin: 0px;
+    }
+  
     @include screen-l() {
-      font-size: 22px;
+      &:first-child {
+        max-width: 360px;
+        width: 100%;
+      }
     }
   }
-
+  
   &_item {
+    flex-direction: column;
+    margin: 0px 20px 0px 0px;
+    font-size: 16px;
+    line-height: 21px;
+    color: $color2;
+  
+    @include screen-tb() {
+      margin: 0px 0px 10px 0px;
+    }
+  
+    @include screen-l() {
+      font-size: 18px;
+    }
+  }
+  
+  &_title {
+    @include hidden();
+  
+    @include screen-tb() {
+      display: inline-block;
+      visibility: visible;
+    }
+  }
+  
+  &_text {
+    font-size: 16px;
+    line-height: 21px;
+    color: #ffffff;
+  
+    @include screen-l() {
+      font-size: 18px;
+    }
+  }
+  
+  &_map {
+    max-width: 1290px;
     width: 100%;
-    margin-bottom: 82px;
-    box-shadow: 0px 4px 20px rgba(55, 63, 72, 0.2);
-    overflow: hidden;
+    position: relative;
+    padding: 0px 20px;
+    margin: 0px auto;
+  
+    @include screen-tb() {
+      margin-bottom: 265px;
+    }
+  
+    @include screen-l() {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, 0%);
+    }
+  
+    .map_title {
+      margin: 0px 0px 30px 0px;
+      font-size: 20px;
+      color: $color2;
+  
+      @include screen-l() {
+        font-size: 22px;
+      }
+    }
+  
+    .map_container {
+      width: 100%;
+      margin-bottom: 82px;
+      box-shadow: 0px 4px 20px rgba(55, 63, 72, 0.2);
+      overflow: hidden;
+    }
   }
 }

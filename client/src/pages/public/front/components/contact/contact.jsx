@@ -29,7 +29,7 @@ const Contact = () => {
 	}
 
 	return (
-		<div className={s.contact}>
+		<section className={s.contact}>
 			<Background settings={{ hiddenLeft: false, hiddenRight: false }}/>
 			<div className="container">
 				<div className={s.contact_wrapper}>
@@ -65,7 +65,7 @@ const Contact = () => {
 				message={message[state.send_request_status]}
 				status={state.send_request_status} 
 				handleReset={handleReset} />}
-		</div>
+		</section>
 	)
 }
 
