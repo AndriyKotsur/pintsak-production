@@ -63,68 +63,66 @@ const Hero = ({ types }) => {
 	}, [])
 
 	return (
-		<Fragment>
-			<div className={s.hero}>
-				<div className='container'>
-					<div className={s.hero_wrapper}>
-						<Types types={types.types} settings={{ public: true, light: true }} styleName={s.hero_navigation} />
-						<div className={s.hero_carousel}>
-							<div className={s.hero_header}>
-								<h1 className={s.hero_title}>
-									{heroTitles[slideIndex]}
-								</h1>
-								<Link to='/about' className={s.hero_description}>
-									Дізнатися більше
-								<Icon name='description'
-										className={classNames('icon', 'icon-description', s.hero_icon)} />
-								</Link>
-							</div>
-							<div className={s.hero_block}>
-								<Splide
-									ref={heroSliderRef}
-									options={heroSlider}
-									onMove={handleSlide}>
-									<SplideSlide>
-										<picture className={s.hero_item}>
-											<img src={slideOne} alt='Product card' />
-										</picture>
-									</SplideSlide>
-									<SplideSlide>
-										<picture className={s.hero_item}>
-											<img src={slideTwo} alt='Product card' />
-										</picture>
-									</SplideSlide>
-									<SplideSlide>
-										<picture className={s.hero_item}>
-											<img src={slideThree} alt='Product card' />
-										</picture>
-									</SplideSlide>
-								</Splide>
-							</div>
-							<div className={classNames(s.hero_controls, "hero_carousel")}>
-								<Splide options={heroSliderControls} ref={heroSliderControlsRef}>
-									<SplideSlide>
-										<span className={s.hero_dot}>
-											01
-										</span>
-									</SplideSlide>
-									<SplideSlide>
-										<span className={s.hero_dot}>
-											02
-										</span>
-									</SplideSlide>
-									<SplideSlide>
-										<span className={s.hero_dot}>
-											03
-										</span>
-									</SplideSlide>
-								</Splide>
-							</div>
+		<section className={s.hero}>
+			<div className='container'>
+				<div className={s.hero_wrapper}>
+					<Types types={types.types} settings={{ public: true, light: true }} styleName={s.hero_navigation} />
+					<div className={s.hero_carousel}>
+						<div className={s.hero_header}>
+							<h1 className={s.hero_title}>
+								{heroTitles[slideIndex]}
+							</h1>
+							<Link to='/about' className={s.hero_description}>
+								Дізнатися більше
+							<Icon name='description'
+									className={classNames('icon', 'icon-description', s.hero_icon)} />
+							</Link>
+						</div>
+						<div className={s.hero_block}>
+							<Splide
+								ref={heroSliderRef}
+								options={heroSlider}
+								onMove={handleSlide}>
+								<SplideSlide>
+									<picture className={s.hero_item}>
+										<img src={slideOne} alt='Product card' />
+									</picture>
+								</SplideSlide>
+								<SplideSlide>
+									<picture className={s.hero_item}>
+										<img src={slideTwo} alt='Product card' />
+									</picture>
+								</SplideSlide>
+								<SplideSlide>
+									<picture className={s.hero_item}>
+										<img src={slideThree} alt='Product card' />
+									</picture>
+								</SplideSlide>
+							</Splide>
+						</div>
+						<div className={classNames(s.hero_controls, "hero_carousel")}>
+							<Splide options={heroSliderControls} ref={heroSliderControlsRef}>
+								<SplideSlide>
+									<span className={s.hero_dot}>
+										01
+									</span>
+								</SplideSlide>
+								<SplideSlide>
+									<span className={s.hero_dot}>
+										02
+									</span>
+								</SplideSlide>
+								<SplideSlide>
+									<span className={s.hero_dot}>
+										03
+									</span>
+								</SplideSlide>
+							</Splide>
 						</div>
 					</div>
 				</div>
 			</div>
-		</Fragment>
+		</section>
 	)
 }
 

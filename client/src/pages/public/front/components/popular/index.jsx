@@ -7,7 +7,7 @@ import s from './style.module.scss'
 
 const Popular = ({ types, tiles }) => {
 	return (
-		<div className={s.popular}>
+		<section className={s.popular}>
 			<div className='container'>
 				<div className={s.popular_wrapper}>
 					<Types
@@ -19,7 +19,7 @@ const Popular = ({ types, tiles }) => {
 						styleName={s.popular_carousel}/>
 				</div>
 			</div>
-		</div>
+		</section>
 	)
 }
 

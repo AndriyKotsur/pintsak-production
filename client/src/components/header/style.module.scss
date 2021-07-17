@@ -69,7 +69,7 @@
       &.active {
         color: $color6;
         cursor: default;
-
+        
         &:hover {
           color: $color6;
         }
@@ -184,7 +184,15 @@
       &.active {
         color: $color6;
         cursor: default;
-
+        
+        svg path {
+          stroke: $color6;
+        }
+  
+        svg circle {
+          stroke: $color6;
+        }
+        
         &:hover {
           color: $color6;
         }
