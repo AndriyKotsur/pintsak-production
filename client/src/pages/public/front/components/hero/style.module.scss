@@ -2,15 +2,21 @@
 @import './src/assets/styles/general/_variables.scss';
 
 .hero {
-  padding: 40px 0 60px;
+  width: 100%;
+  height: calc(100vh - 65px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
   background: $color1;
 
   @include screen-tb {
-    padding: 40px 0 67px;
+    padding: 60px 0;
   }
 
   @include screen-l {
-    padding: 120px 0 185px;
+    height: calc(100vh - 72px);
+    padding: 120px 0;
   }
 
   &_wrapper {
@@ -163,11 +169,12 @@
       align-self: flex-start;
       margin-top: 90px;
     }
-
+    
     &::after {
       content: "";
       display: block;
-      width: 82%;
+      width: 100%;
+      right: -14px;
       height: 2px;
       margin-top: 25px;
       background: $color2;

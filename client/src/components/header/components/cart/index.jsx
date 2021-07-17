@@ -1,52 +1,76 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as CartActions from 'actions/cart.action'
 
-import { Icon, Cart } from 'components'
+import { useOnClickOutside } from 'hooks'
 
-import s from './style.module.scss'
+import { Icon, Button, Cart } from 'components'
+
 import classNames from 'classnames'
+import s from './style.module.scss'
 
 const DropdownCart = () => {
-	const dispatch = useDispatch()
-	const [visible, setVisible] = useState(false)
+	const [active, setActive] = useState(false)
 
+	const dispatch = useDispatch()
 	const cart = useSelector(cart => cart.cart)
-	const { is_active, items, subtotal } = cart
+	const { items, subtotal } = cart
+
+	const dropdownRef = useRef()
+
+	useOnClickOutside(dropdownRef, () => setActive(false))
+
+	const handleActiveCart = () => {
+		setActive(false)
+		dispatch(CartActions.handleCart(true))
+	}
 
 	useEffect(() => {
 		dispatch(CartActions.getCartItems())
 	}, [dispatch])
 
-	useEffect(() => {
-		if (is_active) setVisible(false)
-	}, [is_active])
-
 	return (
 		<div
-			onMouseEnter={() => setVisible(true)}
-			onMouseLeave={() => setVisible(false)}
-			className={s.wrapper}>
-			<Icon name="shopping" className={classNames('icon', 'icon-cart', s.icon)} />
-			<span className={s.count}>({items.length})</span>
-			<div className={classNames(s.cart, { [s.visible]: visible })}>
-				{items.length > 0 ?
-					<div className={s.container}>
-						<h3 className={s.title}>В кошику {items.length} товар на суму:</h3>
-						<p className={s.price}>{subtotal},<sup>00</sup> грн</p>
-						<Link to="/order" className={s.btn}>Замовити</Link>
-						<button
-							type="button"
-							onClick={() => dispatch(CartActions.handleCart(true))}
-							className={s.link}>Перейти в кошик
-							<Icon name="arrow" className={classNames('icon', 'icon-arrow', s.arrow)} />
-						</button>
+			ref={dropdownRef}
+			className={classNames(s.cart, {[s.active]: active})}
+			onClick={() => setActive(prev => !prev)}>
+			<Icon name='shopping' className={classNames('icon', 'icon-cart', s.cart_icon)} />
+			<span className={s.cart_count}>
+				({items.length})
+			</span>
+			<div className={s.cart_wrapper}>
+				{items && items.length > 0 ?
+					<div className={s.cart_container}>
+						<h3 className={s.cart_title}>
+							В кошику {items.length} товар на суму:
+						</h3>
+						<p className={s.cart_price}>
+							{subtotal},<sup>00</sup> грн
+						</p>
+						<Link to='/order'>
+							<Button
+								type='button'
+								background='orange'
+								styleName={s.cart_btn}>
+								Замовити
+							</Button>
+						</Link>
+						<Button
+							type='button'
+							background='transparent'
+							styleName={s.cart_link}
+							handleClick={handleActiveCart}>
+								Перейти в кошик
+								<Icon name='arrow' className={classNames('icon', 'icon-arrow', s.cart_arrow)} />
+						</Button>
 					</div>
 					:
-					<div className={s.container}>
-						<Icon name="cart" className={s.empty} />
-						<h3 className={s.title}>Корзина порожня :(</h3>
+					<div className={s.cart_container}>
+						<Icon name='empty' className={s.cart_empty} />
+						<h3 className={s.cart_title}>
+							Корзина порожня
+						</h3>
 					</div>}
 			</div>
 			{cart.is_active && <Cart />}

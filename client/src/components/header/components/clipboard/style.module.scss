@@ -1,76 +1,89 @@
 @import './src/assets/styles/general/_mixins.scss';
 @import './src/assets/styles/general/_variables.scss';
 
-.wrapper {
-  position: relative;
-  @include hidden;
-  margin-right: 40px;
-  margin-bottom: -25px;
-  padding-bottom: 25px;
-  font-weight: 700;
-  color: #ffffff;
-  @include transition;
-  cursor: pointer;
-
-  @include screen-tb {
-    visibility: visible;
-    display: block;
-    margin-right: 120px;
-  }
-
-  &:hover {
-    color: $color6;
-    @include transition;
-  }
-
-  @include screen-l() {
-    margin-right: 90px;
-  }
-}
-
 .clipboard {
-  visibility: hidden;
-  position: absolute;
-  top: 40px;
-  width: 355px;
-  padding: 12px 13px;
-  box-shadow: 0 3px 20px rgba(55, 63, 72, 0.1);
-  border-radius: 4px;
-  background: #ffffff;
-  text-align: center;
-  @include transition;
-  opacity: 0;
-  z-index: 5;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: -15px;
-    left: 40px;
-    width: 0;
-    height: 0;
-    border-left: 11px solid transparent;
-    border-right: 11px solid transparent;
-    border-bottom: 15px solid #ffffff;
-  }
-}
-
-.title {
-  @include hidden;
-
-  &:hover+.clipboard {
-    visibility: visible;
+  &_wrapper {
+    position: relative;
+    margin-right: 40px;
+    margin-bottom: -25px;
+    padding-bottom: 25px;
+    font-weight: 700;
+    color: #ffffff;
     @include transition;
-    opacity: 1;
+    @include hidden;
+    cursor: pointer;
+  
+    @include screen-tb {
+      display: block;
+      margin-right: 120px;
+      visibility: visible;
+    }
+  
+    @include screen-l() {
+      margin-right: 90px;
+    }
+  
+    svg path {
+      @include transition;
+    }
+  
+    &:hover {
+      @include transition;
+      color: $color6;
+  
+      svg path {
+        @include transition;
+        fill: $color6;
+      }
+    }
   }
 
-  @include screen-tb() {
-    visibility: visible;
-    display: inline-block;
+  &_container {
+    visibility: hidden;
+    position: absolute;
+    top: 40px;
+    width: max-content;
+    padding: 12px 13px;
+    border-radius: 4px;
+    background: #ffffff;
+    box-shadow: 0 3px 20px rgba(55, 63, 72, 0.1);
+    text-align: center;
+    @include transition;
+    opacity: 0;
+    z-index: 5;
+  
+    &::before {
+      content: '';
+      position: absolute;
+      top: -15px;
+      left: 40px;
+      width: 0;
+      height: 0;
+      border-left: 11px solid transparent;
+      border-right: 11px solid transparent;
+      border-bottom: 15px solid #ffffff;
+    }
   }
-}
 
-.text {
-  font-size: 12px;
-  color: #000000;
+  &_title {
+    @include hidden;
+  
+    &:hover+.clipboard_container {
+      visibility: visible;
+      @include transition;
+      opacity: 1;
+    }
+  
+    @include screen-tb() {
+      visibility: visible;
+      display: inline-block;
+    }
+  }
+  
+  &_text {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+    color: $color1;
+  }
 }

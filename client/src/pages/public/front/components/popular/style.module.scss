@@ -21,14 +21,14 @@
       visibility: visible;
     }
   }
-}
 
-.carousel {
-  @include screen-tb {
-    width: 100%;
-  }
-
-  @include screen-xl {
-    width: 80%;
+  &_carousel {
+    @include screen-tb {
+      width: 100%;
+    }
+  
+    @include screen-xl {
+      width: 80%;
+    }
   }
 }

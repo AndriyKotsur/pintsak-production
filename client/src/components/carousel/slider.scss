@@ -1,0 +1,12 @@
+@import './src/assets/styles/general/_mixins.scss';
+@import './src/assets/styles/general/_variables.scss';
+
+.popular_carousel {
+  .splide__track {
+    margin: 0 0 -30px;
+
+    @include screen-tb {
+      margin: 0 -20.5px;
+    }
+  }
+}
