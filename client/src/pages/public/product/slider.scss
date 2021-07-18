@@ -1,0 +1,8 @@
+@import './src/assets/styles/general/_mixins.scss';
+@import './src/assets/styles/general/_variables.scss';
+
+.product_slider {
+  .splide__track {
+    margin: 0 -65.5px 0 -20.5px;
+  }
+}

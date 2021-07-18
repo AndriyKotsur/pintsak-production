@@ -1,64 +1,64 @@
 @import './src/assets/styles/general/_mixins.scss';
 @import './src/assets/styles/general/_variables.scss';
 
-.section {
+.product {
   position: relative;
-}
 
-.wrapper {
-  padding: 30px 0 100px;
-}
-
-.carousel {
-  width: 100%;
-  max-width: 1184px;
-  width: 100%;
-  margin: 0px auto;
-}
-
-.back {
-  display: inline-block;
-  margin-bottom: 35px;
-  color: $color1;
-
-  @include screen-tb() {
-    @include hidden();
+  &_wrapper {
+    padding: 30px 0 100px;
+  }
+  
+  &_carousel {
+    width: 100%;
+    max-width: 1184px;
+    width: 100%;
+    margin: 0px auto;
+  }
+  
+  &_back {
+    display: inline-block;
+    margin-bottom: 35px;
+    color: $color1;
+  
+    @include screen-tb {
+      @include hidden;
+    }
   }
 
   &_icon {
     margin-right: 7px;
     transform: rotateY(180deg);
   }
-}
 
-.status {
-  position: absolute;
-  top: -52px;
-  right: 0;
-  margin-bottom: 15px;
-  font-size: 16px;
-  font-weight: 600;
-  color: $color7;
-
-  &.available {
-    color: $color5;
+  &_status {
+    position: absolute;
+    top: -52px;
+    right: 0;
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: 600;
+    color: $color7;
+  
+    &.available {
+      color: $color5;
+    }
+  
+    @include screen-tb {
+      top: -30px;
+    }
   }
-
-  @include screen-tb() {
-    top: -30px;
-  }
-}
-
-.product {
-  position: relative;
-  max-width: 1290px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-
-  @include screen-tb() {
-    flex-direction: row;
+  
+  &_container {
+    position: relative;
+    max-width: 1290px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  
+    @include screen-tb {
+      flex-direction: row;
+    }
   }
 }

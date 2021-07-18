@@ -11,24 +11,24 @@ import Pagination from './components/pagination'
 import s from './style.module.scss'
 
 const CataloguePage = () => {
+	const [page, setPage] = useState(1)
+	const [orderBy, setOrderBy] = useState(-1)
+	const [sortBy, setSortBy] = useState('')
+
 	const dispatch = useDispatch()
 	const types = useSelector(types => types.getTypes)
 	const tiles = useSelector(tiles => tiles.getTiles)
 	
-	const [page, setPage] = useState(1)
-	const [sortBy, setSortBy] = useState('')
-	const [orderBy, setOrderBy] = useState(-1)
-	
 	const { typeBy } = useParams()
 
-	const content = useMemo(() => {
-		const items = {
-			'success': <Tiles tiles={tiles.tiles} settings={{ public: true }} />,
-			'error': 'Помилка запиту даних',
+	const tilesComponents = useMemo(() => {
+		const tilesItems = {
 			'loading': <Preloader />,
+			'success': <Tiles tiles={tiles.tiles} settings={{ public: true }} />,
+			'error': 'Помилка запиту даних.',
 		}
 		
-		return items[tiles.get_tiles_status]
+		return tilesItems[tiles.get_tiles_status]
 	}, [tiles])
 	
 	useEffect(() => {
@@ -42,20 +42,19 @@ const CataloguePage = () => {
 	}, [dispatch])
 
 	return (
-		<div className={s.section}>
-			<div className="container">
-				<div className={s.wrapper}>
-					<div className={s.navigation}>
+		<section className={s.catalogue}>
+			<div className='container'>
+				<div className={s.catalogue_wrapper}>
+					<div className={s.catalogue_navigation}>
 						<Types
 							types={types.types}
-							settings={{ public: true }}
-							styleName={s.hero_navigation} />
+							settings={{ public: true }} />
 					</div>
-					<div className={s.catalogue}>
-						<div className={s.sort}>
-							<h1 className={s.title}>
-								{types.types && types.types.map(type => type.url === typeBy && type.title)}
+					<div className={s.catalogue_container}>
+						<div className={s.catalogue_sort}>
+							<h1 className={s.catalogue_title}>
 								{!typeBy && 'Усі товари'}
+								{types.types && types.types.map(type => type.url === typeBy && type.title)}
 							</h1>
 							<Sort
 								sortBy={sortBy}
@@ -64,7 +63,7 @@ const CataloguePage = () => {
 								handleOrderBy={setOrderBy} />
 						</div>
 						{tiles.get_tiles_status === 'success' && tiles.tiles.length === 0 && 'Немає доданих товарів'}
-						{content}
+						{tilesComponents}
 						<Pagination
 							page={page}
 							pages={tiles.pages}
@@ -72,7 +71,7 @@ const CataloguePage = () => {
 					</div>
 				</div>
 			</div>
-		</div>
+		</section>
 	)
 }
 

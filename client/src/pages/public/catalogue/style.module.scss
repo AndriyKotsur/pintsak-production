@@ -1,119 +1,59 @@
 @import './src/assets/styles/general/_mixins.scss';
 @import './src/assets/styles/general/_variables.scss';
 
-.section {
-  position: relative;
-}
-
-.wrapper {
-  display: flex;
-  justify-content: space-between;
-  padding: 70px 0;
-}
-
-.navigation {
-  @include hidden();
-  margin-bottom: 76px;
-
-  @include screen-l() {
-    display: block;
-    visibility: visible;
-    width: 17%;
-  }
-}
-
 .catalogue {
-  width: 100%;
+  position: relative;
 
-  @include screen-l() {
-    width: 80%;
+  &_wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 70px 0;
+  }
+  
+  &_navigation {
+    margin-bottom: 76px;
+    @include hidden();
+  
+    @include screen-l() {
+      display: block;
+      visibility: visible;
+      width: 17%;
+    }
+  }
+  
+  &_container {
+    width: 100%;
+  
+    @include screen-l() {
+      width: 80%;
+    }
+  }
+  
+  &_sort {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 40px;
+  
+    @include screen-tb() {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+  
+  &_title {
+    margin-bottom: 30px;
+    font-size: 20px;
+    font-weight: 700;
+    color: $color1;
+  
+    @include screen-tb() {
+      margin: 0px;
+    }
+  
+    @include screen-l() {
+      font-size: 32px;
+    }
   }
 }
-
-.sort {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin: 0px 0px 40px;
-
-  @include screen-tb() {
-    flex-direction: row;
-    align-items: center;
-  }
-}
-
-.title {
-  margin: 0px 0px 30px;
-  font-size: 20px;
-  font-weight: 700;
-  color: $color1;
-
-  @include screen-tb() {
-    margin: 0px;
-  }
-
-  @include screen-l() {
-    font-size: 32px;
-  }
-}
-
-// .aside-popular {
-//   &__header {
-//     margin: 0px 0px 25px;
-//     font-weight: 700;
-//   }
-
-//   &__item {
-//     margin: 0px 0px 20px;
-//   }
-
-//   &__link {
-//     display: flex;
-//     align-items: center;
-//   }
-
-//   &-image-wrapper {
-//     position: relative;
-//     max-width: 85px;
-//     width: 100%;
-//     padding-top: 26%;
-//     border: 1px solid $color4;
-//   }
-
-//   &__image {
-//     position: absolute;
-//     top: 50%;
-//     left: 50%;
-//     transform: translate(-50%, -50%);
-//   }
-
-//   &__description {
-//     margin: 0px 0px 0px 10px;
-//   }
-
-//   &__title {
-//     margin: 0px 0px 5px;
-//     font-size: 12px;
-//     font-weight: 400;
-//     @include transition();
-//     color: $color1;
-
-//     &:hover {
-//       @include transition();
-//       color: $color2;
-//     }
-//   }
-
-//   &__type {
-//     font-size: 12px;
-//     font-weight: 400;
-//     @include transition();
-//     color: $color4;
-
-//     &:hover {
-//       @include transition();
-//       color: $color6;
-//     }
-//   }
-// }

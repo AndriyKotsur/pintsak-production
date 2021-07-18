@@ -1,27 +1,27 @@
 @import './src/assets/styles/general/_mixins.scss';
 @import './src/assets/styles/general/_variables.scss';
 
-.wrapper {
-  @include hidden();
+.breadcrumbs {
+  @include hidden;
 
-  @include screen-tb() {
+  @include screen-tb {
     visibility: visible;
     display: flex;
     margin-bottom: 46px;
   }
-}
 
-.item {
-  font-size: 16px;
-  color: $color1;
-}
-
-.link {
-  font-size: 16px;
-  color: $color4;
-
-  &::after {
-    content: "/";
-    padding: 0 15px;
+  &_item {
+    font-size: 16px;
+    color: $color1;
+  }
+  
+  &_link {
+    font-size: 16px;
+    color: $color4;
+  
+    &::after {
+      content: "/";
+      padding: 0 15px;
+    }
   }
 }

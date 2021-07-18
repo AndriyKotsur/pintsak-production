@@ -1,66 +1,66 @@
 @import './src/assets/styles/general/_mixins.scss';
 @import './src/assets/styles/general/_variables.scss';
 
-.wrapper {
+.sort {
   position: relative;
-}
 
-.block {
-  display: block;
+  &_container {
+    display: block;
+  
+    @include screen-sm() {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
 
-  @include screen-sm() {
+  &_title {
     display: inline-block;
-    vertical-align: middle;
+    margin-bottom: 15px;
+    font-weight: 700;
+    color: $color1;
+  
+    @include screen-sm() {
+      margin-right: 15px;
+      margin-bottom: 0;
+    }
   }
-}
-
-.title {
-  display: inline-block;
-  margin-bottom: 15px;
-  font-weight: 700;
-  color: $color1;
-
-  @include screen-sm() {
+  
+  &_size {
     margin-right: 15px;
-    margin-bottom: 0;
+    padding-right: 15px;
+    border-right: 1px solid $color2;
+    @include transition;
+    color: $color4;
+  
+    &:hover {
+      @include transition;
+      color: $color6;
+    }
+  
+    &.active {
+      color: $color2;
+    }
   }
-}
-
-.size {
-  margin-right: 15px;
-  padding-right: 15px;
-  border-right: 1px solid $color2;
-  @include transition();
-  color: $color4;
-
-  &:hover {
-    @include transition();
-    color: $color6;
+  
+  &_price {
+    color: $color4;
+  
+    &:hover {
+      @include transition;
+      color: $color6;
+    }
+  
+    &.active {
+      color: $color2;
+    }
   }
-
-  &.active {
-    color: $color2;
-  }
-}
-
-.price {
-  color: $color4;
-
-  &:hover {
-    @include transition();
-    color: $color6;
-  }
-
-  &.active {
-    color: $color2;
-  }
-}
-
-.icon {
-  transition: all 0.3s ease-out;
-
-  &.active {
-    transform: rotateZ(180deg);
-    @include transition();
+  
+  &_icon {
+    @include transition;
+  
+    &.active {
+      @include transition;
+      transform: rotateZ(180deg);
+    }
   }
 }

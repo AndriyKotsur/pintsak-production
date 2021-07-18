@@ -50,7 +50,7 @@ export default function cart(state = initialState, { type, payload }) {
 		case DELETE_CART_ITEM:
 			return {
 				...state,
-				subtotal: state.subtotal - payload.subtotal,
+				subtotal: state.subtotal - payload.newSubtotal,
 				items: payload.items,
 			}
 		case EDIT_CART_ITEM:

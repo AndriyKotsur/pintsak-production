@@ -10,43 +10,45 @@ import Card from './components/card'
 import Table from './components/table'
 
 import classNames from 'classnames'
+import './slider.scss'
 import s from './style.module.scss'
 
 const ProductPage = () => {
 	const dispatch = useDispatch()
-	const { url } = useParams()
 	const tile = useSelector(tile => tile.getTile)
 	const cart = useSelector(state => state.cart)
+
+	const { url } = useParams()
 
 	useEffect(() => {
 		dispatch(GetTileActions.getTile(url))
 	}, [dispatch, url])
 
 	return (
-		<div className={s.section}>
+		<section className={s.product}>
 			{tile.get_tile_status === 'loading' && <Preloader />}
 			{tile.get_tile_status === 'success' && tile.get_tile_status && (
-				<div className="container">
-					<div className={s.wrapper}>
-						<button type="button" onClick={() => window && window.history.back()} className={s.back}>
-							<Icon name='arrow' className={classNames('icon', 'icon-back', s.back_icon)} />
+				<div className='container'>
+					<div className={s.product_wrapper}>
+						<button type='button' onClick={() => window && window.history.back()} className={s.product_back}>
+							<Icon name='arrow' className={classNames('icon', 'icon-back', s.product_icon)} />
 							{tile.title}
 						</button>
 						<Breadcrumbs type={tile.type} tile={tile.title} />
-						<div className={s.product}>
-							<span className={classNames(s.status, { [s.available]: tile.is_available })}>
+						<div className={s.product_container}>
+							<span className={classNames(s.product_status, { [s.available]: tile.is_available })}>
 								{tile.is_available ? 'В наявності' : 'Нема у наявності'}
 							</span>
 							<Gallery images={tile.images} />
 							<Card tile={tile} cart={cart} />
 						</div>
 						<Table options={tile.sizes} />
-						{tile.tiles.length > 0 && <Carousel items={tile.tiles} styleName={s.carousel} />}
+						{tile.tiles.length >= 0 && <Carousel items={tile.tiles} styleName={classNames(s.product_carousel, 'product_slider')} />}
 					</div>
 				</div>
 			)}
 			{cart.is_active && <Cart />}
-		</div>
+		</section>
 	)
 }
 
