@@ -1,23 +1,35 @@
 @import './src/assets/styles/general/_mixins.scss';
 @import './src/assets/styles/general/_variables.scss';
 
-.section {
+.type {
   position: relative;
   min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
-}
 
-.wrapper {
-  max-width: 700px;
-  width: 100%;
-  padding: 50px 0 125px;
-  margin: 0 auto;
-
-  @include screen-tb {
-    padding: 100px 0 175px;
+  &_wrapper {
+    max-width: 600px;
+    width: 100%;
+    padding: 20px 0;
+    margin: 0 auto;
+  
+    @include screen-tb {
+      padding: 40px 0;
+    }
+  
+    @include screen-l {
+      padding: 60px 0;
+    }
   }
 
-  @include screen-l {
-    padding: 150px 0 225px;
+  &_title {
+    margin-bottom: 35px;
+
+    @include screen-l {
+      font-size: 36px;
+    }
   }
 }
+

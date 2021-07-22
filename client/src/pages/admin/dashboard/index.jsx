@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as GetTilesActions from 'actions/get-tiles.action'
 import * as GetTypesActions from 'actions/get-types.action'
 
-import { Title, Tiles, Types } from 'components'
+import { Button, Title, Tiles, Types } from 'components'
 import { Logout } from '..'
 
 import classNames from 'classnames'
@@ -43,29 +43,39 @@ const Dashboard = () => {
 			<div className='container'>
 				<div className={s.dashboard_wrapper}>
 					<Logout />
-					<Title value="Панель керування" />
+					<Title>
+						Панель керування
+					</Title>
 					<div className={s.dashboard_inner}>
 						<div className={s.dashboard_append}>
-							<Link
-								to="/admin/type"
-								className={classNames('btn-sent', 'btn-orange', s.dashboard_appender)}>
-								Додати категорію
+							<Link to="/admin/type">
+								<Button
+									type="button"
+									background="orange"
+									styleName={s.dashboard_appender}>
+									Додати категорію
+								</Button>
 							</Link>
-							<Link
-								to="/admin/tile"
-								className={classNames('btn-sent', 'btn-orange', s.dashboard_appender)}>
-								Додати товар
+							<Link to="/admin/tile">
+								<Button
+									type="button"
+									background="orange"
+									styleName={s.dashboard_appender}>
+									Додати товар
+								</Button>
 							</Link>
 						</div>
 						<div className={s.dashboard_switch}>
 							<button
-								onClick={() => setActiveSwitch('types')}
-								className={classNames(s.dashboard_switcher, { [s.active]: activeSwitch === 'types' })}>
+								type="button"
+								className={classNames(s.dashboard_switcher, { [s.active]: activeSwitch === 'types' })}
+								onClick={() => setActiveSwitch('types')}>
 								Категорії
 							</button>
 							<button
-								onClick={() => setActiveSwitch('tiles')}
-								className={classNames(s.dashboard_switcher, { [s.active]: activeSwitch === 'tiles' })}>
+								type="button"
+								className={classNames(s.dashboard_switcher, { [s.active]: activeSwitch === 'tiles' })}
+								onClick={() => setActiveSwitch('tiles')}>
 								Продукти
 							</button>
 						</div>

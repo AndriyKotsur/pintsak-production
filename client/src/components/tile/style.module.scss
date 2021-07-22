@@ -26,10 +26,20 @@
 }
 
 .title {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  padding: 0 15px;
   margin-bottom: 15px;
   font-size: 18px;
   font-weight: 700;
   color: $color1;
+  text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  @include screen-l {
+    padding: 0 30px;
+  }
 }
 
 .wrapper {

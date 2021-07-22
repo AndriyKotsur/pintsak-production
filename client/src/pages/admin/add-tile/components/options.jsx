@@ -10,7 +10,9 @@ const Options = () => {
 
 	return (
 		<Fragment>
-			<Title value="Параметри продукту" />
+			<Title>
+				Параметри продукту
+			</Title>
 			<File onChange={image => dispatch(AddTileActions.handleChange(image))} />
 			<Input
 				type='text'

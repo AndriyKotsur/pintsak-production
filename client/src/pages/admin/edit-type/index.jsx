@@ -10,10 +10,11 @@ import s from './style.module.scss'
 const EditType = () => {
 	const history = useHistory()
 	const { id } = useParams()
+
 	const dispatch = useDispatch()
 	const state = useSelector(state => state.editType)
 
-	const updateType = async e => {
+	const handleUpdateType = async e => {
 		e.preventDefault()
 		dispatch(EditTypeActions.editType(id, state))
 	}
@@ -32,13 +33,15 @@ const EditType = () => {
 		<Fragment>
 			{ state.get_type_status === 'loading' && <Preloader />}
 			{ state.get_type_status === 'success' && (
-				<section className={s.section}>
+				<section className={s.type}>
 					<Background settings={{ hiddenLeft: false, hiddenRight: false }} />
 					<div className="container">
-						<div className={s.wrapper}>
-							<Title value="Редагувати категорію" />
+						<div className={s.type_wrapper}>
+							<Title styleName={s.type_title}>
+								Редагувати категорію
+							</Title>
 							<Form
-								handler={updateType}>
+								handler={handleUpdateType}>
 								<Input
 									type='text'
 									name='title'

@@ -9,10 +9,11 @@ import s from './style.module.scss'
 
 const AddType = () => {
 	const history = useHistory()
+
 	const dispatch = useDispatch()
 	const state = useSelector(state => state.addType)
 
-	const addType = async e => {
+	const handleAddType = async e => {
 		e.preventDefault()
 		dispatch(AddTypeActions.addType(state))
 	}
@@ -27,13 +28,15 @@ const AddType = () => {
 	}, [dispatch])
 
 	return (
-		<section className={s.section}>
+		<section className={s.type}>
 			<Background settings={{ hiddenLeft: false, hiddenRight: false }} />
 			<div className="container">
-				<div className={s.wrapper}>
-					<Title value="Додати категорію" />
+				<div className={s.type_wrapper}>
+					<Title styleName={s.type_title}>
+						Додати категорію
+					</Title>
 					<Form
-						handler={addType}>
+						handler={handleAddType}>
 						<Input
 							type='text'
 							name='title'
