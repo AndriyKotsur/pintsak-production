@@ -1,71 +1,100 @@
 @import './src/assets/styles/general/_mixins.scss';
 @import './src/assets/styles/general/_variables.scss';
 
-.wrapper {
+.table {
   max-width: 1184px;
   width: 100%;
-  margin: 126px auto;
-  overflow-x: scroll;
+  margin: 45px auto;
 
-  @include screen-sm() {
-    overflow-x: hidden;
+  &_title {
+    margin-bottom: 25px;
+    font-size: 24px;
+    font-weight: 900;
   }
-}
 
-.title {
-  margin-bottom: 25px;
-  font-size: 24px;
-  font-weight: 900;
-}
+  &_container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background: #ffffff;
+    font-size: 16px;
+    @include screen-tb {
+      flex-direction: column;
+    }
+  }
 
-.table {
-  width: 100%;
-  background: #ffffff;
-  table-layout: fixed;
-  border-collapse: collapse;
-  border-spacing: 0;
-  box-shadow: 0px 0px 10px rgba(55, 63, 72, 0.1);
-  font-size: 16px;
-  text-align: center;
-}
+  &_head {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border-right: 2px solid $color2;
+    background: #f2f0f0;
 
-.head {
-  background: #f2f0f0;
-  border-bottom: 2px solid $color2;
-
-  th {
-    width: 140px;
-    padding: 18px 0;
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 24px;
+    @include screen-tb {
+      width: 100%;
+      flex-direction: row;
+      border-right: unset;
+      border-bottom: 2px solid $color2;
+      font-size: 16px;
+    }
 
     span {
-      font-weight: 400;
-    }
-
-    @include screen-tb() {
       width: 100%;
-      font-size: 16px;
+      height: 20%;
+      padding: 15px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: $color1;
+      text-align: left;
+
+      @include screen-tb {
+        width: 50%;
+        height: auto;
+        font-size: 14px;
+        text-align: center;
+      }
+
+      @include screen-l {
+        font-size: 16px;
+      }
     }
   }
-}
 
-.body {
-  tr:not(:last-child) {
-    border-bottom: 1px solid #c4c4c4;
-  }
+  &_body {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-  td {
-    width: 140px;
-    padding: 18px 0;
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 24px;
-
-    @include screen-tb() {
+    @include screen-tb {
       width: 100%;
-      font-size: 16px;
+      flex-direction: row;
+    }
+
+    span {
+      width: 100%;
+      height: 20%;
+      padding: 15px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: $color1;
+      text-align: center;
+
+      @include screen-tb {
+        width: 20%;
+        height: auto;
+        font-size: 14px;
+      }
+      
+      @include screen-l {
+        font-size: 16px;
+      }
     }
   }
 }

@@ -64,7 +64,7 @@ export const deleteCartItem = id => {
 		dispatch({
 			type: DELETE_CART_ITEM,
 			payload: {
-				deletedItems,
+				items: deletedItems,
 				subtotal: newSubtotal,
 			},
 		})
@@ -102,13 +102,13 @@ export const getCartItems = () => {
 	return dispatch => {
 		const cartItems = JSON.parse(localStorage.getItem('cart_items')) || []
 		const cartSubtotal = localStorage.getItem('cart_subtotal') || 0
-		const newSubtotal = isNaN(cartSubtotal) ? 0 : cartSubtotal
+		const newSubtotal = Number(cartSubtotal)
 
 		dispatch({
 			type: GET_CART_ITEMS,
 			payload: {
-				cartItems,
-				newSubtotal,
+				items: cartItems,
+				subtotal: newSubtotal,
 			},
 		})
 	}

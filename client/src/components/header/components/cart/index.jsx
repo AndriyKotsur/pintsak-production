@@ -5,7 +5,7 @@ import * as CartActions from 'actions/cart.action'
 
 import { useOnClickOutside } from 'hooks'
 
-import { Icon, Button, Cart } from 'components'
+import { Icon, Button } from 'components'
 
 import classNames from 'classnames'
 import s from './style.module.scss'
@@ -22,7 +22,6 @@ const DropdownCart = () => {
 	useOnClickOutside(dropdownRef, () => setActive(false))
 
 	const handleActiveCart = () => {
-		setActive(false)
 		dispatch(CartActions.handleCart(true))
 	}
 
@@ -37,7 +36,7 @@ const DropdownCart = () => {
 			onClick={() => setActive(prev => !prev)}>
 			<Icon name='shopping' className={classNames('icon', 'icon-cart', s.cart_icon)} />
 			<span className={s.cart_count}>
-				({items.length})
+				({items && items.length})
 			</span>
 			<div className={s.cart_wrapper}>
 				{items && items.length > 0 ?
@@ -73,7 +72,6 @@ const DropdownCart = () => {
 						</h3>
 					</div>}
 			</div>
-			{cart.is_active && <Cart />}
 		</div>
 	)
 }

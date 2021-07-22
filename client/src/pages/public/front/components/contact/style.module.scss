@@ -18,15 +18,8 @@
 
   &_title {
     margin-bottom: 40px;
-    font-size: 24px;
-    font-weight: 900;
-    color: $color1;
 
-    @include screen-tb() {
-      font-size: 30px;
-    }
-
-    @include screen-l() {
+    @include screen-l {
       font-size: 36px;
     }
   }

@@ -83,8 +83,8 @@ const AboutPage = () => {
 					</ol>
 					<Link to='/catalogue'>
 						<Button
-							background="orange"
-							type="button"
+							background='orange'
+							type='button'
 							styleName={s.about_link}>
 							Перейти В Магазин
 						</Button>

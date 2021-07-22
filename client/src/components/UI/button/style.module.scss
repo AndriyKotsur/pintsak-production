@@ -6,7 +6,7 @@
   font-weight: 900;
 
   &_green {
-    background: $color4;
+    background: $color5;
     color: #ffffff;
   }
 
@@ -17,11 +17,6 @@
 
   &_transparent {
     background: transparent;
-    color: $color1;
-  }
-
-  &_white {
-    background: #ffffff;
     color: $color1;
   }
 }

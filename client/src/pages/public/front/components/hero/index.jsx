@@ -1,9 +1,9 @@
-import React, { Fragment, useLayoutEffect, useRef, useState } from 'react'
+import React, { useLayoutEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 
-import { Icon, Types } from 'components'
+import { Icon, Title, Types } from 'components'
 
 import './slider.scss'
 import classNames from 'classnames'
@@ -69,9 +69,9 @@ const Hero = ({ types }) => {
 					<Types types={types.types} settings={{ public: true, light: true }} styleName={s.hero_navigation} />
 					<div className={s.hero_carousel}>
 						<div className={s.hero_header}>
-							<h1 className={s.hero_title}>
+							<Title styleName={s.hero_title}>
 								{heroTitles[slideIndex]}
-							</h1>
+							</Title>
 							<Link to='/about' className={s.hero_description}>
 								Дізнатися більше
 							<Icon name='description'

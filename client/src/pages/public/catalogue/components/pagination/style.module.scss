@@ -1,85 +1,54 @@
 @import './src/assets/styles/general/_mixins.scss';
 @import './src/assets/styles/general/_variables.scss';
 
-.wrapper {
+.pagination {
   position: relative;
-}
 
-.block {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.refresh {
-  max-width: 445px;
-  min-width: 290px;
-  height: 55px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto 35px;
-  border: 1px solid $color1;
-  border-radius: 4px;
-  @include transition();
-  font-size: 16px;
-  font-weight: 900;
-  color: $color1;
-
-  &:hover {
-    @include transition();
-    transform: translateY(-10px);
-  }
-}
-
-.page {
-  margin: 0px 15px;
-  font-size: 18px;
-  font-weight: 900;
-  @include transition();
-  color: $color1;
-
-  &:hover {
-    @include transition();
-    color: $color6;
+  &_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
-  @include screen-tb() {
-    margin: 0px 20px;
-  }
+  &_page {
+    margin: 0px 15px;
+    @include transition;
+    font-size: 18px;
+    font-weight: 900;
+    color: $color1;
 
-  &.active {
-    color: $color2;
-  }
-}
+    &:hover {
+      @include transition;
+      color: $color6;
+    }
 
-.step {
-  min-width: 50px;
-  padding: 10px 16px;
-  background: $color1;
-  border-radius: 4px;
+    @include screen-tb {
+      margin: 0 20px;
+    }
 
-  &.disabled {
-    opacity: .7;
-  }
-}
-
-.icon {
-  &_refresh {
-    margin-right: 15px;
-  }
-
-  &_left {
-    transform: rotateZ(180deg);
-
-    &.isActive {
-      fill-opacity: 0.5;
+    &.active {
+      color: $color2;
     }
   }
 
-  &_right {
-    &.isActive {
-      fill-opacity: 0.5;
+  &_step {
+    min-width: 50px;
+    padding: 10px 16px;
+    border-radius: 4px;
+    background: $color1;
+
+    &.disabled {
+      opacity: .7;
+    }
+  }
+
+  .icon {
+    &_left {
+      transform: rotateZ(180deg);
+    }
+
+    &_right {
+      position: relative;
     }
   }
 }

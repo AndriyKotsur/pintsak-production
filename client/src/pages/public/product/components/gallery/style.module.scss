@@ -7,12 +7,12 @@
   justify-content: center;
   align-items: center;
 
-  @include screen-tb() {
+  @include screen-tb {
     width: 50%;
     margin-right: 15px;
   }
 
-  @include screen-l() {
+  @include screen-l {
     width: 60%;
     margin-right: 50px;
   }
@@ -25,7 +25,7 @@
     align-self: start;
     margin-right: 15px;
 
-    @include screen-l() {
+    @include screen-l {
       margin-right: 60px;
     }
   }
@@ -39,11 +39,11 @@
     padding-top: 56.25%;
     border: 1px solid $color4;
 
-    @include screen-sm() {
+    @include screen-sm {
       padding-top: 50%;
     }
 
-    @include screen-tb() {
+    @include screen-tb {
       padding-top: 133.33%;
     }
 
@@ -51,7 +51,7 @@
       padding-top: 75%;
     }
 
-    @include screen-xl() {
+    @include screen-xl {
       padding-top: 51.55%;
     }
   }
@@ -60,20 +60,28 @@
 .image {
   &_small {
     width: 55px;
-    margin: 0px 0px 15px;
+    padding: 5px;
+    margin-bottom: 15px;
+    cursor: pointer;
 
-    @include screen-sm() {
+    @include screen-sm {
       width: 65px;
-      margin: 0px 0px 20px;
+      padding: 10px;
+      margin-bottom: 20px;
     }
 
-    @include screen-l() {
-      max-width: 125px;
+    @include screen-l {
+      max-width: 153px;
       width: 100%;
+      padding: 15px;
+    }
+
+    &.active {
+      border: 1px solid $color4;
     }
 
     &:last-child {
-      margin: 0px;
+      margin: 0;
     }
 
     img {

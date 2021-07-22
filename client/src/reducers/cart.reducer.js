@@ -62,8 +62,8 @@ export default function cart(state = initialState, { type, payload }) {
 		case GET_CART_ITEMS:
 			return {
 				...state,
-				subtotal: payload.newSubtotal,
-				items: payload.cartItems,
+				subtotal: payload.subtotal,
+				items: payload.items,
 			}
 		case HANDLE_CART:
 			return {

@@ -47,7 +47,9 @@ const Chat = () => {
       <div className={classNames(s.chat_wrapper, {[s.visible]: visible})}>
         <span className={s.chat_background}></span>
         <div className={s.chat_menu}>
-					<Title value="Зв'яжіться з нами" />
+					<h3 className={s.chat_title}>
+						Зв'яжіться з нами
+					</h3>
 					<Form handler={handleSubmit} required>
 						<Input
 							type='text'

@@ -33,7 +33,9 @@ const Contact = () => {
 			<Background settings={{ hiddenLeft: false, hiddenRight: false }}/>
 			<div className="container">
 				<div className={s.contact_wrapper}>
-					<Title value="Звяжіться з нами" />
+					<Title styleName={s.contact_title}>
+						Звяжіться з нами
+					</Title>
 					<Form handler={handleSubmit} required>
 						<Input
 							type='text'

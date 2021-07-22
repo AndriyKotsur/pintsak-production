@@ -16,7 +16,6 @@ const Button = ({
     [s.button_green]: background === 'green',
     [s.button_orange]: background === 'orange',
     [s.button_transparent]: background === 'transparent',
-    [s.button_white]: background === 'white'
   }
   return (
     <button
