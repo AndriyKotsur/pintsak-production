@@ -1,12 +1,17 @@
 import React, { Fragment } from 'react'
-import { Chat, Header, Footer } from 'components'
+import { useSelector } from 'react-redux'
+
+import { Cart, Chat, Header, Footer } from 'components'
 
 const Layout = ({ children }) => {
-	return(
+	const cart = useSelector(state => state.cart)
+
+	return (
 		<Fragment>
 			<Header />
-			{children}
+				{children}
 			<Chat />
+			{cart.is_active && <Cart />}
 			{ window.location.pathname !== '/location' && <Footer />}
 		</Fragment>
 	)

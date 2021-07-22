@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as CartActions from 'actions/cart.action'
 
-import { Cart, Form, Icon, Input, Preloader, Popup, Title } from 'components'
+import { Button, Form, Icon, Input, Preloader, Popup, Title } from 'components'
 
 import classNames from 'classnames'
 import s from './style.module.scss'
@@ -36,10 +36,10 @@ const OrderPage = () => {
 
 	return (
 		<section className={s.order}>
-			<div className="container">
+			<div className='container'>
 				<div className={s.order_wrapper}>
 					<div className={s.order_form}>
-						<Title value="Відправити замовлення" />
+						<Title value='Відправити замовлення' />
 						<p className={s.form_text}>
 							Будь ласка, заповніть обов'язкові поля і ми зв'яжемося з вами повашому замовленню
 						</p>
@@ -68,14 +68,18 @@ const OrderPage = () => {
 						</Form>
 					</div>
 					<div className={s.order_container}>
-						<div className={s.order_edit} onClick={() => dispatch(CartActions.handleCart(true))}>
+						<Button
+							type="button"
+							background="transparent"
+							styleName={s.order_edit}
+							handleClick={() => dispatch(CartActions.handleCart(true))}>
 							<span className={s.edit_title}>
 								Редагувати замовлення
 							</span>
-							<button type="button" className={s.edit_btn}>
-								<Icon name="arrow" className={classNames('icon', 'icon-arrow', s.edit_icon)} />
-							</button>
-						</div>
+							<div className={s.edit_btn}>
+								<Icon name='arrow' className={classNames('icon', 'icon-arrow', s.edit_icon)} />
+							</div>
+						</Button>
 						<div className={s.order_summary}>
 							<h2 className={s.summary_title}>
 								Замовлення
@@ -110,7 +114,6 @@ const OrderPage = () => {
 					</div>
 				</div>
 			</div>
-			{cart.is_active && <Cart />}
 			{cart.order_cart_items_status === 'loading' && <Preloader background />}
 			{(cart.order_cart_items_status === 'error' || cart.order_cart_items_status === 'success') &&
 				<Popup

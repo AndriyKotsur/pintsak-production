@@ -4,10 +4,8 @@
 .title {
   display: flex;
   justify-content: center;
-  margin-bottom: 40px;
   font-size: 24px;
   font-weight: 900;
-  text-align: center;
   color: $color1;
 
   @include screen-tb {
@@ -15,6 +13,6 @@
   }
 
   @include screen-l {
-    font-size: 36px;
+    font-size: 48px;
   }
 }

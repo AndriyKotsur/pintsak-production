@@ -12,9 +12,9 @@
   
   &_navigation {
     margin-bottom: 76px;
-    @include hidden();
+    @include hidden;
   
-    @include screen-l() {
+    @include screen-l {
       display: block;
       visibility: visible;
       width: 17%;
@@ -24,7 +24,7 @@
   &_container {
     width: 100%;
   
-    @include screen-l() {
+    @include screen-l {
       width: 80%;
     }
   }
@@ -36,7 +36,7 @@
     align-items: flex-start;
     margin-bottom: 40px;
   
-    @include screen-tb() {
+    @include screen-tb {
       flex-direction: row;
       align-items: center;
     }
@@ -48,11 +48,11 @@
     font-weight: 700;
     color: $color1;
   
-    @include screen-tb() {
+    @include screen-tb {
       margin: 0px;
     }
   
-    @include screen-l() {
+    @include screen-l {
       font-size: 32px;
     }
   }

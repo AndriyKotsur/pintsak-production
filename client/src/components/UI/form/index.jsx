@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { Button } from 'components'
+
 import classNames from 'classnames'
 import s from './style.module.scss'
 
@@ -12,7 +14,12 @@ const Form = ({
 	<form onSubmit={handler} className={s.form}>
 		{children}
 		{ required && <span className={s.required}>обов’язкові поля</span> }
-		<button type="submit" className={classNames('btn-sent', 'btn-orange', s.btn)}>Пітвердити</button>
+		<Button
+			type="submit"
+			background="orange"
+			styleName={s.btn}>
+				Пітвердити
+		</Button>
 	</form>
 	)
 }

@@ -11,26 +11,42 @@ const Table = ({ options }) => {
 			<h2 className={s.table_title}>
 				Опис товару
 			</h2>
-			<table className={s.table_container}>
-				<thead className={s.table_head}>
-				<tr>
-					<th>Довжина (см)</th>
-					<th>Висота (см)</th>
-					<th>Товщина (см)</th>
-					<th>Кількість на од. виміру</th>
-					<th>Вага / {measurement}</th>
-				</tr>
-				</thead>
-				<tbody className={s.table_body}>
-				<tr>
-					<td>{options.width}</td>
-					<td>{options.height}</td>
-					<td>{options.thickness}</td>
-					<td>{options.quantity}</td>
-					<td>{options.weight}</td>
-				</tr>
-				</tbody>
-			</table>
+			<div className={s.table_container}>
+				<div className={s.table_head}>
+					<span>
+						Довжина (см)
+					</span>
+					<span>
+						Висота (см)
+					</span>
+					<span>
+						Товщина (см)
+					</span>
+					<span>
+						Кількість на од. виміру
+					</span>
+					<span>
+						Вага / {measurement}
+					</span>
+				</div>
+				<div className={s.table_body}>
+					<span>
+						{options.width}
+					</span>
+					<span>
+						{options.height}
+					</span>
+					<span>
+						{options.thickness}
+					</span>
+					<span>
+						{options.quantity}
+					</span>
+					<span>
+						{options.weight}
+					</span>
+				</div>
+			</div>
 		</div>
 	)
 }

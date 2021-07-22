@@ -79,13 +79,13 @@ const Pagination = ({ page, pages, handlePageBy }) => {
 
 Pagination.propTypes = {
 	page: PropTypes.number,
-	pages: PropTypes.array,
+	pages: PropTypes.number,
   handlePageChange: PropTypes.func,
 }
 
 Pagination.defaultProps = {
 	page: null,
-	pages: [],
+	pages: null,
   handlePageChange: () => null
 }
 export default Pagination

@@ -1,10 +1,13 @@
 import React from 'react'
 
+import classNames from 'classnames'
 import s from './style.module.scss'
 
-const Title = ({ value }) => {
+const Title = ({ children, styleName }) => {
   return (
-    <h1 className={s.title}>{value}</h1>
+    <h1 className={classNames(s.title, styleName)}>
+      {children}
+    </h1>
   )
 }
 
