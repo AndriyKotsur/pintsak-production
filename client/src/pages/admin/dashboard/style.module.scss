@@ -3,14 +3,14 @@
 
 .dashboard {
   &_wrapper {
-    padding: 50px 0;
+    padding: 40px 0;
 
     @include screen-tb {
-      padding: 100px 0;
+      padding: 80px 0;
     }
 
     @include screen-l {
-      padding: 150px 0;
+      padding: 120px 0;
     }
   }
 
@@ -29,20 +29,29 @@
     justify-content: center;
     padding: 40px 0;
 
-    @include screen-l {
+    @include screen-tb {
       padding: 80px 0;
       flex-direction: row;
+    }
+
+    & > a:first-child {
+      margin-bottom: 20px;
+
+      @include screen-tb {
+        margin-right: 80px;
+      }
     }
   }
 
   &_appender {
-    min-width: 250px;
+    width: 100%;
     padding: 15px 40px;
-    margin: 0 auto 25px;
     text-align: center;
 
-    @include screen-l {
+    @include screen-tb {
+      min-width: 300px;
       flex-direction: row;
+      font-size: 20px;
     }
   }
 

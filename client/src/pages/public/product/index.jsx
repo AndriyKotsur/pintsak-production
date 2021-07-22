@@ -30,15 +30,17 @@ const ProductPage = () => {
 			{tile.get_tile_status === 'success' && tile.get_tile_status && (
 				<div className='container'>
 					<div className={s.product_wrapper}>
-						<button type='button' onClick={() => window && window.history.back()} className={s.product_back}>
-							<Icon name='arrow' className={classNames('icon', 'icon-back', s.product_icon)} />
-							{tile.title}
-						</button>
 						<Breadcrumbs type={tile.type} tile={tile.title} />
-						<div className={s.product_container}>
+						<div className={s.product_controls}>
+							<button type='button' onClick={() => window && window.history.back()} className={s.product_back}>
+								<Icon name='arrow' className={classNames('icon', 'icon-back', s.product_icon)} />
+								{tile.title}
+							</button>
 							<span className={classNames(s.product_status, { [s.available]: tile.is_available })}>
 								{tile.is_available ? 'В наявності' : 'Нема у наявності'}
 							</span>
+						</div>
+						<div className={s.product_container}>
 							<Gallery images={tile.images} />
 							<Card tile={tile} cart={cart} />
 						</div>

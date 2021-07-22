@@ -15,12 +15,12 @@ const Logout = () => {
 	return (
 		<button
 			type="button"
-			className={s.close}
+			className={s.login_close}
 			onClick={() => {
 				dispatch(AuthActions.logout())
 				history.push('/admin')
 			}}>
-			<Icon name="logout" className={classNames('icon', 'icon-logout', s.close_icon)} />
+			<Icon name="logout" className={classNames('icon', 'icon-logout', s.login_icon)} />
 			Вийти
 		</button>
 	)

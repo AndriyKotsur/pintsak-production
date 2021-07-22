@@ -25,11 +25,13 @@ const Login = () => {
 	}
 
 	return (
-		<section className={s.section}>
+		<section className={s.login}>
 			<Background settings={{ hiddenLeft: false, hiddenRight: false }} />
-			<div className={classNames('container', s.container)}>
-				<div className={s.wrapper}>
-					<Title value="Вхід в панель керування" />
+			<div className={classNames('container', s.login_container)}>
+				<div className={s.login_wrapper}>
+					<Title styleName={s.login_title}>
+						Вхід в панель керування
+					</Title>
 					<Form
 						handler={handleSubmit}>
 						<Input
@@ -47,7 +49,10 @@ const Login = () => {
 							onChange={e => dispatch(AuthActions.handleChange(e))}
 							required />
 					</Form>
-					{login.loginStatus === 'error' && (<span className={s.error}>Не правильний логін або пароль!</span>)}
+					{login.loginStatus === 'error' && (
+					<span className={s.login_error}>
+						Не правильний логін або пароль!
+					</span>)}
 				</div>
 			</div>
 		</section>
