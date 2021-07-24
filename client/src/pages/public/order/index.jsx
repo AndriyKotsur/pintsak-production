@@ -39,7 +39,9 @@ const OrderPage = () => {
 			<div className='container'>
 				<div className={s.order_wrapper}>
 					<div className={s.order_form}>
-						<Title value='Відправити замовлення' />
+						<Title styleName={s.form_title}>
+							Відправити замовлення
+						</Title>
 						<p className={s.form_text}>
 							Будь ласка, заповніть обов'язкові поля і ми зв'яжемося з вами повашому замовленню
 						</p>

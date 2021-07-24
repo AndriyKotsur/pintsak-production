@@ -52,7 +52,7 @@ const Carousel = ({ items, styleName }) => {
 					Популярні товари
 				</h2>
 			</div>
-			<Splide options={carousel} ref={carouselRef} onMove={handleSlide}>
+			<Splide ref={carouselRef} options={carousel} onMove={handleSlide}>
 				{items && items.length > 0 && items.map((tile, index) => (
 					<SplideSlide key={'product_' + index}>
 						<Tile tile={tile} settings={{ public: true }} />

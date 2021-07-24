@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useLockBodyScroll } from 'hooks'
 import * as CartActions from 'actions/cart.action'
 
-import { Icon, Counter } from 'components'
+import { Button, Counter, Icon } from 'components'
 
 import classNames from 'classnames'
 import s from './style.module.scss'
@@ -82,24 +82,30 @@ const Cart = () => {
 					))}
 				</div>
 				<div className={s.cart_order}>
-					<div className={s.back} onClick={() => dispatch(CartActions.handleCart(false))}>
+					<div className={s.order_back} onClick={() => dispatch(CartActions.handleCart(false))}>
 						<span className={s.back_title}>
 							Продовжити покупки
 						</span>
-						<button className={s.back_btn}>
+						<button className={s.back_button}>
 							<Icon name="arrow" className={classNames('icon', 'icon-arrow', s.back_icon)} />
 						</button>
 					</div>
-					<div className={s.cart_total}>
-						<div className={s.cost}>
-							<span className={s.total}>
+					<div className={s.order_total}>
+						<div className={s.order_cost}>
+							<span className={s.order_total}>
 								Підсумок
 							</span>
-							<span className={s.summary}>
+							<span className={s.order_summary}>
 								{cart.subtotal},<sup>00 грн</sup>
 							</span>
 						</div>
-						<button className={s.btn} onClick={handleButton}>Замовити</button>
+						<Button
+							type="button"
+							background="orange"
+							styleName={s.order_button}
+							handleClick={handleButton}>
+							Замовити
+						</Button>
 					</div>
 				</div>
 			</div>

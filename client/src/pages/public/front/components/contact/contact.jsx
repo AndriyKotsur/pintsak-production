@@ -34,7 +34,7 @@ const Contact = () => {
 			<div className="container">
 				<div className={s.contact_wrapper}>
 					<Title styleName={s.contact_title}>
-						Звяжіться з нами
+						Зв'яжіться з нами
 					</Title>
 					<Form handler={handleSubmit} required>
 						<Input
