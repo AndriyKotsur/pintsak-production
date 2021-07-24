@@ -1,13 +1,14 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import { Button } from 'components'
 
 import s from './style.module.scss'
 
 const Form = ({
-	handler,
 	children,
 	required,
+	handler,
 }) => {
 	return (
 	<form onSubmit={handler} className={s.form}>
@@ -23,4 +24,13 @@ const Form = ({
 	)
 }
 
+Form.propTypes = {
+	required: PropTypes.bool,
+  handler: PropTypes.func
+}
+
+Form.defaultProps = {
+	required: false,
+  handler: () => null
+}
 export default Form

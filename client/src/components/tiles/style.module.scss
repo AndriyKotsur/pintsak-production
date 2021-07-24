@@ -1,33 +1,37 @@
 @import './src/assets/styles/general/_mixins.scss';
 @import './src/assets/styles/general/_variables.scss';
 
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: center;
-  margin: 20px 0;
+.tiles {
+  &_wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
 
-  @include screen-tb {
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-start;
+    @include screen-tb {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+
+    @include screen-l {
+      margin: 0 -19.5px 40px;
+    }
   }
 
-  @include screen-l() {
-    margin: 0 -19.5px 40px;
-  }
-}
+  &_quantity {
+    display: block;
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: 700;
+    color: $color1;
+    text-align: center;
 
-.length {
-  display: block;
-  margin-bottom: 20px;
-  font-size: 16px;
-  font-weight: 700;
-  color: $color1;
-  text-align: center;
-  & > span {
-    color: $color2;
+    &>span {
+      color: $color2;
+    }
   }
+
 }

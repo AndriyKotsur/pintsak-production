@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import classNames from 'classnames'
 import s from './style.module.scss'
@@ -19,4 +20,11 @@ const Background = ({ settings: { hiddenLeft, hiddenRight } }) => {
 	)
 }
 
+Background.propTypes = {
+	settings: PropTypes.any
+}
+
+Background.defaultProps = {
+	settings: {}
+}
 export default Background

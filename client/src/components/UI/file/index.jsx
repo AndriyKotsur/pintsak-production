@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 
 import { Icon } from 'components'
@@ -18,24 +19,24 @@ const File = ({ onChange, onDelete }) => {
 
   const fileInputField = useRef(null)
 
-  const dragOver = (e) => {
+  const dragOver = e => {
     e.preventDefault()
   }
 
-  const dragEnter = (e) => {
+  const dragEnter = e => {
     e.preventDefault()
   }
 
-  const dragLeave = (e) => {
+  const dragLeave = e => {
     e.preventDefault()
   }
 
   const fileName = (filename) => {
-    return filename.substring(0, filename.lastIndexOf(".")) + "." || filename
+    return filename.substring(0, filename.lastIndexOf('.')) + '.' || filename
   }
 
   const fileType = (filename) => {
-    return filename.substring(filename.lastIndexOf(".") + 1, filename.length) || filename
+    return filename.substring(filename.lastIndexOf('.') + 1, filename.length) || filename
   }
 
   const fileSize = (size) => {
@@ -43,7 +44,7 @@ const File = ({ onChange, onDelete }) => {
   }
 
   const validateFile = (file) => {
-    const validateTypes = ["image/svg", "image/png", "image/jpeg", "image/jpg"]
+    const validateTypes = ['image/svg', 'image/png', 'image/jpeg', 'image/jpg']
     if (validateTypes.indexOf(file.type) === -1 || file.size > DEFAULT_MAX_FILE_SIZE_IN_BYTES) {
       return false
     }
@@ -58,7 +59,7 @@ const File = ({ onChange, onDelete }) => {
     if (fileInputField.current.files.length) handleFiles(fileInputField.current.files)
   }
 
-  const handleDropUpload = (e) => {
+  const handleDropUpload = e => {
     e.preventDefault()
     const newFiles = e.dataTransfer.files
 
@@ -121,20 +122,19 @@ const File = ({ onChange, onDelete }) => {
           <div className={s.upload_group}>
             <input
               ref={fileInputField}
-              type="file"
-              value=""
+              type='file'
+              value=''
               onChange={handleClickUpload}
-              accept="image/svg, image/x-png, image/jpeg"
+              accept='image/svg, image/x-png, image/jpeg'
               className={s.upload_input}
               multiple />
-            <button type="button" onClick={handleClick} className={s.upload_button}>Додати файли</button>
+            <button type='button' onClick={handleClick} className={s.upload_button}>Додати файли</button>
           </div>
           <span className={s.upload_remarks}>Максимальний розмір файла: 5МБ</span>
           {error && <span className={s.upload_error}>Файл не відповідає заданим параметрам!</span>}
         </div>
       </div>
-      {
-        validFiles.length > 0 &&
+      { validFiles.length > 0 &&
         <div className={s.preview}>
           {
             validFiles.map((file, index) =>
@@ -145,10 +145,10 @@ const File = ({ onChange, onDelete }) => {
                 <div className={s.preview_info}>
                   <div className={s.preview_file}>
                     <button
-                      type="button"
+                      type='button'
                       onClick={() => handleDelete(file.name)}
                       className={s.preview_delete}>
-                      <Icon name="close" className={classNames('icon', s.preview_icon)} />
+                      <Icon name='close' className={classNames('icon', s.preview_icon)} />
                     </button>
                     <span className={s.preview_name}>{fileName(file.name)}</span>
                     <span className={s.preview_type}>{fileType(file.name)}</span>
@@ -158,10 +158,8 @@ const File = ({ onChange, onDelete }) => {
               </div>
             )
           }
-        </div>
-      }
-      {
-        state.imagesPreview && state.imagesPreview.length > 0 &&
+        </div> }
+      { state.imagesPreview && state.imagesPreview.length > 0 &&
         state.imagesPreview.map((file, index) =>
           <div key={'file_' + index} className={s.preview_item}>
             <picture className={s.preview_image}>
@@ -170,18 +168,26 @@ const File = ({ onChange, onDelete }) => {
             <div className={s.preview_info}>
               <div className={s.preview_file}>
                 <button
-                  type="button"
+                  type='button'
                   onClick={() => onDelete(file, state._id)}
                   className={s.preview_delete}>
-                  <Icon name="close" className={classNames('icon', s.preview_icon)} />
+                  <Icon name='close' className={classNames('icon', s.preview_icon)} />
                 </button>
               </div>
             </div>
           </div>
-        )
-      }
+        ) }
     </div>
   )
 }
 
+File.propTypes = {
+	onChange: PropTypes.func,
+  onDelete: PropTypes.func
+}
+
+File.defaultProps = {
+	onChange: () => null,
+  onDelete: () => null
+}
 export default File

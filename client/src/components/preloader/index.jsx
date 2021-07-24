@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import classNames from 'classnames'
 import s from './style.module.scss'
@@ -22,4 +23,11 @@ const Preloader = ({ background }) => {
 	)
 }
 
+Preloader.propTypes = {
+	background: PropTypes.bool,
+}
+
+Preloader.defaultProps = {
+	background: false,
+}
 export default Preloader

@@ -43,7 +43,7 @@ const Chat = () => {
 	}, [activeChat])
 
   return (
-    <div className={s.chat_container}>
+    <section className={s.chat}>
       <div className={classNames(s.chat_wrapper, {[s.visible]: activeChat})}>
         <span className={s.chat_background} />
         <div className={s.chat_menu}>
@@ -89,7 +89,7 @@ const Chat = () => {
 				message={message[state.send_request_status]}
 				status={state.send_request_status} 
 				handleReset={handleChatReset} />}
-    </div>
+    </section>
   )
 }
 

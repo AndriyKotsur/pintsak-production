@@ -22,7 +22,7 @@
     .logo_desktop {
       display: none;
 
-      @include screen-l() {
+      @include screen-l {
         display: block;
       }
     }
@@ -30,12 +30,12 @@
     .logo_mobile {
       display: block;
 
-      @include screen-l() {
+      @include screen-l {
         display: none;
       }
     }
 
-    @include screen-l() {
+    @include screen-l {
       margin-right: 35px;
     }
   }
@@ -45,7 +45,7 @@
     margin-right: 10px;
     @include hidden;
 
-    @include screen-l() {
+    @include screen-l {
       display: block;
       visibility: visible;
     }
@@ -101,7 +101,7 @@
     z-index: 10;
     cursor: pointer;
 
-    @include screen-l() {
+    @include screen-l {
       @include hidden;
     }
 
@@ -164,7 +164,7 @@
     align-items: center;
     margin-right: 10px;
 
-    @include screen-l() {
+    @include screen-l {
       flex-grow: 1;
     }
 

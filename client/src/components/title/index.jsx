@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import classNames from 'classnames'
 import s from './style.module.scss'
@@ -11,4 +12,11 @@ const Title = ({ children, styleName }) => {
   )
 }
 
+Title.propTypes = {
+	styleName: PropTypes.string,
+}
+
+Title.defaultProps = {
+	styleName: '',
+}
 export default Title
