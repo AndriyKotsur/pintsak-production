@@ -1,13 +1,22 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+
 import classNames from 'classnames'
 import s from './style.module.scss'
 
 import { Icon } from 'components'
 
-const Checkbox = ({name, label, className, checked, isRequired, onChange}) => {
+const Checkbox = ({
+	name,
+	label,
+	className,
+	checked,
+	isRequired,
+	onChange
+}) => {
 	return (
-		<div className={s.field}>
-			<label className={classNames(s.checkbox, className)}>
+		<div className={s.checkbox}>
+			<label htmlFor={name} className={classNames(s.checkbox_label, className)}>
 				<input
 					type='checkbox'
 					name={name}
@@ -16,9 +25,26 @@ const Checkbox = ({name, label, className, checked, isRequired, onChange}) => {
 					required={isRequired} />
 				<Icon name='checkbox' className={classNames('icon', 'icon-checkbox')} />
 			</label>
-			<p className={s.label}>{label}</p>
+			<p className={s.checkbox_title}>
+				{label}
+			</p>
 		</div>
 	)
 }
 
+Checkbox.propTypes = {
+	name: PropTypes.string,
+	label: PropTypes.string,
+  className: PropTypes.string,
+	isRequired: PropTypes.bool,
+  onChange: PropTypes.func
+}
+
+Checkbox.defaultProps = {
+	name: '',
+	label: '',
+  className: '',
+	isRequired: false,
+  onChange: () => null
+}
 export default Checkbox

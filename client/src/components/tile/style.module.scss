@@ -17,138 +17,148 @@
     width: 341px;
     margin: 0 20.5px 40px;
   }
-}
 
-.link {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.title {
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  padding: 0 15px;
-  margin-bottom: 15px;
-  font-size: 18px;
-  font-weight: 700;
-  color: $color1;
-  text-align: center;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  @include screen-l {
-    padding: 0 30px;
+  &_link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-}
-
-.wrapper {
-  position: relative;
-  width: 50%;
-  height: 120px;
-  margin-bottom: 20px;
-}
-
-.image {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-}
-
-.size {
-  margin-bottom: 10px;
-  padding: 0 65px 10px;
-  border-bottom: 1px solid $color2;
-  font-size: 18px;
-  font-weight: 400;
-  color: $color1;
-}
-
-.price {
-  margin-bottom: 30px;
-  font-size: 18px;
-  font-weight: 700;
-  color: $color1;
-}
-
-.action {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-top: 1px solid $color2;
-  border-bottom: 1px solid $color2;
-}
-
-.edit {
-  height: 30px;
-  margin-right: 25px;
-  @include transition;
-  font-size: 14px;
-  font-weight: 700;
-  color: $color1;
-
-  &:hover {
-    @include transition;
-    color: $color2;
-  }
-}
-
-.delete {
-  height: 30px;
-  @include transition;
-  font-size: 14px;
-  font-weight: 700;
-  color: $color1;
-
-  &:hover {
-    @include transition;
-    color: $color2;
-  }
-}
-
-.cart {
-  position: absolute;
-  left: 70%;
-  padding: 10px 15px;
-  @include transition;
-  background: $color2;
-  border-radius: 4px;
-  box-shadow: 0 2px 5px rgba(55, 63, 72, 0.2);
   
-  path,
-  rect {
-    @include transition;
+  &_title {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    padding: 0 15px;
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 700;
+    color: $color1;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    @include screen-l {
+      padding: 0 30px;
+    }
   }
+  
+  &_wrapper {
+    position: relative;
+    width: 50%;
+    height: 120px;
+    margin-bottom: 20px;
+  }
+  
+  &_image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  
+  &_size {
+    margin-bottom: 10px;
+    padding: 0 65px 10px;
+    border-bottom: 1px solid $color2;
+    font-size: 18px;
+    font-weight: 400;
+    color: $color1;
+  }
+  
+  &_price {
+    margin-bottom: 30px;
+    font-size: 18px;
+    font-weight: 700;
+    color: $color1;
+  }
+  
+  &_control {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid $color2;
+    border-bottom: 1px solid $color2;
 
-  &.added {
-    background: #fff;
-
-    path,
-    rect {
-      fill: $color2;
+    .control_edit {
+      height: 30px;
+      margin-right: 25px;
+      @include transition;
+      font-size: 14px;
+      font-weight: 700;
+      color: $color1;
+    
+      &:hover {
+        @include transition;
+        color: $color2;
+      }
+    }
+    
+    .control_delete {
+      height: 30px;
+      @include transition;
+      font-size: 14px;
+      font-weight: 700;
+      color: $color1;
+    
+      &:hover {
+        @include transition;
+        color: $color2;
+      }
     }
   }
 
-  &.disabled {
-    cursor: not-allowed;
-  }
-
-  &:hover {
+  &_cart {
+    position: absolute;
+    left: 70%;
+    padding: 10px 15px;
     @include transition;
-    background: #fff;
-
+    background: $color2;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(55, 63, 72, 0.2);
+    
     path,
     rect {
       @include transition;
-      fill: $color2;
+    }
+  
+    &.added {
+      background: #fff;
+  
+      path,
+      rect {
+        fill: $color2;
+      }
+    }
+  
+    &.disabled {
+      background: $color4;
+      cursor: not-allowed;
+
+      &:hover {
+        background: $color4;
+
+        path,
+        rect {
+          fill: #fff;
+        }
+      }
+    }
+  
+    &:hover {
+      @include transition;
+      background: #fff;
+  
+      path,
+      rect {
+        @include transition;
+        fill: $color2;
+      }
     }
   }
 }

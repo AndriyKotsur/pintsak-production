@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as CartActions from 'actions/cart.action'
@@ -6,8 +7,8 @@ import * as DeleteTileActions from 'actions/delete-tile.action'
 
 import { Icon, Counter } from 'components'
 
-import s from './style.module.scss'
 import classNames from 'classnames'
+import s from './style.module.scss'
 
 const Tile = ({ tile, settings }) => {
 	const [quantity, setQuantity] = useState(1)
@@ -19,12 +20,17 @@ const Tile = ({ tile, settings }) => {
 
 	const itemInCart = cart.items.find(item => item.url === tile.url)
 
+	let classes = {
+		[s.added]: itemInCart,
+		[s.disabled]: !tile.is_available
+	}
+
 	const handleCart = () => {
 		if (!itemInCart) dispatch(CartActions.addCartItem(tile, quantity, Object.keys(tile.prices)[0]))
 		dispatch(CartActions.handleCart(true))
 	}
 
-	const handleDelete = async id => {
+	const handleDeleteItem = async id => {
 		dispatch(DeleteTileActions.deleteTile(id))
 	}
 
@@ -32,36 +38,42 @@ const Tile = ({ tile, settings }) => {
 		if (state.delete_tile_status === 'success')
 			window.location = '/admin/dashboard'
 	}, [state])
-
+	
 	return (
 		<div key={tile.id} className={s.item}>
-			<Link to={`/catalogue/${tile.type.url}/${tile.url}`} className={s.link}>
-				<h3 className={s.title}>{tile.title}</h3>
-				<div className={s.wrapper}>
-					<picture className={s.image}>
+			<Link to={`/catalogue/${tile.type.url}/${tile.url}`} className={s.item_link}>
+				<h3 className={s.item_title}>
+					{tile.title}
+				</h3>
+				<div className={s.item_wrapper}>
+					<picture className={s.item_image}>
 						<img src={tile.images[0]} alt={tile.title} />
 					</picture>
 				</div>
-				<span className={s.size}>{tile.sizes.width} x {tile.sizes.height}</span>
-				<span className={s.price}>{Object.values(tile.prices)[0]}</span>
+				<span className={s.item_size}>
+					{tile.sizes.width} x {tile.sizes.height}
+				</span>
+				<span className={s.item_price}>
+					{Object.values(tile.prices)[0]}
+				</span>
 			</Link>
-			{settings && settings.edit ?
-				<div className={s.action}>
+			{ settings && settings.edit ?
+				<div className={s.item_control}>
 					<button
 						type="button"
 						onClick={() => history.push(`/admin/tile/${tile.url}`)}
-						className={s.edit}>
+						className={s.control_edit}>
 						Редагувати
 					</button>
 					<button
 						type="button"
-						onClick={() => { handleDelete(tile._id) }}
-						className={s.delete}>
+						onClick={() => { handleDeleteItem(tile._id) }}
+						className={s.control_delete}>
 						Видалити
 					</button>
 				</div>
 				:
-				<div className={s.action}>
+				<div className={s.item_control}>
 					<Counter
 						id={tile.id}
 						type="catalogue"
@@ -72,12 +84,22 @@ const Tile = ({ tile, settings }) => {
 					<button
 						type="button"
 						onClick={handleCart}
-						className={classNames(s.cart, { [s.added]: itemInCart })}>
+						disabled={!tile.is_available}
+						className={classNames(s.item_cart, classes)}>
 						<Icon name='cart' className='icon icon-cart' />
 					</button>
-				</div>}
+				</div> }
 		</div>
 	)
 }
 
+Tile.propTypes = {
+	tile: PropTypes.any,
+	settings: PropTypes.any,
+}
+
+Tile.defaultProps = {
+	tile: {},
+	settings: {},
+}
 export default Tile

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
 import { Button, Input } from 'components'
 
@@ -75,4 +76,13 @@ const Colors = ({ colors, onChange }) => {
 	)
 }
 
+Colors.propTypes = {
+	colors: PropTypes.any,
+  onChange: PropTypes.func
+}
+
+Colors.defaultProps = {
+	colors: {},
+  onChange: () => null
+}
 export default Colors
