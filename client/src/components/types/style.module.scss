@@ -1,158 +1,183 @@
 @import './src/assets/styles/general/_mixins.scss';
 @import './src/assets/styles/general/_variables.scss';
 
-.light {
-  .link {
-    color: #ffffff;
-  }
+.types {
+  &.light {
+    .item_link {
+      color: #ffffff;
+    }
 
-  .icon {
-    path {
-      fill: #ffffff;
+    .download_icon {
+      path {
+        fill: #ffffff;
+      }
     }
   }
-}
 
-.mobile {
-  position: fixed;
-  top: 110px;
-  width: 200px;
-  margin: 0;
-  z-index: 20;
+  &.mobile {
+    position: fixed;
+    top: 110px;
+    width: 200px;
+    margin: 0;
+    z-index: 20;
 
-  .list {
-    margin-top: 25px;
-  }
-
-  .link {
-    color: #ffffff;
-
-    &:not(:first-child) {
+    .types_list {
       margin-top: 25px;
     }
-  }
 
-  .icon {
-    path {
-      fill: #ffffff;
+    .item_link {
+      color: #ffffff;
+
+      &:not(:first-child) {
+        margin-top: 25px;
+      }
+    }
+
+    .types_download {
+      margin-top: 30px;
+
+      .download_icon {
+        path {
+          fill: #ffffff;
+        }
+      }
     }
   }
 
-  .download {
-    margin-top: 30px;
-  }
-}
-
-.title {
-  font-size: 16px;
-  font-weight: 900;
-  line-height: 1.362;
-  color: $color2;
-}
-
-.length {
-  display: block;
-  margin-bottom: 20px;
-  font-size: 16px;
-  font-weight: 700;
-  color: $color1;
-  text-align: center;
-  & > span {
-    color: $color2;
-  }
-}
-
-.list {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  margin-top: 36.5px;
-}
-
-.item {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
-  &:not(:last-child) {
-    margin-bottom: 35px;
-  }
-}
-
-.link {
-  transition: all 0.3s ease-out;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 19px;
-  color: $color1;
-
-  &:hover {
-    transition: all 0.3s ease-out;
-    color: $color6;
-  }
-}
-
-.link_active {
-  transition: all 0.3s ease-out;
-  color: $color2;
-}
-
-.download {
-  display: inline-block;
-  margin-top: 55px;
-  font-size: 14px;
-  color: $color2;
-}
-
-.icon {
-  margin-left: 7px;
-}
-
-.action {
-  display: flex;
-  margin-left: 25px;
-
-  @include screen-tb {
-    margin-left: 75px;
-  }
-
-  @include screen-l {
-    margin-left: 140px;
-  }
-}
-
-.edit {
-  margin-right: 15px;
-  @include transition;
-  font-size: 14px;
-  font-weight: 700;
-  color: $color1;
-
-  &:hover {
-    @include transition;
+  &_title {
+    font-size: 16px;
+    font-weight: 900;
+    line-height: 1.362;
     color: $color2;
   }
 
-  @include screen-tb {
-    margin-right: 25px;
+  &_length {
+    display: block;
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: 700;
+    color: $color1;
+    text-align: center;
+
+    &>span {
+      color: $color2;
+    }
   }
 
-  @include screen-l {
-    margin-right: 35px;
+  &_list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 36.5px;
   }
-}
 
-.delete {
-  @include transition;
-  font-size: 14px;
-  font-weight: 700;
-  color: $color1;
+  &_item {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 
-  &:hover {
-    @include transition;
+    &:not(:last-child) {
+      margin-bottom: 35px;
+    }
+
+    .item_link {
+      @include transition;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 19px;
+      color: $color1;
+      cursor: pointer;
+
+      &:hover {
+        transition: all 0.3s ease-out;
+        color: $color6;
+      }
+
+      &.active {
+        @include transition;
+        color: $color2;
+      }
+    }
+  }
+
+  &_control {
+    display: flex;
+    margin-left: 25px;
+
+    @include screen-tb {
+      margin-left: 75px;
+    }
+
+    @include screen-l {
+      margin-left: 140px;
+    }
+
+    .control_edit {
+      @include transition;
+      margin-right: 15px;
+      font-size: 14px;
+      font-weight: 700;
+      color: $color1;
+
+      &:hover {
+        @include transition;
+        color: $color2;
+      }
+
+      @include screen-tb {
+        margin-right: 25px;
+      }
+
+      @include screen-l {
+        margin-right: 35px;
+      }
+    }
+
+    .control_delete {
+      @include transition;
+      font-size: 14px;
+      font-weight: 700;
+      color: $color1;
+
+      &:hover {
+        @include transition;
+        color: $color2;
+      }
+    }
+  }
+
+  &_download {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 55px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.35;
     color: $color2;
+
+    &:hover {
+      .download_icon {
+        path {
+          @include transition;
+          fill: $color6;
+
+          &:first-child {
+            transform: translateY(-3px);
+          }
+        }
+      }
+    }
+
+    .download_icon {
+      margin-left: 7px;
+
+      path {
+        @include transition;
+      }
+    }
   }
 }

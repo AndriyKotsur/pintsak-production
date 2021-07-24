@@ -40,7 +40,7 @@ const Header = () => {
 					</button>
 					<div className={classNames(s.header_menu, { [s.active]: active })}>
 						<div className={s.header_background}></div>
-						<Types types={types.types} settings={{ public: true, mobile: true }} />
+						<Types types={types.types} settings={{ public: true, mobile: true }} handleChange={() => setActive(false)} />
 					</div>
 					<Link to='/' className={s.header_logo}>
 						<Icon name='logo' className={classNames('icon', 'icon-logo', s.logo_desktop)} />

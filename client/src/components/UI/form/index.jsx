@@ -2,7 +2,6 @@ import React from 'react'
 
 import { Button } from 'components'
 
-import classNames from 'classnames'
 import s from './style.module.scss'
 
 const Form = ({
