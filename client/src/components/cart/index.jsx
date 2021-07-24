@@ -37,19 +37,20 @@ const Cart = () => {
 						<Icon name="close" className="icon icon-close--big" />
 					</button>
 				</div>
-				<div className={s.cart_description}>
-					<span className={s.description_item}>
-						Кількість
-					</span>
-					<span className={s.description_item}>
-						Ціна, грн
-					</span>
-					<span className={s.description_item}>
-						Сума, грн
-					</span>
-				</div>
+				{ items && items.length > 0 &&
+					<div className={s.cart_description}>
+						<span className={s.description_item}>
+							Кількість
+						</span>
+						<span className={s.description_item}>
+							Ціна, грн
+						</span>
+						<span className={s.description_item}>
+							Сума, грн
+						</span>
+					</div> }
 				<div className={s.cart_list}>
-					{items.length > 0 && items.map((item, index) => (
+					{ items && items.length > 0 ? items.map((item, index) => (
 						<div key={index} className={s.cart_item}>
 							<div className={s.item_wrapper}>
 								<button type="button"
@@ -79,35 +80,43 @@ const Cart = () => {
 								</div>
 							</div>
 						</div>
-					))}
-				</div>
-				<div className={s.cart_order}>
-					<div className={s.order_back} onClick={() => dispatch(CartActions.handleCart(false))}>
-						<span className={s.back_title}>
-							Продовжити покупки
+					))
+					: 
+					<div className={s.cart_empty}>
+						<Icon name='empty' className={s.empty_icon} />
+						<span className={s.empty_title}>
+							Немає товарів в корзині
 						</span>
-						<button className={s.back_button}>
-							<Icon name="arrow" className={classNames('icon', 'icon-arrow', s.back_icon)} />
-						</button>
-					</div>
-					<div className={s.order_total}>
-						<div className={s.order_cost}>
-							<span className={s.order_total}>
-								Підсумок
-							</span>
-							<span className={s.order_summary}>
-								{cart.subtotal},<sup>00 грн</sup>
-							</span>
-						</div>
-						<Button
-							type="button"
-							background="orange"
-							styleName={s.order_button}
-							handleClick={handleButton}>
-							Замовити
-						</Button>
-					</div>
+					</div> }
 				</div>
+				{ items && items.length > 0 &&
+					<div className={s.cart_order}>
+						<div className={s.order_back} onClick={() => dispatch(CartActions.handleCart(false))}>
+							<span className={s.back_title}>
+								Продовжити покупки
+							</span>
+							<button className={s.back_button}>
+								<Icon name="arrow" className={classNames('icon', 'icon-arrow', s.back_icon)} />
+							</button>
+						</div>
+						<div className={s.order_total}>
+							<div className={s.order_cost}>
+								<span className={s.order_total}>
+									Підсумок
+								</span>
+								<span className={s.order_summary}>
+									{cart.subtotal},<sup>00 грн</sup>
+								</span>
+							</div>
+							<Button
+								type="button"
+								background="orange"
+								styleName={s.order_button}
+								handleClick={handleButton}>
+								Замовити
+							</Button>
+						</div>
+					</div> }
 			</div>
 		</section>
 	)
