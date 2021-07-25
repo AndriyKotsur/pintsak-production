@@ -109,10 +109,23 @@
         margin-bottom: 0;
       }
 
+      path {
+        @include transition;
+      }
+
       &:hover {
         @include transition;
         background: $color1;
         color: #ffffff;
+
+        path {
+          @include transition;
+          fill: $color6;
+
+          &:first-child {
+            transform: translateY(-3px);
+          }
+        }
       }
     }
   }
