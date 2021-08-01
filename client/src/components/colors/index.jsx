@@ -25,21 +25,19 @@ const Colors = ({ colors, onChange }) => {
 					<Input
 						type='text'
 						name='color'
-						title='Колір товару'
 						value={key}
 						styleName={s.colors_field}
+						placeholder='Колір товару'
 						onChange={e => setColor(e.target.value)}
-						disabled
-						required />
+						disabled />
 					<Input
 						type='text'
 						name='color'
-						title='Колір товару'
 						value={value}
 						styleName={s.colors_field}
+						placeholder='Колір товару'
 						onChange={e => setColor(e.target.value)}
-						disabled
-						required />
+						disabled />
 					<Button
 						type="button"
 						transparent
@@ -53,17 +51,15 @@ const Colors = ({ colors, onChange }) => {
 				<Input
 					type='text'
 					name='color'
-					title='Колір товару'
+					placeholder='Колір товару'
 					styleName={s.colors_field}
-					onChange={e => setColor(e.target.value)}
-					required />
+					onChange={e => setColor(e.target.value)} />
 				<Input
 					type='number'
 					name='price'
-					title='Ціна товару'
+					placeholder='Ціна товару'
 					styleName={s.colors_field}
-					onChange={e => setPrice(Number(e.target.value))}
-					required />
+					onChange={e => setPrice(Number(e.target.value))} />
 				<Button
 					type="button"
 					transparent

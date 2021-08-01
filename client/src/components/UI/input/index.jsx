@@ -5,28 +5,40 @@ import classNames from 'classnames'
 import s from './style.module.scss'
 
 const Input = ({
-	disabled,
 	name,
-	title,
 	type,
-	required,
-	styleName,
 	value,
+	children,
+	error,
+	errorName,
+	styleName,
+	placeholder,
+	disabled,
 	onChange
 }) => {
+	let classes = {
+		[s.disabled]: disabled,
+		[s.error]: error
+	}
+
 	return (
-		<div className={classNames(s.input, styleName, {[s.disabled]: disabled})}>
+		<div className={classNames(s.input, classes, styleName)}>
 			<input
 				id={name}
 				type={type}
 				name={name}
 				value={value}
+				placeholder=" "
 				className={s.input_container}
-				required={required}
 				onChange={onChange} />
 			<label htmlFor={name} className={s.input_label}>
-				{title}
+				{placeholder}
 			</label>
+			{children}
+			{error &&
+				<span className={s.input_error}>
+					{errorName}
+				</span>}
 		</div>
 	)
 }
@@ -36,9 +48,9 @@ Input.propTypes = {
 	name: PropTypes.string,
 	title: PropTypes.string,
 	type: PropTypes.string,
-  styleName: PropTypes.string,
+	styleName: PropTypes.string,
 	required: PropTypes.bool,
-  onChange: PropTypes.func
+	onChange: PropTypes.func
 }
 
 Input.defaultProps = {
@@ -46,8 +58,8 @@ Input.defaultProps = {
 	name: '',
 	title: '',
 	type: '',
-  styleName: '',
+	styleName: '',
 	required: false,
-  onChange: () => null
+	onChange: () => null
 }
 export default Input

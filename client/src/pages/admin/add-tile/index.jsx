@@ -1,10 +1,10 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import StepWizard from 'react-step-wizard'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as AddTileActions from 'actions/add-tile.action'
 
-import { Background, Preloader } from 'components'
+import { Background, Button, Preloader } from 'components'
 import { Options, Characteristics, Prices } from './components'
 
 import s from './style.module.scss'
@@ -12,24 +12,35 @@ import classNames from 'classnames'
 
 const AddTile = () => {
 	const [stepWizard, setStepWizard] = useState()
+	const [activeError, setActiveError] = useState(false)
 	const [currentStep, setCurrentStep] = useState(1)
 
 	const history = useHistory()
 	const dispatch = useDispatch()
 	const state = useSelector(state => state.addTile)
 
-	const setSteps = (e) => setStepWizard(e)
+	const setSteps = e => setStepWizard(e)
 
-	const handlePrev = () => stepWizard.previousStep()
-	const handleNext = () => stepWizard.nextStep()
+	const handlePrev = () => {
+		stepWizard.previousStep()
+	}
+
+	const handleNext = () => {
+		dispatch(AddTileActions.handleChangeCurrentStep("step" + currentStep))
+	}
+
+	const handleValidate = (errors, touched) => {
+		if (Object.keys(errors).length > 0 || Object.keys(touched).length === 0) {
+			setActiveError(true)
+		} else {
+			setActiveError(false)
+			stepWizard.nextStep()
+		}
+	}
 
 	const handleSubmit = async e => {
 		e.preventDefault()
-		const { prices, title, sizes: { width, height, thickness, weight, quantity } } = state
-		if (Object.keys(prices).length >= 1 && title && width && height && thickness && weight && quantity)
-			dispatch(AddTileActions.addTile(state))
-		else
-			alert('Fill all fields')
+		dispatch(AddTileActions.addTile(state))
 	}
 
 	useEffect(() => {
@@ -45,39 +56,42 @@ const AddTile = () => {
 
 	return (
 		<Fragment>
-			{ (state.get_types_status === 'loading') && <Preloader />}
-			{ state.get_types_status === 'success' && (
-				<section className={s.section}>
+			{(state.get_types_status === 'loading') && <Preloader />}
+			{state.get_types_status === 'success' && (
+				<section className={s.steps_section}>
 					<Background settings={{ hiddenLeft: false, hiddenRight: false }} />
 					<div className="container">
-						<div className={s.wrapper}>
+						<div className={s.steps_wrapper}>
 							<StepWizard initialStep={1} onStepChange={e => setCurrentStep(e.activeStep)} instance={setSteps}>
-								<Options />
-								<Characteristics />
-								<Prices />
+								<Options getData={handleValidate} />
+								<Characteristics getData={handleValidate} />
+								<Prices getData={handleValidate} />
 							</StepWizard>
 
-							<div className={classNames(s.controllers, { [s.extended]: currentStep === 1 })}>
+							<div className={classNames(s.steps_controllers, { [s.extended]: currentStep === 1 })}>
 								{currentStep > 1 &&
-									<button
+									<Button
 										type="button"
-										className={classNames('btn-sent', 'btn-orange', s.btn)}
-										onClick={handlePrev}>
+										background="orange"
+										styleName={s.steps_btn}
+										handleClick={handlePrev}>
 										Назад
-								</button>}
+									</Button>}
 								{currentStep >= 3
-									? <button
+									? <Button
 										type="button"
-										className={classNames('btn-sent', 'btn-orange', s.btn)}
-										onClick={handleSubmit}>
+										background="orange"
+										styleName={s.steps_btn}
+										handleClick={handleSubmit}>
 										Пітвердити
-									</button>
-									: <button
+									</Button>
+									: <Button
 										type="button"
-										className={classNames('btn-sent', 'btn-orange', s.btn)}
-										onClick={handleNext}>
+										background="orange"
+										styleName={s.steps_btn}
+										handleClick={handleNext}>
 										Продовжити
-								</button>}
+									</Button>}
 							</div>
 						</div>
 					</div>

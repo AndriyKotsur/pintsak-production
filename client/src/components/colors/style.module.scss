@@ -21,6 +21,7 @@
 
       &:not(:last-child) {
         margin-right: 5px;
+        margin-bottom: 0;
 
         @include screen-tb {
           margin-right: 25px;
