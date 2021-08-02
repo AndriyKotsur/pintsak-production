@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useRef } from 'react'
+import React, { Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as AddTileActions from 'actions/add-tile.action'
 import * as Yup from 'yup'
@@ -8,13 +8,9 @@ import { Title, Input, Select, Checkbox, File } from 'components'
 
 import s from '../style.module.scss'
 
-const Options = ({ getData }) => {
-	const [submitted, setSubmitted] = useState(false)
-
+const Options = ({ getData, stepRef }) => {
 	const dispatch = useDispatch()
 	const state = useSelector(state => state.addTile)
-
-	const stepRef = useRef(null)
 
 	const initialValues = {
 		title: '',
@@ -27,19 +23,17 @@ const Options = ({ getData }) => {
 			.required('Поле є обов\'язковим'),
 	})
 
-	React.useEffect(() => {
-		submitted && stepRef.current.click()
-
-		setSubmitted(true)
-	}, [state.current_step.step1])
-
 	return (
 		<Fragment>
 			<Title styleName={s.steps_title}>
 				Параметри продукту
 			</Title>
-			<Formik initialValues={initialValues} validationSchema={validationScheme}>
-				{({ errors, touched, setFieldValue }) => (
+			<Formik
+				initialValues={initialValues}
+				validationSchema={validationScheme}
+				onSubmit={() => console.log('step1 completed')}
+			>
+				{({ errors, touched, setFieldValue, setFieldTouched }) => (
 					<Form>
 						<Field name="images">
 							{() => (
@@ -58,6 +52,7 @@ const Options = ({ getData }) => {
 									onChange={e => {
 										dispatch(AddTileActions.handleChange(e))
 										setFieldValue('title', e.target.value)
+										setFieldTouched('title', true)
 									}} />
 							)}
 						</Field>
@@ -69,7 +64,8 @@ const Options = ({ getData }) => {
 									data={state.types}
 									onChange={e => {
 										dispatch(AddTileActions.handleChange(e))
-										setFieldValue('type', e.target.value)}
+										setFieldValue('type', e.target.value)
+									}
 									} />
 							)}
 						</Field>
@@ -80,7 +76,8 @@ const Options = ({ getData }) => {
 									label='Популярний?'
 									onChange={e => {
 										dispatch(AddTileActions.handleChange(e))
-										setFieldValue('is_popular', e.target.value)}
+										setFieldValue('is_popular', e.target.value)
+									}
 									} />
 							)}
 						</Field>
@@ -91,11 +88,12 @@ const Options = ({ getData }) => {
 									label='В наявності?'
 									onChange={e => {
 										dispatch(AddTileActions.handleChange(e))
-										setFieldValue('is_available', e.target.value)}
+										setFieldValue('is_available', e.target.value)
+									}
 									} />
 							)}
 						</Field>
-						<button ref={stepRef} onClick={getData(errors, touched)} hidden />
+						<button ref={stepRef} onClick={() => getData(errors, touched)} hidden />
 					</Form>
 				)}
 			</Formik>

@@ -27,11 +27,7 @@ let initialState = {
 	images: [],
 	is_popular: false,
 	is_available: false,
-	current_step: {
-		step1: 0,
-		step2: 0,
-		step3: 0,
-	},
+	current_step: 1,
 	add_tile_status: '',
 	get_types_status: '',
 }
@@ -96,10 +92,7 @@ export default function addTile(state = initialState, { type, payload, form, fie
 		case CHANGE_CURRENT_STEP:
 			return {
 				...state,
-				current_step: {
-					...state.current_step,
-					[payload]: state.current_step[payload] + 1
-				},
+				current_step: payload
 			}
 		case CLEAR_ADD_TILE_STATE:
 			return {

@@ -9,7 +9,7 @@ import s from './style.module.scss'
 import './slider.scss'
 
 const Carousel = ({ items, styleName }) => {
-	const [slideIndex, setSlideIndex] = useState(0)
+	const [, setSlideIndex] = useState(0)
 
 	const carouselRef = useRef(null)
 
@@ -44,7 +44,7 @@ const Carousel = ({ items, styleName }) => {
 	}
 
 	const handleSlide = ({ index }) => setSlideIndex(index)
-	
+
 	return (
 		<div className={classNames(styleName, "popular_carousel")}>
 			<div className={s.carousel_header}>

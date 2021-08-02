@@ -15,6 +15,8 @@ const Colors = ({ colors, onChange }) => {
 	const handleColor = () => {
 		if (color.length > 0 && price) {
 			onChange('add', color, price)
+			setColor('')
+			setPrice(null)
 		}
 	}
 
@@ -51,12 +53,14 @@ const Colors = ({ colors, onChange }) => {
 				<Input
 					type='text'
 					name='color'
+					value={color}
 					placeholder='Колір товару'
 					styleName={s.colors_field}
 					onChange={e => setColor(e.target.value)} />
 				<Input
 					type='number'
 					name='price'
+					value={price}
 					placeholder='Ціна товару'
 					styleName={s.colors_field}
 					onChange={e => setPrice(Number(e.target.value))} />
@@ -74,11 +78,11 @@ const Colors = ({ colors, onChange }) => {
 
 Colors.propTypes = {
 	colors: PropTypes.any,
-  onChange: PropTypes.func
+	onChange: PropTypes.func
 }
 
 Colors.defaultProps = {
 	colors: {},
-  onChange: () => null
+	onChange: () => null
 }
 export default Colors

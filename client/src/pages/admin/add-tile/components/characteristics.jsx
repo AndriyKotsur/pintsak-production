@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState } from 'react'
+import React, { Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as AddTileActions from 'actions/add-tile.action'
 import * as Yup from 'yup'
@@ -8,13 +8,9 @@ import { Input, Select, Title } from 'components'
 
 import s from '../style.module.scss'
 
-const Characteristics = ({ getData }) => {
-	const [submitted, setSubmitted] = useState(false)
-
+const Characteristics = ({ getData, stepRef }) => {
 	const dispatch = useDispatch()
 	const state = useSelector(state => state.addTile)
-
-	const stepRef = useRef(null)
 
 	const measurement = [{ title: "Квадратний метр" }, { title: "Штука" }]
 
@@ -29,20 +25,18 @@ const Characteristics = ({ getData }) => {
 			.required('Поле є обов\'язковим'),
 	})
 
-	React.useEffect(() => {
-		submitted && stepRef.current.click()
-
-		setSubmitted(true)
-	}, [state.current_step.step2])
-
 	return (
 		<Fragment>
 			<Title styleName={s.steps_title}>
 				Характеристики продукту
 			</Title>
-			<Formik initialValues={initialValues} validationSchema={validationScheme}>
-				{({ errors, touched, setFieldValue }) => (
-					<Form>
+			<Formik
+				initialValues={initialValues}
+				validationSchema={validationScheme}
+				onSubmit={() => console.log('step2 completed')}
+			>
+				{({ errors, touched, setFieldValue, setFieldTouched }) => (
+					<Form >
 						<Field name="type">
 							{() => (
 								<Select
@@ -64,6 +58,7 @@ const Characteristics = ({ getData }) => {
 									onChange={e => {
 										dispatch(AddTileActions.handleChange(e, 'sizes'))
 										setFieldValue('weight', e.target.value)
+										setFieldTouched('weight', true)
 									}} />
 							)}
 						</Field>
@@ -127,11 +122,11 @@ const Characteristics = ({ getData }) => {
 									}} />
 							)}
 						</Field>
-						<button ref={stepRef} onClick={getData(errors, touched)} hidden />
+						<button ref={stepRef} onClick={() => getData(errors, touched)} hidden />
 					</Form>
 				)}
 			</Formik>
-		</Fragment>
+		</Fragment >
 	)
 }
 

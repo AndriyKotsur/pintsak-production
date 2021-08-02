@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment, useState, useEffect, useRef } from 'react'
 import StepWizard from 'react-step-wizard'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -12,8 +12,10 @@ import classNames from 'classnames'
 
 const AddTile = () => {
 	const [stepWizard, setStepWizard] = useState()
-	const [activeError, setActiveError] = useState(false)
-	const [currentStep, setCurrentStep] = useState(1)
+	const [, setActiveError] = useState(false)
+
+	const stepRef1 = useRef(null)
+	const stepRef2 = useRef(null)
 
 	const history = useHistory()
 	const dispatch = useDispatch()
@@ -25,8 +27,20 @@ const AddTile = () => {
 		stepWizard.previousStep()
 	}
 
-	const handleNext = () => {
-		dispatch(AddTileActions.handleChangeCurrentStep("step" + currentStep))
+	const handleNext = (errors, touched) => {
+		switch (state.current_step) {
+			case 1:
+				stepRef1.current.click()
+				handleValidate(errors, touched)
+				break;
+			case 2:
+				stepRef2.current.click()
+				handleValidate(errors, touched)
+				break;
+
+			default:
+				break;
+		}
 	}
 
 	const handleValidate = (errors, touched) => {
@@ -38,9 +52,10 @@ const AddTile = () => {
 		}
 	}
 
-	const handleSubmit = async e => {
+	const handleSubmit = e => {
 		e.preventDefault()
-		dispatch(AddTileActions.addTile(state))
+		if (Object.keys(state.prices).length > 0)
+			dispatch(AddTileActions.addTile(state))
 	}
 
 	useEffect(() => {
@@ -62,14 +77,14 @@ const AddTile = () => {
 					<Background settings={{ hiddenLeft: false, hiddenRight: false }} />
 					<div className="container">
 						<div className={s.steps_wrapper}>
-							<StepWizard initialStep={1} onStepChange={e => setCurrentStep(e.activeStep)} instance={setSteps}>
-								<Options getData={handleValidate} />
-								<Characteristics getData={handleValidate} />
-								<Prices getData={handleValidate} />
+							<StepWizard initialStep={1} onStepChange={e => dispatch(AddTileActions.handleChangeCurrentStep(e.activeStep))} instance={setSteps}>
+								<Options stepRef={stepRef1} getData={handleNext} />
+								<Characteristics stepRef={stepRef2} getData={handleNext} />
+								<Prices />
 							</StepWizard>
 
-							<div className={classNames(s.steps_controllers, { [s.extended]: currentStep === 1 })}>
-								{currentStep > 1 &&
+							<div className={classNames(s.steps_controllers, { [s.extended]: state.current_step === 1 })}>
+								{state.current_step > 1 &&
 									<Button
 										type="button"
 										background="orange"
@@ -77,7 +92,7 @@ const AddTile = () => {
 										handleClick={handlePrev}>
 										Назад
 									</Button>}
-								{currentStep >= 3
+								{state.current_step >= 3
 									? <Button
 										type="button"
 										background="orange"

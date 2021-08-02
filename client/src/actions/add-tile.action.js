@@ -41,7 +41,7 @@ export const addTile = ({
 			}
 
 			const tile = await HTTP.addTile(data)
-			
+
 			if (tile.success) {
 				const formData = new FormData()
 
