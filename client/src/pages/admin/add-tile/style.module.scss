@@ -34,6 +34,17 @@
     }
   }
   
+  &_group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    @include screen-l {
+      flex-direction: row;
+    }
+  }
+
   &_controllers {
     display: flex;
     flex-direction: column;
@@ -57,7 +68,8 @@
     min-height: 49px;
     padding: 16px 62px;
     border-radius: 4px;
-    box-shadow: 0px 4px 30px rgba(55, 63, 72, 0.22);
+    box-shadow: 0 4px 30px rgba(55, 63, 72, 0.22);
+    font-size: 18px;
     @include transition;
   
     &:not(:last-child) {

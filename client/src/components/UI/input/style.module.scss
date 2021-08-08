@@ -24,16 +24,12 @@
     padding: 15px 20px;
     @include transition;
     border: 1px solid $color1;
-    font-size: 12px;
+    font-size: 14px;
     color: $color1;
     cursor: text;
 
-    @include screen-tb {
-      padding: 15px 25px;
-      font-size: 14px;
-    }
-
     @include screen-l {
+      padding: 15px 25px;
       font-size: 18px;
     }
 
@@ -70,11 +66,8 @@
     @include transition;
     font-size: 14px;
 
-    @include screen-tb {
-      font-size: 14px;
-    }
-
     @include screen-l {
+      left: 25px;
       font-size: 18px;
     }
   }

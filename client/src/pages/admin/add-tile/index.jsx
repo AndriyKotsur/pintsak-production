@@ -1,67 +1,68 @@
-import React, { Fragment, useState, useEffect, useRef } from 'react'
-import StepWizard from 'react-step-wizard'
+import React, { Fragment, useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as AddTileActions from 'actions/add-tile.action'
 
+import { useFormik } from 'formik'
 import { Background, Button, Preloader } from 'components'
 import { Options, Characteristics, Prices } from './components'
 
-import s from './style.module.scss'
+import validationSchema from "./validationScheme"
+
 import classNames from 'classnames'
+import s from './style.module.scss'
 
 const AddTile = () => {
-	const [stepWizard, setStepWizard] = useState()
-	const [, setActiveError] = useState(false)
-
-	const stepRef1 = useRef(null)
-	const stepRef2 = useRef(null)
+	const [activeError, setActiveError] = useState(false)
 
 	const history = useHistory()
 	const dispatch = useDispatch()
 	const state = useSelector(state => state.addTile)
 
-	const setSteps = e => setStepWizard(e)
+	const formik = useFormik({
+		initialValues: {
+			images: [],
+			title: '',
+			width: '',
+			height: '',
+			thickness: '',
+			weight: '',
+			quantity: '',
+			prices: []
+		},
+		validationSchema: validationSchema[state.current_step - 1],
+		onSubmit: () => handleNext(formik.errors, formik.touched)
+	})
 
 	const handlePrev = () => {
-		stepWizard.previousStep()
+		dispatch(AddTileActions.handleChangeCurrentStep(state.current_step - 1))
 	}
 
 	const handleNext = (errors, touched) => {
-		switch (state.current_step) {
-			case 1:
-				stepRef1.current.click()
-				handleValidate(errors, touched)
-				break;
-			case 2:
-				stepRef2.current.click()
-				handleValidate(errors, touched)
-				break;
-
-			default:
-				break;
-		}
-	}
-
-	const handleValidate = (errors, touched) => {
 		if (Object.keys(errors).length > 0 || Object.keys(touched).length === 0) {
 			setActiveError(true)
 		} else {
 			setActiveError(false)
-			stepWizard.nextStep()
+			dispatch(AddTileActions.handleChangeCurrentStep(state.current_step + 1))
 		}
 	}
 
-	const handleSubmit = e => {
-		e.preventDefault()
-		if (Object.keys(state.prices).length > 0)
-			dispatch(AddTileActions.addTile(state))
+	const handleSubmit = () => {
+		if (Object.keys(state.prices).length > 0) dispatch(AddTileActions.addTile(state))
 	}
 
-	useEffect(() => {
-		if (state.add_tile_status === 'success')
-			history.push('/admin/dashboard')
-	}, [state.add_tile_status, history])
+	const handleSteps = step => {
+		switch (step) {
+			case 1:
+				return <Options formikProps={formik} />
+			case 2:
+				return <Characteristics formikProps={formik} />
+			case 3:
+				return <Prices formikProps={formik} />
+			default:
+				return 'Помилка запиту даних'
+		}
+	}
 
 	useEffect(() => {
 		dispatch(AddTileActions.getTileTypes())
@@ -69,6 +70,11 @@ const AddTile = () => {
 		return () => dispatch(AddTileActions.clear())
 	}, [dispatch])
 
+	useEffect(() => {
+		if (state.add_tile_status === 'success')
+			history.push('/admin/dashboard')
+	}, [state.add_tile_status, history])
+	
 	return (
 		<Fragment>
 			{(state.get_types_status === 'loading') && <Preloader />}
@@ -77,37 +83,33 @@ const AddTile = () => {
 					<Background settings={{ hiddenLeft: false, hiddenRight: false }} />
 					<div className="container">
 						<div className={s.steps_wrapper}>
-							<StepWizard initialStep={1} onStepChange={e => dispatch(AddTileActions.handleChangeCurrentStep(e.activeStep))} instance={setSteps}>
-								<Options stepRef={stepRef1} getData={handleNext} />
-								<Characteristics stepRef={stepRef2} getData={handleNext} />
-								<Prices />
-							</StepWizard>
-
-							<div className={classNames(s.steps_controllers, { [s.extended]: state.current_step === 1 })}>
-								{state.current_step > 1 &&
-									<Button
-										type="button"
-										background="orange"
-										styleName={s.steps_btn}
-										handleClick={handlePrev}>
-										Назад
-									</Button>}
-								{state.current_step >= 3
-									? <Button
-										type="button"
-										background="orange"
-										styleName={s.steps_btn}
-										handleClick={handleSubmit}>
-										Пітвердити
-									</Button>
-									: <Button
-										type="button"
-										background="orange"
-										styleName={s.steps_btn}
-										handleClick={handleNext}>
-										Продовжити
-									</Button>}
-							</div>
+							<form onSubmit={formik.handleSubmit}>
+								{handleSteps(state.current_step)}
+								<div className={classNames(s.steps_controllers, { [s.extended]: state.current_step === 1 })}>
+									{state.current_step > 1 &&
+										<Button
+											type="button"
+											background="orange"
+											styleName={s.steps_btn}
+											handleClick={handlePrev}>
+											Назад
+										</Button>}
+									{state.current_step >= 3
+										? <Button
+											type="button"
+											background="orange"
+											styleName={s.steps_btn}
+											handleClick={handleSubmit}>
+											Пітвердити
+										</Button>
+										: <Button
+											type="submit"
+											background="orange"
+											styleName={s.steps_btn}>
+											Продовжити
+										</Button>}
+								</div>
+							</form>
 						</div>
 					</div>
 				</section>)}

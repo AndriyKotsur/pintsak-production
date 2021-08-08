@@ -7,12 +7,16 @@ import { Colors, Title } from 'components'
 
 import s from '../style.module.scss'
 
-const Prices = () => {
+const Prices = ({ formikProps }) => {
 	const dispatch = useDispatch()
 	const state = useSelector(state => state.addTile)
-
+	
+	const { errors, values, setFieldValue } = formikProps
+	
 	const onChange = (type, color, price) => {
 		const prices = ColorsParser(state.prices, type, color, price)
+		
+		setFieldValue('prices', prices)
 		dispatch(AddTileActions.handleChangeColor(prices))
 	}
 
@@ -21,7 +25,10 @@ const Prices = () => {
 			<Title styleName={s.steps_title}>
 				Ціна продукту
 			</Title>
-			<Colors colors={state.prices} onChange={onChange} />
+			<Colors
+				name="prices"
+				colors={state.prices}
+				onChange={onChange} />
 		</Fragment>
 	)
 }
