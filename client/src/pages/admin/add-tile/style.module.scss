@@ -68,9 +68,7 @@
     min-height: 49px;
     padding: 16px 62px;
     border-radius: 4px;
-    box-shadow: 0 4px 30px rgba(55, 63, 72, 0.22);
     font-size: 18px;
-    @include transition;
   
     &:not(:last-child) {
       margin-bottom: 35px;
@@ -82,12 +80,6 @@
       &:not(:last-child) {
         margin-bottom: 0;
       }
-    }
-  
-    &:hover {
-      @include transition;
-      background: #ffffff;
-      color: $color1;
     }
   }
 }

@@ -3,8 +3,6 @@
 
 .checkbox {
   position: relative;
-  display: inline-flex;
-  align-items: center;
 
   &:not(:last-child) {
     margin-bottom: 25px;
@@ -17,7 +15,9 @@
 
   &_label {
     position: relative;
-    align-self: center;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
 
     input {
       width: 21px;

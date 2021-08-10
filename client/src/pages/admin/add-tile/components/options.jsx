@@ -19,9 +19,10 @@ const Options = ({ formikProps }) => {
 			</Title>
 			<File
 				name='images'
-				error={errors.images && touched.files}
+				validFiles={state.images}
+				error={errors.images && touched.images}
 				errorName={errors.images || ''}
-				onChange={image => {
+				handleChange={image => {
 					dispatch(AddTileActions.handleChange(image))
 					setFieldValue('images', image)
 				}} />
@@ -47,12 +48,14 @@ const Options = ({ formikProps }) => {
 				<Checkbox
 					name='is_available'
 					label='Товар в наявності?'
+					checked={state.is_available}
 					onChange={e => {
 						dispatch(AddTileActions.handleChange(e))
 					}} />
 				<Checkbox
 					name='is_popular'
 					label='Популярний товар?'
+					checked={state.is_popular}
 					onChange={e => {
 						dispatch(AddTileActions.handleChange(e))
 					}} />

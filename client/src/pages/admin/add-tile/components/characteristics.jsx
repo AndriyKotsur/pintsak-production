@@ -9,10 +9,10 @@ import s from '../style.module.scss'
 const Characteristics = ({ formikProps }) => {
 	const dispatch = useDispatch()
 
-	const { errors, values, touched, setFieldValue, setFieldTouched } = formikProps
+	const { errors, values, touched, setFieldValue } = formikProps
 
 	const measurement = [{ title: "Квадратний метр" }, { title: "Штука" }]
-	
+
 	return (
 		<Fragment>
 			<Title styleName={s.steps_title}>
@@ -38,7 +38,7 @@ const Characteristics = ({ formikProps }) => {
 				type='number'
 				name='height'
 				value={values.height}
-				error={errors.height && touched.height}
+				error={!!errors.height && !!touched.height}
 				errorName={errors.height || ''}
 				placeholder='Висота товару'
 				onChange={e => {

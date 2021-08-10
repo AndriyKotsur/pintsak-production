@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as AddTileActions from 'actions/add-tile.action'
@@ -13,11 +13,31 @@ import classNames from 'classnames'
 import s from './style.module.scss'
 
 const AddTile = () => {
-	const [activeError, setActiveError] = useState(false)
-
 	const history = useHistory()
 	const dispatch = useDispatch()
 	const state = useSelector(state => state.addTile)
+
+	const disabledStatus = Object.keys(state.prices).length <= 0 && state.current_step >= 3
+	const loadingStatus = state.get_types_status === 'loading'
+	const successStatus = state.get_types_status === 'success'
+
+	const handlePrev = () => {
+		dispatch(AddTileActions.handleChangeCurrentStep(state.current_step - 1))
+	}
+
+	const handleNext = () => {
+		if (state.current_step >= 3) {
+			handleSubmit()
+		} else {
+			dispatch(AddTileActions.handleChangeCurrentStep(state.current_step + 1))
+			formik.setTouched({})
+			formik.setErrors({})
+		}
+	}
+
+	const handleSubmit = () => {
+		if (Object.keys(state.prices).length > 0) dispatch(AddTileActions.addTile(state))
+	}
 
 	const formik = useFormik({
 		initialValues: {
@@ -28,28 +48,14 @@ const AddTile = () => {
 			thickness: '',
 			weight: '',
 			quantity: '',
-			prices: []
+			prices: {
+				color: '',
+				price: ''
+			}
 		},
 		validationSchema: validationSchema[state.current_step - 1],
-		onSubmit: () => handleNext(formik.errors, formik.touched)
+		onSubmit: handleNext
 	})
-
-	const handlePrev = () => {
-		dispatch(AddTileActions.handleChangeCurrentStep(state.current_step - 1))
-	}
-
-	const handleNext = (errors, touched) => {
-		if (Object.keys(errors).length > 0 || Object.keys(touched).length === 0) {
-			setActiveError(true)
-		} else {
-			setActiveError(false)
-			dispatch(AddTileActions.handleChangeCurrentStep(state.current_step + 1))
-		}
-	}
-
-	const handleSubmit = () => {
-		if (Object.keys(state.prices).length > 0) dispatch(AddTileActions.addTile(state))
-	}
 
 	const handleSteps = step => {
 		switch (step) {
@@ -74,11 +80,11 @@ const AddTile = () => {
 		if (state.add_tile_status === 'success')
 			history.push('/admin/dashboard')
 	}, [state.add_tile_status, history])
-	
+
 	return (
 		<Fragment>
-			{(state.get_types_status === 'loading') && <Preloader />}
-			{state.get_types_status === 'success' && (
+			{loadingStatus && <Preloader />}
+			{successStatus && (
 				<section className={s.steps_section}>
 					<Background settings={{ hiddenLeft: false, hiddenRight: false }} />
 					<div className="container">
@@ -94,20 +100,13 @@ const AddTile = () => {
 											handleClick={handlePrev}>
 											Назад
 										</Button>}
-									{state.current_step >= 3
-										? <Button
-											type="button"
-											background="orange"
-											styleName={s.steps_btn}
-											handleClick={handleSubmit}>
-											Пітвердити
-										</Button>
-										: <Button
-											type="submit"
-											background="orange"
-											styleName={s.steps_btn}>
-											Продовжити
-										</Button>}
+									<Button
+										type="submit"
+										background="orange"
+										disabled={disabledStatus}
+										styleName={s.steps_btn}>
+										{state.current_step >= 3 ? 'Пітвердити' : 'Продовжити'}
+									</Button>
 								</div>
 							</form>
 						</div>

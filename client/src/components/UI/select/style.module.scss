@@ -1,32 +1,32 @@
 @import './src/assets/styles/general/_mixins.scss';
 @import './src/assets/styles/general/_variables.scss';
 
-.field {
+.select {
   position: relative;
   margin-bottom: 35px;
-}
 
-.input {
-  width: 100%;
-  padding: 15px 20px;
-  border: 1px solid $color1;
-  font-size: 14px;
-  color: $color1;
+  &_container {
+    width: 100%;
+    padding: 15px 20px;
+    border: 1px solid $color1;
+    font-size: 14px;
+    color: $color1;
 
-  @include screen-l {
-    padding: 15px 25px;
-    font-size: 18px;
-  }
+    @include screen-l {
+      padding: 15px 25px;
+      font-size: 18px;
+    }
 
-  &:focus {
-    border: 1px solid $color6;
-  }
+    &.error {
+      border: 1px solid $color7;
+    }
 
-  &.error {
-    border: 1px solid $color7;
-  }
+    &.disabled {
+      cursor: not-allowed;
+    }
 
-  &.disabled {
-    cursor: not-allowed;
+    &:focus {
+      border: 1px solid $color6;
+    }
   }
 }

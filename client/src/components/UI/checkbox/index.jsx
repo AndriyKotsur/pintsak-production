@@ -19,15 +19,16 @@ const Checkbox = ({
 			<label htmlFor={name} className={classNames(s.checkbox_label, className)}>
 				<input
 					type='checkbox'
+					id={name}
 					name={name}
 					onChange={onChange}
 					checked={checked}
 					required={isRequired} />
 				<Icon name='checkbox' className={classNames('icon', 'icon-checkbox')} />
-			</label>
-			<p className={s.checkbox_title}>
+				<p className={s.checkbox_title}>
 				{label}
 			</p>
+			</label>
 		</div>
 	)
 }

@@ -11,10 +11,17 @@ const KILO_BYTES_PER_BYTE = 1000000
 const DEFAULT_MAX_FILE_SIZE_IN_BYTES = 5000000
 const DEFAULT_MAX_FILES_QUANTITY = 10
 
-const File = ({ error, errorName, name, onChange, onDelete }) => {
+const File = ({
+  error,
+  errorName,
+  name,
+  validFiles = [],
+  previewFiles = [],
+  handleChange,
+  onDelete
+}) => {
   const state = useSelector(state => state.editTile)
   const [selectedFiles, setSelectedFiles] = useState([])
-  const [validFiles, setValidFiles] = useState([])
   const [activeError, setActiveError] = useState(false)
 
   const fileInputField = useRef(null)
@@ -87,7 +94,6 @@ const File = ({ error, errorName, name, onChange, onDelete }) => {
   const handleDelete = filename => {
     const validFileIndex = validFiles.findIndex(element => element.name === filename)
     validFiles.splice(validFileIndex, 1)
-    setValidFiles([...validFiles])
 
     const selectedFileIndex = selectedFiles.findIndex(element => element.name === filename)
     selectedFiles.splice(selectedFileIndex, 1)
@@ -103,15 +109,13 @@ const File = ({ error, errorName, name, onChange, onDelete }) => {
         return files
       }
     }, [])
-
-    setValidFiles([...filteredArray])
-
-    if(filteredArray.length > 0) onChange([...filteredArray])
+    
+    if (filteredArray.length > 0) handleChange([...filteredArray])
     // eslint-disable-next-line
   }, [selectedFiles])
 
   return (
-    <div className={classNames(s.container, {[s.error]: activeError || error})}>
+    <div className={classNames(s.container, { [s.error]: activeError || error })}>
       <div className={s.upload_container}>
         <div className={s.upload_area}
           onDragOver={dragOver}
@@ -134,9 +138,9 @@ const File = ({ error, errorName, name, onChange, onDelete }) => {
           </div>
           <span className={s.upload_remarks}>Максимальний розмір файла: 5МБ</span>
           {(activeError || errorName) &&
-          <span className={s.upload_error}>
-            {errorName ? errorName : 'Файл не відповідає заданим параметрам!'}
-          </span>}
+            <span className={s.upload_error}>
+              {errorName ? errorName : 'Файл не відповідає заданим параметрам!'}
+            </span>}
         </div>
       </div>
       {validFiles.length > 0 &&
@@ -162,8 +166,8 @@ const File = ({ error, errorName, name, onChange, onDelete }) => {
             </div>
           )}
         </div>}
-      {state.imagesPreview && state.imagesPreview.length > 0 &&
-        state.imagesPreview.map((file, index) =>
+      {previewFiles && previewFiles.length > 0 &&
+        previewFiles.map((file, index) =>
           <div key={'file_' + index} className={s.preview_item}>
             <picture className={s.preview_image}>
               <img src={file} alt={'image_' + index} />

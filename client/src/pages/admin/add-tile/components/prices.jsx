@@ -10,25 +10,37 @@ import s from '../style.module.scss'
 const Prices = ({ formikProps }) => {
 	const dispatch = useDispatch()
 	const state = useSelector(state => state.addTile)
-	
-	const { errors, values, setFieldValue } = formikProps
-	
-	const onChange = (type, color, price) => {
-		const prices = ColorsParser(state.prices, type, color, price)
-		
-		setFieldValue('prices', prices)
-		dispatch(AddTileActions.handleChangeColor(prices))
+
+	const { errors, values, touched, setFieldValue, setErrors, setTouched } = formikProps
+
+	const handleChangeColor = (name, value) => {
+		setFieldValue(`prices.${name}`, value)
 	}
 
+	const handleResetForm = () => {
+		setTouched({})
+		setErrors({})
+	}
+
+	const handleSubmit = (type, color, price) => {
+		const prices = ColorsParser(state.prices, type, color, price)
+
+		dispatch(AddTileActions.handleChangeColor(prices))
+	}
+	console.log(formikProps);
 	return (
 		<Fragment>
 			<Title styleName={s.steps_title}>
 				Ціна продукту
 			</Title>
 			<Colors
-				name="prices"
+				values={values.prices}
+				error={errors.prices && touched.prices}
+				errorName={errors.prices || ''}
 				colors={state.prices}
-				onChange={onChange} />
+				onChange={handleChangeColor}
+				onReset={handleResetForm}
+				onSubmit={handleSubmit} />
 		</Fragment>
 	)
 }
