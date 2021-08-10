@@ -7,7 +7,7 @@ import {
 	GET_TILE_TYPES_ERROR,
 	CHANGE_ADD_TILE_COLOR,
 	CHANGE_ADD_TILE_STATE,
-	CHANGE_CURRENT_STEP,
+	CHANGE_ADD_TILE_CURRENT_STEP,
 	CLEAR_ADD_TILE_STATE,
 } from 'constants/add-tile'
 
@@ -137,7 +137,7 @@ export const handleChange = (event, field) => {
 export const handleChangeCurrentStep = step => {
 	return dispatch => {
 		dispatch({
-			type: CHANGE_CURRENT_STEP,
+			type: CHANGE_ADD_TILE_CURRENT_STEP,
 			payload: step
 		})
 	}

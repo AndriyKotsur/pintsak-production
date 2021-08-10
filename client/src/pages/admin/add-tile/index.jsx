@@ -7,7 +7,7 @@ import { useFormik } from 'formik'
 import { Background, Button, Preloader } from 'components'
 import { Options, Characteristics, Prices } from './components'
 
-import validationSchema from "./validationScheme"
+import validationSchema from "./validationSchema"
 
 import classNames from 'classnames'
 import s from './style.module.scss'

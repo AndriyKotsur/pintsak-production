@@ -1,10 +1,10 @@
 import * as Yup from 'yup'
 
-const validationScheme = [
+const validationSchema = [
   Yup.object().shape({
     title: Yup.string()
       .required('Поле є обов\'язковим')
-      .min(5, 'Довжина поля не менше як 5 символів')
+      .min(2, 'Довжина поля не менше як 5 символів')
       .max(50, 'Довжина поля не більше як 150 символів'),
     images: Yup.array()
       .required('Поле є обов\'язковим')
@@ -62,4 +62,4 @@ const validationScheme = [
   }),
 ]
 
-export default validationScheme
+export default validationSchema

@@ -4,57 +4,83 @@ import * as EditTileActions from 'actions/edit-tile.action'
 
 import { Title, Input, Select } from 'components'
 
-const Characteristics = () => {
-	const dispatch = useDispatch()
+import s from '../style.module.scss'
+
+const Characteristics = ({ formikProps }) => {
+  const dispatch = useDispatch()
   const state = useSelector(state => state.editTile)
 
-  const measurement = [ { title: "Квадратний метр" }, { title: "Штука" } ]
+  const { errors, values, touched, setFieldValue } = formikProps
 
-	return (
-		<Fragment>
-			<Title value="Характеристики продукту" />
-			<Select
-				name="measurement"
-				data={measurement}
+  const measurement = [{ title: "Квадратний метр" }, { title: "Штука" }]
+
+  return (
+    <Fragment>
+      <Title styleName={s.steps_title}>
+        Характеристики продукту
+      </Title>
+      <Select
+        name="measurement"
+        data={measurement}
         value={state.sizes.measurement}
-				onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))} />
-      <Input
-        type='number'
-        name='weight'
-        title='Вага на метр кв.'
-        value={state.sizes.weight}
-        onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))}
-        required />
-      <Input
-        type='number'
-        name='quantity'
-        title='Кількість на метр кв.'
-        value={state.sizes.quantity}
-        onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))}
-        required />
+        onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))} />
       <Input
         type='number'
         name='width'
-        title='Ширина товару'
-        value={state.sizes.width}
-        onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))}
-        required />
+        value={values.width}
+        error={errors.width && touched.width}
+        errorName={errors.width || ''}
+        placeholder='Ширина товару'
+        onChange={e => {
+          dispatch(EditTileActions.handleChange(e, 'sizes'))
+          setFieldValue('width', e.target.value)
+        }} />
       <Input
         type='number'
         name='height'
-        title='Висота товару'
-        value={state.sizes.height}
-        onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))}
-        required />
+        value={values.height}
+        error={!!errors.height && !!touched.height}
+        errorName={errors.height || ''}
+        placeholder='Висота товару'
+        onChange={e => {
+          dispatch(EditTileActions.handleChange(e, 'sizes'))
+          setFieldValue('height', e.target.value)
+        }} />
       <Input
         type='number'
         name='thickness'
-        title='Товщина товару'
-        value={state.sizes.thickness}
-        onChange={e => dispatch(EditTileActions.handleChange(e, 'sizes'))}
-        required />
-		</Fragment>
-	)
+        value={values.thickness}
+        error={errors.thickness && touched.thickness}
+        errorName={errors.thickness || ''}
+        placeholder='Товщина товару'
+        onChange={e => {
+          dispatch(EditTileActions.handleChange(e, 'sizes'))
+          setFieldValue('thickness', e.target.value)
+        }} />
+      <Input
+        type='number'
+        name='weight'
+        value={values.weight}
+        error={errors.weight && touched.weight}
+        errorName={errors.weight || ''}
+        placeholder='Вага на одиницю виміру'
+        onChange={e => {
+          dispatch(EditTileActions.handleChange(e, 'sizes'))
+          setFieldValue('weight', e.target.value)
+        }} />
+      <Input
+        type='number'
+        name='quantity'
+        value={values.quantity}
+        error={errors.quantity && touched.quantity}
+        errorName={errors.quantity || ''}
+        placeholder='Кількість на одиницю виміру'
+        onChange={e => {
+          dispatch(EditTileActions.handleChange(e, 'sizes'))
+          setFieldValue('quantity', e.target.value)
+        }} />
+    </Fragment>
+  )
 }
 
 export default Characteristics

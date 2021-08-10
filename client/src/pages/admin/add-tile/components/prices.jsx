@@ -27,7 +27,7 @@ const Prices = ({ formikProps }) => {
 
 		dispatch(AddTileActions.handleChangeColor(prices))
 	}
-	console.log(formikProps);
+
 	return (
 		<Fragment>
 			<Title styleName={s.steps_title}>

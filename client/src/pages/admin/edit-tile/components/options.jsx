@@ -4,38 +4,68 @@ import * as EditTileActions from 'actions/edit-tile.action'
 
 import { Title, Input, Select, Checkbox, File } from 'components'
 
-const Options = () => {
-	const dispatch = useDispatch()
-	const state = useSelector(state => state.editTile)
-	
-	return (
-		<Fragment>
-			<Title value="Параметри продукту" />
-      <File previewFiles={state.imagesPreview} id={state._id} onChange={image => dispatch(EditTileActions.handleChange(image))} onDelete={(image, id) => dispatch(EditTileActions.handleDelete(image, id))} />
+import s from '../style.module.scss'
+
+const Options = ({ formikProps }) => {
+  const dispatch = useDispatch()
+  const state = useSelector(state => state.editTile)
+
+  const { errors, values, touched, setFieldValue } = formikProps
+
+  const validFiles = state.imagesPreview ? "" : values.images
+
+  return (
+    <Fragment>
+      <Title styleName={s.steps_title}>
+        Параметри продукту
+      </Title>
+      <File
+        id={state._id}
+        validFiles={validFiles}
+        previewFiles={state.imagesPreview}
+        error={errors.images && touched.images}
+				errorName={errors.images || ''}
+        handleChange={image => {
+          dispatch(EditTileActions.handleChange(image))
+          setFieldValue('images', image)
+        }}
+        onDelete={(image, id) => dispatch(EditTileActions.handleDelete(image, id))} />
       <Input
         type='text'
         name='title'
-        title='Назва товару'
-        value={state.title}
-        onChange={e => dispatch(EditTileActions.handleChange(e))}
-        required />
+        value={values.title}
+        error={errors.title && touched.title}
+        errorName={errors.title || ''}
+        placeholder='Назва товару'
+        onChange={e => {
+          dispatch(EditTileActions.handleChange(e))
+          setFieldValue('title', e.target.value)
+        }} />
       <Select
         name='type'
         value={state.type}
         data={state.types}
-        onChange={e => dispatch(EditTileActions.handleChange(e))} />
-      <Checkbox
-        name='is_popular'
-        label='Чи продукт популярний?'
-        checked={state.is_popular}
-        onChange={e => dispatch(EditTileActions.handleChange(e))} />
-      <Checkbox
-        name='is_available'
-        label='Чи продукт в наявності?'
-        checked={state.is_available}
-        onChange={e => dispatch(EditTileActions.handleChange(e))} />
-		</Fragment>
-	)
+        onChange={e => {
+          dispatch(EditTileActions.handleChange(e))
+        }} />
+      <div className={s.steps_group}>
+        <Checkbox
+          name='is_available'
+          label='Товар в наявності?'
+          checked={state.is_available}
+          onChange={e => {
+            dispatch(EditTileActions.handleChange(e))
+          }} />
+        <Checkbox
+          name='is_popular'
+          label='Популярний товар?'
+          checked={state.is_popular}
+          onChange={e => {
+            dispatch(EditTileActions.handleChange(e))
+          }} />
+      </div>
+    </Fragment>
+  )
 }
 
 export default Options

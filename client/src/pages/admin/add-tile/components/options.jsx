@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as AddTileActions from 'actions/add-tile.action'
 
-import { Checkbox, File, Input, Select, Title } from 'components'
+import { Title, Input, Select, Checkbox, File } from 'components'
 
 import s from '../style.module.scss'
 

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
 
 import { Icon } from 'components'
 
@@ -12,6 +11,7 @@ const DEFAULT_MAX_FILE_SIZE_IN_BYTES = 5000000
 const DEFAULT_MAX_FILES_QUANTITY = 10
 
 const File = ({
+  id,
   error,
   errorName,
   name,
@@ -20,7 +20,6 @@ const File = ({
   handleChange,
   onDelete
 }) => {
-  const state = useSelector(state => state.editTile)
   const [selectedFiles, setSelectedFiles] = useState([])
   const [activeError, setActiveError] = useState(false)
 
@@ -176,7 +175,7 @@ const File = ({
               <div className={s.preview_file}>
                 <button
                   type='button'
-                  onClick={() => onDelete(file, state._id)}
+                  onClick={() => onDelete(file, id)}
                   className={s.preview_delete}>
                   <Icon name='close' className={classNames('icon', s.preview_icon)} />
                 </button>

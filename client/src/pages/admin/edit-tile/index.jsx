@@ -1,33 +1,76 @@
-import React, { Fragment, useState, useEffect } from 'react'
-import StepWizard from 'react-step-wizard'
+import React, { Fragment, useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as EditTileActions from 'actions/edit-tile.action'
 
-import { Background, Preloader } from 'components'
+import { useFormik } from 'formik'
+import { Background, Button, Preloader } from 'components'
 import { Options, Characteristics, Prices } from './components'
+
+import validationSchema from "./validationSchema"
 
 import s from './style.module.scss'
 import classNames from 'classnames'
 
 const EditTile = () => {
-	const [stepWizard, setStepWizard] = useState()
-	const [currentStep, setCurrentStep] = useState(1)
-
 	const history = useHistory()
 	const { url } = useParams()
 
 	const dispatch = useDispatch()
 	const state = useSelector(state => state.editTile)
 
-	const setSteps = (e) => setStepWizard(e)
+	const disabledStatus = Object.keys(state.prices).length <= 0 && state.current_step >= 3
+	const loadingStatus = state.get_tile_status === 'loading' || state.get_types_status === 'loading'
+	const successStatus = state.get_tile_status === 'success' && state.get_types_status
 
-	const handlePrev = () => stepWizard.previousStep()
-	const handleNext = () => stepWizard.nextStep()
+	const handlePrev = () => {
+		dispatch(EditTileActions.handleChangeCurrentStep(state.current_step - 1))
+	}
 
-	const handleSubmit = async e => {
-		e.preventDefault()
+	const handleNext = () => {
+		if (state.current_step >= 3) {
+			handleSubmit()
+		} else {
+			dispatch(EditTileActions.handleChangeCurrentStep(state.current_step + 1))
+			formik.setTouched({})
+			formik.setErrors({})
+		}
+	}
+
+	const handleSubmit = () => {
 		dispatch(EditTileActions.editTile(url, state))
+	}
+
+	const formik = useFormik({
+		initialValues: {
+			images: state.images,
+			title: state.title,
+			width: state.sizes.width,
+			height: state.sizes.height,
+			thickness: state.sizes.thickness,
+			weight: state.sizes.weight,
+			quantity: state.sizes.quantity,
+			prices: {
+				color: '',
+				price: ''
+			}
+		},
+		enableReinitialize: true,
+		validationSchema: validationSchema[state.current_step - 1],
+		onSubmit: handleNext
+	})
+
+	const handleSteps = step => {
+		switch (step) {
+			case 1:
+				return <Options formikProps={formik} />
+			case 2:
+				return <Characteristics formikProps={formik} />
+			case 3:
+				return <Prices formikProps={formik} />
+			default:
+				return 'Помилка запиту даних'
+		}
 	}
 
 	useEffect(() => {
@@ -44,40 +87,32 @@ const EditTile = () => {
 
 	return (
 		<Fragment>
-			{ (state.get_tile_status === 'loading' || state.get_types_status === 'loading') && <Preloader />}
-			{ state.get_tile_status === 'success' && state.get_types_status && (
-				<section className={s.section}>
+			{loadingStatus && <Preloader />}
+			{successStatus && (
+				<section className={s.steps_section}>
 					<Background settings={{ hiddenLeft: false, hiddenRight: false }} />
 					<div className="container">
-						<div className={s.wrapper}>
-							<StepWizard initialStep={1} onStepChange={e => setCurrentStep(e.activeStep)} instance={setSteps}>
-								<Options />
-								<Characteristics />
-								<Prices />
-							</StepWizard>
-
-							<div className={classNames(s.controllers, { [s.extended]: currentStep === 1 })}>
-								{currentStep > 1 &&
-									<button
-										type="button"
-										className={classNames('btn-sent', 'btn-orange', s.btn)}
-										onClick={handlePrev}>
-										Назад
-									</button>}
-								{currentStep >= 3
-									? <button
-										type="button"
-										className={classNames('btn-sent', 'btn-orange', s.btn)}
-										onClick={handleSubmit}>
-										Редагувати товар
-										</button>
-									: <button
-										type="button"
-										className={classNames('btn-sent', 'btn-orange', s.btn)}
-										onClick={handleNext}>
-										Продовжити
-									</button>}
-							</div>
+						<div className={s.steps_wrapper}>
+							<form onSubmit={formik.handleSubmit}>
+								{handleSteps(state.current_step)}
+								<div className={classNames(s.steps_controllers, { [s.extended]: state.current_step === 1 })}>
+									{state.current_step > 1 &&
+										<Button
+											type="button"
+											background="orange"
+											styleName={s.steps_btn}
+											handleClick={handlePrev}>
+											Назад
+										</Button>}
+									<Button
+										type="submit"
+										background="orange"
+										disabled={disabledStatus}
+										styleName={s.steps_btn}>
+										{state.current_step >= 3 ? 'Пітвердити' : 'Продовжити'}
+									</Button>
+								</div>
+							</form>
 						</div>
 					</div>
 				</section>

@@ -11,6 +11,7 @@ import {
 	CHANGE_EDIT_TILE_COLOR,
 	DELETE_EDIT_TILE_IMAGE,
 	CHANGE_EDIT_TILE_STATE,
+	CHANGE_EDIT_TILE_CURRENT_STEP,
 	CLEAR_EDIT_TILE_STATE,
 } from '../constants/edit-tile'
 
@@ -31,6 +32,7 @@ let initialState = {
 	imagesPreview: [],
 	is_popular: false,
 	is_available: false,
+	current_step: 1,
 	get_tile_status: '',
 	get_types_status: '',
 	edit_tile_status: '',
@@ -86,14 +88,6 @@ export default function editTile(state = initialState, { type, payload, form, fi
 				...state,
 				get_types_status: 'loading',
 			}
-		case CHANGE_EDIT_TILE_COLOR:
-			return {
-				...state,
-				prices: {
-					...state.prices,
-					...payload
-				}
-			}
 		case DELETE_EDIT_TILE_IMAGE:
 			return {
 				...state,
@@ -113,6 +107,19 @@ export default function editTile(state = initialState, { type, payload, form, fi
 					...state,
 					...form,
 				}
+			}
+		case CHANGE_EDIT_TILE_COLOR:
+			return {
+				...state,
+				prices: {
+					...state.prices,
+					...payload
+				}
+			}
+		case CHANGE_EDIT_TILE_CURRENT_STEP:
+			return {
+				...state,
+				current_step: payload
 			}
 		case CLEAR_EDIT_TILE_STATE:
 			return {

@@ -11,6 +11,7 @@ import {
 	CHANGE_EDIT_TILE_COLOR,
 	DELETE_EDIT_TILE_IMAGE,
 	CHANGE_EDIT_TILE_STATE,
+	CHANGE_EDIT_TILE_CURRENT_STEP,
 	CLEAR_EDIT_TILE_STATE,
 } from '../constants/edit-tile'
 
@@ -140,15 +141,6 @@ export const handleDelete = (image, id) => {
 	}
 }
 
-export const handleChangeColor = color => {
-	return dispatch => {
-		dispatch({
-			type: CHANGE_EDIT_TILE_COLOR,
-			payload: color
-		})
-	}
-}
-
 export const handleChange = (event, field) => {
 	if (event.target) {
 		if (field) {
@@ -176,6 +168,24 @@ export const handleChange = (event, field) => {
 				images: event,
 			},
 		}
+	}
+}
+
+export const handleChangeColor = color => {
+	return dispatch => {
+		dispatch({
+			type: CHANGE_EDIT_TILE_COLOR,
+			payload: color
+		})
+	}
+}
+
+export const handleChangeCurrentStep = step => {
+	return dispatch => {
+		dispatch({
+			type: CHANGE_EDIT_TILE_CURRENT_STEP,
+			payload: step
+		})
 	}
 }
 

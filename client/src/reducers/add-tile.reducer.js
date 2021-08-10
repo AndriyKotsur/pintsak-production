@@ -7,7 +7,7 @@ import {
 	GET_TILE_TYPES_ERROR,
 	CHANGE_ADD_TILE_STATE,
 	CHANGE_ADD_TILE_COLOR,
-	CHANGE_CURRENT_STEP,
+	CHANGE_ADD_TILE_CURRENT_STEP,
 	CLEAR_ADD_TILE_STATE,
 } from '../constants/add-tile'
 
@@ -89,7 +89,7 @@ export default function addTile(state = initialState, { type, payload, form, fie
 					...form,
 				}
 			}
-		case CHANGE_CURRENT_STEP:
+		case CHANGE_ADD_TILE_CURRENT_STEP:
 			return {
 				...state,
 				current_step: payload
