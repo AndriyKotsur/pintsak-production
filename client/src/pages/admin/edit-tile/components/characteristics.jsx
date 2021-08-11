@@ -12,7 +12,10 @@ const Characteristics = ({ formikProps }) => {
 
   const { errors, values, touched, setFieldValue } = formikProps
 
-  const measurement = [{ title: "Квадратний метр" }, { title: "Штука" }]
+	const measurement = [
+		{ _id: 'square_meter', title: 'Квадратний метр' },
+		{ _id: 'pieces', title: "Штука" }
+	]
 
   return (
     <Fragment>

@@ -65,11 +65,11 @@ const Types = ({ types, settings, styleName, handleChange }) => {
 					</li>
 				))}
 			</ul>
-			{ settings && settings.public &&
+			{settings && settings.public &&
 				<a href={`${process.env.REACT_APP_API}/v1/catalogue`} className={s.types_download}>
 					Каталог
           <Icon name="popular" className={classNames('icon', 'icon-download', s.download_icon)} />
-				</a> }
+				</a>}
 		</div>
 	)
 }
