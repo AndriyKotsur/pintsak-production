@@ -18,19 +18,19 @@ const CataloguePage = () => {
 	const dispatch = useDispatch()
 	const types = useSelector(types => types.getTypes)
 	const tiles = useSelector(tiles => tiles.getTiles)
-	
+
 	const { typeBy } = useParams()
 
 	const tilesComponents = useMemo(() => {
 		const tilesItems = {
 			'loading': <Preloader />,
 			'success': <Tiles tiles={tiles.tiles} settings={{ public: true }} />,
-			'error': 'Помилка запиту даних.',
+			'error': <span className={s.catalogue_message}>Помилка запиту даних.</span>,
 		}
-		
+
 		return tilesItems[tiles.get_tiles_status]
 	}, [tiles])
-	
+
 	useEffect(() => {
 		dispatch(GetTilesActions.getTiles(page, typeBy, sortBy, orderBy))
 	}, [page, typeBy, sortBy, orderBy, dispatch])
@@ -62,7 +62,10 @@ const CataloguePage = () => {
 								handleSortBy={setSortBy}
 								handleOrderBy={setOrderBy} />
 						</div>
-						{tiles.get_tiles_status === 'success' && tiles.tiles.length === 0 && 'Немає доданих товарів'}
+						{tiles.get_tiles_status === 'success' && tiles.tiles.length === 0 &&
+							<span className={s.catalogue_message}>
+								Помилка запиту даних.
+							</span>}
 						{tilesComponents}
 						<Pagination
 							page={page}

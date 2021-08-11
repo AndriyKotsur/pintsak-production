@@ -7,6 +7,7 @@ import {
 	GET_TILE_TYPES_ERROR,
 	CHANGE_ADD_TILE_COLOR,
 	CHANGE_ADD_TILE_STATE,
+	CHANGE_ADD_TILE_CURRENT_STEP,
 	CLEAR_ADD_TILE_STATE,
 } from 'constants/add-tile'
 
@@ -40,7 +41,7 @@ export const addTile = ({
 			}
 
 			const tile = await HTTP.addTile(data)
-			
+
 			if (tile.success) {
 				const formData = new FormData()
 
@@ -130,6 +131,15 @@ export const handleChange = (event, field) => {
 				images: event,
 			},
 		}
+	}
+}
+
+export const handleChangeCurrentStep = step => {
+	return dispatch => {
+		dispatch({
+			type: CHANGE_ADD_TILE_CURRENT_STEP,
+			payload: step
+		})
 	}
 }
 

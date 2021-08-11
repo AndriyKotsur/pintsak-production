@@ -23,4 +23,39 @@
       font-size: 36px;
     }
   }
+
+  &_required {
+    display: block;
+    margin: 35px 0 30px;
+    font-size: 16px;
+    text-align: left;
+    color: $color4;
+
+    &::before {
+      content: "* ";
+      font-size: 18px;
+      color: $color2;
+    }
+
+    @include screen-l {
+      font-size: 18px;
+    }
+  }
+
+  &_btn {
+    width: 250px;
+    min-height: 49px;
+    padding: 16px 62px;
+    margin: 0 auto;
+    font-size: 16px;
+    line-height: 1.35;
+
+    @include screen-tb {
+      font-size: 18px;
+    }
+
+    @include screen-l {
+      font-size: 20px;
+    }
+  }
 }

@@ -19,8 +19,6 @@ const Header = () => {
 
 	useEffect(() => {
 		dispatch(GetTypesActions.getTypes())
-
-		return () => dispatch(GetTypesActions.clear())
 	}, [dispatch])
 
 	useEffect(() => {

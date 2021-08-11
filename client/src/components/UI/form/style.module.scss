@@ -15,37 +15,3 @@
   flex-direction: column;
   justify-content: center;
 }
-
-.btn {
-  width: 250px;
-  min-height: 49px;
-  padding: 16px 62px;
-  margin: 0 auto;
-  font-size: 16px;
-  line-height: 1.35;
-
-  @include screen-tb {
-    font-size: 18px;
-
-  }
-  @include screen-l {
-    font-size: 20px;
-  }
-}
-
-.required {
-  margin-bottom: 30px;
-  font-size: 16px;
-  text-align: left;
-  color: #999999;
-
-  &::before {
-    content: "* ";
-    font-size: 18px;
-    color: $color2;
-  }
-
-  @include screen-l {
-    font-size: 18px;
-  }
-}

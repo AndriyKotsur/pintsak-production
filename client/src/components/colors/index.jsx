@@ -1,20 +1,35 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
 import { Button, Input } from 'components'
 
 import s from './style.module.scss'
 
-const Colors = ({ colors, onChange }) => {
-	const [color, setColor] = useState('')
-	const [price, setPrice] = useState(null)
+const Colors = ({
+	values,
+	error,
+	errorName,
+	colors,
+	onChange,
+	onReset,
+	onSubmit
+}) => {
+	const { color, price } = values
 
 	const keys = Object.keys(colors)
 	const entries = Object.entries(colors)
 
+	const handleClear = () => {
+		onChange('color', '')
+		onChange('price', '')
+	}
+
 	const handleColor = () => {
-		if (color.length > 0 && price) {
-			onChange('add', color, price)
+		if (color && price) {
+			onSubmit('add', color, price)
+			
+			handleClear()
+			onReset()
 		}
 	}
 
@@ -25,27 +40,23 @@ const Colors = ({ colors, onChange }) => {
 					<Input
 						type='text'
 						name='color'
-						title='Колір товару'
 						value={key}
 						styleName={s.colors_field}
-						onChange={e => setColor(e.target.value)}
-						disabled
-						required />
+						placeholder='Колір товару'
+						disabled />
 					<Input
 						type='text'
 						name='color'
-						title='Колір товару'
 						value={value}
 						styleName={s.colors_field}
-						onChange={e => setColor(e.target.value)}
-						disabled
-						required />
+						placeholder='Колір товару'
+						disabled />
 					<Button
 						type="button"
 						transparent
 						styleName={s.colors_button}
-						handleClick={() => onChange('remove', key)}>
-						<span className={s.colors_remove}></span>
+						handleClick={() => onSubmit('remove', key)}>
+						<span className={s.colors_remove} />
 					</Button>
 				</div>
 			))}
@@ -53,23 +64,27 @@ const Colors = ({ colors, onChange }) => {
 				<Input
 					type='text'
 					name='color'
-					title='Колір товару'
+					value={color}
+					error={error}
+					errorName={errorName.color}
+					placeholder='Колір товару'
 					styleName={s.colors_field}
-					onChange={e => setColor(e.target.value)}
-					required />
+					onChange={e => onChange('color', e.target.value)} />
 				<Input
 					type='number'
 					name='price'
-					title='Ціна товару'
+					value={price}
+					error={error}
+					errorName={errorName.price}
+					placeholder='Ціна товару'
 					styleName={s.colors_field}
-					onChange={e => setPrice(Number(e.target.value))}
-					required />
+					onChange={e => onChange('price', Number(e.target.value))} />
 				<Button
 					type="button"
 					transparent
 					styleName={s.colors_button}
 					handleClick={handleColor}>
-					<span className={s.colors_add}></span>
+					<span className={s.colors_add} />
 				</Button>
 			</div>
 		</div>
@@ -77,12 +92,25 @@ const Colors = ({ colors, onChange }) => {
 }
 
 Colors.propTypes = {
+	error: PropTypes.any,
+	errorName: PropTypes.any,
 	colors: PropTypes.any,
-  onChange: PropTypes.func
+	values: PropTypes.any,
+	onChange: PropTypes.func,
+	onReset: PropTypes.func,
+	onSubmit: PropTypes.func
 }
 
 Colors.defaultProps = {
+	error: false,
+	errorName: {},
 	colors: {},
-  onChange: () => null
+	values: {
+		color: '',
+		price: ''
+	},
+	onChange: () => null,
+	onReset: () => null,
+	onSubmit: () => null
 }
 export default Colors

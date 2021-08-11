@@ -3,16 +3,21 @@
 
 .checkbox {
   position: relative;
-  display: inline-flex;
-  align-items: center;
 
   &:not(:last-child) {
-    margin-right: 35px;
+    margin-bottom: 25px;
+
+    @include screen-l {
+      margin-bottom: 0;
+      margin-right: 35px;
+    }
   }
 
   &_label {
     position: relative;
-    align-self: center;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
 
     input {
       width: 21px;

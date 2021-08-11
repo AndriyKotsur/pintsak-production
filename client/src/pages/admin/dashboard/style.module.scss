@@ -2,6 +2,8 @@
 @import './src/assets/styles/general/_variables.scss';
 
 .dashboard {
+  display: block;
+  
   &_wrapper {
     padding: 40px 0;
 
@@ -46,6 +48,7 @@
   &_appender {
     width: 100%;
     padding: 15px 40px;
+    font-size: 18px;
     text-align: center;
 
     @include screen-tb {

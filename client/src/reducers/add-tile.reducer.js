@@ -7,6 +7,7 @@ import {
 	GET_TILE_TYPES_ERROR,
 	CHANGE_ADD_TILE_STATE,
 	CHANGE_ADD_TILE_COLOR,
+	CHANGE_ADD_TILE_CURRENT_STEP,
 	CLEAR_ADD_TILE_STATE,
 } from '../constants/add-tile'
 
@@ -26,6 +27,7 @@ let initialState = {
 	images: [],
 	is_popular: false,
 	is_available: false,
+	current_step: 1,
 	add_tile_status: '',
 	get_types_status: '',
 }
@@ -86,6 +88,11 @@ export default function addTile(state = initialState, { type, payload, form, fie
 					...state,
 					...form,
 				}
+			}
+		case CHANGE_ADD_TILE_CURRENT_STEP:
+			return {
+				...state,
+				current_step: payload
 			}
 		case CLEAR_ADD_TILE_STATE:
 			return {

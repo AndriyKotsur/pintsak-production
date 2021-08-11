@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
 
 import { Icon } from 'components'
 
@@ -11,11 +10,18 @@ const KILO_BYTES_PER_BYTE = 1000000
 const DEFAULT_MAX_FILE_SIZE_IN_BYTES = 5000000
 const DEFAULT_MAX_FILES_QUANTITY = 10
 
-const File = ({ onChange, onDelete }) => {
-  const state = useSelector(state => state.editTile)
+const File = ({
+  id,
+  error,
+  errorName,
+  name,
+  validFiles = [],
+  previewFiles = [],
+  handleChange,
+  handleDelete
+}) => {
   const [selectedFiles, setSelectedFiles] = useState([])
-  const [validFiles, setValidFiles] = useState([])
-  const [error, setError] = useState(false)
+  const [activeError, setActiveError] = useState(false)
 
   const fileInputField = useRef(null)
 
@@ -31,19 +37,19 @@ const File = ({ onChange, onDelete }) => {
     e.preventDefault()
   }
 
-  const fileName = (filename) => {
+  const fileName = filename => {
     return filename.substring(0, filename.lastIndexOf('.')) + '.' || filename
   }
 
-  const fileType = (filename) => {
+  const fileType = filename => {
     return filename.substring(filename.lastIndexOf('.') + 1, filename.length) || filename
   }
 
-  const fileSize = (size) => {
+  const fileSize = size => {
     return (size / KILO_BYTES_PER_BYTE).toFixed(2)
   }
 
-  const validateFile = (file) => {
+  const validateFile = file => {
     const validateTypes = ['image/svg', 'image/png', 'image/jpeg', 'image/jpg']
     if (validateTypes.indexOf(file.type) === -1 || file.size > DEFAULT_MAX_FILE_SIZE_IN_BYTES) {
       return false
@@ -68,26 +74,25 @@ const File = ({ onChange, onDelete }) => {
     }
   }
 
-  const handleFiles = (files) => {
+  const handleFiles = files => {
     if (files.length < DEFAULT_MAX_FILES_QUANTITY) {
-      setError(false)
+      setActiveError(false)
       for (let i = 0; i < files.length; i++) {
         if (validateFile(files[i])) {
-          setError(false)
+          setActiveError(false)
           setSelectedFiles(prev => [...prev, files[i]])
         } else {
-          setError(true)
+          setActiveError(true)
         }
       }
     } else {
-      setError(true)
+      setActiveError(true)
     }
   }
 
-  const handleDelete = (filename) => {
+  const handleRemove = filename => {
     const validFileIndex = validFiles.findIndex(element => element.name === filename)
     validFiles.splice(validFileIndex, 1)
-    setValidFiles([...validFiles])
 
     const selectedFileIndex = selectedFiles.findIndex(element => element.name === filename)
     selectedFiles.splice(selectedFileIndex, 1)
@@ -104,13 +109,12 @@ const File = ({ onChange, onDelete }) => {
       }
     }, [])
 
-    setValidFiles([...filteredArray])
-    onChange([...filteredArray])
+    if (filteredArray.length > 0) handleChange([...filteredArray])
     // eslint-disable-next-line
   }, [selectedFiles])
 
   return (
-    <div className={s.container}>
+    <div className={classNames(s.upload, { [s.error]: activeError || error })}>
       <div className={s.upload_container}>
         <div className={s.upload_area}
           onDragOver={dragOver}
@@ -123,6 +127,7 @@ const File = ({ onChange, onDelete }) => {
             <input
               ref={fileInputField}
               type='file'
+              name={name}
               value=''
               onChange={handleClickUpload}
               accept='image/svg, image/x-png, image/jpeg'
@@ -131,63 +136,77 @@ const File = ({ onChange, onDelete }) => {
             <button type='button' onClick={handleClick} className={s.upload_button}>Додати файли</button>
           </div>
           <span className={s.upload_remarks}>Максимальний розмір файла: 5МБ</span>
-          {error && <span className={s.upload_error}>Файл не відповідає заданим параметрам!</span>}
+          {(activeError || errorName) &&
+            <span className={s.upload_error}>
+              {errorName ? errorName : 'Файл не відповідає заданим параметрам!'}
+            </span>}
         </div>
       </div>
-      { validFiles.length > 0 &&
+      {validFiles.length > 0 &&
+        <div className={s.list}>
+          {validFiles.map((file, index) =>
+            <div key={'file_' + index} className={s.list_item}>
+              <picture className={s.list_image}>
+                <img src={URL.createObjectURL(file)} alt={'image_' + index} />
+              </picture>
+              <div className={s.list_info}>
+                <div className={s.list_file}>
+                  <button
+                    type='button'
+                    onClick={() => handleRemove(file.name)}
+                    className={s.list_delete}>
+                    <Icon name='close' className={classNames('icon', s.list_icon)} />
+                  </button>
+                  <span className={s.list_name}>{fileName(file.name)}</span>
+                  <span className={s.list_type}>{fileType(file.name)}</span>
+                </div>
+                <span className={s.list_size}>{fileSize(file.size)}MБ</span>
+              </div>
+            </div>
+          )}
+        </div>}
+
+      {previewFiles && previewFiles.length > 0 &&
         <div className={s.preview}>
-          {
-            validFiles.map((file, index) =>
+          <div className={s.preview_container}>
+            {previewFiles.map((file, index) =>
               <div key={'file_' + index} className={s.preview_item}>
                 <picture className={s.preview_image}>
-                  <img src={URL.createObjectURL(file)} alt={'image_' + index} />
+                  <img src={file} alt={'image_' + index} />
                 </picture>
-                <div className={s.preview_info}>
-                  <div className={s.preview_file}>
-                    <button
-                      type='button'
-                      onClick={() => handleDelete(file.name)}
-                      className={s.preview_delete}>
-                      <Icon name='close' className={classNames('icon', s.preview_icon)} />
-                    </button>
-                    <span className={s.preview_name}>{fileName(file.name)}</span>
-                    <span className={s.preview_type}>{fileType(file.name)}</span>
-                  </div>
-                  <span className={s.preview_size}>{fileSize(file.size)}MБ</span>
-                </div>
-              </div>
-            )
-          }
-        </div> }
-      { state.imagesPreview && state.imagesPreview.length > 0 &&
-        state.imagesPreview.map((file, index) =>
-          <div key={'file_' + index} className={s.preview_item}>
-            <picture className={s.preview_image}>
-              <img src={file} alt={'image_' + index} />
-            </picture>
-            <div className={s.preview_info}>
-              <div className={s.preview_file}>
                 <button
                   type='button'
-                  onClick={() => onDelete(file, state._id)}
+                  onClick={() => handleDelete(file, id)}
                   className={s.preview_delete}>
                   <Icon name='close' className={classNames('icon', s.preview_icon)} />
                 </button>
               </div>
-            </div>
+            )}
           </div>
-        ) }
+        </div>}
     </div>
   )
 }
 
 File.propTypes = {
-	onChange: PropTypes.func,
-  onDelete: PropTypes.func
+  id: PropTypes.string,
+  error: PropTypes.any,
+  errorName: PropTypes.any,
+  name: PropTypes.string,
+  validFiles: PropTypes.any,
+  previewFiles: PropTypes.any,
+  handleChange: PropTypes.func,
+  handleDelete: PropTypes.func
 }
 
 File.defaultProps = {
-	onChange: () => null,
+  id: '',
+  error: false,
+  errorName: '',
+  name: '',
+  validFiles: [],
+  previewFiles: [],
+  onChange: () => null,
   onDelete: () => null
 }
 export default File

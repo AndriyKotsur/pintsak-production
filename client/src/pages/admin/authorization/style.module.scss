@@ -27,9 +27,31 @@
 
   &_title {
     margin-bottom: 35px;
+    text-align: center;
 
     @include screen-l {
       font-size: 36px;
+    }
+  }
+
+  &_button {
+    width: 250px;
+    min-height: 49px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 62px;
+    margin: 75px auto 0;
+    font-size: 16px;
+    line-height: 1.35;
+        
+    @include screen-tb {
+      font-size: 18px;
+    }
+
+    @include screen-l {
+      margin: 65px auto 0;
+      font-size: 20px;
     }
   }
 
@@ -54,28 +76,49 @@
     }
   }
 
+  &_password {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    width: 35px;
+    height: 25px;
+    transform: translateY(-50%);
+    @include transition;
+
+    &:hover {
+      cursor: pointer;
+
+      path {
+        @include transition;
+        fill: $color6;
+      }
+    }
+  }
+
   &_icon {
     margin-right: 7px;
   }
 
   &_error {
     position: absolute;
-    bottom: 40px;
+    bottom: 100px;
     left: 50%;
     width: 100%;
     display: block;
     transform: translateX(-50%);
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 700;
     text-align: center;
     color: $color7;
   
     @include screen-tb {
-      bottom: 80px;
+      bottom: 120px;
+      font-size: 16px;
     }
   
     @include screen-l {
-      bottom: 160px;
+      bottom: 140px;
+      font-size: 18px;
     }
   }
 }

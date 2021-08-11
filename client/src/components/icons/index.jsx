@@ -18,6 +18,7 @@ import { ReactComponent as IconLogo } from '../../assets/svg/icon-logo.svg'
 import { ReactComponent as IconLogout } from '../../assets/svg/icon-logout.svg'
 import { ReactComponent as IconMobile } from '../../assets/svg/icon-logo-mobile.svg'
 import { ReactComponent as IconPagination } from '../../assets/svg/icon-pagination.svg'
+import { ReactComponent as IconPassword } from '../../assets/svg/icon-password.svg'
 import { ReactComponent as IconPhone } from '../../assets/svg/icon-phone.svg'
 import { ReactComponent as IconPopular } from '../../assets/svg/icon-popular.svg'
 import { ReactComponent as IconPrice } from '../../assets/svg/icon-price.svg'
@@ -47,6 +48,7 @@ const SVGs = {
 	popular: IconPopular,
 	price: IconPrice,
 	pagination: IconPagination,
+	password: IconPassword,
 	refresh: IconRefresh,
 	request: IconRequest,
 	shopping: IconShopping,

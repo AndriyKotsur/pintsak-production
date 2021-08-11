@@ -12,19 +12,17 @@ const Select = ({
 	onChange
 }) => {
 	return (
-		<div className={s.field}>
+		<div className={s.select}>
 			<select
 				name={name}
 				defaultValue={typeof value === 'string' ? value : value._id}
-				onChange={onChange}
 				disabled={!data.length}
-				className={classNames(s.input, className, {[s.disabled]: !data.length})} required>
-				{
-					data.length ? data.map(item => (
-						<option key={item.id} value={item._id}>{item.title}</option>
-					))
-						: <option>Немає доступних категорій</option>
-				}
+				className={classNames(s.select_container, className, { [s.disabled]: !data.length })}
+				onChange={onChange}>
+				{data.length ? data.map(item => (
+					<option key={item._id} value={item._id}>{item.title}</option>
+				))
+					: <option>Немає доступних категорій</option>}
 			</select>
 		</div>
 	)
@@ -32,15 +30,15 @@ const Select = ({
 
 Select.propTypes = {
 	data: PropTypes.any,
-  className: PropTypes.string,
+	className: PropTypes.string,
 	name: PropTypes.string,
-  onChange: PropTypes.func
+	onChange: PropTypes.func
 }
 
 Select.defaultProps = {
 	data: [],
-  className: '',
+	className: '',
 	name: '',
-  onChange: () => null
+	onChange: () => null
 }
 export default Select

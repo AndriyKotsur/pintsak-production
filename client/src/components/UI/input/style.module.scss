@@ -3,11 +3,20 @@
 
 .input {
   position: relative;
-  margin-bottom: 35px;
+
+  &:not(:last-of-type) {
+    margin-bottom: 35px;
+  }
 
   &.disabled {
     pointer-events: none;
     opacity: .7;
+  }
+
+  &.error {
+    .input_container {
+      border: 1px solid $color7;
+    }
   }
 
   &_container {
@@ -15,47 +24,38 @@
     padding: 15px 20px;
     @include transition;
     border: 1px solid $color1;
-    font-size: 12px;
+    font-size: 14px;
     color: $color1;
     cursor: text;
-  
-    @include screen-tb {
-      padding: 15px 25px;
-      font-size: 14px;
-    }
-  
+
     @include screen-l {
+      padding: 15px 25px;
       font-size: 18px;
     }
-  
-    &:invalid {
-      outline: none;
-    }
-  
-    &:focus,
-    &:valid {
+
+    &:focus {
       border: 1px solid $color6;
     }
-  
+
     &:focus~.input_label,
-    &:valid~.input_label {
+    &:not(:placeholder-shown)~.input_label {
       @include transition;
       top: 0;
       font-size: 14px;
       color: $color2;
-  
+
       @include screen-l {
         font-size: 16px;
       }
     }
-  
+
     &[type=number]::-webkit-inner-spin-button,
     &[type=number]::-webkit-outer-spin-button {
       -webkit-appearance: none;
       margin: 0;
     }
   }
-  
+
   &_label {
     position: absolute;
     top: 50%;
@@ -65,13 +65,24 @@
     background: #ffffff;
     @include transition;
     font-size: 14px;
-  
-    @include screen-tb {
-      font-size: 14px;
-    }
-  
+
     @include screen-l {
+      left: 25px;
       font-size: 18px;
+    }
+  }
+
+  &_error {
+    position: absolute;
+    left: 0;
+    bottom: -20px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.35;
+    color: $color7;
+
+    @include screen-l {
+      font-size: 14px;
     }
   }
 }

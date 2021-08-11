@@ -19,4 +19,10 @@
     background: transparent;
     color: $color1;
   }
+
+  &_disabled {
+    background: $color4;
+    color: #ffffff;
+    cursor: not-allowed;
+  }
 }
