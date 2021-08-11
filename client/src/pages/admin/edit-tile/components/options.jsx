@@ -12,8 +12,6 @@ const Options = ({ formikProps }) => {
 
   const { errors, values, touched, setFieldValue } = formikProps
 
-  const validFiles = state.imagesPreview ? "" : values.images
-
   return (
     <Fragment>
       <Title styleName={s.steps_title}>
@@ -21,7 +19,7 @@ const Options = ({ formikProps }) => {
       </Title>
       <File
         id={state._id}
-        validFiles={validFiles}
+        validFiles={values.images}
         previewFiles={state.imagesPreview}
         error={errors.images && touched.images}
 				errorName={errors.images || ''}
@@ -29,7 +27,7 @@ const Options = ({ formikProps }) => {
           dispatch(EditTileActions.handleChange(image))
           setFieldValue('images', image)
         }}
-        onDelete={(image, id) => dispatch(EditTileActions.handleDelete(image, id))} />
+        handleDelete={(image, id) => dispatch(EditTileActions.handleDelete(image, id))} />
       <Input
         type='text'
         name='title'

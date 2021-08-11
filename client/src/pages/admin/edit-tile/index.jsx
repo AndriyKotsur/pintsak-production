@@ -7,7 +7,7 @@ import { useFormik } from 'formik'
 import { Background, Button, Preloader } from 'components'
 import { Options, Characteristics, Prices } from './components'
 
-import validationSchema from "./validationSchema"
+import useValidation from './validationSchema'
 
 import s from './style.module.scss'
 import classNames from 'classnames'
@@ -19,6 +19,8 @@ const EditTile = () => {
 	const dispatch = useDispatch()
 	const state = useSelector(state => state.editTile)
 
+	const { validationSchema } = useValidation()
+	
 	const disabledStatus = Object.keys(state.prices).length <= 0 && state.current_step >= 3
 	const loadingStatus = state.get_tile_status === 'loading' || state.get_types_status === 'loading'
 	const successStatus = state.get_tile_status === 'success' && state.get_types_status
@@ -43,7 +45,7 @@ const EditTile = () => {
 
 	const formik = useFormik({
 		initialValues: {
-			images: state.images,
+			images: [],
 			title: state.title,
 			width: state.sizes.width,
 			height: state.sizes.height,

@@ -1,7 +1,7 @@
 @import './src/assets/styles/general/_mixins.scss';
 @import './src/assets/styles/general/_variables.scss';
 
-.container {
+.upload {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -12,9 +12,7 @@
       border: 1px dashed $color7;
     }
   }
-}
 
-.upload {
   &_container {
     width: 100%;
     margin-bottom: 35px;
@@ -31,7 +29,7 @@
     border: 1px dashed $color4;
     border-radius: 4px;
     padding: 25px 15px;
-  
+
     @include screen-l {
       padding: 80px 60px;
     }
@@ -43,7 +41,7 @@
     line-height: 1.5;
     color: $color2;
     margin-bottom: 15px;
-  
+
     @include screen-l {
       font-size: 20px;
       margin-bottom: 20px;
@@ -56,7 +54,7 @@
     line-height: 1.18;
     color: $color4;
     font-weight: 400;
-  
+
     @include screen-l {
       font-size: 16px;
       margin-bottom: 15px;
@@ -83,17 +81,17 @@
     line-height: 1.263;
     background-color: transparent;
     color: $color2;
-  
+
     @include screen-l {
       font-size: 14px;
     }
-  
+
     &:hover {
       transition: all 0.3s ease-out;
       background: $color2;
       color: #FFFFFF;
       cursor: pointer;
-    }  
+    }
   }
 
   &_remarks {
@@ -101,10 +99,10 @@
     font-size: 12px;
     line-height: 1.83;
     color: $color4;
-  
+
     @include screen-l {
       font-size: 12px;
-    }  
+    }
   }
 
   &_error {
@@ -113,14 +111,14 @@
     margin-top: 15px;
     font-size: 16px;
     font-weight: 700;
-  
+
     @include screen-l {
       font-size: 18px;
-    }  
+    }
   }
 }
 
-.preview {
+.list {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -133,7 +131,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    
+
     &:not(:last-child) {
       padding-bottom: 10px;
       margin-bottom: 10px;
@@ -161,7 +159,7 @@
 
   &_info {
     display: inline-flex;
-    flex-direction: column;  
+    flex-direction: column;
   }
 
   &_file {
@@ -173,10 +171,10 @@
     font-weight: 700;
     line-height: 2;
     color: $color1;
-    
+
     @include screen-l {
       font-size: 16px;
-    }  
+    }
   }
 
   &_name {
@@ -185,7 +183,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    
+
     @include screen-l {
       max-width: unset;
     }
@@ -202,7 +200,7 @@
     font-size: 12px;
     line-height: 1;
     color: $color4;
-  
+
     @include screen-l {
       font-size: 14px;
     }
@@ -217,5 +215,76 @@
   &_icon {
     width: 25px;
     height: 25px;
+  }
+}
+
+.preview {
+  width: 100%;
+  padding: 25px 15px;
+  margin-bottom: 35px;
+  border: 1px solid $color4;
+  border-radius: 4px;
+
+  @include screen-tb {
+    padding: 25px 20px;
+  }
+
+  &_container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: -15px;
+    
+    @include screen-tb {
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: flex-start;
+      margin-bottom: -20px;
+    }
+  }
+
+  &_item {
+    position: relative;
+    width: 100%;
+    margin: 0 0 15px;
+
+    @include screen-tb {
+      width: calc(33.333% - 20px);
+      margin: 0 10px 20px;
+    }
+
+    @include screen-l {
+      width: calc(25% - 20px);
+    }
+  }
+
+  &_image {
+    width: 100%;
+    height: calc(85px + 20vw);
+    display: block;
+
+    @include screen-l {
+      height: 120px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &_delete {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: $color2;
+    padding: 7px 10px;
+
+    svg path {
+      fill: #FFFFFF;
+    }
   }
 }

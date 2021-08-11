@@ -18,7 +18,7 @@ const File = ({
   validFiles = [],
   previewFiles = [],
   handleChange,
-  onDelete
+  handleDelete
 }) => {
   const [selectedFiles, setSelectedFiles] = useState([])
   const [activeError, setActiveError] = useState(false)
@@ -90,7 +90,7 @@ const File = ({
     }
   }
 
-  const handleDelete = filename => {
+  const handleRemove = filename => {
     const validFileIndex = validFiles.findIndex(element => element.name === filename)
     validFiles.splice(validFileIndex, 1)
 
@@ -108,13 +108,13 @@ const File = ({
         return files
       }
     }, [])
-    
+
     if (filteredArray.length > 0) handleChange([...filteredArray])
     // eslint-disable-next-line
   }, [selectedFiles])
 
   return (
-    <div className={classNames(s.container, { [s.error]: activeError || error })}>
+    <div className={classNames(s.upload, { [s.error]: activeError || error })}>
       <div className={s.upload_container}>
         <div className={s.upload_area}
           onDragOver={dragOver}
@@ -143,56 +143,68 @@ const File = ({
         </div>
       </div>
       {validFiles.length > 0 &&
-        <div className={s.preview}>
+        <div className={s.list}>
           {validFiles.map((file, index) =>
-            <div key={'file_' + index} className={s.preview_item}>
-              <picture className={s.preview_image}>
+            <div key={'file_' + index} className={s.list_item}>
+              <picture className={s.list_image}>
                 <img src={URL.createObjectURL(file)} alt={'image_' + index} />
               </picture>
-              <div className={s.preview_info}>
-                <div className={s.preview_file}>
+              <div className={s.list_info}>
+                <div className={s.list_file}>
                   <button
                     type='button'
-                    onClick={() => handleDelete(file.name)}
-                    className={s.preview_delete}>
-                    <Icon name='close' className={classNames('icon', s.preview_icon)} />
+                    onClick={() => handleRemove(file.name)}
+                    className={s.list_delete}>
+                    <Icon name='close' className={classNames('icon', s.list_icon)} />
                   </button>
-                  <span className={s.preview_name}>{fileName(file.name)}</span>
-                  <span className={s.preview_type}>{fileType(file.name)}</span>
+                  <span className={s.list_name}>{fileName(file.name)}</span>
+                  <span className={s.list_type}>{fileType(file.name)}</span>
                 </div>
-                <span className={s.preview_size}>{fileSize(file.size)}MБ</span>
+                <span className={s.list_size}>{fileSize(file.size)}MБ</span>
               </div>
             </div>
           )}
         </div>}
-      {previewFiles && previewFiles.length > 0 &&
-        previewFiles.map((file, index) =>
-          <div key={'file_' + index} className={s.preview_item}>
-            <picture className={s.preview_image}>
-              <img src={file} alt={'image_' + index} />
-            </picture>
-            <div className={s.preview_info}>
-              <div className={s.preview_file}>
+      <div className={s.preview}>
+        <div className={s.preview_container}>
+          {previewFiles && previewFiles.length > 0 &&
+            previewFiles.map((file, index) =>
+              <div key={'file_' + index} className={s.preview_item}>
+                <picture className={s.preview_image}>
+                  <img src={file} alt={'image_' + index} />
+                </picture>
                 <button
                   type='button'
-                  onClick={() => onDelete(file, id)}
+                  onClick={() => handleDelete(file, id)}
                   className={s.preview_delete}>
                   <Icon name='close' className={classNames('icon', s.preview_icon)} />
                 </button>
               </div>
-            </div>
-          </div>
-        )}
+            )}
+        </div>
+      </div>
     </div>
   )
 }
 
 File.propTypes = {
-  onChange: PropTypes.func,
-  onDelete: PropTypes.func
+  id: PropTypes.string,
+  error: PropTypes.any,
+  errorName: PropTypes.any,
+  name: PropTypes.string,
+  validFiles: PropTypes.any,
+  previewFiles: PropTypes.any,
+  handleChange: PropTypes.func,
+  handleDelete: PropTypes.func
 }
 
 File.defaultProps = {
+  id: '',
+  error: false,
+  errorName: '',
+  name: '',
+  validFiles: [],
+  previewFiles: [],
   onChange: () => null,
   onDelete: () => null
 }
