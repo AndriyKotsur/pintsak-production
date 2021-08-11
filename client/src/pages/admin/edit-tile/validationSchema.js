@@ -5,7 +5,7 @@ import {
 
 const useValidation = () => {
   const state = useSelector(state => state.editTile)
-  console.log(state);
+
   const validationSchema = [
     Yup.object().shape({
       title: Yup.string()
@@ -15,9 +15,8 @@ const useValidation = () => {
       images: Yup.array()
         .test('images', 'Поле є обов\'язковим',
           function (value) {
-            if (state.imagesPreview.length <= 0) return false
-            if(state.images.length <=0) return false
-            if(!value) return false
+            if (state.imagesPreview.length === 0 && value.length === 0) return false
+
             return true
           },
         ),
