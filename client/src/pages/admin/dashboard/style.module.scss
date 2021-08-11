@@ -2,6 +2,8 @@
 @import './src/assets/styles/general/_variables.scss';
 
 .dashboard {
+  display: block;
+  
   &_wrapper {
     padding: 40px 0;
 
