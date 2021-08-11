@@ -165,10 +165,11 @@ const File = ({
             </div>
           )}
         </div>}
-      <div className={s.preview}>
-        <div className={s.preview_container}>
-          {previewFiles && previewFiles.length > 0 &&
-            previewFiles.map((file, index) =>
+
+      {previewFiles && previewFiles.length > 0 &&
+        <div className={s.preview}>
+          <div className={s.preview_container}>
+            {previewFiles.map((file, index) =>
               <div key={'file_' + index} className={s.preview_item}>
                 <picture className={s.preview_image}>
                   <img src={file} alt={'image_' + index} />
@@ -181,8 +182,8 @@ const File = ({
                 </button>
               </div>
             )}
-        </div>
-      </div>
+          </div>
+        </div>}
     </div>
   )
 }

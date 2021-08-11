@@ -19,10 +19,18 @@ const Colors = ({
 	const keys = Object.keys(colors)
 	const entries = Object.entries(colors)
 
-	const handleColor = () => {
-		if (values) onSubmit('add', color, price)
+	const handleClear = () => {
+		onChange('color', '')
+		onChange('price', '')
+	}
 
-		onReset()
+	const handleColor = () => {
+		if (color && price) {
+			onSubmit('add', color, price)
+			
+			handleClear()
+			onReset()
+		}
 	}
 
 	return (

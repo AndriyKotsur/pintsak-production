@@ -56,4 +56,16 @@
       font-size: 32px;
     }
   }
+
+  &_message {
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    color: $color1;
+  
+    @include screen-l {
+      font-size: 24px;
+    }
+  }
 }

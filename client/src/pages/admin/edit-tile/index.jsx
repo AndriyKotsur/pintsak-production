@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import { useFormik } from 'formik'
 import * as EditTileActions from 'actions/edit-tile.action'
 
-import { useFormik } from 'formik'
-import { Background, Button, Preloader } from 'components'
+import { Background, Button, Preloader, Title } from 'components'
 import { Options, Characteristics, Prices } from './components'
 
 import useValidation from './validationSchema'
@@ -71,7 +71,7 @@ const EditTile = () => {
 			case 3:
 				return <Prices formikProps={formik} />
 			default:
-				return 'Помилка запиту даних'
+				return <Title styleName={s.steps_title}>Помилка запиту даних</Title>
 		}
 	}
 

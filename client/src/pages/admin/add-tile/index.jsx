@@ -1,13 +1,13 @@
 import React, { Fragment, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import { useFormik } from 'formik'
 import * as AddTileActions from 'actions/add-tile.action'
 
-import { useFormik } from 'formik'
-import { Background, Button, Preloader } from 'components'
+import { Background, Button, Preloader, Title } from 'components'
 import { Options, Characteristics, Prices } from './components'
 
-import validationSchema from "./validationSchema"
+import useValidation from '../add-tile/validationSchema'
 
 import classNames from 'classnames'
 import s from './style.module.scss'
@@ -16,6 +16,8 @@ const AddTile = () => {
 	const history = useHistory()
 	const dispatch = useDispatch()
 	const state = useSelector(state => state.addTile)
+
+	const { validationSchema } = useValidation()
 
 	const disabledStatus = Object.keys(state.prices).length <= 0 && state.current_step >= 3
 	const loadingStatus = state.get_types_status === 'loading'
@@ -66,7 +68,7 @@ const AddTile = () => {
 			case 3:
 				return <Prices formikProps={formik} />
 			default:
-				return 'Помилка запиту даних'
+				return <Title styleName={s.steps_title}>Помилка запиту даних</Title>
 		}
 	}
 
