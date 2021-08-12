@@ -247,14 +247,11 @@ router.get('/catalogue', async (_, res) => {
 			'orientation': 'portrait',
 			'type': 'pdf',
 			'zoomFactor': '1',
-		}).toFile(`public/${fileName}`, err => {
+		}).toFile(environment === 'production' ? `app/public/${fileName}` : `public/${fileName}`, err => {
 			if (err)
 				res.status(500).json({ success: false, message: err })
 
-			if (environment === 'production')
-				res.status(200).download(`app/public/${fileName}`)
-			else
-				res.status(200).download(`public/${fileName}`)
+			res.status(200).download(`public/${fileName}`)
 		})
 	} catch (err) {
 		res.status(404).json({
