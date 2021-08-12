@@ -24,4 +24,6 @@ const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/pintsak_til
 
 const appUrl = process.env.NODE_ENV === 'production' ? process.env.APP_URL : 'http://localhost:3000'
 
-module.exports = { port, jwtInfo, mongoUri, mailInfo, awsInfo, appUrl }
+const environment = process.env.NODE_ENV
+
+module.exports = { port, jwtInfo, mongoUri, mailInfo, awsInfo, appUrl, environment }

@@ -6,6 +6,7 @@ const { Type, Tile, Customer } = require('../../../models')
 const { sendMail } = require('../../../services/sendgrid')
 const catalogueTemplate = require('../../../templates/catalogue')
 const emailTemplate = require('../../../templates/email')
+const { environment } = require('../../../config')
 
 // Get single product
 router.get('/tile/:url', async (req, res) => {
@@ -250,7 +251,10 @@ router.get('/catalogue', async (_, res) => {
 			if (err)
 				res.status(500).json({ success: false, message: err })
 
-			res.status(200).download(`public/${fileName}`)
+			if (environment === 'production')
+				res.status(200).download(`app/public/${fileName}`)
+			else
+				res.status(200).download(`public/${fileName}`)
 		})
 	} catch (err) {
 		res.status(404).json({
