@@ -1,4 +1,4 @@
-# Node React App
+# Pintsak production app.
 
 The project uses javascript and includes Node server with Mongo database. For client side it uses React library tool.
 
@@ -21,12 +21,7 @@ All server source files are stored in `/api` which uses files found in:
 
 The server entry is `/api/index.js`.
 
-All client source files are stored in `/client` which uses files found in:
-
-
 ### Development
 
 * The backend server will be run through `npm run develop` which uses `nodemon` and only reloads when backend files change.
 * The project uses eslint to unify the code and stored ing `/.eslintrc.js`.
-* Typescript configuration stored in `/tsconfig.json` in root directory.
-
